@@ -1,0 +1,159 @@
+@import './mixin';
+
+// Responsive settings
+$desktop-breakpoint: 1024px;
+$tablet-breakpoint: 768px;
+$mobile-breakpoint: 480px;
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 70px;
+    background-color: white;
+    box-shadow: 0px 10px 10px -3px rgba(83, 83, 83, 0.1);
+    // direction - justify content - align items - flex wrap
+    @include dflex(row, space-between, center, nowrap);
+    .header__logo {
+        // @include absolute_center;
+        position: absolute;
+        top: 50%;
+        left: 0.5rem;
+        transform: translateY(-50%);
+        height: 100%;
+        img {
+            width: auto;
+            height: 100%;
+        }
+    }
+    .header__user-interact {
+        margin-right: 1rem;
+        // direction - justify content - align items - flex wrap
+        @include dflex(row, flex-end, center, nowrap);
+        gap: 1rem;
+        .header__notification {
+            position: relative;
+            // border - border radius - background color - color - padding - font size
+            @include normal-btn(none, 8px, white, black, 10px 8px, 1rem);
+            transition: background-color 0.2s ease-in;
+
+            &:hover {
+                background-color: var(--heavy-white-smoke);
+            }
+
+            .header-notification__badge {
+                position: absolute;
+                top: 9px;
+                right: 7px;
+                width: 10px;
+                height: 10px;
+                background-color: red;
+                border-radius: 50%;
+                display: none;
+                &.active {
+                    display: block;
+                }
+            }
+        }
+        .header__user-login-btn {
+            font-weight: 600;
+            display: none;
+            // border - border radius - background color - color - padding - font size
+            @include normal-btn(none, 5px, black, white, 10px 30px, 0.75rem);
+            &:hover {
+                // background-color: var(--heavy-white-smoke);
+                padding: 10px 40px;
+            }
+            &.active {
+                display: block;
+            }
+        }
+        .header__user-joinus-btn {
+            font-weight: 700;
+            display: none;
+            // border - border radius - background color - color - padding - font size
+            @include normal-btn(none, 8px, white, black, 10px 8px, 1rem);
+            &:hover {
+                background-color: var(--heavy-white-smoke);
+                padding: 10px 30px;
+            }
+            &.active {
+                display: block;
+            }
+        }
+        .header__user-dropdown-wrapper {
+            display: none;
+            a, button {
+                width: 35px;
+                height: 35px;
+                display: block;
+                border-radius: 50%;
+                overflow: hidden;
+                img {
+                    width: 100%;
+                    height: auto;
+                }
+            }
+            .header__user-dropdown {
+                position: relative;
+                & > button {
+                    i {
+                        pointer-events: none;
+                    }
+                }
+                .header-user-dropdown__content {
+                    position: absolute;
+                    top: 40px;
+                    right: 0;
+                    width: max-content;
+                    height: max-content;
+                    border-radius: 1rem 0 1rem 1rem;
+                    z-index: 999;
+                    background-color: rgb(255, 255, 255);
+                    box-shadow: 0px 0px 12px -3px rgba(83, 83, 83, 0.6);
+                    padding: 1.5rem 0;
+                    visibility: hidden;
+                    opacity: 0;
+                    pointer-events: none;
+                    transition: all 0.2s ease-in;
+
+                    li {
+                        width: calc(100% - 3rem);
+                        transition: background-color 0.15s ease-in;
+                        padding: 8px 1.5rem;
+                        a, button {
+                            color: var(--mountain-mist);
+                            font-weight: 500;
+                            width: 100%;
+                            font-size: 0.75rem;
+                            padding: 0 20px 0 10px;
+                            // direction - justify content - align items - flex wrap
+                            @include dflex(row, flex-start, center, nowrap);
+                            gap: 10px;
+                            transition: color 0.15s ease-in;
+                        }
+                        &:hover {
+                            background-color: var(--quill-grey);
+                            a, button {
+                                color: black;
+                            }
+                        }
+                    }
+                }
+
+                &.active {
+                    .header-user-dropdown__content {
+                        visibility: visible;
+                        opacity: 1;
+                        pointer-events: all;
+                    }
+                }
+            }
+            &.active {
+                // direction - justify content - align items - flex wrap
+                @include dflex(row, flex-end, center, nowrap);
+            }
+        }
+    }
+}

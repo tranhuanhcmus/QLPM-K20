@@ -1,0 +1,60 @@
+
+// Mixin dflex
+// // $dir: the direction of the flexbox (row, column)
+// // $jcontent: how to align items along the main axis (center, flex-start, flex-end, space-between, space-around)
+// // $align-items: how to align items along the cross axis (center, flex-start, flex-end, stretch)
+// // $fwrap: how to wrap items if there is not enough space (wrap, nowrap)
+// @include dflex(row, center, center, wrap);
+@mixin dflex($dir, $jcontent, $align-items, $fwrap) {
+    display: flex;
+    flex-direction: $dir;
+    justify-content: $jcontent;
+    align-items: $align-items;
+    flex-wrap: $fwrap;
+}
+
+// Mixin dgrid
+// $column: the number of columns in the grid
+// $row: the number of rows in the grid
+// $gap: the gap between grid items
+//Usage: @include dgrid(1fr 1fr 1fr, auto auto, 10px);
+@mixin dgrid($column, $row, $gap) {
+    display: grid;
+    grid-template-columns: $column;
+    grid-template-rows: $row;
+    gap: $gap;
+}
+
+// Mixin absolute-center
+// Centers an element absolutely within its parent
+//Usage: @include absolute-center;
+@mixin absolute-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+// Mixin normal-btn
+// $bder: the border of the button
+// $bradius: the border radius of the button
+// $bg_color: the background color of the button
+// $color: the text color of the button
+// $pding: the padding of the button
+// $fsize: the font size of the button
+//Usage: @include normal-btn(1px solid #ccc, 5px, #fff, #333, 10px 20px, 16px);
+@mixin normal-btn($bder, $bradius, $bg_color, $color, $pding, $fsize) {
+    cursor: pointer;
+    border: $bder;
+    border-radius: $bradius;
+    outline: none;
+
+    background-color: $bg_color;
+    color: $color;
+
+    padding: $pding;
+    font-size: $fsize;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
