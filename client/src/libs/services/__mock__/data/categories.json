@@ -1,0 +1,101 @@
+[
+  {
+    "id": "1",
+    "name": "BATH",
+    "options": [
+      {
+        "value": "all",
+        "label": "All",
+        "link": "/category/bath/all"
+      },
+      {
+        "value": "shower",
+        "label": "Shower",
+        "link": "/category/bath/shower"
+      },
+      {
+        "value": "shampoo",
+        "label": "Shampoo",
+        "link": "/category/bath/shampoo"
+      },
+      {
+        "value": "soap",
+        "label": "Soap",
+        "link": "/category/bath/soap"
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "name": "KITCHEN",
+    "options": [
+      {
+        "value": "all",
+        "label": "All",
+        "link": "/category/kitchen/all"
+      },
+      {
+        "value": "pan",
+        "label": "Pan",
+        "link": "/category/kitchen/pan"
+      },
+      {
+        "value": "knife",
+        "label": "Knife",
+        "link": "/category/kitchen/knife"
+      },
+      {
+        "value": "pot",
+        "label": "Pot",
+        "link": "/category/kitchen/pot"
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "name": "MAGAZINES",
+    "options": [
+      {
+        "value": "all",
+        "label": "All",
+        "link": "/category/magazines/all"
+      },
+      {
+        "value": "all",
+        "label": "All",
+        "link": "/category/magazines/all"
+      },
+      {
+        "value": "all",
+        "label": "All",
+        "link": "/category/magazines/all"
+      },
+      {
+        "value": "all",
+        "label": "All",
+        "link": "/category/magazines/all"
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "name": "UTILITY",
+    "options": [
+      {
+        "value": "all",
+        "label": "All",
+        "link": "/category/utility/all"
+      },
+      {
+        "value": "all",
+        "label": "All",
+        "link": "/category/utility/all"
+      },
+      {
+        "value": "all",
+        "label": "All",
+        "link": "/category/utility/all"
+      }
+    ]
+  }
+]
