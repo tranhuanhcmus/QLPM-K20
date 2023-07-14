@@ -18,7 +18,7 @@
 // $row: the number of rows in the grid
 // $gap: the gap between grid items
 //Usage: @include dgrid(1fr 1fr 1fr, auto auto, 10px);
-@mixin dgrid($column, $row, $gap) {
+@mixin dgrid($column, $row, $gap: null) {
     display: grid;
     grid-template-columns: $column;
     grid-template-rows: $row;

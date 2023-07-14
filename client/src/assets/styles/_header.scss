@@ -1,40 +1,43 @@
 @import './mixin';
-
 // Responsive settings
 $desktop-breakpoint: 1024px;
 $tablet-breakpoint: 768px;
 $mobile-breakpoint: 480px;
 
+$height-header : 70px;
+$padding-container : 30px;
+
 .header {
-    position: fixed;
+    position: sticky;
     top: 0;
     left: 0;
     width: 100vw;
-    height: 70px;
+    padding-top: 10px;
+    min-height: $height-header;
     background-color: white;
     box-shadow: 0px 10px 10px -3px rgba(83, 83, 83, 0.1);
-    // direction - justify content - align items - flex wrap
-    @include dflex(row, space-between, center, nowrap);
-    .header__logo {
-        // @include absolute_center;
-        position: absolute;
-        top: 50%;
-        left: 0.5rem;
-        transform: translateY(-50%);
-        height: 100%;
-        img {
-            width: auto;
-            height: 100%;
+    
+    .header__user-select-nav{
+        width: 100%;
+        max-height: $height-header;
+        .header__logo {
+            max-height: $height-header; 
+        }
+        .header__user-select-product{ 
+            width: 100%;
+            @include dflex(row, space-around, center, nowrap);
         }
     }
+
     .header__user-interact {
-        margin-right: 1rem;
-        // direction - justify content - align items - flex wrap
-        @include dflex(row, flex-end, center, nowrap);
-        gap: 1rem;
+        @include dflex(row, flex-end, flex-end, nowrap);
+        padding-right: $padding-container;
+        gap: 2rem;
+        button{
+            font-weight: normal;
+        }
         .header__notification {
             position: relative;
-            // border - border radius - background color - color - padding - font size
             @include normal-btn(none, 8px, white, black, 10px 8px, 1rem);
             transition: background-color 0.2s ease-in;
 
