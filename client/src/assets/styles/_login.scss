@@ -1,7 +1,7 @@
 @import './mixin';
 
 .login__container {
-    background-image: url('../../images/backgrounds/login-bg.png');
+    background-image: url('../images/backgrounds/login-bg.png');
     background-size: cover;
     background-repeat: no-repeat;
     width: 100vw;
@@ -215,7 +215,7 @@
                 height: 154px;
                 margin-bottom: 3rem;
                 .dog {
-                    background-image: url('../../images/graphics/cute-dog.png');
+                    background-image: url('../images/graphics/cute-dog.png');
                     background-repeat: no-repeat;
                     background-size: 7480px 154px;
                     width: 186.5px;
