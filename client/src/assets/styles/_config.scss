@@ -6,13 +6,26 @@ $mobile-breakpoint: 480px;
 // Color define
 :root {
     --quill-grey: #d3d3d3;
-    --white-smoke: #F3F7FA;
-    --heavy-white-smoke: #e6ecf1;
-    --cadet-grey: #7d89a0;
-    --ultramarine-blue: #5051F9;
+    --desert-storm: #F7F7F7;
+    --midnight: #141130;
     --butterfly-bush: #3C2C7C;
     --mountain-mist: #9390A0;
-    --light-green: rgb(0, 156, 0);
+    --dirty-orange: #D37200;
+    --hard-dirty-orange: #a85a00;
+    --ebony-clay: #232641;
+    --heavy-white-smoke: #e6ecf1;
+    --milk-white: #FDFCFC;
+
+    // Authen color
+    --tuna: #372C57;
+    --soft-blue:#6E88FD;
+    --ultramarine-blue: #4A6CFF;
+    --toxic-green: #3CE241;
+    --kelly-green: #0BC311;
+
+    // Search
+    --linen: #fdeee6;
+    --cloud-burst: #20274D;
 }
 
 /* Import fonts */
@@ -91,7 +104,8 @@ body {
 
 .container {
     margin: 0px auto;
-    padding: 0px 100px;
+    padding: 0px 20px;
+    max-width: 1200px;
 }
 
 @media (max-width: $desktop-breakpoint) {
