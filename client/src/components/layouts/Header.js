@@ -1,4 +1,3 @@
-
 import React from 'react';
 import "../../assets/styles/_header.scss";
 import logoImage from "../../assets/images/logos/sc-non.png";
@@ -40,6 +39,7 @@ const Header = () => {
                    
                 </ul> 
             </div>
+
         </header>
     );
 }
