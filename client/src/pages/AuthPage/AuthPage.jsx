@@ -50,14 +50,14 @@ const AuthPage = () => {
         <div className="forms  text">
           <div className="w-100 row  ">
             <div className="col-12 col-md-6">
-              <div className="form login ">
+              <div className="form form--login ">
                 <span className=" text--bold">Login</span>
                 <form
                   className="login"
                   onSubmit={handleSubmitSignIn(onSubmitSignIn)}
                 >
                   {/* 3rd-party sign-in */}
-                  <div className="extend ">
+                  <div className="form__extend ">
                     <button className="btn">
                       <i className="fi fi-brands-facebook"></i>
                       Đăng nhập bằng Facebook
@@ -97,7 +97,7 @@ const AuthPage = () => {
                   )}
 
                   {/* login actions */}
-                  <div className="actions">
+                  <div className="form__actions">
                     <div className="d-flex align-items-center">
                       <input
                         type="checkbox"
@@ -118,7 +118,7 @@ const AuthPage = () => {
               </div>
             </div>
             <div className="col-12 col-md-6">
-              <div className="form register ">
+              <div className="form form--register ">
                 <span className=" text--bold">Register</span>
                 <form
                   className="register"
@@ -161,7 +161,7 @@ const AuthPage = () => {
                   />
 
                   {/* register actions */}
-                  <div className="actions">
+                  <div className="form__actions">
                     <div className="d-flex justify-content-between">
                       <button type="submit" className="btn ">
                         Register
