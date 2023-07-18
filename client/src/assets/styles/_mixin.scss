@@ -1,4 +1,3 @@
-
 // Mixin dflex
 // // $dir: the direction of the flexbox (row, column)
 // // $jcontent: how to align items along the main axis (center, flex-start, flex-end, space-between, space-around)
@@ -48,13 +47,10 @@
     border: $bder;
     border-radius: $bradius;
     outline: none;
-
     background-color: $bg_color;
     color: $color;
-
     padding: $pding;
     font-size: $fsize;
     white-space: nowrap;
     transition: all 0.2s ease;
 }
-
