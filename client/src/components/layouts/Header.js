@@ -8,7 +8,7 @@ import { listTextContentHeader } from '../../assets/constant';
 const Header = () => {
 
     return (
-        <header className=' header'  >
+        <header className='header'>
             <div className='header__user-interact ' >
                 <div>
                     <button className="">Language</button>

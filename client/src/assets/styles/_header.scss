@@ -5,7 +5,7 @@ $tablet-breakpoint: 768px;
 $mobile-breakpoint: 480px;
 
 $height-header : 70px;
-$padding-container : 30px;
+$padding-container : 20px;
 
 .header {
     position: sticky;
@@ -15,6 +15,7 @@ $padding-container : 30px;
     padding-top: 10px;
     min-height: $height-header;
     background-color: white;
+    z-index: 100;
     box-shadow: 0px 10px 10px -3px rgba(83, 83, 83, 0.1);
     
     .header__user-select-nav{
