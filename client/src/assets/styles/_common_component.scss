@@ -5,6 +5,10 @@ $desktop-breakpoint: 1024px;
 $tablet-breakpoint: 768px;
 $mobile-breakpoint: 480px;
 
+$padding-content : 50px;
+
+
+
 .common-component__task {
     position: relative;
     width: calc(100% - 2rem);

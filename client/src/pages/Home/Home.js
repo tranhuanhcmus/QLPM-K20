@@ -22,6 +22,7 @@ const Home = () => {
     }, [currentBanner]);
 
     return (
+
         <main className='home'>
             <section className='home__intro'>
                 <div className="intro__slider">

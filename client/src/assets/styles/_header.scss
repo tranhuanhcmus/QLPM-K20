@@ -1,15 +1,46 @@
 @import './mixin';
-
 // Responsive settings
 $desktop-breakpoint: 1024px;
 $tablet-breakpoint: 768px;
 $mobile-breakpoint: 480px;
 
+$height-header : 70px;
+$padding-container : 30px;
+
 .header {
     position: sticky;
+    top: 0;
+    left: 0;
     width: 100vw;
-    height: 70px;
+    padding-top: 10px;
+    min-height: $height-header;
     background-color: white;
     box-shadow: 0px 10px 10px -3px rgba(83, 83, 83, 0.1);
+    
+    .header__user-select-nav{
+        width: 100%;
+        max-height: $height-header;
+        .header__logo {
+            max-height: $height-header; 
+        }
+        .header__user-select-product{ 
+            width: 100%;
+            @include dflex(row, space-around, center, nowrap);
+        }
+    }
 
+    .header__user-interact {
+        @include dflex(row, flex-end, flex-end, nowrap);
+        padding-right: $padding-container;
+        gap: 2rem;
+        button{
+            font-weight: normal;
+        }
+        .header__notification {
+            position: relative;
+            @include normal-btn(none, 8px, white, black, 10px 8px, 1rem);
+            transition: background-color 0.2s ease-in;
+        }
+
+    }
 }
