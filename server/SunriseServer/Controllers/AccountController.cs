@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SunriseServer.Common.Constant;
 using SunriseServer.Services.AccountService;
-using SunriseServer.Services.HotelService;
 using System.Data;
 
 namespace SunriseServer.Controllers
@@ -19,7 +18,7 @@ namespace SunriseServer.Controllers
         }
 
         [HttpGet("current-account"), Authorize(Roles = GlobalConstant.User)]
-        public async Task<ActionResult<Hotel>> GetCurrentAccount()
+        public async Task<ActionResult<Account>> GetCurrentAccount()
         {
             var result = await _accountService.GetByUsername(User.Identity.Name);
             if (result is null)
@@ -29,7 +28,7 @@ namespace SunriseServer.Controllers
         }
 
         [HttpGet("{username}"), Authorize(Roles = GlobalConstant.User)]
-        public async Task<ActionResult<Hotel>> GetAccountByUsername(string username)
+        public async Task<ActionResult<Account>> GetAccountByUsername(string username)
         {
             var result =  await _accountService.GetByUsername(username);
             if (result is null)
@@ -39,7 +38,7 @@ namespace SunriseServer.Controllers
         }
 
         [HttpPut("{id}"), Authorize(Roles = GlobalConstant.User)]
-        public async Task<ActionResult<List<Hotel>>> UpdateAccount(int id, Account request)
+        public async Task<ActionResult<List<Account>>> UpdateAccount(int id, Account request)
         {
             if (id != request.Id)
             {

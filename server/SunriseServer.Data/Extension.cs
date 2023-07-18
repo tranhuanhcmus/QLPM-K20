@@ -14,8 +14,6 @@ namespace SunriseServerData
         public static IServiceCollection AddUnitOfWork(this IServiceCollection services, Action<DbContextOptionsBuilder> optionsAction) 
         {
             services.AddDbContext<DataContext>(optionsAction);
-            services.AddScoped<IHotelRepo, HotelRepo>();
-            services.AddScoped<IHotelRoomServiceRepo, RoomServiceRepo>();
             services.AddScoped<UnitOfWork>();
             return services;
         }

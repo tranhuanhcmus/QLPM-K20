@@ -1,9 +1,6 @@
 global using SunriseServerCore.Models;
 global using SunriseServerData;
-using SunriseServer.Services.HotelService;
-using SunriseServer.Services.RoomService;
 using SunriseServer.Services.AccountService;
-using SunriseServer.Services.BookingService;
 using Microsoft.OpenApi.Models;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -19,10 +16,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IHotelService, HotelService>();
-builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
-builder.Services.AddScoped<IRoomService, RoomService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSwaggerGen(options =>
 {

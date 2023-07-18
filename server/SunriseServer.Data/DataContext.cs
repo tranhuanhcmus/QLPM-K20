@@ -24,10 +24,7 @@ namespace SunriseServerData
                 .HasKey(x => new { x.AccountId, x.HotelId, x.RoomTypeId, x.CheckIn });
         }
 
-        public DbSet<Hotel> Hotel { get; set; }
         public DbSet<Account> Account { get; set; }
         public DbSet<BookingAccount> Booking_Account { get; set; }
-        public DbSet<HotelRoomFacility> HotelRoomFacilities { get; set; }
-        public DbSet<HotelRoomService> HotelRoomServices { get; set; }
     }
 }
