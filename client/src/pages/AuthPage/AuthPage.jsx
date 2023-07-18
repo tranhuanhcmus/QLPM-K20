@@ -1,4 +1,4 @@
-import "../../assets/styles/_authPage.scss";
+import "../../assets/styles/authPage.scss";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { brandName, namePage, regexPatterns } from "./pageData";
