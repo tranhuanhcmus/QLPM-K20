@@ -202,3 +202,17 @@ i {
 input {
     font-family: Montserrat, sans-serif;
 }
+
+.title-template {
+    span {
+        opacity: 0.4;
+        font-weight: 500;
+    }
+    hr {
+        border: none;
+        width: 200px;
+        height: 2px;
+        background-color: var(--dirty-orange);
+        margin: 1rem 0 3rem 0;
+    }
+}
