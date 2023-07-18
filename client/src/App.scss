@@ -5,3 +5,9 @@
 
 // // Pages
 // @import './assets/styles/scss/home.scss';
+.App{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+}
