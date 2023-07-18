@@ -10,7 +10,8 @@ Create table Account (
     Phone char(15),
     Email varchar(320),
     Address varchar(200) character set utf8mb4,
-    password varchar(150)
+    password varchar(150),
+    role bool
 );
 
 -- Table Customer measurement
@@ -44,6 +45,7 @@ Create table Product (
     Discount TINYINT,
     Fabric int,
     FabricName varchar(100) character set utf8mb4,
+    color varchar(50),
     Type varchar(20)
 );
 -- --------------------------
@@ -208,12 +210,10 @@ Create table Evaluation (
 -- << 8. Tables Cart >>
 -- -----------------------------------
 Create table Cart (
+	ID int auto_increment primary key,
 	Customer int,
     Product int,
-    NumberOfProduct int,
-	
-    Constraint PK_C primary key(Customer, Product)
-
+    NumberOfProduct int
 );
 
 -- -----------------------------------
@@ -247,7 +247,7 @@ Create table Fabric (
     FabricName varchar(100) character set utf8mb4,
     Meterial varchar(100),
     Price float,
-    Color varchar(20),
+    Color varchar(50),
     Style varchar(100),
     Image varchar(50),
     Category varchar(100),
