@@ -126,19 +126,6 @@ $header-height: 70px;
             }
         }
     }
-    .home__title-template {
-        span {
-            opacity: 0.4;
-            font-weight: 500;
-        }
-        hr {
-            border: none;
-            width: 200px;
-            height: 2px;
-            background-color: var(--dirty-orange);
-            margin: 1rem 0 3rem 0;
-        }
-    }
     .home__steps {
         padding: 50px 0 80px 0;
         background-color: var(--desert-storm);
@@ -185,7 +172,7 @@ $header-height: 70px;
     }
     .home__review {
         position: relative;
-        .home__title-template {
+        .title-template {
             padding: 100px 0;
         }
         .home__custom-line {

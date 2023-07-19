@@ -2,7 +2,6 @@
 $desktop-breakpoint: 1024px;
 $tablet-breakpoint: 768px;
 $mobile-breakpoint: 480px;
-
 // Color define
 :root {
     --quill-grey: #d3d3d3;
@@ -15,66 +14,75 @@ $mobile-breakpoint: 480px;
     --ebony-clay: #232641;
     --heavy-white-smoke: #e6ecf1;
     --milk-white: #FDFCFC;
-
     // Authen color
     --tuna: #372C57;
-    --soft-blue:#6E88FD;
+    --soft-blue: #6E88FD;
     --ultramarine-blue: #4A6CFF;
     --toxic-green: #3CE241;
     --kelly-green: #0BC311;
-
     // Search
     --linen: #fdeee6;
     --cloud-burst: #20274D;
+    //change name color for using easily
+    --primary: #a4712a;
+    --primary-light: #e2a857;
+    --grey: #707070;
+    --black: #000;
 }
 
+
 /* Import fonts */
+
 @font-face {
     font-family: Montserrat;
     src: url('../fonts/Montserrat/Montserrat-VariableFont_wght.ttf');
 }
+
 @font-face {
     font-family: TekoBold;
     src: url('../fonts/Teko/Teko-Bold.ttf');
 }
 
+
 /* Smooth scroll behavior*/
+
 @media (prefers-reduced-motion: no-preference) {
-    :root {
+     :root {
         scroll-behavior: smooth;
     }
 }
 
 
 /* Overall */
+
 :root {
     font-size: 16px;
     /* Font size desktop */
 }
 
 @media (min-width: $desktop-breakpoint) {
-    :root {
+     :root {
         font-size: 20px;
         /* Font size tablet */
     }
 }
 
 @media (max-width: $desktop-breakpoint) {
-    :root {
+     :root {
         font-size: 14px;
         /* Font size tablet */
     }
 }
 
 @media (max-width: $tablet-breakpoint) {
-    :root {
+     :root {
         font-size: 12px;
         /* Font size mobile */
     }
 }
 
 @media (max-width: $mobile-breakpoint) {
-    :root {
+     :root {
         font-size: 10px;
         /* Font size mobile */
     }
@@ -89,12 +97,17 @@ body {
     letter-spacing: 0.2px;
     background-color: var(--white-smoke);
 }
+
+
 /* Hide scrollbar for Chrome, Safari and Opera */
+
 body::-webkit-scrollbar {
     display: none;
 }
 
+
 /* Hide scrollbar for IE, Edge and Firefox */
+
 body {
     -ms-overflow-style: none;
     /* IE and Edge */
@@ -113,7 +126,6 @@ body {
         padding: 0px 50px;
     }
 }
-
 
 @media (max-width: $mobile-breakpoint) {
     .container {
@@ -168,7 +180,6 @@ small {
     font-size: 0.8rem;
 }
 
-
 button {
     border: none;
     outline: none;
@@ -199,6 +210,21 @@ i {
     position: relative;
     bottom: -2px;
 }
+
 input {
     font-family: Montserrat, sans-serif;
+}
+
+.title-template {
+    span {
+        opacity: 0.4;
+        font-weight: 500;
+    }
+    hr {
+        border: none;
+        width: 200px;
+        height: 2px;
+        background-color: var(--dirty-orange);
+        margin: 1rem 0 3rem 0;
+    }
 }
