@@ -5,6 +5,7 @@ import Home from "./pages/Home/Home";
 import About from "./pages/About/About";
 import Contact from "./pages/Contact/Contact";
 import Measure from "./pages/Measure/Measure";
+import Coat from './pages/Coat/Coat';
 import { URLS } from "./constants/urls";
 import { Toaster } from "react-hot-toast";
 import MainLayout from "./pages/MainLayout";
@@ -22,6 +23,8 @@ function App() {
           <Route index element={<Home />} />
           <Route path={URLS.AUTHEN} element={<Authentication />} />
           <Route path={URLS.ABOUT_PAGE} element={<About />} />
+          <Route path={URLS.COAT}  element={<Coat/>} 
+          />
           <Route path={URLS.CONTACT_PAGE} element={<Contact />} />
         </Route>
 
