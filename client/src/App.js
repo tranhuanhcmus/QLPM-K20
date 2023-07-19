@@ -7,6 +7,7 @@ import Home from './pages/Home/Home';
 import About from './pages/About/About';
 import Contact from './pages/Contact/Contact';
 import Measure from './pages/Measure/Measure';
+import Coat from './pages/Coat/Coat';
 import { URLS } from './constants/urls';
 
 function App() {
@@ -25,6 +26,10 @@ function App() {
         <Route 
           path={URLS.MEASURE} 
           element={<Measure />} />
+          <Route 
+          path={URLS.COAT} 
+          element={<><Header/><Coat/><Footer/></>} 
+          />
         <Route 
           path={URLS.CONTACT_PAGE} 
           element={<><Header/><Contact/><Footer/></>} 

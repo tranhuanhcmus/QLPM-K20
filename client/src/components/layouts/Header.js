@@ -31,7 +31,7 @@ const Header = () => {
                         listTextContentHeader && listTextContentHeader.map((item, index)=>{
                             return  (
                                 <div key={index}>   
-                                    <TextHoverDropdown title={item.title} listContent={item.listContent} /> 
+                                   <Link to ="/Coat"> <TextHoverDropdown title={item.title} listContent={item.listContent} />   </Link>
                                 </div>
                             )
                         })
