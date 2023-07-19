@@ -1,0 +1,119 @@
+@import '../../assets//styles/mixin';
+
+
+
+/* styles/product-page.scss */
+
+.product-page {
+    display: flex;
+    justify-content: space-between;
+    font-family: PoppinsVN, sans-serif;
+    box-sizing: border-box;
+
+    
+    .title{
+      flex:1;
+      padding-bottom: 10px;
+    ::after{
+      content: '';
+      width: 170px;
+      display: block;
+      background-color: #a4712a;
+      height: 2px;
+      margin-top: 10px;
+    }
+   
+    }
+     
+    
+    .category-list {
+      font-size: 14px;
+      font-kerning: auto;
+      font-optical-sizing: auto;
+      font-stretch: 100%;
+      font-weight: 400;
+      flex: 2;
+      max-width: 200px;
+      padding:15px;
+      h{
+        list-style: none;
+        padding: 0;
+        color:#707070;
+        cursor: pointer;
+        padding-bottom: 2px;
+        border-radius: 4px;
+        margin-bottom: 8px;
+
+        &:hover {
+          color:rgb(164, 113, 42);
+        }
+
+        &.active {
+          background-color: #888;
+          color: #fff;
+        }
+      }
+      ul {
+       padding-top: 9px;
+        li {
+          padding-top: 15px;
+          padding-left: 20px;
+        
+        }
+      }
+    }
+  
+    .product-list {
+      display:block;
+      padding-left: 20px;
+      box-sizing: border-box;
+  
+      ul {
+        align-items: stretch;
+        display:flex;
+        list-style: none;
+        padding-left: 15px;
+  
+        li {
+          text-align: left;
+          display: block;
+          align-items: center;
+          padding: 15px;
+
+          img {
+            width: 244.762px;
+            height: 346.8px;
+            border-radius: 4px;
+            margin-right: 10px;
+            transition: transform 0.3s ease;
+
+          }
+          .name-alt{
+        
+            color:rgb(164, 113, 42);
+          }
+          .name{
+                    
+            color:rgb(0, 0, 0);
+            margin-top: 3px;
+            margin-bottom: 3px;
+          }
+          .price-before{
+            display: inline;
+            color: rgb(152, 152, 152);
+          }
+          .price{
+            color: #3C2C7C;
+          }
+          &:hover {
+            color: #fff; // Main white color
+           
+              img{transform: scale(1.1); // Zoom-in effect on hover
+              }
+            
+        }
+      }
+      }
+    }
+  }
+  
