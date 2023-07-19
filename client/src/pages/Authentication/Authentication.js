@@ -1,19 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../../assets/styles/authen.scss'
 import { useForm, Controller } from 'react-hook-form';
 import { isValidEmail } from '../../utils/validators/email.validator';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { 
     useLogin,
     useRegister, 
     useGoogleLogin, 
-    useFacebookLogin 
+    useFacebookLogin, 
+    useIsLogged
 } from '../../libs/business-logic/src/lib/auth'
 import { isAxiosError } from "../../libs/services/src";
 import lineIcon from '../../assets/images/graphics/review-decor.png';
+import { URLS } from '../../constants/urls';
 
 const Authentication = () => {
+
     const loginForm = useForm({
         defaultValues: {
             email: "",
@@ -28,10 +31,20 @@ const Authentication = () => {
         }
     });
 
+    const navigator = useNavigate();
+
     const { onLogin, isLoading: isLoginLoading } = useLogin();
     const { onRegister, isLoading: isRegisterLoading } = useRegister();
     const { onGoogleLogin } = useGoogleLogin(); // Add isLoading if needed
     const { onFacebookLogin } = useFacebookLogin(); // Add isLoading if needed
+    const isLoggedIn = useIsLogged();
+
+    useEffect(() => {
+        isLoggedIn && 
+        setTimeout(() => {
+            navigator(URLS.HOME_PAGE);
+        })
+    }, [isLoggedIn])
 
     const onLoginFormSubmit = ({email, password, isRememberMe}) => {
         onLogin({
@@ -40,7 +53,7 @@ const Authentication = () => {
         })
         .then((res) => {
             if (res.statusCode === 200) {
-                toast.success(res.message)
+                toast.success(res.message);
             }
             else {
                 console.error(res.message)

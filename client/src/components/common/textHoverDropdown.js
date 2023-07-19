@@ -19,6 +19,7 @@ const TextHoverDropdown = ({ title, listContent }) => {
 
 export default TextHoverDropdown;
 
+// Không viết style ở đây!!!
 const styles = `
 .text-dropdown {
   position: relative;

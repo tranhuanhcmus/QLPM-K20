@@ -11,7 +11,8 @@ const Header = () => {
     return (
         <header className=' header'  >
             <div className='header__user-interact ' >
-                <div>
+                <div className='user-interact__language'>
+                    {/* Nên tự viết select dropdown, không sài default khó style */}
                     <button className="">Language</button>
                     <select>
                         <option value="en">English</option>
@@ -25,14 +26,14 @@ const Header = () => {
 
             <div className=' header__user-select-nav ' >  
                 <ul className='header__user-select-product'>
-                    <Link to="/">
+                    <Link to={URLS.HOME_PAGE}>
                         <img src={logoImage} alt="Logo" className='header__logo'/>
                     </Link>
                     {
                         listTextContentHeader && listTextContentHeader.map((item, index)=>{
                             return  (
                                 <div key={index}>   
-                                    <TextHoverDropdown title={item.title} listContent={item.listContent} /> 
+                                   <Link to ={URLS.COAT}> <TextHoverDropdown title={item.title} listContent={item.listContent} />   </Link>
                                 </div>
                             )
                         })

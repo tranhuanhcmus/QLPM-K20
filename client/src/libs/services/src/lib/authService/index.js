@@ -55,7 +55,7 @@ export class AuthService extends Services {
         data,
         {
           signal: this.abortController.signal
-        }
+        },
       );
 
       if (response.status === 200) {

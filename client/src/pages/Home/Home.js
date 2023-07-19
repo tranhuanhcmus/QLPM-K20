@@ -82,7 +82,7 @@ const Home = () => {
             <section className='home__short-about'>
                 <div className="container">
                     <div className="title-template">
-                        <h2><span>ABOUT</span><br/>SUNRISE SUIT</h2>
+                        <h2><span>ABOUT</span><br/>QUEENSMAN</h2>
                         <hr />
                     </div>
                     <div className="short-about__main">

@@ -4,4 +4,5 @@ export const URLS = {
     CONTACT_PAGE: "/contact",
     MEASURE: "/measure",
     AUTHEN: "/my-account",
+    COAT:'/coat'
 };

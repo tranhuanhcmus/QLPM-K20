@@ -4,7 +4,7 @@ $desktop-breakpoint: 1024px;
 $tablet-breakpoint: 768px;
 $mobile-breakpoint: 480px;
 
-$height-header : 70px;
+$height-header : 80px;
 $padding-container : 30px;
 
 .header {
@@ -21,12 +21,18 @@ $padding-container : 30px;
     .header__user-select-nav{
         width: 100%;
         max-height: $height-header;
+        margin-bottom: 10px;
         .header__logo {
             max-height: $height-header; 
+            margin: auto 0;
         }
         .header__user-select-product{ 
             width: 100%;
             @include dflex(row, space-around, center, nowrap);
+            a {
+                font-size: 0.75rem;
+                font-weight: 600;
+            }
         }
     }
 
@@ -34,13 +40,29 @@ $padding-container : 30px;
         @include dflex(row, flex-end, flex-end, nowrap);
         padding-right: $padding-container;
         gap: 2rem;
-        button{
-            font-weight: normal;
+        a {
+            font-size: 0.875rem;
+            &:hover {
+                color: var(--butterfly-bush);
+            }
         }
-        .header__notification {
-            position: relative;
-            @include normal-btn(none, 8px, white, black, 10px 8px, 1rem);
-            transition: background-color 0.2s ease-in;
+        .user-interact__language {
+            button{
+                font-weight: normal;
+            }
+            select {
+                border: none;
+                font-family: Monserrat, sans-serif;
+                font-weight: 600;
+                font-size: 0.75rem;
+                color: var(--butterfly-bush);
+                margin-left: 0.5rem;
+            }
+            .header__notification {
+                position: relative;
+                @include normal-btn(none, 8px, white, black, 10px 8px, 1rem);
+                transition: background-color 0.2s ease-in;
+            }
         }
 
     }
