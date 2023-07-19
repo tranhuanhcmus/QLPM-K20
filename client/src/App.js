@@ -8,8 +8,8 @@ import Measure from "./pages/Measure/Measure";
 import { URLS } from "./constants/urls";
 import { Toaster } from "react-hot-toast";
 import MainLayout from "./pages/MainLayout";
-import AuthPage from "./pages/AuthPage/AuthPage";
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
+import Authentication from "./pages/Authentication/Authentication";
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
       <Routes>
         <Route path={URLS.HOME_PAGE} element={<MainLayout />}>
           <Route index element={<Home />} />
-          <Route path={URLS.AUTH_PAGE} element={<AuthPage />} />
+          <Route path={URLS.AUTH_PAGE} element={<Authentication />} />
           <Route path={URLS.ABOUT_PAGE} element={<About />} />
           <Route path={URLS.CONTACT_PAGE} element={<Contact />} />
         </Route>
