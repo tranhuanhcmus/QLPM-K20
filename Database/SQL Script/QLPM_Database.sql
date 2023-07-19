@@ -10,7 +10,8 @@ Create table Account (
     Phone char(15),
     Email varchar(320),
     Address varchar(200) character set utf8mb4,
-    password varchar(150)
+    password varchar(150),
+    role bool
 );
 
 -- Table Customer measurement
@@ -32,14 +33,27 @@ Create table BodyMeasurement (
 	PantsCircumference DECIMAL(10, 2)
 );
 
--- Tables for Jacket
-Create table Jacket (
-	JacketID int auto_increment primary key,
+-- --------------------------
+-- << 14. Table Product >>
+-- --------------------------
+Create table Product (
+	ProductID int auto_increment primary key,
     Price FLOAT,
     Image varchar(100),
+    Name varchar(100) character set utf8mb4,
+    Description text character set utf8mb4,
     Discount TINYINT,
     Fabric int,
     FabricName varchar(100) character set utf8mb4,
+    color varchar(50),
+    Type varchar(20)
+);
+-- --------------------------
+-- << 3. Tables for Jacket >>
+-- --------------------------
+
+Create table Jacket (
+	JacketID int auto_increment primary key,
     Style int,
     Fit int,
     Lapel int,
@@ -47,7 +61,6 @@ Create table Jacket (
     BackStyle int,
     BreastPocket int,
 	Pocket int
-
 );
  -- Jacket's components
 Create table JacketPocket (
@@ -97,11 +110,6 @@ Create table JacketBreastPocket (
 -- -----------------------------------
 Create table Vest (
 	VestID int auto_increment primary key,
-    Price FLOAT,
-    Image varchar(100),
-    Discount TINYINT,
-    Fabric int,
-    FabricName varchar(100) character set utf8mb4,
     Style int,
     Type int
 );
@@ -124,11 +132,6 @@ Create table VestType (
 -- -----------------------------------
 Create table Pants (
 	PantsID int auto_increment primary key,
-    Price FLOAT,
-    Image varchar(100),
-    Discount TINYINT,
-    Fabric int,
-    FabricName varchar(100) character set utf8mb4,
     Pocket int,
     Cuff int,
     Fit int,
@@ -187,7 +190,6 @@ Create table Orders (
 Create table OrderDetail (
 	Orders int,
     Product int,
-    ProductType varchar(10),
     NumberOfOrder int,
     Price float
 );
@@ -197,7 +199,6 @@ Create table OrderDetail (
 -- -----------------------------------
 Create table Evaluation (
 	ID int auto_increment primary key,
-	ProductType varchar(10),
     Product int,
     Rate tinyint,
     Comment varchar(300) character set utf8mb4,
@@ -209,13 +210,10 @@ Create table Evaluation (
 -- << 8. Tables Cart >>
 -- -----------------------------------
 Create table Cart (
+	ID int auto_increment primary key,
 	Customer int,
     Product int,
-    ProductType varchar(10),
-    NumberOfProduct int,
-	
-    Constraint PK_C primary key(Customer, Product)
-
+    NumberOfProduct int
 );
 
 -- -----------------------------------
@@ -249,7 +247,7 @@ Create table Fabric (
     FabricName varchar(100) character set utf8mb4,
     Meterial varchar(100),
     Price float,
-    Color varchar(20),
+    Color varchar(50),
     Style varchar(100),
     Image varchar(50),
     Category varchar(100),
@@ -330,9 +328,10 @@ ALTER TABLE Jacket
 		FOREIGN KEY (BreastPocket) REFERENCES JacketBreastPocket (ID)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
--- (Fabric) REFERENCES Fabric
-	ADD CONSTRAINT FK_J_F
-		FOREIGN KEY (Fabric) REFERENCES Fabric (FabricID)
+-- (JacketId) REFERENCES Product
+	ADD CONSTRAINT FK_J_Pt
+		FOREIGN KEY (JacketId) REFERENCES Product (ProductID)
+		ON DELETE CASCADE
 		ON UPDATE CASCADE;
 
 
@@ -348,10 +347,11 @@ ALTER TABLE Vest
 		FOREIGN KEY (Type) REFERENCES VestType (ID)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
--- (Fabric) REFERENCES Fabric
-	ADD CONSTRAINT FK_V_F
-		FOREIGN KEY (Fabric) REFERENCES Fabric (FabricID)
-		ON UPDATE CASCADE;
+-- (VestID) REFERENCES Product
+	ADD CONSTRAINT FK_V_Pt
+		FOREIGN KEY (VestID) REFERENCES Product (ProductID)
+		ON DELETE CASCADE
+        ON UPDATE CASCADE;
 
 -- Pants
 
@@ -381,29 +381,37 @@ ALTER TABLE Pants
 		FOREIGN KEY (Pleats) REFERENCES PantsPleats (ID)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
--- (Fabric) REFERENCES Fabric
-	ADD CONSTRAINT FK_P_F
-		FOREIGN KEY (Fabric) REFERENCES Fabric (FabricID)
-		ON UPDATE CASCADE;
+-- (PantsID) REFERENCES Product
+	ADD CONSTRAINT FK_P_Pt
+		FOREIGN KEY (PantsID) REFERENCES Product (ProductID)
+		ON DELETE CASCADE
+        ON UPDATE CASCADE;
 
 -- Evaluation
--- insert trigger: to check product id and product type
 -- (Evaluator) REFERENCES Account
 ALTER TABLE Evaluation
 	ADD CONSTRAINT FK_E_A
 		FOREIGN KEY (Evaluator) REFERENCES Account (AccountID)
 		ON DELETE CASCADE
+		ON UPDATE CASCADE,
+-- (Product) REFERENCES Product (ProductID)
+	ADD CONSTRAINT FK_E_Pt
+		FOREIGN KEY (Product) REFERENCES Product (ProductID)
+		ON DELETE CASCADE
 		ON UPDATE CASCADE;
         
 -- Cart
--- insert trigger: to check product id and product type
 -- (Customer) REFERENCES Account
 ALTER TABLE Cart
 	ADD CONSTRAINT FK_C_A
 		FOREIGN KEY (Customer) REFERENCES Account (AccountID)
 		ON DELETE CASCADE
+		ON UPDATE CASCADE, 
+-- (Product) REFERENCES Product (ProductID)
+	ADD CONSTRAINT FK_C_Pt
+		FOREIGN KEY (Product) REFERENCES Product (ProductID)
+		ON DELETE CASCADE
 		ON UPDATE CASCADE;
-        
 -- Collection
 ALTER TABLE Collection
 -- (Jacket) REFERENCES Jacket
@@ -443,12 +451,22 @@ ALTER TABLE Orders
 		ON UPDATE CASCADE;
         
 -- Order Detail
--- insert trigger: to check product id and product type
 -- (Orders) REFERENCES Orders
 ALTER TABLE OrderDetail
 	ADD CONSTRAINT FK_OD_O
 		FOREIGN KEY (Orders) REFERENCES Orders (OrderID)
 		ON DELETE CASCADE
+		ON UPDATE CASCADE,
+-- (Product) REFERENCES Product (ProductID)
+    ADD CONSTRAINT FK_OD_Pt
+		FOREIGN KEY (Product) REFERENCES Product (ProductID)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE;
+	
+-- Product
+ALTER TABLE Product
+	ADD CONSTRAINT FK_Pt_F
+		FOREIGN KEY (Fabric) REFERENCES Fabric (FabricID)
 		ON UPDATE CASCADE;
         
 -- Fabric Provided
@@ -460,4 +478,11 @@ ALTER TABLE FabricProvided
 -- (Supplier) REFERENCES Supplier
 	ADD CONSTRAINT FK_FP_S
 		FOREIGN KEY (Supplier) REFERENCES Supplier (SupplierID)
+		ON UPDATE CASCADE;
+        
+-- Body Mesurement
+ALTER TABLE BodyMeasurement
+	ADD CONSTRAINT FK_BM_A
+		FOREIGN KEY (Customer) REFERENCES Account (AccountID)
+		ON DELETE CASCADE
 		ON UPDATE CASCADE;
