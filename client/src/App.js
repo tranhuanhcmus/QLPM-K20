@@ -20,7 +20,7 @@ function App() {
       <Routes>
         <Route path={URLS.HOME_PAGE} element={<MainLayout />}>
           <Route index element={<Home />} />
-          <Route path={URLS.AUTH_PAGE} element={<Authentication />} />
+          <Route path={URLS.AUTHEN} element={<Authentication />} />
           <Route path={URLS.ABOUT_PAGE} element={<About />} />
           <Route path={URLS.CONTACT_PAGE} element={<Contact />} />
         </Route>

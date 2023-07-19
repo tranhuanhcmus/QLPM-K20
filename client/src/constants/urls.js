@@ -3,5 +3,5 @@ export const URLS = {
     ABOUT_PAGE: "/about",
     CONTACT_PAGE: "/contact",
     MEASURE: "/measure",
-    AUTH_PAGE: "/my-account",
+    AUTHEN: "/my-account",
 };
