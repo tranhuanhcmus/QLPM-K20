@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../../assets/styles/_home.scss';
+import '../../assets/styles/home.scss';
 
 import aboutImg from '../../assets/images/graphics/about-img.png';
 import lineIcon from '../../assets/images/graphics/review-decor.png';
@@ -10,9 +10,12 @@ import {
     reviews,
     customOptions
 } from './HomeData';
+import { URLS } from '../../constants/urls';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
     const [currentBanner, setCurrentBanner] = useState(0);
+    const navigator = useNavigate();
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -56,7 +59,7 @@ const Home = () => {
             </section>
             <section className='home__steps'>
                 <div className="container">
-                    <div className="home__title-template">
+                    <div className="title-template">
                         <h2><span>03</span><br/>SIMPLE STEP</h2>
                         <hr />
                     </div>
@@ -73,12 +76,12 @@ const Home = () => {
                             </div>
                         ))}
                     </div>
-                    <button>Get start</button>
+                    <button onClick={() => {navigator(URLS.MEASURE)}}>Get start</button>
                 </div>
             </section>
             <section className='home__short-about'>
                 <div className="container">
-                    <div className="home__title-template">
+                    <div className="title-template">
                         <h2><span>ABOUT</span><br/>SUNRISE SUIT</h2>
                         <hr />
                     </div>
@@ -103,7 +106,7 @@ const Home = () => {
                     <div className="home__custom-line">
                         <img src={lineIcon} alt="lineIcon" />
                     </div>
-                    <div className="home__title-template">
+                    <div className="title-template">
                         <h2><span>REVIEWS</span><br/>TRIPADVISOR</h2>
                         <hr />
                     </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import {footerLink, footerContact} from "../../assets/constant/index";
 import logoImage from "../../assets/images/logos/sc-non.png";
-import "../../assets/styles/_footer.scss"
+import "../../assets/styles/footer.scss"
 
 const Footer = () => {
   return (
