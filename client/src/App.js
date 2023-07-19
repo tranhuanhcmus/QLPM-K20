@@ -10,25 +10,28 @@ import { Toaster } from "react-hot-toast";
 import MainLayout from "./pages/MainLayout";
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
 import Authentication from "./pages/Authentication/Authentication";
+import { BusinessLogicProvider } from './libs/business-logic/src/provider';
 
 function App() {
   return (
-    <div className="app">
-      <div className="app__toaster">
-        <Toaster />
-      </div>
-      <Routes>
-        <Route path={URLS.HOME_PAGE} element={<MainLayout />}>
-          <Route index element={<Home />} />
-          <Route path={URLS.AUTHEN} element={<Authentication />} />
-          <Route path={URLS.ABOUT_PAGE} element={<About />} />
-          <Route path={URLS.CONTACT_PAGE} element={<Contact />} />
-        </Route>
+    <BusinessLogicProvider>
+      <div className="app">
+        <div className="app__toaster">
+          <Toaster />
+        </div>
+        <Routes>
+          <Route path={URLS.HOME_PAGE} element={<MainLayout />}>
+            <Route index element={<Home />} />
+            <Route path={URLS.AUTHEN} element={<Authentication />} />
+            <Route path={URLS.ABOUT_PAGE} element={<About />} />
+            <Route path={URLS.CONTACT_PAGE} element={<Contact />} />
+          </Route>
 
-        <Route path={URLS.MEASURE} element={<Measure />} />
-        <Route path="*" element={<ErrorPage />} />
-      </Routes>
-    </div>
+          <Route path={URLS.MEASURE} element={<Measure />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+      </div>
+    </BusinessLogicProvider>
   );
 }
 

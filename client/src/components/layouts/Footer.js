@@ -5,7 +5,7 @@ import "../../assets/styles/footer.scss"
 
 const Footer = () => {
   return (
-    <footer className="footer-container"> 
+    <footer className="footer-container">
       <ul className="ft-link">
           {
             footerLink &&

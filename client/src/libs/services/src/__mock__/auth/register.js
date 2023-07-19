@@ -30,8 +30,6 @@ axiosMockAdapterInstance
       accounts.push({
         id: accounts.length + 1 + "",
         email: data.email,
-        firstName: data.firstName,
-        lastName: data.lastName,
         password: data.password
       });
       return [

@@ -1,8 +1,9 @@
 @import './mixin';
 
 .authen {
-    margin: 100px 0;
+    margin-top: 100px;
     .authen__form-wrapper {
+        margin-bottom: 100px;
         // direction - justify content - align items - flex wrap
         @include dflex(row, space-between, flex-start, nowrap);
         gap: 45px;
@@ -38,6 +39,10 @@
                         background-color: var(--butterfly-bush);
                         color: white;
                         opacity: 0.9;
+                    }
+                    &:disabled {
+                        cursor: not-allowed;
+                        pointer-events: none;
                     }
                 }
                 a {

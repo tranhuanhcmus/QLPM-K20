@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef } from "react";
 import { BROADCAST_CHANNEL, BROADCAST_MESSAGE } from "../../constants";
 import { getIsRememberMeLocalStorage } from "../helper/localStorageHelper";
 import { useAccessToken } from "./useAccessToken";
-import { authConfig } from "libs/business-logic/src/configs";
+import { authConfig } from "../../../../configs";
 
 export const useAuthBroadcastChannel = () => {
   const bc = useRef(null);

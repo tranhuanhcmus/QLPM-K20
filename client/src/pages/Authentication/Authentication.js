@@ -4,6 +4,14 @@ import { useForm, Controller } from 'react-hook-form';
 import { isValidEmail } from '../../utils/validators/email.validator';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
+import { 
+    useLogin,
+    useRegister, 
+    useGoogleLogin, 
+    useFacebookLogin 
+} from '../../libs/business-logic/src/lib/auth'
+import { isAxiosError } from "../../libs/services/src";
+import lineIcon from '../../assets/images/graphics/review-decor.png';
 
 const Authentication = () => {
     const loginForm = useForm({
@@ -20,11 +28,49 @@ const Authentication = () => {
         }
     });
 
+    const { onLogin, isLoading: isLoginLoading } = useLogin();
+    const { onRegister, isLoading: isRegisterLoading } = useRegister();
+    const { onGoogleLogin } = useGoogleLogin(); // Add isLoading if needed
+    const { onFacebookLogin } = useFacebookLogin(); // Add isLoading if needed
+
     const onLoginFormSubmit = ({email, password, isRememberMe}) => {
-        console.log("Login: ")
+        onLogin({
+            isRememberMe,
+            account: { email, password }
+        })
+        .then((res) => {
+            if (res.statusCode === 200) {
+                toast.success(res.message)
+            }
+            else {
+                console.error(res.message)
+            }
+        })
+        .catch((err) => {
+            if (isAxiosError(err) && err.response && err.response.status === 401) {
+                toast.error("Wrong email or password");
+            } else {
+                console.error("Login error:", err);
+            }
+        });
     }
     const onRegisterFormSubmit = ({email, password}) => {
-        console.log("Register: ")
+        onRegister({email, password})
+        .then((res) => {
+            if (res.statusCode === 200) {
+                toast.success(res.message)
+            }
+            else {
+                console.error(res.message)
+            }
+        })
+        .catch((err) => {
+            if (isAxiosError(err) && err.response && err.response.status === 409) {
+                toast.error("Email is exist");
+            } else {
+                console.error("Register in component:", err);
+            }
+        });
     }
     const onErrorSubmitLogin = (error) => {
         toast.error(error[Object.keys(error)[0]].message);
@@ -50,11 +96,11 @@ const Authentication = () => {
                             noValidate
                         >
                             <div className="login-form__social-wrapper">
-                                <button>
+                                <button type='button' onClick={onFacebookLogin}>
                                     <i className="fi fi-brands-facebook"></i>
                                     Login with Facebook
                                 </button>
-                                <button>
+                                <button type='button' onClick={onGoogleLogin}>
                                     <i className="fi fi-brands-google"></i>
                                     Login with Google
                                 </button>
@@ -108,8 +154,8 @@ const Authentication = () => {
                                 />
                             </div>
                             <div className="login-form__interact">
-                                <button type='submit'>
-                                    Login
+                                <button type='submit' disabled={isLoginLoading}>
+                                    {isLoginLoading ? 'Wait a second' : 'Login'}
                                 </button>
                                 <Controller
                                     name="isRememberMe"
@@ -180,20 +226,23 @@ const Authentication = () => {
                                             message: "This field is required"
                                         },
                                         validate: {
-                                            matchPattern: (v) => v.length > 6 ||
+                                            matchPattern: (v) => v.length >= 6 ||
                                             "Password must be at least 6 characters long"
                                         }
                                     }}
                                 />
                             </div>
                             <div className="register-form__interact">
-                                <button type='submit'>
-                                    register
+                                <button type='submit' disabled={isRegisterLoading}>
+                                    {isRegisterLoading ? 'Wait a second' : 'Register'}
                                 </button>
                             </div>
                         </form>
                     </div>
                 </section>
+            </div>
+            <div className="custom-line-template">
+                <img src={lineIcon} alt="lineIcon" />
             </div>
         </main>
     );

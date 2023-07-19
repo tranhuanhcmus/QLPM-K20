@@ -103,7 +103,7 @@ const Home = () => {
             </section>
             <section className="home__review">
                 <div className="container">
-                    <div className="home__custom-line">
+                    <div className="custom-line-template">
                         <img src={lineIcon} alt="lineIcon" />
                     </div>
                     <div className="title-template">
@@ -133,7 +133,7 @@ const Home = () => {
                         ))}
                     </div>
                     
-                    <div className="home__custom-line">
+                    <div className="custom-line-template">
                         <img src={lineIcon} alt="lineIcon" />
                     </div>
                 </div>

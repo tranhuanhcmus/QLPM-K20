@@ -175,7 +175,7 @@ $header-height: 70px;
         .title-template {
             padding: 100px 0;
         }
-        .home__custom-line {
+        .custom-line-template {
             &:nth-child(1) {
                 top: 0;
             }
@@ -233,28 +233,6 @@ $header-height: 70px;
                     }
                 }
             }
-        }
-    }
-    .home__custom-line {
-        width: 1200px;
-        margin: 0 auto;
-        position: absolute;
-        left: 50%;
-        transform: translate(-50%, 0);
-        -webkit-transform: translate(-50%, 0);
-        border-top: dashed 3px #7e7e7e;
-        height: 2px;
-        text-align: center;
-
-        img {
-            max-width: 100%;
-            height: auto;
-            display: inline-block;
-            vertical-align: middle;
-            transform: translate(0, -50%);
-            -webkit-transform: translate(0, -50%);
-            background-color: white;
-            padding: 0 10px;
         }
     }
 }

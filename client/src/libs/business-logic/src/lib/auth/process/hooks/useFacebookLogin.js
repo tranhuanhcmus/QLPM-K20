@@ -46,6 +46,9 @@ export const useFacebookLogin = () => {
                     console.error("Get fb access token error: ", error);
                     facebookPopupPostMessage(FACEBOOK_MESSAGE.FACEBOOK_LOGIN_FAILED, {});
                 })
+                .finally(() => {
+                    window.close();
+                })
             }
         }
     });
@@ -80,8 +83,6 @@ export const useFacebookLogin = () => {
                             updateAccountMutation
                                 .mutateAsync({
                                     email: res.email,
-                                    firstName: res.firstName,
-                                    lastName: res.lastName
                                 })
                                 .then(res => {
                                     if (!res) {
@@ -99,14 +100,12 @@ export const useFacebookLogin = () => {
                             // Remove listener
                             window.removeEventListener('message', handleAuthentication);
                             setIsLoading(false);
-                            authWindow?.close();
                         })
                     } else if (type === FACEBOOK_MESSAGE.FACEBOOK_LOGIN_FAILED) {
                         console.error("Fail facebook login")
                         // Remove listener
                         window.removeEventListener('message', handleAuthentication);
                         setIsLoading(false);
-                        authWindow?.close();
                     }
                 };
                 // Assign listener to listen to messages from popup

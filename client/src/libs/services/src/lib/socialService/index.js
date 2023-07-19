@@ -57,9 +57,7 @@ export class SocialService extends Services {
             if (response.status === 200) {
                 const userProfile = response.data;
                 return {
-                    email: userProfile.emailAddresses[0].value,
-                    firstName: userProfile.names[0].familyName,
-                    lastName: userProfile.names[0].givenName
+                    email: userProfile.emailAddresses[0].value
                 };
             } else {
                 throw new Error('Error fetching user profile');
@@ -72,9 +70,7 @@ export class SocialService extends Services {
             }
         }
         return {
-            email: "",
-            firstName: "",
-            lastName: ""
+            email: ""
         };
     };
     updateAccount = async (data) => {
@@ -155,9 +151,7 @@ export class SocialService extends Services {
             }
         }
         return {
-            email: "",
-            firstName: "",
-            lastName: ""
+            email: ""
         }
     };
 }

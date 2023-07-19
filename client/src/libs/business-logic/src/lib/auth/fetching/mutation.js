@@ -1,4 +1,4 @@
-import { AuthService, SocialService } from "../../../../../services";
+import { AuthService, SocialService } from "../../../../../services/src";
 import { useMutation } from "@tanstack/react-query";
 import { MUTATION_CONFIG } from "../constants";
 

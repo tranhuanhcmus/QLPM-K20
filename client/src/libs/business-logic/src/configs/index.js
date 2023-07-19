@@ -1,5 +1,4 @@
 import { AuthProvider } from "../lib/auth/process/provider";
-import { CartProvider } from "../lib/cart/process/provider";
 
 export const authConfig = {
   isNeedRefreshToken: true,
@@ -12,13 +11,7 @@ export const providerConfig = [
     provider: AuthProvider,
     isActive: true,
     isNeedAccessToken: false,
-  },
-  {
-    key: "cart",
-    provider: CartProvider,
-    isActive: true,
-    isNeedAccessToken: true
-  },
+  }
 ];
 
 export const googleConfig = {

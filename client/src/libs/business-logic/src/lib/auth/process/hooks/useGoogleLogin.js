@@ -5,7 +5,7 @@ import { useAccessToken } from './useAccessToken';
 import {
     SocialService,
     isAxiosError
-} from "@org/services"
+} from "../../../../../../services/src"
 import { useUpdateAccountMutation } from '../../fetching/mutation';
 import { googlePopupPostMessage } from '../helper/windowEventHelper';
 import { getTokenFromUrl } from '../helper/urlSearchParamsHelper';
@@ -47,12 +47,16 @@ export const useGoogleLogin = () => {
                         console.error(err);
                         googlePopupPostMessage(GOOGLE_MESSAGE.GOOGLE_LOGIN_FAILED, {});
                     })
+                    .finally(() => {
+                        window.close();
+                    })
             } else if (error) {
                 // Send unsuccessful login message to the original tab
                 googlePopupPostMessage(GOOGLE_MESSAGE.GOOGLE_LOGIN_FAILED, {});
+                window.close();
             }
-        };
-    });
+        }
+    }, []);
 
     const onGoogleLogin = () => {
         setIsLoading(true);
@@ -78,9 +82,7 @@ export const useGoogleLogin = () => {
                                 // Update account on server
                                 updateAccountMutation
                                     .mutateAsync({
-                                        email: data.email,
-                                        firstName: data.firstName,
-                                        lastName: data.lastName
+                                        email: data.email
                                     })
                                     .then(res => {
                                         if (!res) {
@@ -100,14 +102,12 @@ export const useGoogleLogin = () => {
                                 // Remove listener
                                 window.removeEventListener('message', handleAuthentication);
                                 setIsLoading(false);
-                                authWindow?.close();
                             })
                     } else if (type === GOOGLE_MESSAGE.GOOGLE_LOGIN_FAILED) {
                         console.error('Error during Google login:', payload.error);
                         // Remove listener
                         window.removeEventListener('message', handleAuthentication);
                         setIsLoading(false);
-                        authWindow?.close();
                     }
                 };
                 // Assign listener to listen to messages from popup
