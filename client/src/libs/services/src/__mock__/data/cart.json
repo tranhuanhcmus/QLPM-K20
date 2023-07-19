@@ -1,0 +1,51 @@
+[
+    {
+        "items": [
+            {
+                "item": {
+                    "id": "1",
+                    "name": "Front of men's Basic Tee in black.",
+                    "href": "#",
+                    "imageSrc": "/assets/images/CommonGoodLaundrySoap.webp",
+                    "imageAlt": "Front of men's Basic Tee in black.",
+                    "price": 35,
+                    "color": "Black",
+                    "description": "Here's a three tiered wire basket to clean up your countertop and elevate your storage space. Display a selection of fresh fruit to encourage healthy snacking: pile it high and watch it fly. Can also be used as a caddy for dinner time fixings. Gather up a nice display of baked buns or cupcakes and usher them off to the table with the handy carry ring at the top.",
+                    "measures": "Measures 63 x 30 cm/25 x 12 in",
+                    "wishlist": false
+                },
+                "quantity": 1
+            },
+            {
+                "item": {
+                    "id": "2",
+                    "name": "Product 2",
+                    "href": "#",
+                    "imageSrc": "/assets/images/CommonGoodLaundrySoap.webp",
+                    "imageAlt": "Product 2",
+                    "price": 50,
+                    "color": "Red",
+                    "description": "Description for product 2",
+                    "measures": "Measures 50 x 20 cm/20 x 8 in",
+                    "wishlist": false
+                },
+                "quantity": 1
+            },
+            {
+                "item": {
+                    "id": "3",
+                    "name": "Product 3",
+                    "href": "#",
+                    "imageSrc": "/assets/images/CommonGoodLaundrySoap.webp",
+                    "imageAlt": "Product 3",
+                    "price": 60,
+                    "color": "Blue",
+                    "description": "Description for product 3",
+                    "measures": "Measures 40 x 10 cm/16 x 4 in",
+                    "wishlist": false
+                },
+                "quantity": 1
+            }
+        ]
+    }
+]

@@ -1,9 +1,10 @@
 import React from 'react';
-import "../../assets/styles/_header.scss";
+import "../../assets/styles/header.scss";
 import logoImage from "../../assets/images/logos/sc-non.png";
 import TextHoverDropdown from '../common/textHoverDropdown';
 import { Link } from 'react-router-dom';
 import { listTextContentHeader } from '../../assets/constant';
+import { URLS } from '../../constants/urls';
 
 const Header = () => {
 
@@ -19,7 +20,7 @@ const Header = () => {
                 </div> 
                 <Link to="#">  How to Order</Link>
                 <Link to="/measure">How to measure</Link> 
-                <Link to="#">My account</Link>
+                <Link to={URLS.AUTHEN}>My account</Link>
             </div>
 
             <div className=' header__user-select-nav ' >  
