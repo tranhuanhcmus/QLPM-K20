@@ -1,4 +1,3 @@
-
 // Mixin dflex
 // // $dir: the direction of the flexbox (row, column)
 // // $jcontent: how to align items along the main axis (center, flex-start, flex-end, space-between, space-around)
@@ -18,7 +17,7 @@
 // $row: the number of rows in the grid
 // $gap: the gap between grid items
 //Usage: @include dgrid(1fr 1fr 1fr, auto auto, 10px);
-@mixin dgrid($column, $row, $gap) {
+@mixin dgrid($column, $row, $gap: null) {
     display: grid;
     grid-template-columns: $column;
     grid-template-rows: $row;
@@ -48,13 +47,10 @@
     border: $bder;
     border-radius: $bradius;
     outline: none;
-
     background-color: $bg_color;
     color: $color;
-
     padding: $pding;
     font-size: $fsize;
     white-space: nowrap;
     transition: all 0.2s ease;
 }
-

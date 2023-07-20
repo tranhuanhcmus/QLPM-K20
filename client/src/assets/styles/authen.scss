@@ -1,0 +1,154 @@
+@import './mixin';
+
+.authen {
+    margin-top: 100px;
+    .authen__form-wrapper {
+        margin-bottom: 100px;
+        // direction - justify content - align items - flex wrap
+        @include dflex(row, space-between, flex-start, nowrap);
+        gap: 45px;
+        .form-wrapper__login-form-wrapper,
+        .form-wrapper__register-form-wrapper {
+            h6 {
+                opacity: 0.6;
+                margin-bottom: 1rem;
+            }
+            form {
+                border: 1px solid var(--quill-grey);
+                border-radius: 10px;
+                padding: 20px;
+                input[type="email"],
+                input[type="password"] {
+                    min-width: 400px;
+                    height: 40px;
+                    margin-bottom: 1rem;
+                    outline: none;
+                    padding: 0 20px;
+
+                    &:hover {
+                        border: 2px solid var(--butterfly-bush);
+                    }
+                }
+                button[type="submit"] {
+                    text-transform: capitalize;
+                    opacity: 0.7;
+                    @include normal-btn(none, 5px, var(--quill-grey), black, 10px 20px, 0.75rem);
+                    margin-bottom: 1rem;
+
+                    &:hover {
+                        background-color: var(--butterfly-bush);
+                        color: white;
+                        opacity: 0.9;
+                    }
+                    &:disabled {
+                        cursor: not-allowed;
+                        pointer-events: none;
+                    }
+                }
+                a {
+                    color: var(--butterfly-bush);
+                    font-size: 0.75rem;
+                    font-weight: 600;
+                }
+            }
+        }
+
+        .form-wrapper__login-form-wrapper {
+            flex-shrink: 1;
+            .form-wrapper__login-form {
+                .login-form__social-wrapper {
+                    margin-bottom: 1rem;
+                    // direction - justify content - align items - flex wrap
+                    @include dflex(row, space-between, flex-start, nowrap);
+                    gap: 0.5rem;
+                    button {
+                        padding: 10px 30px;
+                        border: 1px solid var(--butterfly-bush);
+                        border-radius: 5px;
+                        color: var(--butterfly-bush);
+                        background-color: white;
+                        white-space: nowrap;
+                        i {
+                            margin-right: 0.75rem;
+                        }
+                    }
+                }
+                .login-form__email,
+                .login-form__password {
+                    // direction - justify content - align items - flex wrap
+                    @include dflex(column, flex-start, flex-start, nowrap);
+                    input {
+                        width: calc(100% - 40px);
+                    }
+                    label {
+                        margin-bottom: 0.5rem;
+                        font-weight: 600;
+                        font-size: 0.75rem;
+                    }
+                }
+                .login-form__interact {
+                    margin-bottom: 1rem;
+                    // direction - justify content - align items - flex wrap
+                    @include dflex(row, flex-start, center, nowrap);
+                    button {
+                        margin: 0 1rem 0 0;
+                    }
+                    label {
+                        // direction - justify content - align items - flex wrap
+                        @include dflex(row, flex-start, center, nowrap);
+                        input {
+                            width: 20px;
+                            height: 20px;
+                            margin-right: 0.5rem;
+                        }
+                        span {
+                            font-size: 0.75rem;
+                            font-weight: 600;
+                            opacity: 0.8;
+                        }
+                    }
+                }
+                
+            }
+        }
+        .form-wrapper__register-form-wrapper {
+            flex-grow: 1;
+            .form-wrapper__register-form {
+                .register-form__social-wrapper {
+                    margin-bottom: 1rem;
+                    // direction - justify content - align items - flex wrap
+                    @include dflex(row, space-between, flex-start, nowrap);
+                    gap: 0.5rem;
+                    button {
+                        padding: 10px 30px;
+                        border: 1px solid var(--butterfly-bush);
+                        border-radius: 5px;
+                        color: var(--butterfly-bush);
+                        background-color: white;
+                        white-space: nowrap;
+                        i {
+                            margin-right: 0.75rem;
+                        }
+                    }
+                }
+                .register-form__email,
+                .register-form__password {
+                    // direction - justify content - align items - flex wrap
+                    @include dflex(column, flex-start, flex-start, nowrap);
+                    input {
+                        width: calc(100% - 40px);
+                    }
+                    label {
+                        margin-bottom: 0.5rem;
+                        font-weight: 600;
+                        font-size: 0.75rem;
+                    }
+                }
+                .register-form__interact {
+                    // direction - justify content - align items - flex wrap
+                    @include dflex(row, flex-start, flex-start, nowrap);
+                }
+            }
+        }
+    }
+}

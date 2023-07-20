@@ -1,0 +1,32 @@
+@import './mixin';
+
+.footer-container{
+    width: 100%;
+    background-color: white;
+    padding: 40px 20px 0px 20px;
+
+    ul{
+        margin:  30px 0px;
+    }
+    .ft-contact{
+        @include dgrid(repeat(4,1fr), auto, 10px);
+        .ft-contact-logo{
+            width: 20%;
+        }
+    }
+    .ft-copyright{
+        text-align: center;
+    }
+    .ft-link{
+        @include dgrid(repeat(4,1fr), auto);
+
+        .ft-link-item{
+            display: flex;
+            flex-direction: column;
+            gap : 10px; 
+        }
+        i{
+            margin-right: 15px;
+        }
+    }
+}
