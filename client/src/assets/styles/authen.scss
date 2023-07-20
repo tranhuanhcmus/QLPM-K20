@@ -151,4 +151,91 @@
             }
         }
     }
+    .authen__infor-wrapper {
+        // direction - justify content - align items - flex wrap
+        @include dflex(row, space-between, flex-start, nowrap);
+        margin-bottom: 100px;
+        gap: 45px;
+        .infor-wrapper__nav {
+            flex-shrink: 1;
+            width: 300px;
+            li {
+                button {
+                    @include normal-btn(none, 0, var(--heavy-white-smoke), rgba($color: black, $alpha: 0.6), 20px 0px 20px 20px, 0.75rem);
+                    width: 100%;
+                    text-align: left;
+                    font-weight: 500;
+                    border-bottom: 1.5px solid var(--dirty-orange);
+                    opacity: 0.7;
+                    &.active,
+                    &:hover {
+                        opacity: 1;
+                        background-color: var(--dirty-orange);
+                        color: white;
+                        font-weight: 600;
+                        border-bottom: 1.5px solid white;
+                    }
+                }
+            }
+        }
+        .infor-wrapper__measures {
+            flex-grow: 1;
+            .measures__row {
+                // direction - justify content - align items - flex wrap
+                @include dflex(row, space-between, center, nowrap);
+                gap: 15px;
+                margin-bottom: 15px;
+                .row-input__wrapper {
+                    width: 100%;
+                    label {
+                        text-transform: capitalize;
+                        font-size: 0.75rem;
+                        font-weight: 600;
+                        opacity: 0.6;
+                    }
+                    .row__input {
+                        width: 100%;
+                        position: relative;
+                        border: 1px solid var(--quill-grey);
+                        input {
+                            width: 50px;
+                            height: 100%;
+                            border: none;
+                            outline: none;
+                            font-family: Monserrat;
+                            padding: 15px 30px;
+                        }
+                        span {
+                            position: absolute;
+                            top: 50%;
+                            left: 30px;
+                            transform: translateY(-50%);
+                            opacity: 0.5;
+                            font-size: 0.875rem;
+                            text-transform: capitalize;
+                        }
+                    }
+                }
+                
+                &:nth-child(1),
+                &:nth-child(2) {
+                    .row-input__wrapper {
+                        .row__input {
+                            input {
+                                width: calc(100% - 60px);
+                            }
+                        }
+                    }
+                }
+            }
+
+            .measures__submit {
+                text-align: center;
+                margin-top: 50px;
+                button {
+                    @include normal-btn(none, 5px, var(--dirty-orange), white, 15px 30px, 0.75rem);
+                }
+            }
+        }
+    }
 }
