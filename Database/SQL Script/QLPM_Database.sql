@@ -30,7 +30,9 @@ Create table BodyMeasurement (
 	BottomOfPants DECIMAL(10, 2),
 	Thigh DECIMAL(10, 2),
 	PantsLength DECIMAL(10, 2),
-	PantsCircumference DECIMAL(10, 2)
+	PantsCircumference DECIMAL(10, 2),
+    weight DECIMAL(10, 2),
+    Point int
 );
 
 -- --------------------------
@@ -236,7 +238,8 @@ Create table Collection (
     Jacket int,
     Vest int,
     Pants int,
-    Rate tinyint
+    Rate tinyint,
+    Theme varchar(150) character set utf8mb4
 );
 
 -- -----------------------------------

@@ -1,12 +1,15 @@
 global using SunriseServerCore.Models;
 global using SunriseServerData;
 using SunriseServer.Services.AccountService;
+using SunriseServer.Services.JacketService;
 using Microsoft.OpenApi.Models;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Swashbuckle.AspNetCore.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using MySql;
+using Pomelo.EntityFrameworkCore.MySql;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +20,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IJacketService, JacketService>();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddLogging();
 builder.Services.AddSwaggerGen(options =>
 {
     options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
@@ -49,7 +54,10 @@ builder.Services.AddCors(options => options.AddPolicy(name: "NgOrigins",
     }));
 
 builder.Services.AddServicesData();
-builder.Services.AddUnitOfWork(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Sunrise")));
+
+builder.Services.AddUnitOfWork(options => options.UseMySql(builder.Configuration.GetConnectionString("Sunrise"), new MySqlServerVersion(new Version())));
+
+//builder.Services.AddUnitOfWork(options => options.UseMySql(builder.Configuration.GetConnectionString("Sunrise")));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

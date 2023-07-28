@@ -31,6 +31,32 @@ namespace SunriseServerData
         }
         #endregion
 
+        #region Jacket
+        private IJacketRepo _jacketRepo;
+        public IJacketRepo JacketRepo
+        {
+            get
+            {
+                if (_jacketRepo == null)
+                    _jacketRepo = new JacketRepo(_dataContext);
+                return _jacketRepo;
+            }
+        }
+        #endregion
+
+        #region Product
+        private IProductRepo _productRepo;
+        public IProductRepo ProductRepo
+        {
+            get
+            {
+                if (_productRepo == null)
+                    _productRepo = new ProductRepo(_dataContext);
+                return _productRepo;
+            }
+        }
+        #endregion
+
         public async Task<bool> SaveChangesAsync()
         {
             using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))

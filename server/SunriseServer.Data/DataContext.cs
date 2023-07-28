@@ -1,6 +1,7 @@
 ﻿global using Microsoft.EntityFrameworkCore;
-using Microsoft.Data.SqlClient;
+//using Microsoft.Data.SqlClient;
 using SunriseServerCore.Models;
+using SunriseServerCore.Models.Clothes;
 using System;
 
 namespace SunriseServerData
@@ -25,6 +26,10 @@ namespace SunriseServerData
         }
 
         public DbSet<Account> Account { get; set; }
+        public DbSet<Jacket> Jacket { get; set; }
+        public DbSet<Product> Product { get; set; }
+        //public DbSet<Fabric> Fabric { get; set; }
+
         public DbSet<BookingAccount> Booking_Account { get; set; }
     }
 }
