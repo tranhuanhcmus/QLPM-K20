@@ -44,6 +44,20 @@ namespace SunriseServerData
         }
         #endregion
 
+
+        #region Vest
+        private IVestRepo _vestRepo;
+        public IVestRepo VestRepo
+        {
+            get
+            {
+                if (_vestRepo == null)
+                    _vestRepo = new VestRepo(_dataContext);
+                return _vestRepo;
+            }
+        }
+        #endregion
+
         #region Product
         private IProductRepo _productRepo;
         public IProductRepo ProductRepo

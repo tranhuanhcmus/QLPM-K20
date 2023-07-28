@@ -31,8 +31,10 @@
 
   <ItemGroup>
     <None Remove="Services\JacketService\" />
+    <None Remove="Services\VestService\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\JacketService\" />
+    <Folder Include="Services\VestService\" />
   </ItemGroup>
 </Project>

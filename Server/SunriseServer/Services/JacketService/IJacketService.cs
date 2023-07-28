@@ -11,7 +11,7 @@ namespace SunriseServer.Services.JacketService
         List<Jacket> GetAll();
         List<JacketProduct> GetAllSpecial();
         Task<Jacket> AddJacket(Jacket jk);
-        Task<Jacket> GetJacketByName(string jacketname);
+        List<JacketProduct> GetJacketByName(string jacketname);
         Task<Jacket> GetJacketById(int id);
         Task<Jacket> UpdateJacket(Jacket jk);
         Task<Jacket> GetJacketByCategory(string cate);

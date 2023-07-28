@@ -489,3 +489,6 @@ ALTER TABLE BodyMeasurement
 		FOREIGN KEY (Customer) REFERENCES Account (AccountID)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE;
+        
+-- Full text search
+ALTER TABLE Product ADD FULLTEXT INDEX idx_name_description (Name, Description);

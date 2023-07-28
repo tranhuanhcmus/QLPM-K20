@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Bcpg;
 using SunriseServerCore.Common.Helper;
 using SunriseServerCore.Models;
 using SunriseServerCore.Models.Clothes;
@@ -26,17 +27,25 @@ namespace SunriseServerData.Repositories
             return result.FirstOrDefault();
         }
 
-        public async Task<Jacket> GetByName(string name)
+        public List<JacketProduct> GetByName(string name)
         {
-            var result = await _dataContext.Jacket.ToListAsync();
-            return result.FirstOrDefault();
+            var product = _dataContext.Product.FromSqlRaw("CALL usp_SearchProduct({0})", name).ToList();
+
+            var allJacket = product.Join(_dataContext.Jacket,
+                p => p.ProductID,
+                j => j.JacketId,
+                (products, jacket) => new JacketProduct
+                {
+                    JacketData = jacket,
+                    ProductData = products
+                }).ToList();
+
+            return allJacket;
         }
 
         public override async Task<Jacket> GetByIdAsync(int id)
         {
             var builder = new StringBuilder($"dbo.USP_GetAccountById @Id = \'{id}\';");
-
-            Console.WriteLine(builder.ToString());
             var result = await _dataContext.Jacket.FromSqlInterpolated($"EXECUTE({builder.ToString()})").ToListAsync();
             return result.FirstOrDefault();
         }

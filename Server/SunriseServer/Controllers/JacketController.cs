@@ -21,7 +21,7 @@ namespace SunriseServer.Controllers
         }
 
 
-        [HttpGet("All-jacket")]
+        [HttpGet("All-Jacket")]
         public ActionResult<JacketProduct> GetAll()
         {
             var result = _jacketService.GetAllSpecial();
@@ -35,7 +35,16 @@ namespace SunriseServer.Controllers
             return Ok(result);
         }
 
-        // get by id
+        // get by name
+        [HttpGet("{name}")]
+        public ActionResult<JacketProduct> GetJacketByNameOrDescription(string name)
+        {
+            var result =  _jacketService.GetJacketByName(name);
+            if (result is null)
+                return NotFound("Jacket not found");
+
+            return Ok(result);
+        }
         // get by category ??
         // insert one - just for admin
 

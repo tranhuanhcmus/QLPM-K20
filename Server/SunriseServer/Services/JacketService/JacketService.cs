@@ -35,10 +35,11 @@ namespace SunriseServer.Services.JacketService
             return await _unitOfWork.JacketRepo.CreateAsync(jk);
 
         }
-        public async Task<Jacket> GetJacketByName(string jacketname)
+        public List<JacketProduct> GetJacketByName(string jacketname)
         {
-            return  null;
+            return _unitOfWork.JacketRepo.GetByName(jacketname);
         }
+
         public async Task<Jacket> GetJacketById(int id)
         {
             return null;
