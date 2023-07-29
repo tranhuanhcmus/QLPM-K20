@@ -10,7 +10,8 @@ namespace SunriseServer.Services.JacketService
         //asynchronous operation that produces a result of Jacket type
         List<Jacket> GetAll();
         List<JacketProduct> GetAllSpecial();
-        Task<Jacket> AddJacket(Jacket jk);
+        bool AddJacket(Product p, string Style,
+                   string fit, string lapel, string pocket, string sleeveButton, string backStyle, string breastPocket);
         List<JacketProduct> GetJacketByName(string jacketname);
         Task<Jacket> GetJacketById(int id);
         Task<Jacket> UpdateJacket(Jacket jk);

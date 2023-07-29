@@ -2,6 +2,9 @@ global using SunriseServerCore.Models;
 global using SunriseServerData;
 using SunriseServer.Services.AccountService;
 using SunriseServer.Services.JacketService;
+using SunriseServer.Services.VestService;
+using SunriseServer.Services.PantsService;
+
 using Microsoft.OpenApi.Models;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -21,6 +24,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IJacketService, JacketService>();
+builder.Services.AddScoped<IVestService,VestService>();
+builder.Services.AddScoped<IPantsService, PantsService>();
+
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddLogging();
 builder.Services.AddSwaggerGen(options =>

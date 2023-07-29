@@ -11,5 +11,11 @@ namespace SunriseServerCore.Models.Clothes
         public int VestID { get; set; }
         public int Style { get; set; }
         public int Type { get; set; }
+
+        public int Edge { get; set; }
+        public int Lapel { get; set; }
+        public int BreastPocket { get; set; }
+        public int FrontPocket { get; set; }
+
     }
 }

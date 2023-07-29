@@ -6,6 +6,9 @@ test area
 select * from Fabric;
 select * from Product;
 select * from Jacket;
+select * from Vest;
+select * from Pants;
+
 select * from JacketStyle;
 select * from JacketSleeveButton;
 
@@ -111,13 +114,112 @@ INSERT INTO JacketBreastPocket (Name, Image) VALUES
 ('Patched', 'Patched.jpg'),
 ('Patched X2', 'PatchedX2.jpg');
 
+-- Vest component
+-- Insert data into VestType with formatted Image names
+INSERT INTO VestType (Name, Image)
+VALUES
+    ('2 PIECE SUIT', '2PieceSuit.jpg'),
+    ('3 PIECE SUIT', '3PieceSuit.jpg');
+
+-- Insert data into VestStyle with formatted Image names
+INSERT INTO VestStyle (Name, Image)
+VALUES
+    ('SINGLE BREASTED 3 BUTTONS', 'SingleBreasted3Buttons.jpg'),
+    ('SINGLE BREASTED 4 BUTTONS', 'SingleBreasted4Buttons.jpg'),
+    ('SINGLE BREASTED 5 BUTTONS', 'SingleBreasted5Buttons.jpg'),
+    ('SINGLE BREASTED 6 BUTTONS', 'SingleBreasted6Buttons.jpg'),
+    ('DOUBLE BREASTED 4 BUTTONS', 'DoubleBreasted4Buttons.jpg'),
+    ('DOUBLE BREASTED 6 BUTTONS', 'DoubleBreasted6Buttons.jpg');
+
+-- Insert data into VestEdge with formatted Image names
+INSERT INTO VestEdge (Name, Image)
+VALUES
+    ('STRAIGHT', 'Straight.jpg'),
+    ('DIAGONAL', 'Diagonal.jpg'),
+    ('ROUNDED', 'Rounded.jpg');
+
+-- Insert data into VestLapel with formatted Image names
+INSERT INTO VestLapel (Name, Image)
+VALUES
+    ('WITHOUT LAPELS', 'WithoutLapels.jpg'),
+    ('NOTCHED', 'Notched.jpg'),
+    ('PEAK', 'Peak.jpg'),
+    ('SHAWL', 'Shawl.jpg');
+
+-- Insert data into VestBreastPocket with formatted Image names
+INSERT INTO VestBreastPocket (Name, Image)
+VALUES
+    ('Yes', 'Yes.jpg'),
+    ('No', 'No.jpg');
+
+-- Insert data into VestFrontPocket with formatted Image names
+INSERT INTO VestFrontPocket (Name, Image)
+VALUES
+    ('NO POCKETS', 'NoPockets.jpg'),
+    ('WELT POCKETS', 'WeltPockets.jpg'),
+    ('DOUBLE WELT', 'DoubleWelt.jpg'),
+    ('WITH FLAP', 'WithFlap.jpg'),
+    ('WELT POCKETS X3', 'WeltPocketsX3.jpg'),
+    ('DOUBLE WELT X3', 'DoubleWeltX3.jpg'),
+    ('WITH FLAPS X3', 'WithFlapsX3.jpg');
+
+
+-- Pants components
+-- Insert data into PantsFit with formatted Image names
+INSERT INTO PantsFit (Name, Image) VALUES
+    ('REGULAR FIT', 'RegularFit.jpg'),
+    ('SLIM FIT', 'SlimFit.jpg');
+
+-- Insert data into PantsPleats with formatted Image names
+INSERT INTO PantsPleats (Name, Image) VALUES
+    ('NO PLEATS', 'NoPleats.jpg'),
+    ('PLEATED', 'Pleated.jpg'),
+    ('DOUBLE PLEATS', 'DoublePleats.jpg');
+
+-- Insert data into PantsFastening with formatted Image names
+INSERT INTO PantsFastening (Name, Image) VALUES
+    ('CENTERED', 'Centered.jpg'),
+    ('DISPLACED', 'Displaced.jpg'),
+    ('NO BUTTON', 'NoButton.jpg'),
+    ('OFF-CENTERED: BUTTONLESS', 'OffCenteredButtonless.jpg');
+
+-- Insert data into PantsCuff with formatted Image names
+INSERT INTO PantsCuff (Name, Image) VALUES
+    ('NO PANT CUFFS', 'NoPantCuffs.jpg'),
+    ('WITH PANT CUFFS', 'WithPantCuffs.jpg');
+
+-- Insert data into PantsPocket with formatted Image names
+INSERT INTO PantsPocket (Name, Image) VALUES
+    ('SIDE POCKETS DIAGONAL', 'SidePocketsDiagonal.jpg'),
+    ('SIDE POCKETS VERTICAL', 'SidePocketsVertical.jpg'),
+    ('SIDE POCKETS ROUNDED', 'SidePocketsRounded.jpg'),
+    ('BACK POCKETS NO POCKETS', 'BackPocketsNoPockets.jpg'),
+    ('BACK POCKETS DOUBLE-WELTED POCKET WITH BUTTON', 'BackPocketsDoubleWeltedWithButton.jpg'),
+    ('BACK POCKETS PATCHED', 'BackPocketsPatched.jpg'),
+    ('BACK POCKETS FLAP POCKETS', 'BackPocketsFlapPockets.jpg'),
+    ('BACK POCKETS DOUBLE-WELTED POCKET WITH BUTTON X2', 'BackPocketsDoubleWeltedWithButtonX2.jpg'),
+    ('BACK POCKETS PATCHED X2', 'BackPocketsPatchedX2.jpg'),
+    ('BACK POCKETS FLAP POCKETS X2', 'BackPocketsFlapPocketsX2.jpg');
+
 
 -- Insert 7 rows into the Product and Jacket tables using the procedure
-CALL InsertJacket(65.0, 'jacket1.jpg', 'Jacket 1', 'Description for Jacket 1', 10, 1, 'Cotton', 'White', 'Type 1', 'Single-Breasted 1 Button', 'Slim Fit', 'Notch', '1', 'No Pockets', 'Ventless', 'No');
-CALL InsertJacket(80.0, 'jacket2.jpg', 'Jacket 2', 'Description for Jacket 2', 20, 2, 'Silk', 'Pink', 'Type 2', 'Single-Breasted 2 Buttons', 'Regular', 'Peak', '2', 'With Flap', 'Center Vent', 'Yes');
-CALL InsertJacket(90.0, 'jacket3.jpg', 'Jacket 3', 'Description for Jacket 3', 15, 3, 'Linen', 'Beige', 'Type 3', 'Single-Breasted 3 Buttons', 'Regular', 'Shawl', '3', 'Double-Welted', 'Side Vents', 'No');
-CALL InsertJacket(140.0, 'jacket4.jpg', 'Jacket 4', 'Description for Jacket 4', 30, 4, 'Polyester', 'Black', 'Type 4', 'Double-Breasted 2 Buttons', 'Slim Fit', 'Standard', '2', 'With Flap X3', 'Center Vent', 'No');
-CALL InsertJacket(180.0, 'jacket5.jpg', 'Jacket 5', 'Description for Jacket 5', 25, 5, 'Wool', 'Grey', 'Type 5', 'Double-Breasted 4 Buttons', 'Regular', 'Standard', '4', 'Double-Welted X3', 'Side Vents', 'Yes');
+CALL usp_InsertJacket(65.0, 'jacket1.jpg', 'Jacket 1', 'Description for Jacket 1', 10, 'Cotton', 'White', 'Type 1', 'Single-Breasted 1 Button', 'Slim Fit', 'Notch', '1', 'No Pockets', 'Ventless', 'No');
+CALL usp_InsertJacket(80.0, 'jacket2.jpg', 'Jacket 2', 'Description for Jacket 2', 20, 'Silk', 'Pink', 'Type 2', 'Single-Breasted 2 Buttons', 'Regular', 'Peak', '2', 'With Flap', 'Center Vent', 'Yes');
+CALL usp_InsertJacket(90.0, 'jacket3.jpg', 'Jacket 3', 'Description for Jacket 3', 15, 'Linen', 'Beige', 'Type 3', 'Single-Breasted 3 Buttons', 'Regular', 'Shawl', '3', 'Double-Welted', 'Side Vents', 'No');
+CALL usp_InsertJacket(140.0, 'jacket4.jpg', 'Jacket 4', 'Description for Jacket 4', 30, 'Polyester', 'Black', 'Type 4', 'Double-Breasted 2 Buttons', 'Slim Fit', 'Standard', '2', 'With Flap X3', 'Center Vent', 'No');
+CALL usp_InsertJacket(180.0, 'jacket5.jpg', 'Jacket 5', 'Description for Jacket 5', 25, 'Wool', 'Grey', 'Type 5', 'Double-Breasted 4 Buttons', 'Regular', 'Standard', '4', 'Double-Welted X3', 'Side Vents', 'Yes');
+CALL usp_InsertJacket(280.0, 'jacket6.jpg', 'Jacket 6', 'This is super jacket 6', 20, 'Wool', 'Black', 'Type 5', 'Double-Breasted 4 Buttons', 'Regular', 'Standard', '4', 'Double-Welted X3', 'Side Vents', 'Yes');
 update Jacket set SleeveButton = 1 where JacketID = 1;
 -- Repeat the CALL InsertJacket procedure with different data for the remaining jackets (up to 2 more times).
-
+-- Insert Vest data with components
+CALL usp_InsertVest(65.0, 'vest1.jpg', 'Vest 1', 'Description for Vest 1', 10, 'Cotton', 'White', 'Vest', 'SINGLE BREASTED 3 BUTTONS', '2 PIECE SUIT', 'WITHOUT LAPELS', 'STRAIGHT', 'Yes', 'NO POCKETS');
+CALL usp_InsertVest(80.0, 'vest2.jpg', 'Vest 2', 'Description for Vest 2', 20, 'Silk', 'Pink', 'Vest', 'SINGLE BREASTED 4 BUTTONS', '3 PIECE SUIT', 'NOTCHED', 'DIAGONAL', 'No', 'WELT POCKETS');
+CALL usp_InsertVest(90.0, 'vest3.jpg', 'Vest 3', 'Description for Vest 3', 15, 'Linen', 'Beige', 'Vest', 'SINGLE BREASTED 5 BUTTONS', '2 PIECE SUIT', 'PEAK', 'ROUNDED', 'Yes', 'DOUBLE WELT X3');
+CALL usp_InsertVest(140.0, 'vest4.jpg', 'Vest 4', 'Description for Vest 4', 30, 'Polyester', 'Black', 'Vest', 'DOUBLE BREASTED 4 BUTTONS', '3 PIECE SUIT', 'NOTCHED', 'STRAIGHT', 'No', 'WITH FLAPS X3');
+CALL usp_InsertVest(180.0, 'vest5.jpg', 'Vest 5', 'Description for Vest 5', 25, 'Wool', 'Grey', 'Vest', 'DOUBLE BREASTED 6 BUTTONS', '2 PIECE SUIT', 'SHAWL', 'ROUNDED', 'Yes', 'WITH FLAPS X3');
+-- Insert 5 rows using the stored procedure for Pants and Product
+CALL usp_InsertPants(65.0, 'pants1.jpg', 'Pants 1', 'Description for Pants 1', 10, 'Cotton', 'White', 'Pants', 'SIDE POCKETS DIAGONAL', 'REGULAR FIT', 'WITH PANT CUFFS', 'CENTERED', 'NO PLEATS');
+CALL usp_InsertPants(80.0, 'pants2.jpg', 'Pants 2', 'Description for Pants 2', 20, 'Silk', 'Pink', 'Pants', 'BACK POCKETS NO POCKETS', 'SLIM FIT', 'NO PANT CUFFS', 'DISPLACED', 'PLEATED');
+CALL usp_InsertPants(90.0, 'pants3.jpg', 'Pants 3', 'Description for Pants 3', 15, 'Linen', 'Beige', 'Pants', 'BACK POCKETS DOUBLE-WELTED POCKET WITH BUTTON', 'REGULAR FIT', 'WITH PANT CUFFS', 'NO BUTTON', 'DOUBLE PLEATS');
+CALL usp_InsertPants(140.0, 'pants4.jpg', 'Pants 4', 'Description for Pants 4', 30, 'Polyester', 'Black', 'Pants', 'SIDE POCKETS VERTICAL', 'SLIM FIT', 'WITH PANT CUFFS', 'OFF-CENTERED: BUTTONLESS', 'DOUBLE PLEATS');
+CALL usp_InsertPants(180.0, 'pants5.jpg', 'Pants 5', 'Description for Pants 5', 25, 'Wool', 'Grey', 'Pants', 'BACK POCKETS PATCHED X2', 'REGULAR FIT', 'NO PANT CUFFS', 'CENTERED', 'NO PLEATS');

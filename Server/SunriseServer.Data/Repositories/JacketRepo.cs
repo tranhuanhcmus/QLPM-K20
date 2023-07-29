@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MySqlX.XDevAPI.Common;
 using Org.BouncyCastle.Bcpg;
 using SunriseServerCore.Common.Helper;
 using SunriseServerCore.Models;
@@ -10,6 +11,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace SunriseServerData.Repositories
 {
@@ -41,6 +43,14 @@ namespace SunriseServerData.Repositories
                 }).ToList();
 
             return allJacket;
+        }
+        public bool AddOne(Product p, string Style,
+                   string fit, string lapel, string pocket, string sleeveButton, string backStyle, string breastPocket)
+        {
+            var result = _dataContext.Jacket.FromSqlRaw($"CALL usp_InsertJacket({p.Price}, {p.Image}, {p.Name}," +
+                $"{p.Description}, {p.Discount}, {p.FabricName}, {p.color},{p.Type}, {Style}, {fit}, {lapel}," +
+                $"{sleeveButton}, {pocket}, {backStyle}, {breastPocket} )").ToList();
+            return true;
         }
 
         public override async Task<Jacket> GetByIdAsync(int id)

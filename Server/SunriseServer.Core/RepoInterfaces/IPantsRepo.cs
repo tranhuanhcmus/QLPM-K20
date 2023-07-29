@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace SunriseServerCore.RepoInterfaces
 {
-    public interface IVestRepo : IRepository<Vest>
+    public interface IPantsRepo : IRepository<Pants>
     {
-        Task<List<VestProduct>> GetAllSpecial();
-        List<VestProduct> GetByName(string name);
+        Task<List<PantsProduct>> GetAllSpecial();
+        List<PantsProduct> GetByName(string name);
 
     }
 }

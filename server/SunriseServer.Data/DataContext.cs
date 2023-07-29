@@ -27,9 +27,12 @@ namespace SunriseServerData
 
         public DbSet<Account> Account { get; set; }
         public DbSet<Jacket> Jacket { get; set; }
+        //public DbSet<JacketProduct> JacketProduct { get; set; }
         public DbSet<Product> Product { get; set; }
         //public DbSet<Fabric> Fabric { get; set; }
         public DbSet<Vest> Vest { get; set; }
+        public DbSet<Pants> Pants { get; set; }
+
 
 
         public DbSet<BookingAccount> Booking_Account { get; set; }

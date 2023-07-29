@@ -26,12 +26,6 @@ namespace SunriseServerData.Repositories
             return result.FirstOrDefault();
         }
 
-        public async Task<Vest> GetByName(string name)
-        {
-            var result = await _dataContext.Vest.ToListAsync();
-            return result.FirstOrDefault();
-        }
-
         public override async Task<Vest> GetByIdAsync(int id)
         {
             var builder = new StringBuilder($"dbo.USP_GetAccountById @Id = \'{id}\';");
@@ -41,26 +35,34 @@ namespace SunriseServerData.Repositories
             return result.FirstOrDefault();
         }
 
-        public List<VestProduct> GetAllSpecial()
+        public async Task<List<VestProduct>> GetAllSpecial()
         {
-            //var query = from j in _dataContext.Vest
-            //            join p in _dataContext.Product on j.JacketId equals p.ProductID
-            //            select new
-            //            {
-            //                JacketData = j, // Select all columns from Vest table
-            //                ProductData = p // Select all columns from Product table
-            //            };
-
-            var allJacket = _dataContext.Vest.Join(_dataContext.Product,
+            var allVest = await _dataContext.Vest.Join(_dataContext.Product,
                 v => v.VestID,
                 p => p.ProductID,
-                (jacket, product) => new VestProduct
+                (vest, product) => new VestProduct
                 {
-                    VestData = jacket,
+                    VestData = vest,
                     ProductData = product
+                }).ToListAsync();
+
+            return allVest;
+        }
+
+        public List<VestProduct> GetByName(string name)
+        {
+            var product = _dataContext.Product.FromSqlRaw("CALL usp_SearchProduct({0})", name).ToList();
+
+            var allVest = product.Join(_dataContext.Vest,
+                p => p.ProductID,
+                j => j.VestID,
+                (products, vest) => new VestProduct
+                {
+                    VestData = vest,
+                    ProductData = products
                 }).ToList();
 
-            return allJacket;
+            return allVest;
         }
 
     }

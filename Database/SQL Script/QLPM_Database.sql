@@ -113,7 +113,11 @@ Create table JacketBreastPocket (
 Create table Vest (
 	VestID int auto_increment primary key,
     Style int,
-    Type int
+    Type int,
+    Lapel int,
+    Edge int,
+    BreastPocket int,
+    FrontPocket int
 );
 
 
@@ -129,6 +133,31 @@ Create table VestType (
     Image varchar(100)
 );
 
+
+Create table VestLapel (
+	ID int auto_increment primary key,
+    Name varchar(100) character set utf8mb4,
+    Image varchar(100)
+);
+
+Create table VestEdge (
+	ID int auto_increment primary key,
+    Name varchar(100) character set utf8mb4,
+    Image varchar(100)
+);
+
+
+Create table VestBreastPocket (
+	ID int auto_increment primary key,
+    Name varchar(100) character set utf8mb4,
+    Image varchar(100)
+);
+
+Create table VestFrontPocket (
+	ID int auto_increment primary key,
+    Name varchar(100) character set utf8mb4,
+    Image varchar(100)
+);
 -- -----------------------------------
 -- << 5. Tables for Pants >>
 -- -----------------------------------
@@ -348,6 +377,26 @@ ALTER TABLE Vest
 -- (Type) REFERENCES VestType
 	ADD CONSTRAINT FK_V_VT
 		FOREIGN KEY (Type) REFERENCES VestType (ID)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
+-- (Type) REFERENCES VestLapel
+	ADD CONSTRAINT FK_V_VL
+		FOREIGN KEY (Lapel) REFERENCES VestLapel (ID)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
+-- (Type) REFERENCES VestPocket
+	ADD CONSTRAINT FK_V_E
+		FOREIGN KEY (Edge) REFERENCES VestEdge (ID)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
+-- (Type) REFERENCES VestBreastPocket
+	ADD CONSTRAINT FK_V_VBP
+		FOREIGN KEY (BreastPocket) REFERENCES VestBreastPocket (ID)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
+-- (Type) REFERENCES VestFrontPocket
+	ADD CONSTRAINT FK_V_VFP
+		FOREIGN KEY (FrontPocket) REFERENCES VestFrontPocket (ID)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
 -- (VestID) REFERENCES Product

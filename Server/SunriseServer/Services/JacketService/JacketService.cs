@@ -30,9 +30,10 @@ namespace SunriseServer.Services.JacketService
         //}
 
 
-        public async Task<Jacket> AddJacket(Jacket jk)
+        public bool AddJacket(Product p, string style,
+                   string fit, string lapel, string pocket, string sleeveButton, string backStyle, string breastPocket)
         {
-            return await _unitOfWork.JacketRepo.CreateAsync(jk);
+            return _unitOfWork.JacketRepo.AddOne(p, style,fit, lapel,pocket, sleeveButton, backStyle, breastPocket);
 
         }
         public List<JacketProduct> GetJacketByName(string jacketname)

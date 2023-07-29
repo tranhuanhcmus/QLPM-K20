@@ -14,31 +14,37 @@ namespace SunriseServer.Controllers
         readonly IVestService _vestService;
         private readonly ILogger<VestController> _logger;
 
-        public VestController(IVestService jacketService, ILogger<VestController> logger)
+        public VestController(IVestService vestService, ILogger<VestController> logger)
         {
-            _vestService = jacketService;
+            _vestService = vestService;
             _logger = logger;
         }
 
 
         [HttpGet("All-Vest")]
-        public ActionResult<JacketProduct> GetAll()
+        public async Task<ActionResult<VestProduct>> GetAll()
         {
-            var result = _vestService.GetAllSpecial();
+            var result = await _vestService.GetAll();
             if (result is null)
             {
-                _logger.LogInformation("No jackets found");
-                return NotFound("No jackets found");
+                return NotFound("No Vest found");
             }
 
-            _logger.LogInformation("Retrieved jackets successfully");
             return Ok(result);
         }
 
         // get by id
         // get by category ??
         // insert one - just for admin
+        [HttpGet("{name}")]
+        public ActionResult<VestProduct> GetVestByNameOrDescription(string name)
+        {
+            var result = _vestService.GetVestByName(name);
+            if (result is null)
+                return NotFound("Vest not found");
 
+            return Ok(result);
+        }
 
     }
 }

@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SunriseServer.Common.Constant;
+using SunriseServer.Dtos;
 using SunriseServer.Services.JacketService;
 using SunriseServerCore.Models.Clothes;
 using System.Data;
+using System.Xml.Linq;
 
 namespace SunriseServer.Controllers
 {
@@ -39,7 +41,7 @@ namespace SunriseServer.Controllers
         [HttpGet("{name}")]
         public ActionResult<JacketProduct> GetJacketByNameOrDescription(string name)
         {
-            var result =  _jacketService.GetJacketByName(name);
+            var result = _jacketService.GetJacketByName(name);
             if (result is null)
                 return NotFound("Jacket not found");
 
@@ -47,7 +49,17 @@ namespace SunriseServer.Controllers
         }
         // get by category ??
         // insert one - just for admin
+        [HttpGet("Add-Jacket"), Authorize(Roles = GlobalConstant.Admin)]
+        public ActionResult<JacketProduct> AddJacket(Product p, string Style,
+            string fit, string lapel, string pocket, string sleeveButton, string backStyle, string breastPocket)
+        {
+            var result = _jacketService.AddJacket(p, Style, fit, lapel, pocket, sleeveButton, backStyle, breastPocket);
+           
+            if (result == false)
+                return NotFound("Jacket not found");
 
+            return Ok(result);
 
+        }
     }
 }

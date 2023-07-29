@@ -58,6 +58,19 @@ namespace SunriseServerData
         }
         #endregion
 
+        #region Pants
+        private PantsRepo _pantsRepo;
+        public PantsRepo PantsRepo
+        {
+            get
+            {
+                if (_pantsRepo == null)
+                    _pantsRepo = new PantsRepo(_dataContext);
+                return _pantsRepo;
+            }
+        }
+        #endregion
+
         #region Product
         private IProductRepo _productRepo;
         public IProductRepo ProductRepo

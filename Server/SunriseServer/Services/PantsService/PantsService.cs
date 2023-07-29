@@ -5,55 +5,55 @@ using System.Security.Claims;
 using SunriseServerCore.Models.Clothes;
 using System.Threading.Tasks;
 
-namespace SunriseServer.Services.VestService
+namespace SunriseServer.Services.PantsService
 {
-    public class VestService : IVestService
+    public class PantsService : IPantsService
     {
         //private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly UnitOfWork _unitOfWork;
-        public VestService(UnitOfWork unitOfWork)
+        public PantsService(UnitOfWork unitOfWork)
         {
             //_httpContextAccessor = httpContextAccessor;
             _unitOfWork = unitOfWork;
         }
 
-        public Task<List<VestProduct>> GetAll() => (Task<List<VestProduct>>)_unitOfWork.VestRepo.GetAllSpecial();
-        //public Task<Vest> GetAll()
+        public Task<List<PantsProduct>> GetAll() => (Task<List<PantsProduct>>)_unitOfWork.PantsRepo.GetAllSpecial();
+        //public Task<Pants> GetAll()
         //{
-        //    return _unitOfWork.VestRepo.GetAll();
+        //    return _unitOfWork.PantsRepo.GetAll();
         //}
 
 
-        public async Task<Vest> AddVest(Vest jk)
+        public async Task<Pants> AddPants(Pants jk)
         {
-            return await _unitOfWork.VestRepo.CreateAsync(jk);
+            return await _unitOfWork.PantsRepo.CreateAsync(jk);
 
         }
-        public List<VestProduct> GetVestByName(string jacketname)
+        public List<PantsProduct> GetPantsByName(string jacketname)
         {
-            return _unitOfWork.VestRepo.GetByName(jacketname);
+            return _unitOfWork.PantsRepo.GetByName(jacketname);
         }
-        public async Task<Vest> GetVestById(int id)
+        public async Task<Pants> GetPantsById(int id)
         {
             return null;
 
         }
-        public async Task<Vest> UpdateVest(Vest jk)
+        public async Task<Pants> UpdatePants(Pants jk)
         {
             return null;
 
         }
-        public async Task<Vest> GetVestByCategory(string cate)
+        public async Task<Pants> GetPantsByCategory(string cate)
         {
             return null;
 
         }
-        public async Task<Vest> GetVestByColor(string color)
+        public async Task<Pants> GetPantsByColor(string color)
         {
             return null;
 
         }
-        public async Task<Vest> GetVestByFabric(string fabric)
+        public async Task<Pants> GetPantsByFabric(string fabric)
         {
             return null;
 
