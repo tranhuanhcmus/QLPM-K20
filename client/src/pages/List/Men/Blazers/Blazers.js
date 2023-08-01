@@ -1,9 +1,9 @@
 import React from "react";
-import "../../assets/styles/coat.scss";
+import "../../../../assets/styles/coat.scss";
 import CategoryList from './CategoryList.js';
 import ProductList from './ProductList';
 
-const Coat = () => {
+const BLAZERS = () => {
   return (
     <main className="product-page container">
         <CategoryList/>
@@ -12,5 +12,5 @@ const Coat = () => {
   );
 };
 
-export default Coat;
+export default BLAZERS;
 
