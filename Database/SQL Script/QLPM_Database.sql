@@ -1,17 +1,26 @@
-drop database TailorManagement;
-create database TailorManagement;
-use TailorManagement;
+USE master;
+go
 
+if DB_ID('TailorManagement') IS NOT NULL
+	drop database TailorManagement;
+GO
+
+
+create database TailorManagement;
+go
+
+use TailorManagement;
+go
 -- Table Account
 Create table Account (
-	AccountID INT AUTO_INCREMENT PRIMARY KEY,
+	AccountID int primary key, -- int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
     Username char(40) unique,
-    Name varchar(80) character set utf8mb4,
+    Name nvarchar(80), -- character set utf8mb4,
     Phone char(15),
     Email varchar(320),
-    Address varchar(200) character set utf8mb4,
+    Address nvarchar(200), -- character set utf8mb4,
     password varchar(150),
-    role bool
+    role bit
 );
 
 -- Table Customer measurement
@@ -37,14 +46,14 @@ Create table BodyMeasurement (
 -- << 14. Table Product >>
 -- --------------------------
 Create table Product (
-	ProductID int auto_increment primary key,
+	ProductID int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
     Price FLOAT,
     Image varchar(100),
-    Name varchar(100) character set utf8mb4,
-    Description text character set utf8mb4,
+    Name nvarchar(100), -- character set utf8mb4,
+    Description ntext, -- character set utf8mb4,
     Discount TINYINT,
     Fabric int,
-    FabricName varchar(100) character set utf8mb4,
+    FabricName nvarchar(100), -- character set utf8mb4,
     color varchar(50),
     Type varchar(20)
 );
@@ -53,7 +62,7 @@ Create table Product (
 -- --------------------------
 
 Create table Jacket (
-	JacketID int auto_increment primary key,
+	JacketID int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
     Style int,
     Fit int,
     Lapel int,
@@ -64,44 +73,44 @@ Create table Jacket (
 );
  -- Jacket's components
 Create table JacketPocket (
-	ID int auto_increment primary key,
-    Name varchar(100) character set utf8mb4,
+	ID int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
+    Name nvarchar(100), -- character set utf8mb4,
     Image varchar(100)
 );
 
 Create table JacketSleeveButton (
-	ID int auto_increment primary key,
-    Name varchar(100) character set utf8mb4,
+	ID int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
+    Name nvarchar(100), -- character set utf8mb4,
     Image varchar(100)
 );
 
 Create table JacketBackStyle (
-	ID int auto_increment primary key,
-    Name varchar(100) character set utf8mb4,
+	ID int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
+    Name nvarchar(100), -- character set utf8mb4,
     Image varchar(100)
 );
 
 Create table JacketLapel (
-	ID int auto_increment primary key,
-    Name varchar(100) character set utf8mb4,
+	ID int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
+    Name nvarchar(100), -- character set utf8mb4,
     Image varchar(100)
 );
 
 Create table JacketFit (
-	ID int auto_increment primary key,
-    Name varchar(100) character set utf8mb4,
+	ID int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
+    Name nvarchar(100), -- character set utf8mb4,
     Image varchar(100)
 );
 
 Create table JacketStyle (
-	ID int auto_increment primary key,
-    Name varchar(100) character set utf8mb4,
+	ID int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
+    Name nvarchar(100), -- character set utf8mb4,
     Image varchar(100)
 );
 
 Create table JacketBreastPocket (
-	ID int auto_increment primary key,
-    Name varchar(100) character set utf8mb4,
+	ID int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
+    Name nvarchar(100), -- character set utf8mb4,
     Image varchar(100)
 );
 
@@ -109,29 +118,54 @@ Create table JacketBreastPocket (
 -- << 4. Tables for Vest >>
 -- -----------------------------------
 Create table Vest (
-	VestID int auto_increment primary key,
+	VestID int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
     Style int,
     Type int
 );
 
 
 Create table VestStyle (
-	ID int auto_increment primary key,
-    Name varchar(100) character set utf8mb4,
+	ID int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
+    Name nvarchar(100), -- character set utf8mb4,
     Image varchar(100)
 );
 
 Create table VestType (
-	ID int auto_increment primary key,
-    Name varchar(100) character set utf8mb4,
+	ID int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
+    Name nvarchar(100), -- character set utf8mb4,
     Image varchar(100)
 );
 
+
+Create table VestLapel (
+	ID int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
+    Name nvarchar(100), -- character set utf8mb4,
+    Image varchar(100)
+);
+
+Create table VestEdge (
+	ID int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
+    Name nvarchar(100), -- character set utf8mb4,
+    Image varchar(100)
+);
+
+
+Create table VestBreastPocket (
+	ID int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
+    Name nvarchar(100), -- character set utf8mb4,
+    Image varchar(100)
+);
+
+Create table VestFrontPocket (
+	ID int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
+    Name nvarchar(100), -- character set utf8mb4,
+    Image varchar(100)
+);
 -- -----------------------------------
 -- << 5. Tables for Pants >>
 -- -----------------------------------
 Create table Pants (
-	PantsID int auto_increment primary key,
+	PantsID int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
     Pocket int,
     Cuff int,
     Fit int,
@@ -141,32 +175,32 @@ Create table Pants (
 
 
 Create table PantsPocket (
-	ID int auto_increment primary key,
-    Name varchar(100) character set utf8mb4,
+	ID int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
+    Name nvarchar(100), -- character set utf8mb4,
     Image varchar(100)
 );
 
 Create table PantsCuff (
-	ID int auto_increment primary key,
-    Name varchar(100) character set utf8mb4,
+	ID int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
+    Name nvarchar(100), -- character set utf8mb4,
     Image varchar(100)
 );
 
 Create table PantsFit (
-	ID int auto_increment primary key,
-    Name varchar(100) character set utf8mb4,
+	ID int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
+    Name nvarchar(100), -- character set utf8mb4,
     Image varchar(100)
 );
 
 Create table PantsPleats (
-	ID int auto_increment primary key,
-    Name varchar(100) character set utf8mb4,
+	ID int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
+    Name nvarchar(100), -- character set utf8mb4,
     Image varchar(100)
 );
 
 Create table PantsFastening (
-	ID int auto_increment primary key,
-    Name varchar(100) character set utf8mb4,
+	ID int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
+    Name nvarchar(100), -- character set utf8mb4,
     Image varchar(100)
 );
 
@@ -174,9 +208,9 @@ Create table PantsFastening (
 -- << 5. Tables Order >>
 -- -----------------------------------
 Create table Orders (
-	OrderId int auto_increment primary key,
+	OrderId int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
     customer int,
-    Address varchar(150) character set utf8mb4,
+    Address nvarchar(150), -- character set utf8mb4,
     TimeOrder datetime,
     Status varchar(50),
     TimeDone date,
@@ -198,10 +232,10 @@ Create table OrderDetail (
 -- << 7. Tables Evaluation >>
 -- -----------------------------------
 Create table Evaluation (
-	ID int auto_increment primary key,
+	ID int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
     Product int,
     Rate tinyint,
-    Comment varchar(300) character set utf8mb4,
+    Comment nvarchar(300), -- character set utf8mb4,
     Evaluator int,
     Username char(40)
 );
@@ -210,7 +244,7 @@ Create table Evaluation (
 -- << 8. Tables Cart >>
 -- -----------------------------------
 Create table Cart (
-	ID int auto_increment primary key,
+	ID int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
 	Customer int,
     Product int,
     NumberOfProduct int
@@ -230,21 +264,22 @@ Create table WishList (
 -- << 10. Tables Collection >>
 -- -----------------------------------
 Create table Collection (
-	Id int auto_increment primary key,
-    Name varchar(150) character set utf8mb4,
+	Id int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
+    Name nvarchar(150), -- character set utf8mb4,
     Description text,
     Jacket int,
     Vest int,
     Pants int,
-    Rate tinyint
+    Rate tinyint,
+    Theme nvarchar(150) -- character set utf8mb4,
 );
 
 -- -----------------------------------
 -- << 11. Tables Fabric >>
 -- -----------------------------------
 Create table Fabric (
-	FabricID int auto_increment primary key,
-    FabricName varchar(100) character set utf8mb4,
+	FabricID int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
+    FabricName nvarchar(100), -- character set utf8mb4,
     Meterial varchar(100),
     Price float,
     Color varchar(50),
@@ -271,11 +306,11 @@ Create table FabricProvided (
 -- << 13. Tables Supplier >>
 -- -----------------------------------
 Create table Supplier (
-	SupplierID int auto_increment primary key,
-    Name varchar(250) character set utf8mb4,
+	SupplierID int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
+    Name nvarchar(250), -- character set utf8mb4,
     Phone varchar(15),
     Email varchar(320),
-    Address varchar(150) character set utf8mb4
+    Address nvarchar(150) -- character set utf8mb4,
 );
 
 
@@ -299,37 +334,37 @@ ALTER TABLE Jacket
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
 -- (Fit) REFERENCES JacketFit
-	ADD CONSTRAINT FK_J_JF
+	CONSTRAINT FK_J_JF
 		FOREIGN KEY (Fit) REFERENCES JacketFit (ID)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
 -- (Lapel) REFERENCES JacketLapel
-	ADD CONSTRAINT FK_J_JL
+	CONSTRAINT FK_J_JL
 		FOREIGN KEY (Lapel) REFERENCES JacketLapel (ID)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
 -- (SleeveButton) REFERENCES JacketSleeveButton
-	ADD CONSTRAINT FK_J_JSB
+	CONSTRAINT FK_J_JSB
 		FOREIGN KEY (SleeveButton) REFERENCES JacketSleeveButton (ID)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
 -- (Pocket) REFERENCES JacketPocket
-	ADD CONSTRAINT FK_J_JP
+	CONSTRAINT FK_J_JP
 		FOREIGN KEY (Pocket) REFERENCES JacketPocket (ID)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
 -- (BackStyle) REFERENCES JacketBackStyle
-	ADD CONSTRAINT FK_J_JBS
+	CONSTRAINT FK_J_JBS
 		FOREIGN KEY (BackStyle) REFERENCES JacketBackStyle (ID)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
 -- (BreastPocket) REFERENCES JacketBreastPocket
-	ADD CONSTRAINT FK_J_JBP
+	CONSTRAINT FK_J_JBP
 		FOREIGN KEY (BreastPocket) REFERENCES JacketBreastPocket (ID)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
 -- (JacketId) REFERENCES Product
-	ADD CONSTRAINT FK_J_Pt
+	CONSTRAINT FK_J_Pt
 		FOREIGN KEY (JacketId) REFERENCES Product (ProductID)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE;
@@ -343,12 +378,32 @@ ALTER TABLE Vest
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
 -- (Type) REFERENCES VestType
-	ADD CONSTRAINT FK_V_VT
+	CONSTRAINT FK_V_VT
 		FOREIGN KEY (Type) REFERENCES VestType (ID)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
+-- (Type) REFERENCES VestLapel
+	CONSTRAINT FK_V_VL
+		FOREIGN KEY (Lapel) REFERENCES VestLapel (ID)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
+-- (Type) REFERENCES VestPocket
+	CONSTRAINT FK_V_E
+		FOREIGN KEY (Edge) REFERENCES VestEdge (ID)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
+-- (Type) REFERENCES VestBreastPocket
+	CONSTRAINT FK_V_VBP
+		FOREIGN KEY (BreastPocket) REFERENCES VestBreastPocket (ID)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
+-- (Type) REFERENCES VestFrontPocket
+	CONSTRAINT FK_V_VFP
+		FOREIGN KEY (FrontPocket) REFERENCES VestFrontPocket (ID)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
 -- (VestID) REFERENCES Product
-	ADD CONSTRAINT FK_V_Pt
+	CONSTRAINT FK_V_Pt
 		FOREIGN KEY (VestID) REFERENCES Product (ProductID)
 		ON DELETE CASCADE
         ON UPDATE CASCADE;
@@ -362,27 +417,27 @@ ALTER TABLE Pants
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
 -- (Cuff) REFERENCES PantsCuff
-	ADD CONSTRAINT FK_P_PC
+	CONSTRAINT FK_P_PC
 		FOREIGN KEY (Cuff) REFERENCES PantsCuff (ID)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
 -- (Fastening) REFERENCES PantFastening
-	ADD CONSTRAINT FK_P_PF
+	CONSTRAINT FK_P_PF
 		FOREIGN KEY (Fastening) REFERENCES PantsFastening (ID)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
 -- (Fit) REFERENCES PantsFit
-	ADD CONSTRAINT FK_P_PFt
+	CONSTRAINT FK_P_PFt
 		FOREIGN KEY (Fit) REFERENCES PantsFit (ID)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
 -- (Pleats) REFERENCES PantsPleats
-	ADD CONSTRAINT FK_P_PPl
+	CONSTRAINT FK_P_PPl
 		FOREIGN KEY (Pleats) REFERENCES PantsPleats (ID)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
 -- (PantsID) REFERENCES Product
-	ADD CONSTRAINT FK_P_Pt
+	CONSTRAINT FK_P_Pt
 		FOREIGN KEY (PantsID) REFERENCES Product (ProductID)
 		ON DELETE CASCADE
         ON UPDATE CASCADE;
@@ -395,7 +450,7 @@ ALTER TABLE Evaluation
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
 -- (Product) REFERENCES Product (ProductID)
-	ADD CONSTRAINT FK_E_Pt
+	CONSTRAINT FK_E_Pt
 		FOREIGN KEY (Product) REFERENCES Product (ProductID)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE;
@@ -408,7 +463,7 @@ ALTER TABLE Cart
 		ON DELETE CASCADE
 		ON UPDATE CASCADE, 
 -- (Product) REFERENCES Product (ProductID)
-	ADD CONSTRAINT FK_C_Pt
+	CONSTRAINT FK_C_Pt
 		FOREIGN KEY (Product) REFERENCES Product (ProductID)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE;
@@ -420,15 +475,15 @@ ALTER TABLE Collection
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
 -- (Vest) REFERENCES Vest
-	ADD CONSTRAINT FK_CLT_V
-		FOREIGN KEY (Vest) REFERENCES Vest (VestID)
-		ON DELETE CASCADE
-		ON UPDATE CASCADE,
+	CONSTRAINT FK_CLT_V
+		FOREIGN KEY (Vest) REFERENCES Vest (VestID),
+		--ON DELETE CASCADE
+		--ON UPDATE CASCADE,
 -- (Pants) REFERENCES Pants
-	ADD CONSTRAINT FK_CLT_P
+	CONSTRAINT FK_CLT_P
 		FOREIGN KEY (Pants) REFERENCES Pants (PantsID)
-		ON DELETE CASCADE
-		ON UPDATE CASCADE;
+		--ON DELETE CASCADE
+		--ON UPDATE CASCADE;
 
 -- WishList
 -- (Customer) REFERENCES Account
@@ -438,7 +493,7 @@ ALTER TABLE WishList
 		ON DELETE CASCADE
 		ON UPDATE CASCADE, 
 -- (Collection) REFERENCES Collection
-	ADD CONSTRAINT FK_WL_CLT
+	CONSTRAINT FK_WL_CLT
 		FOREIGN KEY (Collection) REFERENCES Collection (ID)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE;
@@ -458,7 +513,7 @@ ALTER TABLE OrderDetail
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
 -- (Product) REFERENCES Product (ProductID)
-    ADD CONSTRAINT FK_OD_Pt
+    CONSTRAINT FK_OD_Pt
 		FOREIGN KEY (Product) REFERENCES Product (ProductID)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE;
@@ -476,7 +531,7 @@ ALTER TABLE FabricProvided
 		FOREIGN KEY (Fabric) REFERENCES Fabric (FabricID)
 		ON UPDATE CASCADE, 
 -- (Supplier) REFERENCES Supplier
-	ADD CONSTRAINT FK_FP_S
+	CONSTRAINT FK_FP_S
 		FOREIGN KEY (Supplier) REFERENCES Supplier (SupplierID)
 		ON UPDATE CASCADE;
         
@@ -486,3 +541,6 @@ ALTER TABLE BodyMeasurement
 		FOREIGN KEY (Customer) REFERENCES Account (AccountID)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE;
+        
+-- Full text search
+--ALTER TABLE Product ADD FULLTEXT INDEX idx_name_description (Name, Description);
