@@ -70,12 +70,12 @@ INSERT INTO JacketStyle (ID, Name, Image) VALUES
 (6, 'Double-Breasted 6 Buttons', 'DoubleBreasted6Buttons.jpg'),
 (7, 'Mandarin', 'Mandarin.jpg');
 -- Insert data into JacketFit
-INSERT INTO JacketFit (Name, Image) VALUES
+INSERT INTO JacketFit (ID, Name, Image) VALUES
 (1, 'Slim Fit', 'SlimFit.jpg'),
 (2, 'Regular', 'Regular.jpg');
 
 -- Insert data into JacketLapel
-INSERT INTO JacketLapel (Name, Image) VALUES
+INSERT INTO JacketLapel (ID, Name, Image) VALUES
 (1, 'Notch', 'Notch.jpg'),
 (2, 'Peak', 'Peak.jpg'),
 (3, 'Shawl', 'Shawl.jpg'),
@@ -84,7 +84,7 @@ INSERT INTO JacketLapel (Name, Image) VALUES
 (6, 'Wide', 'Wide.jpg');
 
 -- Insert data into JacketPocket
-INSERT INTO JacketPocket (Name, Image) VALUES
+INSERT INTO JacketPocket (ID, Name, Image) VALUES
 (1, 'No Pockets', 'NoPockets.jpg'),
 (2, 'With Flap', 'WithFlap.jpg'),
 (3, 'Double-Welted', 'DoubleWelted.jpg'),
@@ -95,20 +95,20 @@ INSERT INTO JacketPocket (Name, Image) VALUES
 (8, 'Slanted', 'Slanted.jpg');
 
 -- Insert data into JacketSleeveButton
-INSERT INTO JacketSleeveButton (Name, Image) VALUES
+INSERT INTO JacketSleeveButton (ID, Name, Image) VALUES
 (1, '0', '0.jpg'),
 (2, '2', '2.jpg'),
 (3, '3', '3.jpg'),
 (4, '4', '4.jpg');
 
 -- Insert data into JacketBackStyle
-INSERT INTO JacketBackStyle (Name, Image) VALUES
+INSERT INTO JacketBackStyle (ID, Name, Image) VALUES
 (1, 'Ventless', 'Ventless.jpg'),
 (2, 'Center Vent', 'CenterVent.jpg'),
 (3, 'Side Vents', 'SideVents.jpg');
 
 -- Insert data into JacketBreastPocket
-INSERT INTO JacketBreastPocket (Name, Image) VALUES
+INSERT INTO JacketBreastPocket (ID, Name, Image) VALUES
 (1, 'No', 'No.jpg'),
 (2, 'Yes', 'Yes.jpg'),
 (3, 'Patched', 'Patched.jpg'),
@@ -116,13 +116,13 @@ INSERT INTO JacketBreastPocket (Name, Image) VALUES
 
 -- Vest component
 -- Insert data into VestType with formatted Image names
-INSERT INTO VestType (Name, Image)
+INSERT INTO VestType (ID, Name, Image)
 VALUES
     (1, '2 PIECE SUIT', '2PieceSuit.jpg'),
     (2, '3 PIECE SUIT', '3PieceSuit.jpg');
 
 -- Insert data into VestStyle with formatted Image names
-INSERT INTO VestStyle (Name, Image)
+INSERT INTO VestStyle (ID, Name, Image)
 VALUES
     (1, 'SINGLE BREASTED 3 BUTTONS', 'SingleBreasted3Buttons.jpg'),
     (2, 'SINGLE BREASTED 4 BUTTONS', 'SingleBreasted4Buttons.jpg'),
@@ -132,14 +132,14 @@ VALUES
     (6, 'DOUBLE BREASTED 6 BUTTONS', 'DoubleBreasted6Buttons.jpg');
 
 -- Insert data into VestEdge with formatted Image names
-INSERT INTO VestEdge (Name, Image)
+INSERT INTO VestEdge (ID, Name, Image)
 VALUES
     (1, 'STRAIGHT', 'Straight.jpg'),
     (2, 'DIAGONAL', 'Diagonal.jpg'),
     (3, 'ROUNDED', 'Rounded.jpg');
 
 -- Insert data into VestLapel with formatted Image names
-INSERT INTO VestLapel (Name, Image)
+INSERT INTO VestLapel (ID, Name, Image)
 VALUES
     (1, 'WITHOUT LAPELS', 'WithoutLapels.jpg'),
     (2, 'NOTCHED', 'Notched.jpg'),
@@ -147,13 +147,13 @@ VALUES
     (4, 'SHAWL', 'Shawl.jpg');
 
 -- Insert data into VestBreastPocket with formatted Image names
-INSERT INTO VestBreastPocket (Name, Image)
+INSERT INTO VestBreastPocket (ID, Name, Image)
 VALUES
     (1, 'Yes', 'Yes.jpg'),
     (2, 'No', 'No.jpg');
 
 -- Insert data into VestFrontPocket with formatted Image names
-INSERT INTO VestFrontPocket (Name, Image)
+INSERT INTO VestFrontPocket (ID, Name, Image)
 VALUES
     (1, 'NO POCKETS', 'NoPockets.jpg'),
     (2, 'WELT POCKETS', 'WeltPockets.jpg'),
@@ -166,30 +166,30 @@ VALUES
 
 -- Pants components
 -- Insert data into PantsFit with formatted Image names
-INSERT INTO PantsFit (Name, Image) VALUES
+INSERT INTO PantsFit (ID, Name, Image) VALUES
     (1, 'REGULAR FIT', 'RegularFit.jpg'),
     (2, 'SLIM FIT', 'SlimFit.jpg');
 
 -- Insert data into PantsPleats with formatted Image names
-INSERT INTO PantsPleats (Name, Image) VALUES
+INSERT INTO PantsPleats (ID, Name, Image) VALUES
     (1, 'NO PLEATS', 'NoPleats.jpg'),
     (2, 'PLEATED', 'Pleated.jpg'),
     (3, 'DOUBLE PLEATS', 'DoublePleats.jpg');
 
 -- Insert data into PantsFastening with formatted Image names
-INSERT INTO PantsFastening (Name, Image) VALUES
+INSERT INTO PantsFastening (ID, Name, Image) VALUES
     (1, 'CENTERED', 'Centered.jpg'),
     (2, 'DISPLACED', 'Displaced.jpg'),
     (3, 'NO BUTTON', 'NoButton.jpg'),
     (4, 'OFF-CENTERED: BUTTONLESS', 'OffCenteredButtonless.jpg');
 
 -- Insert data into PantsCuff with formatted Image names
-INSERT INTO PantsCuff (Name, Image) VALUES
+INSERT INTO PantsCuff (ID, Name, Image) VALUES
     (1, 'NO PANT CUFFS', 'NoPantCuffs.jpg'),
     (2, 'WITH PANT CUFFS', 'WithPantCuffs.jpg');
 
 -- Insert data into PantsPocket with formatted Image names
-INSERT INTO PantsPocket (Name, Image) VALUES
+INSERT INTO PantsPocket (ID, Name, Image) VALUES
     (1, 'SIDE POCKETS DIAGONAL', 'SidePocketsDiagonal.jpg'),
     (2, 'SIDE POCKETS VERTICAL', 'SidePocketsVertical.jpg'),
     (3, 'SIDE POCKETS ROUNDED', 'SidePocketsRounded.jpg'),
@@ -212,14 +212,14 @@ EXEC usp_InsertJacket 280.0, 'jacket6.jpg', 'Jacket 6', 'This is super jacket 6'
 update Jacket set SleeveButton = 1 where JacketID = 1;
 -- Repeat the CALL InsertJacket procedure with different data for the remaining jackets (up to 2 more times).
 -- Insert Vest data with components
---EXEC usp_InsertVest 65.0, 'vest1.jpg', 'Vest 1', 'Description for Vest 1', 10, 'Cotton', 'White', 'Vest', 'SINGLE BREASTED 3 BUTTONS', '2 PIECE SUIT', 'WITHOUT LAPELS', 'STRAIGHT', 'Yes', 'NO POCKETS';
---EXEC usp_InsertVest 80.0, 'vest2.jpg', 'Vest 2', 'Description for Vest 2', 20, 'Silk', 'Pink', 'Vest', 'SINGLE BREASTED 4 BUTTONS', '3 PIECE SUIT', 'NOTCHED', 'DIAGONAL', 'No', 'WELT POCKETS';
---EXEC usp_InsertVest 90.0, 'vest3.jpg', 'Vest 3', 'Description for Vest 3', 15, 'Linen', 'Beige', 'Vest', 'SINGLE BREASTED 5 BUTTONS', '2 PIECE SUIT', 'PEAK', 'ROUNDED', 'Yes', 'DOUBLE WELT X3';
---EXEC usp_InsertVest 140.0, 'vest4.jpg', 'Vest 4', 'Description for Vest 4', 30, 'Polyester', 'Black', 'Vest', 'DOUBLE BREASTED 4 BUTTONS', '3 PIECE SUIT', 'NOTCHED', 'STRAIGHT', 'No', 'WITH FLAPS X3';
---EXEC usp_InsertVest 180.0, 'vest5.jpg', 'Vest 5', 'Description for Vest 5', 25, 'Wool', 'Grey', 'Vest', 'DOUBLE BREASTED 6 BUTTONS', '2 PIECE SUIT', 'SHAWL', 'ROUNDED', 'Yes', 'WITH FLAPS X3';
----- Insert 5 rows using the stored procedure for Pants and Product
---EXEC usp_InsertPants 65.0, 'pants1.jpg', 'Pants 1', 'Description for Pants 1', 10, 'Cotton', 'White', 'Pants', 'SIDE POCKETS DIAGONAL', 'REGULAR FIT', 'WITH PANT CUFFS', 'CENTERED', 'NO PLEATS';
---EXEC usp_InsertPants 80.0, 'pants2.jpg', 'Pants 2', 'Description for Pants 2', 20, 'Silk', 'Pink', 'Pants', 'BACK POCKETS NO POCKETS', 'SLIM FIT', 'NO PANT CUFFS', 'DISPLACED', 'PLEATED';
---EXEC usp_InsertPants 90.0, 'pants3.jpg', 'Pants 3', 'Description for Pants 3', 15, 'Linen', 'Beige', 'Pants', 'BACK POCKETS DOUBLE-WELTED POCKET WITH BUTTON', 'REGULAR FIT', 'WITH PANT CUFFS', 'NO BUTTON', 'DOUBLE PLEATS';
---EXEC usp_InsertPants 140.0, 'pants4.jpg', 'Pants 4', 'Description for Pants 4', 30, 'Polyester', 'Black', 'Pants', 'SIDE POCKETS VERTICAL', 'SLIM FIT', 'WITH PANT CUFFS', 'OFF-CENTERED: BUTTONLESS', 'DOUBLE PLEATS';
---EXEC usp_InsertPants 180.0, 'pants5.jpg', 'Pants 5', 'Description for Pants 5', 25, 'Wool', 'Grey', 'Pants', 'BACK POCKETS PATCHED X2', 'REGULAR FIT', 'NO PANT CUFFS', 'CENTERED', 'NO PLEATS';
+EXEC usp_InsertVest 65.0, 'vest1.jpg', 'Vest 1', 'Description for Vest 1', 10, 'Cotton', 'White', 'Vest', 'SINGLE BREASTED 3 BUTTONS', '2 PIECE SUIT', 'WITHOUT LAPELS', 'STRAIGHT', 'Yes', 'NO POCKETS';
+EXEC usp_InsertVest 80.0, 'vest2.jpg', 'Vest 2', 'Description for Vest 2', 20, 'Silk', 'Pink', 'Vest', 'SINGLE BREASTED 4 BUTTONS', '3 PIECE SUIT', 'NOTCHED', 'DIAGONAL', 'No', 'WELT POCKETS';
+EXEC usp_InsertVest 90.0, 'vest3.jpg', 'Vest 3', 'Description for Vest 3', 15, 'Linen', 'Beige', 'Vest', 'SINGLE BREASTED 5 BUTTONS', '2 PIECE SUIT', 'PEAK', 'ROUNDED', 'Yes', 'DOUBLE WELT X3';
+EXEC usp_InsertVest 140.0, 'vest4.jpg', 'Vest 4', 'Description for Vest 4', 30, 'Polyester', 'Black', 'Vest', 'DOUBLE BREASTED 4 BUTTONS', '3 PIECE SUIT', 'NOTCHED', 'STRAIGHT', 'No', 'WITH FLAPS X3';
+EXEC usp_InsertVest 180.0, 'vest5.jpg', 'Vest 5', 'Description for Vest 5', 25, 'Wool', 'Grey', 'Vest', 'DOUBLE BREASTED 6 BUTTONS', '2 PIECE SUIT', 'SHAWL', 'ROUNDED', 'Yes', 'WITH FLAPS X3';
+-- Insert 5 rows using the stored procedure for Pants and Product
+EXEC usp_InsertPants 65.0, 'pants1.jpg', 'Pants 1', 'Description for Pants 1', 10, 'Cotton', 'White', 'Pants', 'SIDE POCKETS DIAGONAL', 'REGULAR FIT', 'WITH PANT CUFFS', 'CENTERED', 'NO PLEATS';
+EXEC usp_InsertPants 80.0, 'pants2.jpg', 'Pants 2', 'Description for Pants 2', 20, 'Silk', 'Pink', 'Pants', 'BACK POCKETS NO POCKETS', 'SLIM FIT', 'NO PANT CUFFS', 'DISPLACED', 'PLEATED';
+EXEC usp_InsertPants 90.0, 'pants3.jpg', 'Pants 3', 'Description for Pants 3', 15, 'Linen', 'Beige', 'Pants', 'BACK POCKETS DOUBLE-WELTED POCKET WITH BUTTON', 'REGULAR FIT', 'WITH PANT CUFFS', 'NO BUTTON', 'DOUBLE PLEATS';
+EXEC usp_InsertPants 140.0, 'pants4.jpg', 'Pants 4', 'Description for Pants 4', 30, 'Polyester', 'Black', 'Pants', 'SIDE POCKETS VERTICAL', 'SLIM FIT', 'WITH PANT CUFFS', 'OFF-CENTERED: BUTTONLESS', 'DOUBLE PLEATS';
+EXEC usp_InsertPants 180.0, 'pants5.jpg', 'Pants 5', 'Description for Pants 5', 25, 'Wool', 'Grey', 'Pants', 'BACK POCKETS PATCHED X2', 'REGULAR FIT', 'NO PANT CUFFS', 'CENTERED', 'NO PLEATS';
