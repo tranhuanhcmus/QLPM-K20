@@ -23,6 +23,9 @@ namespace SunriseServerData
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<BookingAccount>()
                 .HasKey(x => new { x.AccountId, x.HotelId, x.RoomTypeId, x.CheckIn });
+
+            modelBuilder.Entity<MyProcedureResult>()
+                .HasNoKey().ToTable("MyProcedureResult", t => t.ExcludeFromMigrations());
         }
 
         public DbSet<Account> Account { get; set; }
@@ -40,5 +43,8 @@ namespace SunriseServerData
 
 
         public DbSet<BookingAccount> Booking_Account { get; set; }
+        public DbSet<Cart> Cart { get; set; }
+
+
     }
 }

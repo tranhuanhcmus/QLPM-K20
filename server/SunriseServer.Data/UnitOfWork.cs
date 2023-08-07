@@ -96,6 +96,19 @@ namespace SunriseServerData
         }
         #endregion
 
+        #region Cart
+        private ICartRepo _cartRepo;
+        public ICartRepo CartRepo
+        {
+            get
+            {
+                if (_cartRepo == null)
+                    _cartRepo = new CartRepo(_dataContext);
+                return _cartRepo;
+            }
+        }
+        #endregion
+
         public async Task<bool> SaveChangesAsync()
         {
             using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))

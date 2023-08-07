@@ -1,4 +1,4 @@
-USE master;
+﻿USE master;
 go
 
 if DB_ID('TailorManagement') IS NOT NULL
@@ -469,14 +469,15 @@ ALTER TABLE Evaluation
 		ON UPDATE CASCADE;
         
 -- Cart
--- (Customer) REFERENCES Account
-ALTER TABLE Cart
-	ADD CONSTRAINT FK_C_A
-		FOREIGN KEY (Customer) REFERENCES Account (AccountID)
-		ON DELETE CASCADE
-		ON UPDATE CASCADE, 
+-- (Customer) REFERENCES Account --! Note: tạm thời disable để test
+--ALTER TABLE Cart
+--	ADD CONSTRAINT FK_C_A
+--		FOREIGN KEY (Customer) REFERENCES Account (AccountID)
+--		ON DELETE CASCADE
+--		ON UPDATE CASCADE;
 -- (Product) REFERENCES Product (ProductID)
-	CONSTRAINT FK_C_Pt
+ALTER TABLE Cart
+	ADD CONSTRAINT FK_C_Pt
 		FOREIGN KEY (Product) REFERENCES Product (ProductID)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE;
