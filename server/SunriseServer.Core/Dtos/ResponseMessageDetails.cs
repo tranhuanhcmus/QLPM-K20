@@ -1,6 +1,6 @@
 ﻿using SunriseServerCore.Common.Enum;
 
-namespace SunriseServer.Dtos
+namespace SunriseServerCore.Dtos
 {
     public class ResponseMessageDetails<TData> : ResponseDetails
     {

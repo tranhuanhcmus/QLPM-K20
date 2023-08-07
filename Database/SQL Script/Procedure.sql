@@ -224,3 +224,12 @@ BEGIN
 END
 GO
 
+-- Authen and Author
+CREATE OR ALTER PROC USP_GetAccountDetailByEmail
+	@Email NVARCHAR(200)
+AS
+	SELECT * FROM Account
+	WHERE Email = @Email
+GO
+
+select * from account

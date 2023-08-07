@@ -13,14 +13,17 @@ use TailorManagement;
 go
 -- Table Account
 Create table Account (
-	AccountID int primary key, -- int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
-    Username char(40) unique,
-    Name nvarchar(80), -- character set utf8mb4,
+	AccountId int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
+    Username char(40),
+	PasswordHash VARCHAR(500),
+    PasswordSalt VARCHAR(500),
     Phone char(15),
     Email varchar(320),
     Address nvarchar(200), -- character set utf8mb4,
-    password varchar(150),
-    role bit
+    UserRole VARCHAR(50),
+	RefreshToken VARCHAR(200),
+    TokenCreated DATETIME,
+    TokenExpires DATETIME,
 );
 
 -- Table Customer measurement
@@ -550,3 +553,5 @@ ALTER TABLE BodyMeasurement
         
 -- Full text search
 --ALTER TABLE Product ADD FULLTEXT INDEX idx_name_description (Name, Description);
+
+select * from account

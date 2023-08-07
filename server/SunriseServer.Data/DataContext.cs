@@ -20,6 +20,8 @@ namespace SunriseServerData
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Account>()
+                .HasKey(x => new { x.AccountId });
             modelBuilder.Entity<BookingAccount>()
                 .HasKey(x => new { x.AccountId, x.HotelId, x.RoomTypeId, x.CheckIn });
         }

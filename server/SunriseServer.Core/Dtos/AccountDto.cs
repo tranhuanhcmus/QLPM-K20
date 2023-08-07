@@ -1,4 +1,4 @@
-﻿namespace SunriseServer.Dtos
+﻿namespace SunriseServerCore.Dtos
 {
     public class AccountDto
     {

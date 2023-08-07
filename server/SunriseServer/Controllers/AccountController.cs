@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SunriseServer.Common.Constant;
 using SunriseServer.Services.AccountService;
-using System.Data;
 
 namespace SunriseServer.Controllers
 {
@@ -37,13 +36,9 @@ namespace SunriseServer.Controllers
             return Ok(result);
         }
 
-        [HttpPut("{id}"), Authorize(Roles = GlobalConstant.User)]
-        public async Task<ActionResult<List<Account>>> UpdateAccount(int id, Account request)
+        [HttpPut(""), Authorize(Roles = GlobalConstant.User)]
+        public async Task<ActionResult<List<Account>>> UpdateAccount(Account request)
         {
-            if (id != request.Id)
-            {
-                return BadRequest("account id and request id don't match");
-            }
             var result = await _accountService.UpdateAccount(request);
             if (result is null)
                 return NotFound("Account not found.");
