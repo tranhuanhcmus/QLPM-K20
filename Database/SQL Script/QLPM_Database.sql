@@ -39,7 +39,9 @@ Create table BodyMeasurement (
 	BottomOfPants DECIMAL(10, 2),
 	Thigh DECIMAL(10, 2),
 	PantsLength DECIMAL(10, 2),
-	PantsCircumference DECIMAL(10, 2)
+	PantsCircumference DECIMAL(10, 2),
+    weight DECIMAL(10, 2),
+    Point int
 );
 
 -- --------------------------
@@ -120,7 +122,11 @@ Create table JacketBreastPocket (
 Create table Vest (
 	VestID int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
     Style int,
-    Type int
+    Type int,
+    Lapel int,
+    Edge int,
+    BreastPocket int,
+    FrontPocket int
 );
 
 
