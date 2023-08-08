@@ -2,10 +2,11 @@
 using SunriseServerData;
 using SunriseServerCore.Models;
 using System.Security.Claims;
+using SunriseServer.Services.BaseService;
 
 namespace SunriseServer.Services.AccountService
 {
-    public class AccountService : IAccountService
+    public class AccountService: IAccountService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly UnitOfWork _unitOfWork;
@@ -17,7 +18,9 @@ namespace SunriseServer.Services.AccountService
 
         public async Task<Account> AddAccount(Account acc)
         {
-            return await _unitOfWork.AccountRepo.CreateAsync(acc);
+            var result = await _unitOfWork.AccountRepo.CreateAsync(acc);
+            await _unitOfWork.SaveChangesAsync();
+            return result;
         }
 
         public string GetMyName()
@@ -43,11 +46,6 @@ namespace SunriseServer.Services.AccountService
         public async Task<Account> UpdateAccount(Account acc)
         {
             return await _unitOfWork.AccountRepo.UpdateAsync(acc);
-        }
-
-        public void SaveChanges()
-        {
-            _unitOfWork.SaveChanges();
         }
 
         public async Task<Account> GetById(int id)

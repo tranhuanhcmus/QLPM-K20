@@ -19,29 +19,29 @@ namespace SunriseServerData.Repositories
             _dataContext = dbContext;
         }
 
-        public override async Task<Account> CreateAsync(Account acc)
+        //public override async Task<Account> CreateAsync(Account acc)
+        //{
+        //    var builder = new StringBuilder(@"
+        //        DECLARE @result INT
+        //        EXEC @result = dbo.USP_AddAccount ");
+        //    builder.Append($"@Username = \'{acc.Username}\', ");
+        //    builder.Append($"@PasswordHash = \'{acc.PasswordHash}\', ");
+        //    builder.Append($"@PasswordSalt = \'{acc.PasswordSalt}\', ");
+        //    builder.Append($"@UserRole = \'{acc.UserRole}\', ");
+        //    builder.Append($"@RefreshToken = \'{acc.RefreshToken}\', ");
+        //    builder.Append($"@TokenCreated = \'{acc.TokenCreated}\', ");
+        //    builder.Append($"@TokenExpires = \'{acc.TokenExpires}\';\n");
+
+        //    builder.Append($"EXEC USP_GetAccountById @Id = @result;");
+
+        //    // Console.WriteLine(builder.ToString());
+        //    var result = await _dataContext.Account.FromSqlInterpolated($"EXECUTE({builder.ToString()})").ToListAsync();
+        //    return result.FirstOrDefault();
+        //}
+
+        public async Task<Account> GetByUsername(string email)
         {
-            var builder = new StringBuilder(@"
-                DECLARE @result INT
-                EXEC @result = dbo.USP_AddAccount ");
-            builder.Append($"@Username = \'{acc.Username}\', ");
-            builder.Append($"@PasswordHash = \'{acc.PasswordHash}\', ");
-            builder.Append($"@PasswordSalt = \'{acc.PasswordSalt}\', ");
-            builder.Append($"@UserRole = \'{acc.UserRole}\', ");
-            builder.Append($"@RefreshToken = \'{acc.RefreshToken}\', ");
-            builder.Append($"@TokenCreated = \'{acc.TokenCreated}\', ");
-            builder.Append($"@TokenExpires = \'{acc.TokenExpires}\';\n");
-
-            builder.Append($"EXEC USP_GetAccountById @Id = @result;");
-
-            // Console.WriteLine(builder.ToString());
-            var result = await _dataContext.Account.FromSqlInterpolated($"EXECUTE({builder.ToString()})").ToListAsync();
-            return result.FirstOrDefault();
-        }
-
-        public async Task<Account> GetByUsername(string username)
-        {
-            var builder = new StringBuilder($"dbo.USP_GetAccountByUsername @Username = \'{username}\';");
+            var builder = new StringBuilder($"dbo.USP_GetAccountDetailByEmail @Email = \'{email}\';");
 
             Console.WriteLine(builder.ToString());
             var result = await _dataContext.Account.FromSqlInterpolated($"EXECUTE({builder.ToString()})").ToListAsync();

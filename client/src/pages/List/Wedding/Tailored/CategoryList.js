@@ -1,15 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {categoriesItem1,categoriesItem2,categoriesItem3,categoriesItem4 } from "./data";
+import {categoriesItem1,categoriesItem3,categoriesItem4 } from "../../data";
+import { URLS } from '../../../../constants/urls';
 const CategoryList = () => {
   return (
 
     <div className="category-list">
           <div className="title">
-      <h2 className="title-template">COAT COLLECTION</h2>
+      <h2 className="title-template">TAILORED COLLECTION</h2>
           </div>
               <ul >
-              <Link to="/Coat"><h>MEN</h></Link> 
+              <Link to={URLS.MEN}><h>MEN</h></Link> 
                 { categoriesItem1.map((item,index) => {
                   return(
                     <li key={index}>
@@ -21,7 +22,7 @@ const CategoryList = () => {
                 }
               </ul>
               <ul >
-              <Link to="/Coat"><h>WEDDING</h></Link> 
+              <Link to={URLS.WEDDING}><h>WEDDING</h></Link> 
               { categoriesItem3.map((item,index) => {
                   return(
                     <li key={index}>
@@ -33,7 +34,7 @@ const CategoryList = () => {
                 }
               </ul>
               <ul >
-              <Link to="/Coat"><h>ACCESSORIES</h></Link> 
+              <Link to={URLS.ACCESSORIES}><h>ACCESSORIES</h></Link> 
               { categoriesItem4.map((item,index) => {
                   return(
                     <li key={index}>

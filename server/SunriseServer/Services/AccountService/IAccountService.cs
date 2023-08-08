@@ -1,4 +1,5 @@
-﻿using SunriseServerCore.Models;
+﻿using SunriseServer.Services.BaseService;
+using SunriseServerCore.Models;
 using SunriseServerData;
 
 namespace SunriseServer.Services.AccountService
@@ -10,6 +11,5 @@ namespace SunriseServer.Services.AccountService
         Task<Account> GetByUsername(string username);
         Task<Account> GetById(int id);
         Task<Account> UpdateAccount(Account acc);
-        void SaveChanges();
     }
 }

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using SunriseServer.Common.Constant;
-using SunriseServer.Dtos;
+using SunriseServerCore.Dtos;
 using SunriseServer.Services.AccountService;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -11,17 +11,19 @@ using SunriseServerCore.Common.Helper;
 
 namespace SunriseServer.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/auth")]
     [ApiController]
     public class AuthController : ControllerBase
     {
         readonly IConfiguration _configuration;
         readonly IAccountService _accService;
+        private readonly UnitOfWork _unitOfWork;
 
-        public AuthController(IConfiguration configuration, IAccountService accService)
+        public AuthController(IConfiguration configuration, IAccountService accService, UnitOfWork unitOfWork)
         {
             _configuration = configuration;
             _accService = accService;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet, Authorize]
@@ -34,7 +36,7 @@ namespace SunriseServer.Controllers
         [HttpPost("register-admin")]
         public async Task<ActionResult<ResponseMessageDetails<string>>> RegisterAdmin(LoginDto request)
         {
-            var acc = await _accService.GetByUsername(request.Username);
+            var acc = await _accService.GetByUsername(request.Email);
 
             if (acc != null)
             {
@@ -43,22 +45,25 @@ namespace SunriseServer.Controllers
 
             acc = new Account();
             CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
-            acc.Username = request.Username;
+            acc.Email = request.Email;
             acc.PasswordHash = Helper.ByteArrayToString(passwordHash);
             acc.PasswordSalt = Helper.ByteArrayToString(passwordSalt);
-            acc.UserRole = GlobalConstant.Admin;
+            acc.UserRole = GlobalConstant.User;
 
             var token = CreateToken(acc, GlobalConstant.Admin);
             var refreshToken = GenerateRefreshToken();
             SetRefreshToken(refreshToken, acc);
             await _accService.AddAccount(acc);
-            return Ok(new ResponseMessageDetails<string>("Register admin successfully", token));
+            return Ok(new {
+                Message = "Register user successfully",
+                Token = token
+            });
         }
 
         [HttpPost("register")]
         public async Task<ActionResult<ResponseMessageDetails<string>>> Register(LoginDto request)
         {
-            var acc = await _accService.GetByUsername(request.Username);
+            var acc = await _accService.GetByUsername(request.Email);
 
             if (acc != null)
             {
@@ -67,7 +72,7 @@ namespace SunriseServer.Controllers
 
             acc = new Account();
             CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
-            acc.Username = request.Username;
+            acc.Email = request.Email;
             acc.PasswordHash = Helper.ByteArrayToString(passwordHash);
             acc.PasswordSalt = Helper.ByteArrayToString(passwordSalt);
             acc.UserRole = GlobalConstant.User;
@@ -76,20 +81,23 @@ namespace SunriseServer.Controllers
             var refreshToken = GenerateRefreshToken();
             SetRefreshToken(refreshToken, acc);
             await _accService.AddAccount(acc);
-            return Ok(new ResponseMessageDetails<string>("Register user successfully", token));
+            return Ok(new {
+                Message = "Register user successfully",
+                Token = token
+            });
         }
 
         [HttpPost("login")]
         public async Task<ActionResult<ResponseMessageDetails<string>>> Login(LoginDto request)
         {
-            var account = await _accService.GetByUsername(request.Username);
+            var account = await _accService.GetByUsername(request.Email);
 
             if (account == null)
             {
                 return NotFound();
             }
 
-            if (account.Username != request.Username ||
+            if (account.Email != request.Email ||
                 !VerifyPasswordHash(request.Password, Helper.StringToByteArray(account.PasswordHash), Helper.StringToByteArray(account.PasswordSalt)))
             {
                 return BadRequest("Wrong credentials");
@@ -121,7 +129,7 @@ namespace SunriseServer.Controllers
             string token = CreateToken(acc, acc.UserRole);
             var newRefreshToken = GenerateRefreshToken();
             SetRefreshToken(newRefreshToken, acc);
-            _accService.SaveChanges();
+            await _unitOfWork.SaveChangesAsync();
             return Ok(new ResponseMessageDetails<string>("Refresh token successfully", token));
         }
 
@@ -155,7 +163,7 @@ namespace SunriseServer.Controllers
         {
             List<Claim> claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, acc.Username),
+                new Claim(ClaimTypes.Name, acc.Email),
                 new Claim(ClaimTypes.Role, role)
             };
 
