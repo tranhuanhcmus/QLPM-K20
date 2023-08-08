@@ -10,10 +10,12 @@ namespace SunriseServer.Controllers
     public class AccountController : ControllerBase
     {
         readonly IAccountService _accountService;
+        private readonly UnitOfWork _uow;
 
-        public AccountController(IAccountService accountService)
+        public AccountController(IAccountService accountService, UnitOfWork uow)
         {
             _accountService = accountService;
+            _uow = uow;
         }
 
         [HttpGet("current-account"), Authorize(Roles = GlobalConstant.User)]

@@ -6,11 +6,11 @@ using SunriseServer.Services.BaseService;
 
 namespace SunriseServer.Services.AccountService
 {
-    public class AccountService : ServiceBase, IAccountService
+    public class AccountService: IAccountService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly UnitOfWork _unitOfWork;
-        public AccountService(IHttpContextAccessor httpContextAccessor, UnitOfWork unitOfWork) : base(unitOfWork)
+        public AccountService(IHttpContextAccessor httpContextAccessor, UnitOfWork unitOfWork)
         {
             _httpContextAccessor = httpContextAccessor;
             _unitOfWork = unitOfWork;
@@ -18,7 +18,9 @@ namespace SunriseServer.Services.AccountService
 
         public async Task<Account> AddAccount(Account acc)
         {
-            return await _unitOfWork.AccountRepo.CreateAsync(acc);
+            var result = await _unitOfWork.AccountRepo.CreateAsync(acc);
+            await _unitOfWork.SaveChangesAsync();
+            return result;
         }
 
         public string GetMyName()

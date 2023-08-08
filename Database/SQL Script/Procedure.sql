@@ -231,5 +231,3 @@ AS
 	SELECT * FROM Account
 	WHERE Email = @Email
 GO
-
-select * from account

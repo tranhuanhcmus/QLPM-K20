@@ -4,7 +4,7 @@ using SunriseServerData;
 
 namespace SunriseServer.Services.AccountService
 {
-    public interface IAccountService : IServiceBase
+    public interface IAccountService
     {
         string GetMyName();
         Task<Account> AddAccount(Account acc);

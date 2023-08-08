@@ -17,11 +17,13 @@ namespace SunriseServer.Controllers
     {
         readonly IConfiguration _configuration;
         readonly IAccountService _accService;
+        private readonly UnitOfWork _unitOfWork;
 
-        public AuthController(IConfiguration configuration, IAccountService accService)
+        public AuthController(IConfiguration configuration, IAccountService accService, UnitOfWork unitOfWork)
         {
             _configuration = configuration;
             _accService = accService;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet, Authorize]
@@ -46,13 +48,16 @@ namespace SunriseServer.Controllers
             acc.Email = request.Email;
             acc.PasswordHash = Helper.ByteArrayToString(passwordHash);
             acc.PasswordSalt = Helper.ByteArrayToString(passwordSalt);
-            acc.UserRole = GlobalConstant.Admin;
+            acc.UserRole = GlobalConstant.User;
 
             var token = CreateToken(acc, GlobalConstant.Admin);
             var refreshToken = GenerateRefreshToken();
             SetRefreshToken(refreshToken, acc);
             await _accService.AddAccount(acc);
-            return Ok(new ResponseMessageDetails<string>("Register admin successfully", token));
+            return Ok(new {
+                Message = "Register user successfully",
+                Token = token
+            });
         }
 
         [HttpPost("register")]
@@ -76,8 +81,10 @@ namespace SunriseServer.Controllers
             var refreshToken = GenerateRefreshToken();
             SetRefreshToken(refreshToken, acc);
             await _accService.AddAccount(acc);
-            _accService.SaveChanges();
-            return Ok(new ResponseMessageDetails<string>("Register user successfully", token));
+            return Ok(new {
+                Message = "Register user successfully",
+                Token = token
+            });
         }
 
         [HttpPost("login")]
@@ -122,7 +129,7 @@ namespace SunriseServer.Controllers
             string token = CreateToken(acc, acc.UserRole);
             var newRefreshToken = GenerateRefreshToken();
             SetRefreshToken(newRefreshToken, acc);
-            _accService.SaveChanges();
+            await _unitOfWork.SaveChangesAsync();
             return Ok(new ResponseMessageDetails<string>("Refresh token successfully", token));
         }
 
