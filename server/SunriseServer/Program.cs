@@ -11,8 +11,6 @@ using System.Text;
 using Swashbuckle.AspNetCore.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using MySql;
-using Pomelo.EntityFrameworkCore.MySql;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,9 +24,7 @@ builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IJacketService, JacketService>();
 builder.Services.AddScoped<IVestService,VestService>();
 builder.Services.AddScoped<IPantsService, PantsService>();
-
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddLogging();
 builder.Services.AddSwaggerGen(options =>
 {
     options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
@@ -60,10 +56,7 @@ builder.Services.AddCors(options => options.AddPolicy(name: "NgOrigins",
     }));
 
 builder.Services.AddServicesData();
-
-builder.Services.AddUnitOfWork(options => options.UseMySql(builder.Configuration.GetConnectionString("Sunrise"), new MySqlServerVersion(new Version())));
-
-//builder.Services.AddUnitOfWork(options => options.UseMySql(builder.Configuration.GetConnectionString("Sunrise")));
+builder.Services.AddUnitOfWork(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Sunrise")));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

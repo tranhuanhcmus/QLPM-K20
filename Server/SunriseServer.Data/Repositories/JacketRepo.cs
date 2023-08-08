@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MySqlX.XDevAPI.Common;
-using Org.BouncyCastle.Bcpg;
 using SunriseServerCore.Common.Helper;
 using SunriseServerCore.Models;
 using SunriseServerCore.Models.Clothes;
