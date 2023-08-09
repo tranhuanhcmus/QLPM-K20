@@ -1,3 +1,5 @@
+import {URLS} from '../../constants/urls'
+
 export const footerLink = [
   {
     title: "POLICIES",
@@ -41,35 +43,40 @@ export const footerContact = [
 export const listTextContentHeader = [
   {
     title: "SUITS",
-    listContent: ["3D DESIGNER", "DESIGN YOUR SUITS", "COLLECTIONS"],
+    listContent: ["COLLECTIONS"],
+    link:URLS.SUITS,
   },
   {
     title: "BLAZERS",
-    listContent: ["3D DESIGNER", "DESIGN YOUR BLAZERS", "BLAZER COLLECTION"],
+    listContent: ["BLAZER COLLECTION"],
+    link:URLS.BLAZERS,
   },
-  {
-    title: "SHIRTS",
-    listContent: ["3D DESIGNER", "COLLECTIONS", "BLAZER COLLECTION"],
-  },
-  {
-    title: "PANTS",
-    listContent: ["3D DESIGNER", "DESIGN YOUR BLAZERS", "BLAZER COLLECTION"],
-  },
-  {
-    title: "WOMAN",
-    listContent: ["3D DESIGNER", "DESIGN YOUR BLAZERS", "BLAZER COLLECTION"],
-  },
+  // {
+  //   title: "SHIRTS",
+  //   listContent: ["3D DESIGNER", "COLLECTIONS", "BLAZER COLLECTION"],
+  // },
+  // {
+  //   title: "PANTS",
+  //   listContent: ["3D DESIGNER", "DESIGN YOUR BLAZERS", "BLAZER COLLECTION"],
+  // },
+  // {
+  //   title: "WOMAN",
+  //   listContent: ["3D DESIGNER", "DESIGN YOUR BLAZERS", "BLAZER COLLECTION"],
+  // },
   {
     title: "COAT",
-    listContent: ["3D DESIGNER", "DESIGN YOUR BLAZERS", "BLAZER COLLECTION"],
+    listContent: ["BLAZER COLLECTION"],
+    link:URLS.COAT,
   },
   {
     title: "WEDDING",
-    listContent: ["GROOM", "BRIDE"],
+    listContent: ["GROOM"],
+    link:URLS.WEDDING,
   },
   {
     title: "ACCESSORIES",
-    listContent: ["TIES", "BOW TIES", "MASK"],
+    listContent: ["TIES", ],
+    link:URLS.ACCESSORIES,
   },
   {
     title: "ABOUT US",

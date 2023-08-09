@@ -6,6 +6,8 @@ import {Link} from 'react-router-dom';
 import {URLS} from '../../../../constants/urls'
 import { convertNumberToCurrency } from '../../../../utils/helpers/MoneyConverter'
 import { AiOutlineCaretRight } from "react-icons/ai";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // Import FontAwesome icons
+import { faPlus, faHeart, faTimes } from '@fortawesome/free-solid-svg-icons'; // Import specific icons
 const Suits_1 = () => {
   return (
     <main >
@@ -19,6 +21,18 @@ const Suits_1 = () => {
             <div className='name-alt'>SUITS</div>
             <div className='name'>{item.code}</div>
             <div className='price'>From <span>{convertNumberToCurrency('usd', item.price)}</span></div>
+            <div className='buttons'>
+              <button className='add-to-cart'>
+                <FontAwesomeIcon icon={faPlus} title='Add to Cart' /> 
+              </button>
+              <button className='remove-from-cart' title='Remove from Cart'>
+                <FontAwesomeIcon icon={faTimes} /> 
+              </button>
+              <button className='add-to-favorites' title='Add to Favorites'>
+                <FontAwesomeIcon icon={faHeart} /> 
+              </button>
+            </div>
+         
           </div>
           
         )

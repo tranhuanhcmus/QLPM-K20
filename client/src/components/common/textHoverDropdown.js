@@ -7,7 +7,7 @@ const TextHoverDropdown = ({ title, listContent }) => {
     <>
       <div className="text-dropdown">
         <span className="text">{title}</span>
-        <div className="dropdown-content">
+        {/* <div className="dropdown-content">
           {listContent && listContent.map((item, index) => {
             return (
               <div className="dropdown-item">
@@ -15,7 +15,7 @@ const TextHoverDropdown = ({ title, listContent }) => {
               </div>
             );
           })}
-        </div>
+        </div> */}
       </div>
     </>
   );

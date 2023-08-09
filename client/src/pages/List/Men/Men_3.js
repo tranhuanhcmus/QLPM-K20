@@ -7,7 +7,8 @@ import {coatCollection } from "../data";
 import {blazersCollection } from "../data";
 import { AiOutlineCaretRight } from "react-icons/ai";
 import {URLS} from '../../../constants/urls'
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // Import FontAwesome icons
+import { faPlus, faHeart, faTimes } from '@fortawesome/free-solid-svg-icons'; // Import specific icons
 const Men_3 = () => {
   return (
     <main >
@@ -21,6 +22,18 @@ const Men_3 = () => {
             <div className='name-alt'>COAT</div>
             <div className='name'>{item.code}</div>
             <div className='price'>From <span>{convertNumberToCurrency('usd', item.price)}</span></div>
+            <div className='buttons'>
+              <button className='add-to-cart'>
+                <FontAwesomeIcon icon={faPlus} title='Add to Cart' /> 
+              </button>
+              <button className='remove-from-cart' title='Remove from Cart'>
+                <FontAwesomeIcon icon={faTimes} /> 
+              </button>
+              <button className='add-to-favorites' title='Add to Favorites'>
+                <FontAwesomeIcon icon={faHeart} /> 
+              </button>
+            </div>
+         
           </div>
         )
       })}
@@ -31,6 +44,18 @@ const Men_3 = () => {
             <div className='name-alt'>BLAZERS</div>
             <div className='name'>{item.code}</div>
             <div className='price'>From <span>{convertNumberToCurrency('usd', item.price)}</span></div>
+            <div className='buttons'>
+              <button className='add-to-cart'>
+                <FontAwesomeIcon icon={faPlus} title='Add to Cart' /> 
+              </button>
+              <button className='remove-from-cart' title='Remove from Cart'>
+                <FontAwesomeIcon icon={faTimes} /> 
+              </button>
+              <button className='add-to-favorites' title='Add to Favorites'>
+                <FontAwesomeIcon icon={faHeart} /> 
+              </button>
+            </div>
+         
           </div>
         )
       })}

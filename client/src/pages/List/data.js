@@ -31,21 +31,21 @@ export const coatCollection =[
         name:"SUITS",
         url:URLS.SUITS,
     },
-    {
-        name:"SHIRTS",
-        url:URLS.SHIRTS,
+    // {
+    //     name:"SHIRTS",
+    //     url:URLS.SHIRTS,
 
-    },
+    // },
     {
         name:"BLAZERS",
         url:URLS.BLAZERS,
 
     },
-    {
-        name:"PANTS",
-        url:URLS.PANTS,
+    // {
+    //     name:"PANTS",
+    //     url:URLS.PANTS,
 
-    },
+    // },
     {
         name:"COAT",
         url:URLS.COAT,
@@ -63,16 +63,16 @@ export const coatCollection =[
         name:"Tailored Suits for Groom and Groomsmen",
         url:URLS.TAILORED,
     },
-    {
-        name:"BRIDE",
-        url:URLS.BRIDE,
+    // {
+    //     name:"BRIDE",
+    //     url:URLS.BRIDE,
 
-    },
-    {
-        name:"BRIDESMAID",
-        url:URLS.BRIDES_MAID,
+    // },
+    // {
+    //     name:"BRIDESMAID",
+    //     url:URLS.BRIDES_MAID,
 
-    },
+    // },
    
   ];
   //ACCESSORIES
@@ -82,11 +82,11 @@ export const coatCollection =[
         name:"TIES",
         url:URLS.TIES,
     },
-    {
-        name:"BOW TIES",
-        url:URLS.BOW_TIES,
+    // {
+    //     name:"BOW TIES",
+    //     url:URLS.BOW_TIES,
 
-    },
+    // },
 
   ];
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

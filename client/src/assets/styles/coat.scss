@@ -37,6 +37,9 @@
       width: max-content;
       max-width: 250px;
       padding:15px;
+      padding-right: 25px;
+      border-right:1px solid #C0C0C0;
+      backdrop-filter: blur(4px);
       h{
         list-style: none;
         padding: 0;
@@ -114,6 +117,8 @@
           box-shadow: 0px 2px 13px 6px rgba($color: #929292, $alpha: 0.1);
         }
       }
+      
+      
     }
   
   
@@ -218,8 +223,39 @@
       
     }
 
+  
+    .buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+  
+      button {
+        display: block;
+        width: 38px;
+        height: 30px;
+        align-items: center;
+        padding: 5px 8px;
+        font-size: 1rem;
+        line-height: 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease; /* Add color transition */
     
+        background-color: white;
+        color: #141130;
     
+        &:hover {
+          background-color:rgb(164, 113, 42);
+          cursor: pointer;
+          color:white;
+        }
+    
+        svg {
+          margin-right: 5px;
+        }
+      }
+    }
   
     .list-page{
       font-family: PoppinsVN, sans-serif;
