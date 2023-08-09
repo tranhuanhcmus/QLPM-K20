@@ -103,3 +103,38 @@ BEGIN
     END;
 END;
 GO
+
+CREATE OR ALTER PROCEDURE usp_InsertTies(
+    @p_Price FLOAT,
+    @p_Image VARCHAR(100),
+    @p_Name VARCHAR(100),
+    @p_Description TEXT,
+    @p_Discount TINYINT,
+    -- IN p_Fabric INT,
+    @p_FabricName VARCHAR(100),
+    @p_color VARCHAR(100),
+    @p_Type VARCHAR(20),
+    
+    -- Tie Component
+    @p_Size DECIMAL(10, 2),
+    @p_Style NVARCHAR(100)
+)
+AS
+BEGIN
+    -- Declare variable to hold the generated ProductID
+    DECLARE @newProductID INT;
+	DECLARE @aFabricID INT;
+
+    -- Get the generated ProductID
+	EXEC @newProductID = USP_GetNextColumnId 'Product', 'ProductID';
+
+    -- Insert into the Product table
+    SELECT @aFabricID = FabricId FROM Fabric WHERE FabricName = @p_FabricName;
+    INSERT INTO Product (ProductID, Price, Image, Name, Description, Discount, Fabric, FabricName, color, Type)
+    VALUES (@newProductID, @p_Price, @p_Image, @p_Name, @p_Description, @p_Discount, @aFabricID, @p_FabricName, @p_color, @p_Type);
+
+    -- Insert into the Ties table
+    INSERT INTO Ties (TiesID, size, style)
+    VALUES (@newProductID, @p_Size, @p_Style);
+END
+GO

@@ -44,6 +44,18 @@ namespace SunriseServerData
         }
         #endregion
 
+        #region Ties
+        private ITiesRepo _tiesRepo;
+        public ITiesRepo TiesRepo
+        {
+            get
+            {
+                if (_tiesRepo == null)
+                    _tiesRepo = new TiesRepo(_dataContext);
+                return _tiesRepo;
+            }
+        }
+        #endregion
 
         #region Vest
         private IVestRepo _vestRepo;

@@ -12,12 +12,10 @@ namespace SunriseServer.Controllers
     public class VestController : ControllerBase
     {
         readonly IVestService _vestService;
-        private readonly ILogger<VestController> _logger;
 
         public VestController(IVestService vestService, ILogger<VestController> logger)
         {
             _vestService = vestService;
-            _logger = logger;
         }
 
 
@@ -56,7 +54,7 @@ namespace SunriseServer.Controllers
         //     return Ok(result);
         // }
 
-        [HttpGet("Add-Vest")]
+        [HttpPost("Add-Vest")]
 
         public async Task<ActionResult<bool>> AddVest(float price, string image, string name, string description,
             byte discount, string fabricName, string color, string style, string vType, 

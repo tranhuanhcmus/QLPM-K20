@@ -33,6 +33,7 @@ using SunriseServer.Services.JacketService;
 using SunriseServer.Services.VestService;
 using SunriseServer.Services.PantsService;
 using SunriseServer.Services.ProductService;
+using SunriseServer.Services.TiesService;
 
 using Microsoft.OpenApi.Models;
 using Microsoft.IdentityModel.Tokens;
@@ -54,6 +55,7 @@ builder.Services.AddScoped<IJacketService, JacketService>();
 builder.Services.AddScoped<IVestService,VestService>();
 builder.Services.AddScoped<IPantsService, PantsService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ITiesService, TiesService>();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSwaggerGen(options =>

@@ -33,6 +33,8 @@ namespace SunriseServerData
         public DbSet<Product> Product { get; set; }
         //public DbSet<Fabric> Fabric { get; set; }
         public DbSet<Vest> Vest { get; set; }
+        public DbSet<Ties> Ties { get; set; }
+
         public DbSet<Pants> Pants { get; set; }
 
 

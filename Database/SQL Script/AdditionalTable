@@ -17,7 +17,8 @@ SELECT SERVERPROPERTY('IsFullTextInstalled') AS IsFullTextSearchAvailable;
 
 Create table Ties (
 	TiesID int PRIMARY key,
-	size DECIMAL(10, 2)
+	size DECIMAL(10, 2),
+	style NVARCHAR(100)
 );
 
 Alter table Ties 

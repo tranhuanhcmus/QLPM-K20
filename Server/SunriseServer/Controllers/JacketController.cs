@@ -62,7 +62,7 @@ namespace SunriseServer.Controllers
         //[HttpGet("Add-Jacket"), Authorize(Roles = GlobalConstant.Admin)]
         // important note
         // fabric name and other components must use dropdown, does not allow free input -> wrong.
-        [HttpGet("Add-Jacket")]
+        [HttpPost("Add-Jacket")]
         public async Task<ActionResult<bool>> AddJacket(float price, string image, string name, string description,
             byte discount, string fabricName, string color, string style, string fit, 
             string lapel, string sleeveButton, string pocket, string backStyle, string breastPocket)
