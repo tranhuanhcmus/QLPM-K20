@@ -23,15 +23,19 @@ namespace SunriseServer.Services.PantsService
         //    return _unitOfWork.PantsRepo.GetAll();
         //}
 
+        public PantsDetail GetPantsDetailById(int id)
+        {
+            return _unitOfWork.PantsRepo.GetPantsDetailById(id);
 
+        }
         public async Task<Pants> AddPants(Pants jk)
         {
             return await _unitOfWork.PantsRepo.CreateAsync(jk);
 
         }
-        public List<PantsProduct> GetPantsByName(string jacketname)
+        public List<PantsProduct> GetPantsByName(string Pantsname)
         {
-            return _unitOfWork.PantsRepo.GetByName(jacketname);
+            return _unitOfWork.PantsRepo.GetByName(Pantsname);
         }
         public async Task<Pants> GetPantsById(int id)
         {

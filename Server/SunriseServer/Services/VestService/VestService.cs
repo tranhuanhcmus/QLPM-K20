@@ -22,16 +22,20 @@ namespace SunriseServer.Services.VestService
         //{
         //    return _unitOfWork.VestRepo.GetAll();
         //}
+        public VestDetail GetVestDetailById(int id)
+        {
+            return _unitOfWork.VestRepo.GetVestDetailById(id);
 
+        }
 
         public async Task<Vest> AddVest(Vest jk)
         {
             return await _unitOfWork.VestRepo.CreateAsync(jk);
 
         }
-        public List<VestProduct> GetVestByName(string jacketname)
+        public List<VestProduct> GetVestByName(string Vestname)
         {
-            return _unitOfWork.VestRepo.GetByName(jacketname);
+            return _unitOfWork.VestRepo.GetByName(Vestname);
         }
         public async Task<Vest> GetVestById(int id)
         {

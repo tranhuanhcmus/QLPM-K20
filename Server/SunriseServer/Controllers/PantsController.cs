@@ -27,18 +27,28 @@ namespace SunriseServer.Controllers
             var result = await _pantsService.GetAll();
             if (result is null)
             {
-                return NotFound("No jackets found");
+                return NotFound("No Pantss found");
             }
 
             return Ok(result);
         }
         // get by name
         [HttpGet("{name}")]
-        public ActionResult<PantsProduct> GetJacketByNameOrDescription(string name)
+        public ActionResult<PantsProduct> GetPantsByNameOrDescription(string name)
         {
             var result = _pantsService.GetPantsByName(name);
             if (result is null)
-                return NotFound("Jacket not found");
+                return NotFound("Pants not found");
+
+            return Ok(result);
+        }
+        // get detail by nid
+        [HttpGet("id/{id}")]
+        public ActionResult<PantsDetail> GetPantsById(int id)
+        {
+            var result = _pantsService.GetPantsDetailById(id);
+            if (result is null)
+                return NotFound("Pants not found");
 
             return Ok(result);
         }

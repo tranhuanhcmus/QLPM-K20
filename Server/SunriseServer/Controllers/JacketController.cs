@@ -47,6 +47,16 @@ namespace SunriseServer.Controllers
 
             return Ok(result);
         }
+        // get detail by nid
+        [HttpGet("id/{id}")]
+        public ActionResult<JacketDetail> GetJacketById(int id)
+        {
+            var result = _jacketService.GetJacketDetailById(id);
+            if (result is null)
+                return NotFound("Jacket not found");
+
+            return Ok(result);
+        }
         // get by category ??
         // insert one - just for admin
         [HttpGet("Add-Jacket"), Authorize(Roles = GlobalConstant.Admin)]

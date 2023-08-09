@@ -12,6 +12,7 @@ namespace SunriseServerCore.RepoInterfaces
     {
         Task<List<VestProduct>> GetAllSpecial();
         List<VestProduct> GetByName(string name);
+        VestDetail GetVestDetailById(int id);
 
     }
 }

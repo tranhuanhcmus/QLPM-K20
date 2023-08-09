@@ -34,6 +34,16 @@ namespace SunriseServer.Controllers
         }
 
         // get by id
+        // get detail by nid
+        [HttpGet("id/{id}")]
+        public ActionResult<VestDetail> GetVestById(int id)
+        {
+            var result = _vestService.GetVestDetailById(id);
+            if (result is null)
+                return NotFound("Vest not found");
+
+            return Ok(result);
+        }
         // get by category ??
         // insert one - just for admin
         [HttpGet("{name}")]

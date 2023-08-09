@@ -13,5 +13,7 @@ namespace SunriseServerCore.RepoInterfaces
         Task<List<PantsProduct>> GetAllSpecial();
         List<PantsProduct> GetByName(string name);
 
+        PantsDetail GetPantsDetailById(int id);
+
     }
 }

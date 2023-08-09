@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using SunriseServerCore.Common.Helper;
 using SunriseServerCore.Models;
 using SunriseServerCore.Models.Clothes;
 using SunriseServerCore.RepoInterfaces;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -63,6 +65,46 @@ namespace SunriseServerData.Repositories
                 }).ToList();
 
             return allVest;
+        }
+
+        public VestDetail GetVestDetailById(int id)
+        {
+            Vest vestInfo = _dataContext.Vest.Find(id);
+            // check if not found
+            if (vestInfo == null) return null;
+
+            VestDetail result = new VestDetail();
+            // assign product info and vest id
+            result.Products = _dataContext.Product.Find(id);
+            result.VestId = vestInfo.VestID;
+
+            // declare output parameters, here are the vest's components
+            var vStyleOut = new SqlParameter("@vStyleOut", SqlDbType.NVarChar, 100) { Direction = ParameterDirection.Output };
+            var vTypeOut = new SqlParameter("@vTypeOut", SqlDbType.NVarChar, 100) { Direction = ParameterDirection.Output };
+            var vLapelOut = new SqlParameter("@vLapelOut", SqlDbType.NVarChar, 100) { Direction = ParameterDirection.Output };
+            var vEdgeOut = new SqlParameter("@vEdgeOut", SqlDbType.NVarChar, 100) { Direction = ParameterDirection.Output };
+            var vBreastPocketOut = new SqlParameter("@vBreastPocketOut", SqlDbType.NVarChar, 100) { Direction = ParameterDirection.Output };
+            var vFrontPocketOut = new SqlParameter("@vFrontPocketOut", SqlDbType.NVarChar, 100) { Direction = ParameterDirection.Output };
+
+            // execute the stored procedure
+            _dataContext.Database.ExecuteSqlRaw("EXEC dbo.USP_GetDetailVestByID " +
+                $"@vStyle = {vestInfo.Style}, @vType = {vestInfo.Type}, @vLapel = {vestInfo.Lapel}, " +
+                $"@vEdge = {vestInfo.Edge}, @vBreastPocket = {vestInfo.BreastPocket}, " +
+                $"@vFrontPocket = {vestInfo.FrontPocket}, " +
+                $"@vStyleOut = @vStyleOut OUTPUT, @vTypeOut = @vTypeOut OUTPUT, @vLapelOut = @vLapelOut OUTPUT, " +
+                $"@vEdgeOut = @vEdgeOut OUTPUT, @vBreastPocketOut = @vBreastPocketOut OUTPUT, " +
+                $"@vFrontPocketOut = @vFrontPocketOut OUTPUT",
+                vStyleOut, vTypeOut, vLapelOut, vEdgeOut, vBreastPocketOut, vFrontPocketOut);
+
+            // assign output parameter values to result object
+            result.Style = (string)vStyleOut.Value;
+            result.Type = (string)vTypeOut.Value;
+            result.Lapel = (string)vLapelOut.Value;
+            result.Edge = (string)vEdgeOut.Value;
+            result.BreastPocket = (string)vBreastPocketOut.Value;
+            result.FrontPocket = (string)vFrontPocketOut.Value;
+
+            return result;
         }
 
     }

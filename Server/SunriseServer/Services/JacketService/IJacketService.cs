@@ -14,6 +14,7 @@ namespace SunriseServer.Services.JacketService
                    string fit, string lapel, string pocket, string sleeveButton, string backStyle, string breastPocket);
         List<JacketProduct> GetJacketByName(string jacketname);
         Task<Jacket> GetJacketById(int id);
+        JacketDetail GetJacketDetailById(int id);
         Task<Jacket> UpdateJacket(Jacket jk);
         Task<Jacket> GetJacketByCategory(string cate);
         Task<Jacket> GetJacketByColor(string color);

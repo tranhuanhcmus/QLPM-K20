@@ -10,7 +10,9 @@ namespace SunriseServer.Services.VestService
         //asynchronous operation that produces a result of Vest type
         Task<List<VestProduct>> GetAll();
         Task<Vest> AddVest(Vest jk);
-        List<VestProduct> GetVestByName(string jacketname);
+        List<VestProduct> GetVestByName(string Vestname);
+        VestDetail GetVestDetailById(int id);
+
         Task<Vest> GetVestById(int id);
         Task<Vest> UpdateVest(Vest jk);
         Task<Vest> GetVestByCategory(string cate);

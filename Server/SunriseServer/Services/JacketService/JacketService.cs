@@ -46,6 +46,11 @@ namespace SunriseServer.Services.JacketService
             return null;
 
         }
+        public JacketDetail GetJacketDetailById(int id)
+        {
+            return _unitOfWork.JacketRepo.GetJacketDetailById(id);
+
+        }
         public async Task<Jacket> UpdateJacket(Jacket jk)
         {
             return null;
