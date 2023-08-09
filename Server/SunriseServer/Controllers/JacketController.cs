@@ -38,17 +38,17 @@ namespace SunriseServer.Controllers
         }
 
         // get by name
-        [HttpGet("{name}")]
-        public ActionResult<JacketProduct> GetJacketByNameOrDescription(string name)
-        {
-            var result = _jacketService.GetJacketByName(name);
-            if (result is null)
-                return NotFound("Jacket not found");
+        // [HttpGet("{name}")]
+        // public ActionResult<JacketProduct> GetJacketByNameOrDescription(string name)
+        // {
+        //     var result = _jacketService.GetJacketByName(name);
+        //     if (result is null)
+        //         return NotFound("Jacket not found");
 
-            return Ok(result);
-        }
+        //     return Ok(result);
+        // }
         // get detail by nid
-        [HttpGet("id/{id}")]
+        [HttpGet("{id}")]
         public ActionResult<JacketDetail> GetJacketById(int id)
         {
             var result = _jacketService.GetJacketDetailById(id);

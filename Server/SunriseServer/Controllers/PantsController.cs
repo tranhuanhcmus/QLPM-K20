@@ -33,17 +33,17 @@ namespace SunriseServer.Controllers
             return Ok(result);
         }
         // get by name
-        [HttpGet("{name}")]
-        public ActionResult<PantsProduct> GetPantsByNameOrDescription(string name)
-        {
-            var result = _pantsService.GetPantsByName(name);
-            if (result is null)
-                return NotFound("Pants not found");
+        // [HttpGet("{name}")]
+        // public ActionResult<PantsProduct> GetPantsByNameOrDescription(string name)
+        // {
+        //     var result = _pantsService.GetPantsByName(name);
+        //     if (result is null)
+        //         return NotFound("Pants not found");
 
-            return Ok(result);
-        }
+        //     return Ok(result);
+        // }
         // get detail by nid
-        [HttpGet("id/{id}")]
+        [HttpGet("{id}")]
         public ActionResult<PantsDetail> GetPantsById(int id)
         {
             var result = _pantsService.GetPantsDetailById(id);
