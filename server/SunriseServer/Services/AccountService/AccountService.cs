@@ -2,7 +2,6 @@
 using SunriseServerData;
 using SunriseServerCore.Models;
 using System.Security.Claims;
-using SunriseServer.Services.BaseService;
 
 namespace SunriseServer.Services.AccountService
 {
