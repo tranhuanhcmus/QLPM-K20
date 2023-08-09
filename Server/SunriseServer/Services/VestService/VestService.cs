@@ -28,6 +28,7 @@ namespace SunriseServer.Services.VestService
 
         }
 
+
         public async Task<Vest> AddVest(Vest jk)
         {
             return await _unitOfWork.VestRepo.CreateAsync(jk);
@@ -67,7 +68,16 @@ namespace SunriseServer.Services.VestService
             return null;
 
         }
+        
+        // ----------------------------------------- //
+        // this area for insert, update and delete   //
+        // ----------------------------------------- //
 
+        public Task<bool> AddVest(float price, string image, string name, string description,
+            byte discount, string fabricName, string color, string style, string vType, 
+            string lapel, string edge, string breastPocket, string frontPocket) {
+                return _unitOfWork.VestRepo.AddVest(price, image, name, description, discount, fabricName, color, style, vType, lapel, edge, breastPocket, frontPocket);
+            }
 
 
         public void SaveChanges()

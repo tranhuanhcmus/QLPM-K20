@@ -30,10 +30,11 @@ namespace SunriseServer.Services.JacketService
         //}
 
 
-        public bool AddJacket(Product p, string style,
-                   string fit, string lapel, string pocket, string sleeveButton, string backStyle, string breastPocket)
+        public Task<bool> AddJacket(float price, string image, string name, string description,
+            byte discount, string fabricName, string color, string style, string fit, 
+            string lapel, string sleeveButton, string pocket, string backStyle, string breastPocket)
         {
-            return _unitOfWork.JacketRepo.AddOne(p, style,fit, lapel,pocket, sleeveButton, backStyle, breastPocket);
+            return _unitOfWork.JacketRepo.AddJacket(price,image,name,description,discount,fabricName,color, style, fit, lapel, pocket, sleeveButton, backStyle, breastPocket);
 
         }
         public List<JacketProduct> GetJacketByName(string jacketname)

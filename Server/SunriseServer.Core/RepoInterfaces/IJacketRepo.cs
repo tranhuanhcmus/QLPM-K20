@@ -13,8 +13,9 @@ namespace SunriseServerCore.RepoInterfaces
         List<JacketProduct> GetByName(string name);
         List<JacketProduct> GetAllSpecial();
         JacketDetail GetJacketDetailById(int id);
-        bool AddOne(Product p, string Style,
-                   string fit, string lapel, string pocket, string sleeveButton, string backStyle, string breastPocket);
+        Task<bool> AddJacket(float price, string image, string name, string description,
+            byte discount, string fabricName, string color, string style, string fit, 
+            string lapel, string sleeveButton, string pocket, string backStyle, string breastPocket);
         //List<Jacket> GetAllSpecialAsync();
 
     }

@@ -107,5 +107,47 @@ namespace SunriseServerData.Repositories
             return result;
         }
 
+        public async Task<bool> AddVest(float price, string image, string name, string description,
+            byte discount, string fabricName, string color, string style, string vType, 
+            string lapel, string edge, string breastPocket, string frontPocket)
+        {
+            try
+            {
+                var connection = _dataContext.Database.GetDbConnection();
+                await connection.OpenAsync(); // Open the connection
+
+                string type = "Vest";
+                var cmd = connection.CreateCommand();
+                cmd.CommandText = "dbo.usp_InsertVest";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = _dataContext.Database.GetDbConnection();
+
+                cmd.Parameters.Add(new SqlParameter("@p_Price", SqlDbType.Float) { Value = price });
+                cmd.Parameters.Add(new SqlParameter("@p_Image", SqlDbType.VarChar, 100) { Value = image });
+                cmd.Parameters.Add(new SqlParameter("@p_Name", SqlDbType.VarChar, 100) { Value = name });
+                cmd.Parameters.Add(new SqlParameter("@p_Description", SqlDbType.Text) { Value = description });
+                cmd.Parameters.Add(new SqlParameter("@p_Discount", SqlDbType.TinyInt) { Value = discount });
+                cmd.Parameters.Add(new SqlParameter("@p_FabricName", SqlDbType.VarChar, 100) { Value = fabricName });
+                cmd.Parameters.Add(new SqlParameter("@p_color", SqlDbType.VarChar, 100) { Value = color });
+                cmd.Parameters.Add(new SqlParameter("@p_Type", SqlDbType.VarChar, 20) { Value = type });
+                cmd.Parameters.Add(new SqlParameter("@p_Style", SqlDbType.VarChar, 100) { Value = style });
+                cmd.Parameters.Add(new SqlParameter("@p_vType", SqlDbType.VarChar, 100) { Value = vType });
+                cmd.Parameters.Add(new SqlParameter("@p_Lapel", SqlDbType.VarChar, 100) { Value = lapel });
+                cmd.Parameters.Add(new SqlParameter("@p_Edge", SqlDbType.VarChar, 100) { Value = edge });
+                cmd.Parameters.Add(new SqlParameter("@p_BreastPocket", SqlDbType.VarChar, 100) { Value = breastPocket });
+                cmd.Parameters.Add(new SqlParameter("@p_FrontPocket", SqlDbType.VarChar, 100) { Value = frontPocket });
+
+                await cmd.ExecuteNonQueryAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while adding the vest.", ex);
+            }
+        }
+
+
     }
+
+
 }

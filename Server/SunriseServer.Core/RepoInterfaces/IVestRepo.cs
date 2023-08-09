@@ -14,5 +14,11 @@ namespace SunriseServerCore.RepoInterfaces
         List<VestProduct> GetByName(string name);
         VestDetail GetVestDetailById(int id);
 
+        // func to insert, delete, or update
+        Task<bool> AddVest(float price, string image, string name, string description,
+            byte discount, string fabricName, string color, string style, string vType, 
+            string lapel, string edge, string breastPocket, string frontPocket);
+        
+        
     }
 }

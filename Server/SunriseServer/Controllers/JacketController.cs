@@ -59,16 +59,20 @@ namespace SunriseServer.Controllers
         }
         // get by category ??
         // insert one - just for admin
-        [HttpGet("Add-Jacket"), Authorize(Roles = GlobalConstant.Admin)]
-        public ActionResult<JacketProduct> AddJacket(Product p, string Style,
-            string fit, string lapel, string pocket, string sleeveButton, string backStyle, string breastPocket)
+        //[HttpGet("Add-Jacket"), Authorize(Roles = GlobalConstant.Admin)]
+        // important note
+        // fabric name and other components must use dropdown, does not allow free input -> wrong.
+        [HttpGet("Add-Jacket")]
+        public async Task<ActionResult<bool>> AddJacket(float price, string image, string name, string description,
+            byte discount, string fabricName, string color, string style, string fit, 
+            string lapel, string sleeveButton, string pocket, string backStyle, string breastPocket)
         {
-            var result = _jacketService.AddJacket(p, Style, fit, lapel, pocket, sleeveButton, backStyle, breastPocket);
+            bool result = await _jacketService.AddJacket(price,image,name,description,discount,fabricName,color, style, fit, lapel, pocket, sleeveButton, backStyle, breastPocket);
            
-            if (result == false)
-                return NotFound("Jacket not found");
+            if (!result)
+                return NotFound("Can not insert, please try again");
 
-            return Ok(result);
+            return Ok("Add Successfully");
 
         }
     }

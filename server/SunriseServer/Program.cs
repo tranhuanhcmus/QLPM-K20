@@ -1,9 +1,38 @@
+//  ----------------------------------------------------------------    
+//
+//                       _oo0oo_
+//                      o8888888o
+//                      88" . "88
+//                      (| -_- |)
+//                      0\  =  /0
+//                    ___/`---'\___
+//                  .' \\|     |// '.
+//                 / \\|||  :  |||// \
+//                / _||||| -:- |||||- \
+//               |   | \\\  -  /// |   |
+//               | \_|  ''\---/''  |_/ |
+//               \  .-\__  '-'  ___/-. /
+//             ___'. .'  /--.--\  `. .'___
+//          ."" '<  `.___\_<|>_/___.' >' "".
+//         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+//         \  \ `_.   \_ __\ /__ _/   .-` /  /
+//     =====`-.____`.___ \_____/___.-`___.-'=====
+//                       `=---='
+//
+//
+//     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+//                   Buddha Bless Us 
+//                  No error - No Bug
+//  ----------------------------------------------------------------    
+
 global using SunriseServerCore.Models;
 global using SunriseServerData;
 using SunriseServer.Services.AccountService;
 using SunriseServer.Services.JacketService;
 using SunriseServer.Services.VestService;
 using SunriseServer.Services.PantsService;
+using SunriseServer.Services.ProductService;
 
 using Microsoft.OpenApi.Models;
 using Microsoft.IdentityModel.Tokens;
@@ -24,6 +53,8 @@ builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IJacketService, JacketService>();
 builder.Services.AddScoped<IVestService,VestService>();
 builder.Services.AddScoped<IPantsService, PantsService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSwaggerGen(options =>
 {

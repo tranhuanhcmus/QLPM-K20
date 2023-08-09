@@ -47,6 +47,10 @@ Create table BodyMeasurement (
     Point int
 );
 
+Create table Ties (
+	ID int PRIMARY key,
+	size DECIMAL(10, 2)
+);
 -- --------------------------
 -- << 14. Table Product >>
 -- --------------------------

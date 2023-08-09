@@ -12,5 +12,7 @@ namespace SunriseServerCore.RepoInterfaces
     {
         List<Product> GetAllSpecial();
         Task<List<Product>> GetAllSpecialAsync();
+        Task<List<Product>> GetByNameAsync(string name);
+
     }
 }

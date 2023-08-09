@@ -103,6 +103,45 @@ namespace SunriseServerData.Repositories
             return result;
         }
 
+        public async Task<bool> AddPants(float price, string image, string name, string description,
+            byte discount, string fabricName, string color, string fit, 
+            string cuff, string fastening, string pleats, string pocket)
+        {
+            try
+            {
+                var connection = _dataContext.Database.GetDbConnection();
+                await connection.OpenAsync(); // Open the connection
+
+                string type = "Pants";
+                var cmd = connection.CreateCommand();
+                cmd.CommandText = "dbo.usp_InsertPants";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = _dataContext.Database.GetDbConnection();
+
+                cmd.Parameters.Add(new SqlParameter("@p_Price", SqlDbType.Float) { Value = price });
+                cmd.Parameters.Add(new SqlParameter("@p_Image", SqlDbType.VarChar, 100) { Value = image });
+                cmd.Parameters.Add(new SqlParameter("@p_Name", SqlDbType.VarChar, 100) { Value = name });
+                cmd.Parameters.Add(new SqlParameter("@p_Description", SqlDbType.Text) { Value = description });
+                cmd.Parameters.Add(new SqlParameter("@p_Discount", SqlDbType.TinyInt) { Value = discount });
+                cmd.Parameters.Add(new SqlParameter("@p_FabricName", SqlDbType.VarChar, 100) { Value = fabricName });
+                cmd.Parameters.Add(new SqlParameter("@p_color", SqlDbType.VarChar, 100) { Value = color });
+                cmd.Parameters.Add(new SqlParameter("@p_Type", SqlDbType.VarChar, 20) { Value = type });
+                cmd.Parameters.Add(new SqlParameter("@p_Pocket", SqlDbType.VarChar, 100) { Value = pocket });
+                cmd.Parameters.Add(new SqlParameter("@p_Fit", SqlDbType.VarChar, 100) { Value = fit });
+                cmd.Parameters.Add(new SqlParameter("@p_Cuff", SqlDbType.VarChar, 100) { Value = cuff });
+                cmd.Parameters.Add(new SqlParameter("@p_Fastening", SqlDbType.VarChar, 100) { Value = fastening });
+                cmd.Parameters.Add(new SqlParameter("@p_Pleats", SqlDbType.VarChar, 100) { Value = pleats });
+
+                await cmd.ExecuteNonQueryAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while adding the pants.", ex);
+            }
+        }
+
+
 
     }
 }

@@ -15,5 +15,9 @@ namespace SunriseServerCore.RepoInterfaces
 
         PantsDetail GetPantsDetailById(int id);
 
+        Task<bool> AddPants(float price, string image, string name, string description,
+            byte discount, string fabricName, string color, string fit, 
+            string cuff, string fastening, string pleats, string pocket);
+
     }
 }

@@ -22,6 +22,11 @@ namespace SunriseServer.Services.PantsService
         //{
         //    return _unitOfWork.PantsRepo.GetAll();
         //}
+        public Task<bool> AddPants(float price, string image, string name, string description,
+            byte discount, string fabricName, string color, string fit, 
+            string cuff, string fastening, string pleats, string pocket) {
+                return _unitOfWork.PantsRepo.AddPants(price, image, name, description, discount, fabricName, color, fit, cuff, fastening, pleats, pocket);
+            }
 
         public PantsDetail GetPantsDetailById(int id)
         {

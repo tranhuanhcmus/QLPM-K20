@@ -26,10 +26,10 @@ namespace SunriseServerData.Repositories
             return result.FirstOrDefault();
         }
 
-        public async Task<Product> GetByName(string name)
+        public async Task<List<Product>> GetByNameAsync(string name)
         {
             var result = await _dataContext.Product.ToListAsync();
-            return result.FirstOrDefault();
+            return result;
         }
 
         public override async Task<Product> GetByIdAsync(int id)

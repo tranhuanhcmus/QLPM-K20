@@ -18,6 +18,9 @@ namespace SunriseServer.Services.VestService
         Task<Vest> GetVestByCategory(string cate);
         Task<Vest> GetVestByColor(string color);
         Task<Vest> GetVestByFabric(string fabric);
+        Task<bool> AddVest(float price, string image, string name, string description,
+            byte discount, string fabricName, string color, string style, string vType, 
+            string lapel, string edge, string breastPocket, string frontPocket);
 
         void SaveChanges();
     }

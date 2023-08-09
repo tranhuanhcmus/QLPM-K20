@@ -56,5 +56,20 @@ namespace SunriseServer.Controllers
             return Ok(result);
         }
 
+        [HttpGet("Add-Vest")]
+
+        public async Task<ActionResult<bool>> AddVest(float price, string image, string name, string description,
+            byte discount, string fabricName, string color, string style, string vType, 
+            string lapel, string edge, string breastPocket, string frontPocket)
+        {
+            bool result = await _vestService.AddVest(price, image, name, description, discount, fabricName, color, style, vType, lapel, edge, breastPocket, frontPocket);
+
+            if (!result)
+                return NotFound("Cannot insert vest, please try again");
+
+            return Ok("Add Successfully");
+        }
+
+
     }
 }

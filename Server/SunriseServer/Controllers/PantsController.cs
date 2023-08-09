@@ -56,6 +56,19 @@ namespace SunriseServer.Controllers
         // get by id
         // get by category ??
         // insert one - just for admin
+        [HttpGet("Add-Pants")]
+
+        public async Task<ActionResult<bool>> AddPants(float price, string image, string name, string description,
+            byte discount, string fabricName, string color, string fit, 
+            string cuff, string fastening, string pleats, string pocket)
+        {
+            bool result = await _pantsService.AddPants(price, image, name, description, discount, fabricName, color, fit, cuff, fastening, pleats, pocket);
+
+            if (!result)
+                return NotFound("Cannot insert pants, please try again");
+
+            return Ok("Add Successfully");
+        }
 
 
     }

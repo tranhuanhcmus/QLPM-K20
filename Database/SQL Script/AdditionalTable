@@ -1,0 +1,27 @@
+
+use TailorManagement;
+GO
+EXEC sp_fulltext_database 'enable';
+GO
+CREATE FULLTEXT CATALOG TailorManagement as default;
+GO
+
+CREATE FULLTEXT INDEX ON Product (
+    Name LANGUAGE 1033,
+    DESCRIPTION LANGUAGE 1033
+) KEY INDEX PK_Product_ProductID ON TailorManagement;
+GO
+
+SELECT SERVERPROPERTY('IsFullTextInstalled') AS IsFullTextSearchAvailable;
+
+
+Create table Ties (
+	TiesID int PRIMARY key,
+	size DECIMAL(10, 2)
+);
+
+Alter table Ties 
+ add CONSTRAINT FK_T_Pt
+		FOREIGN KEY (TiesID) REFERENCES Product (ProductID)
+		ON DELETE CASCADE
+        ON UPDATE CASCADE;
