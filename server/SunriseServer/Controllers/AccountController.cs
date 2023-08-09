@@ -7,8 +7,11 @@ namespace SunriseServer.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+
+    // inheritance from abtract class
     public class AccountController : ControllerBase
     {
+        // init interface for this class
         readonly IAccountService _accountService;
         private readonly UnitOfWork _uow;
 
