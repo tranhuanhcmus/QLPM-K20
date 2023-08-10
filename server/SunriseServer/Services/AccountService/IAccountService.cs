@@ -1,5 +1,4 @@
-﻿using SunriseServer.Services.BaseService;
-using SunriseServerCore.Models;
+﻿using SunriseServerCore.Models;
 using SunriseServerData;
 
 namespace SunriseServer.Services.AccountService

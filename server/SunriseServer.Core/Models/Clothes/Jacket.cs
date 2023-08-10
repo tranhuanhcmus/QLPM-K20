@@ -6,14 +6,9 @@ using System.Threading.Tasks;
 
 namespace SunriseServerCore.Models.Clothes
 {
-    public class Jacket
+    public class Jacket: ModelBase
     {
-        public int Id { get; set; }
-        public double Price { get; set; }
-        public string Image { get; set; }
-        public int Discount { get; set; }
-        public int Fabric { get; set; }
-        public string FabricName { get; set; }
+        public int JacketId { get; set; }
         public int Style { get; set; }
         public int Fit { get; set; }
         public int Lapel { get; set; }
@@ -21,5 +16,16 @@ namespace SunriseServerCore.Models.Clothes
         public int BackStyle { get; set; }
         public int BreastPocket { get; set; }
         public int Pocket { get; set; }
+
+        /*
+        JacketID int auto_increment primary key,
+        Style int,
+        Fit int,
+        Lapel int,
+        SleeveButton int,
+        BackStyle int,
+        BreastPocket int,
+	    Pocket int
+         */
     }
 }

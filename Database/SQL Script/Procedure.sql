@@ -1,4 +1,4 @@
-use TailorManagement;
+﻿use TailorManagement;
 GO
 
 
@@ -231,3 +231,57 @@ AS
 	SELECT * FROM Account
 	WHERE Email = @Email
 GO
+
+
+GO
+CREATE OR ALTER PROCEDURE USP_AddToCart (
+	@Customer INT,
+	@Product INT,
+	@NumberOfProduct INT
+) AS
+BEGIN
+    
+	BEGIN TRAN
+	BEGIN TRY
+		DECLARE @Id INT;
+		SELECT @Id = ID FROM Cart WHERE Customer = @Customer AND Product = @Product;
+
+		IF (@Id IS NOT NULL)
+		BEGIN
+			UPDATE Cart SET NumberOfProduct = NumberOfProduct + @NumberOfProduct
+			WHERE ID = @Id
+		END
+		ELSE
+		BEGIN
+			DECLARE @newProductID INT;
+			EXEC @newProductID = USP_GetNextColumnId 'Cart', 'ID';
+
+			INSERT INTO Cart (ID, Customer, Product, NumberOfProduct) VALUES
+				(@newProductID, @Customer, @Product, @NumberOfProduct)
+		END
+
+	END TRY
+
+	BEGIN CATCH
+		PRINT N'Lỗi thêm sản phẩm vào giỏ hàng.'
+		ROLLBACK;
+		RETURN -1;
+	END CATCH
+
+	COMMIT;
+	RETURN 0;
+END
+GO
+
+
+GO
+CREATE OR ALTER PROCEDURE USP_GetCart (
+	@AccountId INT
+) AS
+BEGIN
+    SELECT CA.*, prd.* FROM (SELECT * FROM Cart WHERE Customer = @AccountId) CA
+	JOIN Product prd ON CA.Product = prd.ProductID;
+END
+GO
+
+select * from account
