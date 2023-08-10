@@ -25,7 +25,7 @@ namespace SunriseServerData.Repositories
         public async Task<int> AddToCartAsync(AddToCartDto cartDto)
         {
             var builder = new StringBuilder("DECLARE @result INT = 0;\n");
-            builder.Append($"EXEC @result = USP_AddToCart {cartDto.Product}, {cartDto.Customer}, {cartDto.NumberOfProduct};\n");
+            builder.Append($"EXEC @result = USP_AddToCart @Customer={cartDto.Customer}, @Product={cartDto.Product}, @NumberOfProduct={cartDto.NumberOfProduct};\n");
             builder.Append($"SELECT @result;");
 
             Console.WriteLine(builder.ToString());
@@ -36,6 +36,23 @@ namespace SunriseServerData.Repositories
             
             return (result.FirstOrDefault()).MyValue;
         }
+
+        public async Task<int> ClearCartAsync(int AccountId)
+        {
+            var result = await _dataContext.Database
+                .ExecuteSqlInterpolatedAsync($"EXECUTE USP_ClearCart @Customer={AccountId};");
+            
+            return result;
+        }
+
+        public async Task<int> ChangeCartItemNumAsync(ChangeItemNumDto itemDto)
+        {
+            var result = await _dataContext.Database
+                .ExecuteSqlInterpolatedAsync($"EXEC USP_ChangeCartItemNum @Customer={itemDto.AccountId}, @Product={itemDto.ProductId}, @NumChange={itemDto.Number};");
+            
+            return result;
+        }
+
 
         public async Task<IEnumerable<GetCartDto>> GetCart(int accountId)
         {

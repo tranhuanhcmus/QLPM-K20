@@ -52,5 +52,27 @@ namespace SunriseServer.Controllers
                 return BadRequest("Cannot find cart");
             }
         }
+        [HttpPut("item-num")] // , Authorize(Roles = GlobalConstant.User)
+        public async Task<ActionResult<ResponseMessageDetails<int>>> ChangeCartItemNum(ChangeItemNumDto itemDto)
+        {
+            var result = await _cartService.ChangeCartItemNum(itemDto);
+            
+            if (result == -1)
+                return NotFound("Cannot change cart item number.");
+
+            return Ok(new ResponseMessageDetails<int>("Change cart item number successfully", result));
+        }
+
+        [HttpDelete("")] // , Authorize(Roles = GlobalConstant.User)
+        public async Task<ActionResult<ResponseMessageDetails<int>>> ClearCart(int AccountId)
+        {
+            var result = await _cartService.ClearCart(AccountId);
+            
+            if (result == 0)
+                return NotFound("Cannot clear cart.");
+
+            return Ok(new ResponseMessageDetails<int>("Clear cart successfully", result));
+        }
+
     }
 }

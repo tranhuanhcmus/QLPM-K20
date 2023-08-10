@@ -15,6 +15,19 @@ namespace SunriseServerCore.Dtos.Cart
         public int NumberOfProduct { get; set; } = 1;
     }
 
+    public class ChangeItemNumDto
+    {
+        public int AccountId { get; set; }
+        public int ProductId { get; set; }
+        public int Number { get; set; } = 1;
+    }
+
+    public class InputChangeItemNumDto
+    {
+        public int ProductId { get; set; }
+        public int Number { get; set; } = 1;
+    }
+
     public class UpdateCartDto
     {
         public int Customer { get; set; }
