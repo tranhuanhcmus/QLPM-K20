@@ -8,5 +8,7 @@ namespace SunriseServerCore.RepoInterfaces
         Task<int> AddToCartAsync(AddToCartDto cartDto);
         Task<IEnumerable<GetCartDto>> GetCart(int accountId);
         Task<int> DeleteProductInCart(DeleteProductCartDto deleteDto);
+        Task<int> ClearCartAsync(int AccountId);
+        Task<int> ChangeCartItemNumAsync(ChangeItemNumDto itemDto);
     }
 }

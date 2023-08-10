@@ -558,3 +558,15 @@ ALTER TABLE BodyMeasurement
         
 -- Full text search
 --ALTER TABLE Product ADD FULLTEXT INDEX idx_name_description (Name, Description);
+USE TailorManagement;
+GO
+EXEC sp_fulltext_database 'enable';
+GO
+CREATE FULLTEXT CATALOG TailorManagement as default;
+GO
+
+CREATE FULLTEXT INDEX ON Product (
+    Name LANGUAGE 1033,
+    DESCRIPTION LANGUAGE 1033
+) KEY INDEX PK_Product_ProductID ON TailorManagement;
+GO

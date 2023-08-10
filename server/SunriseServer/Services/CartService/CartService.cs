@@ -31,5 +31,18 @@ namespace SunriseServer.Services.CartService
         {
             return await _unitOfWork.CartRepo.DeleteProductInCart(deleteDto);
         }
+
+        public async Task<int> ClearCart(int AccountId)
+        {
+            var result = await _unitOfWork.CartRepo.ClearCartAsync(AccountId);
+            return result;
+        }
+
+        // ChangeItemNumDto
+        public async Task<int> ChangeCartItemNum(ChangeItemNumDto itemDto)
+        {
+            var result = await _unitOfWork.CartRepo.ChangeCartItemNumAsync(itemDto);
+            return result;
+        }
     }
 }
