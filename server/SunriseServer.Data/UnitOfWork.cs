@@ -31,6 +31,84 @@ namespace SunriseServerData
         }
         #endregion
 
+        #region Jacket
+        private IJacketRepo _jacketRepo;
+        public IJacketRepo JacketRepo
+        {
+            get
+            {
+                if (_jacketRepo == null)
+                    _jacketRepo = new JacketRepo(_dataContext);
+                return _jacketRepo;
+            }
+        }
+        #endregion
+
+        #region Ties
+        private ITiesRepo _tiesRepo;
+        public ITiesRepo TiesRepo
+        {
+            get
+            {
+                if (_tiesRepo == null)
+                    _tiesRepo = new TiesRepo(_dataContext);
+                return _tiesRepo;
+            }
+        }
+        #endregion
+
+        #region Vest
+        private IVestRepo _vestRepo;
+        public IVestRepo VestRepo
+        {
+            get
+            {
+                if (_vestRepo == null)
+                    _vestRepo = new VestRepo(_dataContext);
+                return _vestRepo;
+            }
+        }
+        #endregion
+
+        #region Pants
+        private PantsRepo _pantsRepo;
+        public PantsRepo PantsRepo
+        {
+            get
+            {
+                if (_pantsRepo == null)
+                    _pantsRepo = new PantsRepo(_dataContext);
+                return _pantsRepo;
+            }
+        }
+        #endregion
+
+        #region Product
+        private IProductRepo _productRepo;
+        public IProductRepo ProductRepo
+        {
+            get
+            {
+                if (_productRepo == null)
+                    _productRepo = new ProductRepo(_dataContext);
+                return _productRepo;
+            }
+        }
+        #endregion
+
+        #region Cart
+        private ICartRepo _cartRepo;
+        public ICartRepo CartRepo
+        {
+            get
+            {
+                if (_cartRepo == null)
+                    _cartRepo = new CartRepo(_dataContext);
+                return _cartRepo;
+            }
+        }
+        #endregion
+
         public async Task<bool> SaveChangesAsync()
         {
             using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))

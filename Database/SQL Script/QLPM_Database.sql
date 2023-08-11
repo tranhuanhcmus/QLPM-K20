@@ -1,4 +1,4 @@
-USE master;
+﻿USE master;
 go
 
 if DB_ID('TailorManagement') IS NOT NULL
@@ -13,10 +13,10 @@ use TailorManagement;
 go
 -- Table Account
 Create table Account (
-	AccountId int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
+	AccountId int identity(1, 1) primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
     Username char(40),
-	PasswordHash VARCHAR(500),
-    PasswordSalt VARCHAR(500),
+	PasswordHash varchar(500),
+    PasswordSalt varchar(500),
     Phone char(15),
     Email varchar(320),
     Address nvarchar(200), -- character set utf8mb4,
@@ -47,6 +47,10 @@ Create table BodyMeasurement (
     Point int
 );
 
+Create table Ties (
+	ID int PRIMARY key,
+	size DECIMAL(10, 2)
+);
 -- --------------------------
 -- << 14. Table Product >>
 -- --------------------------
@@ -465,14 +469,15 @@ ALTER TABLE Evaluation
 		ON UPDATE CASCADE;
         
 -- Cart
--- (Customer) REFERENCES Account
-ALTER TABLE Cart
-	ADD CONSTRAINT FK_C_A
-		FOREIGN KEY (Customer) REFERENCES Account (AccountID)
-		ON DELETE CASCADE
-		ON UPDATE CASCADE, 
+-- (Customer) REFERENCES Account --! Note: tạm thời disable để test
+--ALTER TABLE Cart
+--	ADD CONSTRAINT FK_C_A
+--		FOREIGN KEY (Customer) REFERENCES Account (AccountID)
+--		ON DELETE CASCADE
+--		ON UPDATE CASCADE;
 -- (Product) REFERENCES Product (ProductID)
-	CONSTRAINT FK_C_Pt
+ALTER TABLE Cart
+	ADD CONSTRAINT FK_C_Pt
 		FOREIGN KEY (Product) REFERENCES Product (ProductID)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE;
@@ -553,5 +558,3 @@ ALTER TABLE BodyMeasurement
         
 -- Full text search
 --ALTER TABLE Product ADD FULLTEXT INDEX idx_name_description (Name, Description);
-
-select * from account
