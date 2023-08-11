@@ -48,5 +48,15 @@ namespace SunriseServerData.Repositories
                 .FromSqlInterpolated($"EXECUTE({builder.ToString()});")
                 .ToListAsync();
         }
+
+        public async Task<int> DeleteProductInCart(DeleteProductCartDto deleteDto)
+        {
+            var builder = new StringBuilder();
+            builder.Append($"EXEC USP_DeleteProductInCart {deleteDto.AccountId}, {deleteDto.ProductId};");
+
+            Console.WriteLine(builder.ToString());
+
+            return await _dataContext.Database.ExecuteSqlInterpolatedAsync($"EXECUTE({builder.ToString()});");
+        }
     }
 }
