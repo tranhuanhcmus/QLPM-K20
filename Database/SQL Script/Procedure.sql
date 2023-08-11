@@ -292,5 +292,3 @@ BEGIN
 	JOIN Product prd ON CA.Product = prd.ProductID;
 END
 GO
-
-select * from account
