@@ -6,5 +6,6 @@ namespace SunriseServerCore.RepoInterfaces
     public interface ICartRepo
     {
         Task<int> AddToCartAsync(AddToCartDto cartDto);
+        Task<IEnumerable<GetCartDto>> GetCart(int accountId);
     }
 }

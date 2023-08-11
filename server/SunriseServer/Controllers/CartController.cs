@@ -2,10 +2,11 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SunriseServer.Common.Constant;
-using SunriseServer.Dtos;
+using SunriseServerCore.Dtos;
 using SunriseServer.Services.CartService;
 using SunriseServerCore.Common.Enum;
 using SunriseServerCore.Dtos.Cart;
+using System.Security.Claims;
 
 namespace SunriseServer.Controllers
 {
@@ -13,15 +14,17 @@ namespace SunriseServer.Controllers
     [Route("api/cart")]
     public class CartController : ControllerBase
     {
+        private readonly IHttpContextAccessor _httpContext;
         readonly ICartService _cartService;
 
-        public CartController(ICartService cartService)
+        public CartController(IHttpContextAccessor httpContext, ICartService cartService)
         {
+            _httpContext = httpContext;
             _cartService = cartService;
         }
 
         [HttpPost("")] // , Authorize(Roles = GlobalConstant.User)
-        public async Task<ActionResult<ResponseMessageDetails<int>>> GetCurrentAccount(AddToCartDto cartDto)
+        public async Task<ActionResult<ResponseMessageDetails<int>>> AddToCart(AddToCartDto cartDto)
         {
             var result = await _cartService.AddToCart(cartDto);
             
@@ -31,5 +34,23 @@ namespace SunriseServer.Controllers
             return Ok(new ResponseMessageDetails<int>("Add to cart successfully", result));
         }
 
+        [HttpGet(""), Authorize(Roles = GlobalConstant.User)]
+        public async Task<ActionResult<ResponseMessageDetails<GetCartDto>>> GetCart()
+        {
+            try
+            {
+                var userId = Convert.ToInt32(_httpContext.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
+                var result = await _cartService.GetCart(userId);
+
+                if (result.Count() == 0)
+                    return NotFound("No item in cart");
+
+                return Ok(new ResponseMessageDetails<IEnumerable<GetCartDto>>("Get cart successfully", result));
+            }
+            catch
+            {
+                return BadRequest("Cannot find cart!");
+            }
+        }
     }
 }

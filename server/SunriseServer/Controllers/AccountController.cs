@@ -11,12 +11,14 @@ namespace SunriseServer.Controllers
     // inheritance from abtract class
     public class AccountController : ControllerBase
     {
+        private readonly HttpContextAccessor _httpContext;
+
         // init interface for this class
         readonly IAccountService _accountService;
         private readonly UnitOfWork _uow;
-
-        public AccountController(IAccountService accountService, UnitOfWork uow)
+        public AccountController(IAccountService accountService, UnitOfWork uow, HttpContextAccessor httpContext)
         {
+            _httpContext = httpContext;
             _accountService = accountService;
             _uow = uow;
         }

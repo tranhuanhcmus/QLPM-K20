@@ -37,5 +37,16 @@ namespace SunriseServerData.Repositories
             return (result.FirstOrDefault()).MyValue;
         }
 
+        public async Task<IEnumerable<GetCartDto>> GetCart(int accountId)
+        {
+            var builder = new StringBuilder();
+            builder.Append($"EXEC USP_GetCart {accountId};");
+
+            Console.WriteLine(builder.ToString());
+
+            return await _dataContext.Set<GetCartDto>()
+                .FromSqlInterpolated($"EXECUTE({builder.ToString()});")
+                .ToListAsync();
+        }
     }
 }

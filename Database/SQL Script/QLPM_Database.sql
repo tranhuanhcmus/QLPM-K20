@@ -60,7 +60,7 @@ Create table Product (
     Image varchar(100),
     Name nvarchar(100), -- character set utf8mb4,
     Description ntext, -- character set utf8mb4,
-    Discount TINYINT,
+    Discount float,
     Fabric int,
     FabricName nvarchar(100), -- character set utf8mb4,
     color varchar(50),
