@@ -49,7 +49,7 @@ namespace SunriseServer.Controllers
             }
             catch
             {
-                return BadRequest("Cannot find cart!");
+                return BadRequest("Cannot find cart");
             }
         }
     }
