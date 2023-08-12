@@ -52,5 +52,27 @@ namespace SunriseServer.Controllers
                 return BadRequest("Cannot find cart");
             }
         }
+
+        [HttpDelete("/{accountId}/{productId}"), Authorize(Roles = GlobalConstant.User)]
+        public async Task<ActionResult<ResponseDetails>> DeleteProductInCart(int accountId, int productId)
+        {
+            try
+            {
+                var result = await _cartService.DeleteProductInCart(new DeleteProductCartDto()
+                {
+                    AccountId = accountId,
+                    ProductId = productId
+                });
+
+                if (result == 0)
+                    return NotFound("Cannot delete product from your cart");
+
+                return Ok(new ResponseDetails(ResponseStatusCode.Ok, "Delete item successfully"));
+            }
+            catch
+            {
+                return BadRequest("Cannot delete item from cart");
+            }
+        }
     }
 }

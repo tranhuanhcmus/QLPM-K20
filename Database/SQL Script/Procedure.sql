@@ -273,7 +273,6 @@ BEGIN
 END
 GO
 
-
 GO
 CREATE OR ALTER PROCEDURE USP_GetCart (
 	@AccountId INT
@@ -284,4 +283,12 @@ BEGIN
 END
 GO
 
-select * from account
+GO
+CREATE OR ALTER PROCEDURE USP_DeleteProductInCart (
+	@AccountId INT
+) AS
+BEGIN
+    SELECT CA.*, prd.* FROM (SELECT * FROM Cart WHERE Customer = @AccountId) CA
+	JOIN Product prd ON CA.Product = prd.ProductID;
+END
+GO

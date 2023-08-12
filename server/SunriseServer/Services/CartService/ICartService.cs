@@ -8,5 +8,6 @@ namespace SunriseServer.Services.CartService
     {
         Task<int> AddToCart(AddToCartDto cartDto);
         Task<IEnumerable<GetCartDto>> GetCart(int accountId);
+        Task<int> DeleteProductInCart(DeleteProductCartDto deleteDto);
     }
 }
