@@ -5,9 +5,13 @@
 
 // // Pages
 // @import './assets/styles/scss/home.scss';
-.App{
+.app{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     min-height: 100vh;
+
+    .app__toaster > div {
+        top: 140px!important;
+    }
 }

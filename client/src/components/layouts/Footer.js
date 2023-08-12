@@ -1,11 +1,11 @@
 import React from "react";
 import {footerLink, footerContact} from "../../assets/constant/index";
 import logoImage from "../../assets/images/logos/sc-non.png";
-import "../../assets/styles/_footer.scss"
+import "../../assets/styles/footer.scss"
 
 const Footer = () => {
   return (
-    <footer className="footer-container container"> 
+    <footer className="footer-container">
       <ul className="ft-link">
           {
             footerLink &&
