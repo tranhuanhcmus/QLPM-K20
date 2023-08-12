@@ -19,11 +19,11 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 7.0.x
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build server/SunriseServer.sln --no-restore
     - name: Build and Push Docker image
       uses: mr-smithers-excellent/docker-build-push@v4
       with:
