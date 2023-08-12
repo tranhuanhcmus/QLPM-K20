@@ -5,10 +5,11 @@ import {Link} from 'react-router-dom';
 import { convertNumberToCurrency } from '../../../utils/helpers/MoneyConverter'
 import {coatCollection } from "../data";
 import {blazersCollection } from "../data";
-import { AiOutlineCaretRight } from "react-icons/ai";
 import {URLS} from '../../../constants/urls'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // Import FontAwesome icons
-import { faPlus, faHeart, faTimes } from '@fortawesome/free-solid-svg-icons'; // Import specific icons
+import { ReactComponent as FlaticonArrow } from '../../../assets/images/icons/coatButtons/arrow-right.svg'; 
+import { ReactComponent as FlaticonPlus } from '../../../assets/images/icons/coatButtons/shopping-cart.svg'; 
+import { ReactComponent as FlaticonHeart } from '../../../assets/images/icons/coatButtons/heart.svg'; 
+import { ReactComponent as FlaticonTimes } from '../../../assets/images/icons/coatButtons/cross.svg'; 
 const Men_3 = () => {
   return (
     <main >
@@ -22,16 +23,16 @@ const Men_3 = () => {
             <div className='name-alt'>COAT</div>
             <div className='name'>{item.code}</div>
             <div className='price'>From <span>{convertNumberToCurrency('usd', item.price)}</span></div>
-            <div className='buttons'>
-              <button className='add-to-cart'>
-                <FontAwesomeIcon icon={faPlus} title='Add to Cart' /> 
-              </button>
-              <button className='remove-from-cart' title='Remove from Cart'>
-                <FontAwesomeIcon icon={faTimes} /> 
-              </button>
-              <button className='add-to-favorites' title='Add to Favorites'>
-                <FontAwesomeIcon icon={faHeart} /> 
-              </button>
+            <div className='buttons-coat'>
+            <button className='add-to-cart'>
+                    <FlaticonPlus title='Add to Cart' />
+                  </button>
+                  <button className='remove-from-cart' title='Remove from Cart'>
+                    <FlaticonTimes />
+                  </button>
+                  <button className='add-to-favorites' title='Add to Favorites'>
+                    <FlaticonHeart />
+                  </button>
             </div>
          
           </div>
@@ -45,15 +46,15 @@ const Men_3 = () => {
             <div className='name'>{item.code}</div>
             <div className='price'>From <span>{convertNumberToCurrency('usd', item.price)}</span></div>
             <div className='buttons'>
-              <button className='add-to-cart'>
-                <FontAwesomeIcon icon={faPlus} title='Add to Cart' /> 
-              </button>
-              <button className='remove-from-cart' title='Remove from Cart'>
-                <FontAwesomeIcon icon={faTimes} /> 
-              </button>
-              <button className='add-to-favorites' title='Add to Favorites'>
-                <FontAwesomeIcon icon={faHeart} /> 
-              </button>
+            <button className='add-to-cart'>
+                    <FlaticonPlus title='Add to Cart' />
+                  </button>
+                  <button className='remove-from-cart' title='Remove from Cart'>
+                    <FlaticonTimes />
+                  </button>
+                  <button className='add-to-favorites' title='Add to Favorites'>
+                    <FlaticonHeart />
+                  </button>
             </div>
          
           </div>
@@ -67,7 +68,7 @@ const Men_3 = () => {
         <li><Link to={URLS.MEN}><p>1</p></Link></li>
         <li><Link to={URLS.MEN2}><p>2</p></Link></li>
         <li><Link to={URLS.MEN3}><p>3</p></Link></li>
-        <li><Link to={URLS.MEN3}><p> <AiOutlineCaretRight/></p></Link></li>
+        <li><Link to={URLS.MEN3}><p> <FlaticonArrow/></p></Link></li>
 
       </ul>
     </div>
