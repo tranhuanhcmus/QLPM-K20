@@ -16,12 +16,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Setup .NET
+    - name: Setup .NET Core
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: '7.x'
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore server/SunriseServer.sln
     - name: Build
       run: dotnet build server/SunriseServer.sln --no-restore
     - name: Build and Push Docker image
