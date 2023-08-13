@@ -285,11 +285,11 @@ GO
 
 GO
 CREATE OR ALTER PROCEDURE USP_DeleteProductInCart (
-	@AccountId INT
+	@AccountId INT,
+	@ProductId INT
 ) AS
 BEGIN
-    SELECT CA.*, prd.* FROM (SELECT * FROM Cart WHERE Customer = @AccountId) CA
-	JOIN Product prd ON CA.Product = prd.ProductID;
+    DELETE FROM Cart WHERE Customer = @AccountId and Product = @ProductId
 END
 GO
 

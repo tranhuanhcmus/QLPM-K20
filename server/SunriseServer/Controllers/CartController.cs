@@ -23,10 +23,25 @@ namespace SunriseServer.Controllers
             _cartService = cartService;
         }
 
-        [HttpPost("")] // , Authorize(Roles = GlobalConstant.User)
+        [HttpPost(""), Authorize(Roles = GlobalConstant.User)]
         public async Task<ActionResult<ResponseMessageDetails<int>>> AddToCart(AddToCartDto cartDto)
         {
-            var result = await _cartService.AddToCart(cartDto);
+            var result = -1;
+            try
+            {
+                var userId = Convert.ToInt32(_httpContext.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
+
+                if (userId == 0)
+                {
+                    return BadRequest("Cannot find user, please login again!");
+                }
+
+                cartDto.Customer = userId;
+                result = await _cartService.AddToCart(cartDto);
+            } catch(Exception)
+            {
+                return BadRequest("Cannot add item to cart");
+            }
             
             if (result == -1)
                 return NotFound("Cannot add product to cart.");
@@ -53,14 +68,21 @@ namespace SunriseServer.Controllers
             }
         }
 
-        [HttpDelete("/{accountId}/{productId}"), Authorize(Roles = GlobalConstant.User)]
-        public async Task<ActionResult<ResponseDetails>> DeleteProductInCart(int accountId, int productId)
+        [HttpDelete("/{productId}"), Authorize(Roles = GlobalConstant.User)]
+        public async Task<ActionResult<ResponseDetails>> DeleteProductInCart(int productId)
         {
             try
             {
+                var userId = Convert.ToInt32(_httpContext.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
+
+                if (userId == 0)
+                {
+                    return BadRequest("Cannot find user, please login again!");
+                }
+
                 var result = await _cartService.DeleteProductInCart(new DeleteProductCartDto()
                 {
-                    AccountId = accountId,
+                    AccountId = userId,
                     ProductId = productId
                 });
 
@@ -75,9 +97,17 @@ namespace SunriseServer.Controllers
             }
         }
         
-        [HttpPut("item-num")] // , Authorize(Roles = GlobalConstant.User)
+        [HttpPut("item-num"), Authorize(Roles = GlobalConstant.User)]
         public async Task<ActionResult<ResponseMessageDetails<int>>> ChangeCartItemNum(ChangeItemNumDto itemDto)
         {
+            var userId = Convert.ToInt32(_httpContext.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
+
+            if (userId == 0)
+            {
+                return BadRequest("Cannot find user, please login again!");
+            }
+
+            itemDto.AccountId = userId;
             var result = await _cartService.ChangeCartItemNum(itemDto);
             
             if (result == -1)
@@ -86,10 +116,17 @@ namespace SunriseServer.Controllers
             return Ok(new ResponseMessageDetails<int>("Change cart item number successfully", result));
         }
 
-        [HttpDelete("")] // , Authorize(Roles = GlobalConstant.User)
-        public async Task<ActionResult<ResponseMessageDetails<int>>> ClearCart(int AccountId)
+        [HttpDelete(""), Authorize(Roles = GlobalConstant.User)]
+        public async Task<ActionResult<ResponseMessageDetails<int>>> ClearCart()
         {
-            var result = await _cartService.ClearCart(AccountId);
+            var userId = Convert.ToInt32(_httpContext.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
+
+            if (userId == 0)
+            {
+                return BadRequest("Cannot find user, please login again!");
+            }
+
+            var result = await _cartService.ClearCart(userId);
             
             if (result == 0)
                 return NotFound("Cannot clear cart.");

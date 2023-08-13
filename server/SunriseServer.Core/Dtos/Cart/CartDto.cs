@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace SunriseServerCore.Dtos.Cart
 {
     public class CartDto
@@ -10,6 +12,7 @@ namespace SunriseServerCore.Dtos.Cart
 
     public class AddToCartDto
     {
+        [JsonIgnore]
         public int Customer { get; set; }
         public int Product { get; set; }
         public int NumberOfProduct { get; set; } = 1;
@@ -17,6 +20,7 @@ namespace SunriseServerCore.Dtos.Cart
 
     public class ChangeItemNumDto
     {
+        [JsonIgnore]
         public int AccountId { get; set; }
         public int ProductId { get; set; }
         public int Number { get; set; } = 1;
