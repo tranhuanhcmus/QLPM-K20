@@ -96,11 +96,8 @@ builder.Services.AddUnitOfWork(options => options.UseSqlServer(builder.Configura
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseCors("NgOrigins");
 
