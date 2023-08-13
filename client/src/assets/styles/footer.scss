@@ -1,6 +1,7 @@
 @import './mixin';
 
 .footer-container{
+    box-sizing: border-box;
     width: 100%;
     background-color: white;
     padding: 40px 20px 0px 20px;
