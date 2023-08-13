@@ -292,3 +292,64 @@ BEGIN
 	JOIN Product prd ON CA.Product = prd.ProductID;
 END
 GO
+
+GO
+CREATE OR ALTER PROCEDURE USP_ClearCart (
+	@Customer INT) AS
+BEGIN
+	BEGIN TRAN
+
+	BEGIN TRY
+
+		DELETE FROM Cart WHERE Customer = @Customer;
+
+	END TRY
+
+	BEGIN CATCH
+		PRINT N'Lỗi clear giỏ hàng.'
+		ROLLBACK;
+		RETURN -1;
+	END CATCH
+
+	COMMIT;
+	RETURN 0;
+END
+GO
+
+GO
+CREATE OR ALTER PROCEDURE USP_ChangeCartItemNum (
+	@Customer INT,
+	@Product INT,
+	@NumChange INT) AS
+BEGIN
+	BEGIN TRAN
+
+	BEGIN TRY
+		DECLARE @NewNum INT;
+		SELECT @NewNum = NumberOfProduct + @NumChange FROM Cart WHERE Customer = @Customer AND Product = @Product;
+		IF (@NewNum IS NULL) 
+		BEGIN
+			PRINT N'Lỗi không tìm thấy sản phẩm giỏ hàng.'
+			ROLLBACK;
+			RETURN -1;
+		END
+
+		IF (@NewNum <= 0)
+			DELETE FROM Cart WHERE Customer = @Customer AND Product = @Product;
+		ELSE
+			UPDATE Cart SET
+				NumberOfProduct = @NewNum
+			WHERE Customer = @Customer AND Product = @Product;
+
+	END TRY
+
+	BEGIN CATCH
+		PRINT N'Lỗi thay đổi số lượng sản phẩm giỏ hàng.'
+		ROLLBACK;
+		RETURN -1;
+	END CATCH
+
+	COMMIT;
+	RETURN 0;
+END
+GO
