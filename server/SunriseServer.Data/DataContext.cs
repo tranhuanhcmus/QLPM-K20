@@ -1,5 +1,6 @@
 ﻿global using Microsoft.EntityFrameworkCore;
 using SunriseServerCore.Dtos.Cart;
+using SunriseServerCore.Dtos.Order;
 //using Microsoft.Data.SqlClient;
 using SunriseServerCore.Models;
 using SunriseServerCore.Models.Clothes;
@@ -29,7 +30,10 @@ namespace SunriseServerData
                 .HasNoKey().ToTable("MyProcedureResult", t => t.ExcludeFromMigrations());
 
             modelBuilder.Entity<GetCartDto>()
-                .HasNoKey().ToTable("GetCartDto", t => t.ExcludeFromMigrations());
+                .HasNoKey().ToTable("GetOrdersDto", t => t.ExcludeFromMigrations());
+            
+            modelBuilder.Entity<GetOrderDto>()
+                .HasNoKey().ToTable("GetOrderDto", t => t.ExcludeFromMigrations());
         }
 
         public DbSet<Account> Account { get; set; }
@@ -40,5 +44,6 @@ namespace SunriseServerData
         public DbSet<Pants> Pants { get; set; }
         public DbSet<BookingAccount> Booking_Account { get; set; }
         public DbSet<Cart> Cart { get; set; }
+        public DbSet<Order> Order { get; set; }
     }
 }
