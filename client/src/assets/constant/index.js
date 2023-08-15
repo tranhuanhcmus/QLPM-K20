@@ -56,6 +56,10 @@ export const listTextContentHeader = [
     listContent: ["3D DESIGNER", "DESIGN YOUR BLAZERS", "BLAZER COLLECTION"],
   },
   {
+    title: "WOMAN",
+    listContent: ["3D DESIGNER", "DESIGN YOUR BLAZERS", "BLAZER COLLECTION"],
+  },
+  {
     title: "COAT",
     listContent: ["3D DESIGNER", "DESIGN YOUR BLAZERS", "BLAZER COLLECTION"],
   },
@@ -93,89 +97,84 @@ export const listItemMeasureFilter = [
     icon: <i className="fi fi-rs-diamond"></i>,
     linkTo: "#",
   },
+  {
+    title: "SALE",
+    icon: <i className="fi fi-br-ticket"></i>,
+    linkTo: "#",
+  },
 ];
 export const listTryProduct = [
   {
-    url: "https://adongsilk.com/wp-content/uploads/2023/05/192.200-black-plaid-tailored-suits-in-hoi-an-150x150.jpg",
-    price: 250,
+    price: 200,
     isNew: false,
-    testAttire:
-      "https://res.cloudinary.com/drnqf7lrb/image/upload/v1689350252/Screenshot_2023-07-14_225522_iptr02.png",
+    cloth:
+      "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859370/design_application/1_coxfll.jpg",
+    view_front:
+      "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859371/design_application/1_f_l4ypfs.png",
+    view_end:
+      "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859370/design_application/1_b_iubgjx.png",
     material: "Cashmere: 85%. Wool: 10%",
+
+    tags: [1, 2],
   },
   {
-    url: "https://adongsilk.com/wp-content/uploads/2023/04/81.150_grey-checkered-tailored-suits-in-hoi-an-150x150.jpg",
     price: 150,
     isNew: true,
-    testAttire:
-      "https://res.cloudinary.com/drnqf7lrb/image/upload/v1689350537/Screenshot_2023-07-14_230150_k0iepi.png",
+    cloth:
+      "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859371/design_application/2_hxklrg.jpg",
+    view_front:
+      "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859372/design_application/2_f_dxy6ng.png",
+    view_end:
+      "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859368/design_application/2_b_mxbr61.png",
     material: "Wool 60% . Cashmere 20%",
+    tags: [3],
   },
   {
-    url: "https://adongsilk.com/wp-content/uploads/2023/05/192.200-black-plaid-tailored-suits-in-hoi-an-150x150.jpg",
-    price: 250,
+    price: 150,
     isNew: false,
-    testAttire:
-      "https://res.cloudinary.com/drnqf7lrb/image/upload/v1689350252/Screenshot_2023-07-14_225522_iptr02.png",
-    material: "Cashmere: 85%. Wool: 10%",
-  },
-  {
-    url: "https://adongsilk.com/wp-content/uploads/2023/04/81.150_grey-checkered-tailored-suits-in-hoi-an-150x150.jpg",
-    price: 150,
-    isNew: true,
-    testAttire:
-      "https://res.cloudinary.com/drnqf7lrb/image/upload/v1689350537/Screenshot_2023-07-14_230150_k0iepi.png",
+    cloth:
+      "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859368/design_application/3_qvhk3o.jpg",
+    view_front:
+      "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859369/design_application/3_f_lqwte6.png",
+    view_end:
+      "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859377/design_application/3_b_umk4gb.png",
     material: "Wool 60% . Cashmere 20%",
+    tags: [2],
   },
   {
-    url: "https://adongsilk.com/wp-content/uploads/2023/05/192.200-black-plaid-tailored-suits-in-hoi-an-150x150.jpg",
     price: 250,
+    isNew: true,
+    cloth:
+      "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859367/design_application/4_mgxkel.jpg",
+    view_front:
+      "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859369/design_application/4_f_jcndbm.png",
+    view_end:
+      "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859369/design_application/4_b_hua1df.png",
+    material: "Wool 80% . Cashmere 10%",
+    tags: [3],
+  },
+  {
+    price: 300,
     isNew: false,
-    testAttire:
-      "https://res.cloudinary.com/drnqf7lrb/image/upload/v1689350252/Screenshot_2023-07-14_225522_iptr02.png",
-    material: "Cashmere: 85%. Wool: 10%",
+    cloth:
+      "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859368/design_application/5_pc7ygs.jpg",
+    view_front:
+      "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859369/design_application/5_f_fqkayi.png",
+    view_end:
+      "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859370/design_application/5_b_yyajlr.png",
+    material: "85% Wool . 10% Cashmere",
+    tags: [1, 3],
   },
   {
-    url: "https://adongsilk.com/wp-content/uploads/2023/04/81.150_grey-checkered-tailored-suits-in-hoi-an-150x150.jpg",
-    price: 150,
+    price: 270,
     isNew: true,
-    testAttire:
-      "https://res.cloudinary.com/drnqf7lrb/image/upload/v1689350537/Screenshot_2023-07-14_230150_k0iepi.png",
-    material: "Wool 60% . Cashmere 20%",
-  },
-  {
-    url: "https://adongsilk.com/wp-content/uploads/2023/05/192.200-black-plaid-tailored-suits-in-hoi-an-150x150.jpg",
-    price: 250,
-    isNew: false,
-    testAttire:
-      "https://res.cloudinary.com/drnqf7lrb/image/upload/v1689350252/Screenshot_2023-07-14_225522_iptr02.png",
-    material: "Cashmere: 85%. Wool: 10%",
-  },
-  {
-    url: "https://adongsilk.com/wp-content/uploads/2023/04/81.150_grey-checkered-tailored-suits-in-hoi-an-150x150.jpg",
-    price: 150,
-    isNew: true,
-    testAttire:
-      "https://res.cloudinary.com/drnqf7lrb/image/upload/v1689350537/Screenshot_2023-07-14_230150_k0iepi.png",
-    material: "Wool 60% . Cashmere 20%",
-  },
-  {
-    url: "https://adongsilk.com/wp-content/uploads/2023/04/81.150_grey-checkered-tailored-suits-in-hoi-an-150x150.jpg",
-    price: 150,
-    isNew: true,
-    testAttire:
-      "https://res.cloudinary.com/drnqf7lrb/image/upload/v1689350537/Screenshot_2023-07-14_230150_k0iepi.png",
-    material: "Cashmere: 85%. Wool: 10%",
-  }
-  ,
-  {
-    url: "https://adongsilk.com/wp-content/uploads/2023/04/81.150_grey-checkered-tailored-suits-in-hoi-an-150x150.jpg",
-    price: 150,
-    isNew: true,
-    testAttire:
-      "https://res.cloudinary.com/drnqf7lrb/image/upload/v1689350537/Screenshot_2023-07-14_230150_k0iepi.png",
-    material: "Wool 60% . Cashmere 20%",
+    cloth:
+      "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859369/design_application/6_uysedi.jpg",
+    view_front:
+      "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859370/design_application/6_f_i8pmpl.png",
+    view_end:
+      "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859370/design_application/6_b_dlbkf1.png",
+    material: "Wool 85% . Cashmere 10%",
+    tags: [2, 3],
   },
 ];
-
-
