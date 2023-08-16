@@ -37,6 +37,7 @@
       width: max-content;
       max-width: 250px;
       padding:15px;
+   
       h{
         list-style: none;
         padding: 0;
@@ -259,4 +260,43 @@
        
         }
     }
+    .list-page{
+      font-family: PoppinsVN, sans-serif;
+      box-sizing: border-box;
+      padding-left: 20px;
+      margin-left: 20px;
+        ul{
+        display: flex;
+        li{
+          display: block;
+       
+          width: 40px;
+          background-color: white;
+          box-sizing: border-box;
+          border:1px solid rgb(112, 112, 112);
+          margin: 1px;
+          text-align: center;
+          p{
+            display:block;
+            font-size: 15px;
+            line-height: 40px;
+            color: rgb(112, 112, 112);
+            &:hover {
+                color:white;
+              }
+            }
+       
+          &:hover {
+            background-color:rgb(164, 113, 42);
+            cursor: pointer;
+          }
+  
+          &.active {
+            background-color: rgb(164, 113, 42);
+            color: white;
+          }
+       
+        }
     }
+    }
+  }
