@@ -5,4 +5,11 @@
         Admin,
         User
     }
+
+    public enum ProductTypeEnum {
+        Pants,
+        Jacket,
+        Vest,
+        Ties
+    }
 }

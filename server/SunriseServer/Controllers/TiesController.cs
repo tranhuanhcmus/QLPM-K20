@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using SunriseServer.Common.Constant;
+﻿using Microsoft.AspNetCore.Mvc;
 using SunriseServer.Services.TiesService;
+using SunriseServerCore.Dtos;
 using SunriseServerCore.Models.Clothes;
-using System.Data;
 
 namespace SunriseServer.Controllers
 {
@@ -20,7 +18,7 @@ namespace SunriseServer.Controllers
 
 
         [HttpGet("All-Ties")]
-        public async Task<ActionResult<TiesDetail>> GetAll()
+        public async Task<ActionResult<Product>> GetAll()
         {
             var result = await _tiesService.GetAll();
             if (result is null)
@@ -55,10 +53,9 @@ namespace SunriseServer.Controllers
         // }
 
         [HttpPost("Add-Ties")]
-        public async Task<ActionResult<bool>> AddTies(float price, string image, string name, string description,
-                byte discount, string fabricName, string color, decimal size, string style)
+        public async Task<ActionResult<bool>> AddTies(AddTies at)
         {
-            bool result = await _tiesService.AddTies(price, image, name, description, discount, fabricName, color, size, style);
+            bool result = await _tiesService.AddTies(at);
 
             if (!result)
                 return NotFound("Cannot insert ties, please try again");

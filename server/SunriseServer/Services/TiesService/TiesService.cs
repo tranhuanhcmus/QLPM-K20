@@ -1,9 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SunriseServerData;
-using SunriseServerCore.Models;
-using System.Security.Claims;
+﻿using SunriseServerCore.Dtos;
 using SunriseServerCore.Models.Clothes;
-using System.Threading.Tasks;
 
 namespace SunriseServer.Services.TiesService
 {
@@ -17,7 +13,7 @@ namespace SunriseServer.Services.TiesService
             _unitOfWork = unitOfWork;
         }
 
-        public Task<List<TiesDetail>> GetAll() => (Task<List<TiesDetail>>)_unitOfWork.TiesRepo.GetAllSpecial();
+        public Task<List<Product>> GetAll() => _unitOfWork.TiesRepo.GetAllSpecial();
         //public Task<Ties> GetAll()
         //{
         //    return _unitOfWork.TiesRepo.GetAll();
@@ -73,9 +69,8 @@ namespace SunriseServer.Services.TiesService
         // this area for insert, update and delete   //
         // ----------------------------------------- //
 
-        public Task<bool> AddTies(float price, string image, string name, string description,
-            byte discount, string fabricName, string color, decimal size, string style) {
-                return _unitOfWork.TiesRepo.AddTies(price, image, name, description, discount, fabricName, color, size, style);
+        public Task<bool> AddTies(AddTies at) {
+                return _unitOfWork.TiesRepo.AddTies(at);
             }
 
 

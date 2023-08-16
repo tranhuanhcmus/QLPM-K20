@@ -1,8 +1,4 @@
-﻿using SunriseServerCore.Models;
-using SunriseServerCore.Models.Clothes;
-using SunriseServerData;
-
-namespace SunriseServer.Services.ProductService
+﻿namespace SunriseServer.Services.ProductService
 {
     public interface IProductService
     {

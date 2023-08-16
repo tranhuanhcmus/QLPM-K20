@@ -1,9 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SunriseServerData;
-using SunriseServerCore.Models;
-using System.Security.Claims;
+﻿using SunriseServerCore.Dtos;
 using SunriseServerCore.Models.Clothes;
-using System.Threading.Tasks;
 
 namespace SunriseServer.Services.JacketService
 {
@@ -18,7 +14,7 @@ namespace SunriseServer.Services.JacketService
         }
 
         public List<Jacket> GetAll() => (List<Jacket>)_unitOfWork.JacketRepo.GetAll();
-        public List<JacketProduct> GetAllSpecial() => _unitOfWork.JacketRepo.GetAllSpecial();
+        public List<Product> GetAllSpecial() => _unitOfWork.JacketRepo.GetAllSpecial();
 
         public async Task<List<Product>> GetAllSpecial3()
         {
@@ -29,12 +25,25 @@ namespace SunriseServer.Services.JacketService
         //    return _unitOfWork.JacketRepo.GetAll();
         //}
 
+        //----------------------------------------------------------------
+        // for admin (CRUD)
+        //----------------------------------------------------------------
+        public bool DeleteJacket(int jacketId) {
+            // delete both jacket infor and product
 
-        public Task<bool> AddJacket(float price, string image, string name, string description,
-            byte discount, string fabricName, string color, string style, string fit, 
-            string lapel, string sleeveButton, string pocket, string backStyle, string breastPocket)
+            Jacket j = _unitOfWork.JacketRepo.Delete(jacketId);
+            if (j == null ) return false; 
+
+            // Product p = _unitOfWork.ProductRepo.Delete(jacketId);
+            // if (p == null ) return false; 
+            
+            return true;
+        }
+
+
+        public Task<bool> AddJacket(AddJacket aj)
         {
-            return _unitOfWork.JacketRepo.AddJacket(price,image,name,description,discount,fabricName,color, style, fit, lapel, pocket, sleeveButton, backStyle, breastPocket);
+            return _unitOfWork.JacketRepo.AddJacket(aj);
 
         }
         public List<JacketProduct> GetJacketByName(string jacketname)

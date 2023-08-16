@@ -1,9 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SunriseServerData;
-using SunriseServerCore.Models;
-using System.Security.Claims;
+﻿using SunriseServerCore.Dtos;
 using SunriseServerCore.Models.Clothes;
-using System.Threading.Tasks;
 
 namespace SunriseServer.Services.PantsService
 {
@@ -17,15 +13,13 @@ namespace SunriseServer.Services.PantsService
             _unitOfWork = unitOfWork;
         }
 
-        public Task<List<PantsProduct>> GetAll() => (Task<List<PantsProduct>>)_unitOfWork.PantsRepo.GetAllSpecial();
+        public Task<List<Product>> GetAll() => _unitOfWork.PantsRepo.GetAllSpecial();
         //public Task<Pants> GetAll()
         //{
         //    return _unitOfWork.PantsRepo.GetAll();
         //}
-        public Task<bool> AddPants(float price, string image, string name, string description,
-            byte discount, string fabricName, string color, string fit, 
-            string cuff, string fastening, string pleats, string pocket) {
-                return _unitOfWork.PantsRepo.AddPants(price, image, name, description, discount, fabricName, color, fit, cuff, fastening, pleats, pocket);
+        public Task<bool> AddPants(AddPants ap) {
+                return _unitOfWork.PantsRepo.AddPants(ap);
             }
 
         public PantsDetail GetPantsDetailById(int id)

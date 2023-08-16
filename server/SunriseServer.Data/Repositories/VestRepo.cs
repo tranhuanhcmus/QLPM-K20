@@ -1,16 +1,11 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
-using SunriseServerCore.Common.Helper;
+﻿using System.Data;
+using System.Text;
+using Microsoft.Data.SqlClient;
+using SunriseServer.Common.Constant;
+using SunriseServerCore.Dtos;
 using SunriseServerCore.Models;
 using SunriseServerCore.Models.Clothes;
 using SunriseServerCore.RepoInterfaces;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SunriseServerData.Repositories
 {
@@ -37,17 +32,9 @@ namespace SunriseServerData.Repositories
             return result.FirstOrDefault();
         }
 
-        public async Task<List<VestProduct>> GetAllSpecial()
+        public async Task<List<Product>> GetAllSpecial()
         {
-            var allVest = await _dataContext.Vest.Join(_dataContext.Product,
-                v => v.VestID,
-                p => p.ProductID,
-                (vest, product) => new VestProduct
-                {
-                    VestData = vest,
-                    ProductData = product
-                }).ToListAsync();
-
+            var allVest = await _dataContext.Product.Where(p => p.Type == GlobalConstant.VestProduct).ToListAsync();
             return allVest;
         }
 
@@ -73,69 +60,48 @@ namespace SunriseServerData.Repositories
             // check if not found
             if (vestInfo == null) return null;
 
-            VestDetail result = new VestDetail();
-            // assign product info and vest id
-            result.Products = _dataContext.Product.Find(id);
-            result.VestId = vestInfo.VestID;
+            Product productInfor = _dataContext.Product.Find(id);
 
-            // declare output parameters, here are the vest's components
-            var vStyleOut = new SqlParameter("@vStyleOut", SqlDbType.NVarChar, 100) { Direction = ParameterDirection.Output };
-            var vTypeOut = new SqlParameter("@vTypeOut", SqlDbType.NVarChar, 100) { Direction = ParameterDirection.Output };
-            var vLapelOut = new SqlParameter("@vLapelOut", SqlDbType.NVarChar, 100) { Direction = ParameterDirection.Output };
-            var vEdgeOut = new SqlParameter("@vEdgeOut", SqlDbType.NVarChar, 100) { Direction = ParameterDirection.Output };
-            var vBreastPocketOut = new SqlParameter("@vBreastPocketOut", SqlDbType.NVarChar, 100) { Direction = ParameterDirection.Output };
-            var vFrontPocketOut = new SqlParameter("@vFrontPocketOut", SqlDbType.NVarChar, 100) { Direction = ParameterDirection.Output };
+            VestDetail result = new VestDetail(productInfor);
 
-            // execute the stored procedure
-            _dataContext.Database.ExecuteSqlRaw("EXEC dbo.USP_GetDetailVestByID " +
-                $"@vStyle = {vestInfo.Style}, @vType = {vestInfo.Type}, @vLapel = {vestInfo.Lapel}, " +
-                $"@vEdge = {vestInfo.Edge}, @vBreastPocket = {vestInfo.BreastPocket}, " +
-                $"@vFrontPocket = {vestInfo.FrontPocket}, " +
-                $"@vStyleOut = @vStyleOut OUTPUT, @vTypeOut = @vTypeOut OUTPUT, @vLapelOut = @vLapelOut OUTPUT, " +
-                $"@vEdgeOut = @vEdgeOut OUTPUT, @vBreastPocketOut = @vBreastPocketOut OUTPUT, " +
-                $"@vFrontPocketOut = @vFrontPocketOut OUTPUT",
-                vStyleOut, vTypeOut, vLapelOut, vEdgeOut, vBreastPocketOut, vFrontPocketOut);
 
-            // assign output parameter values to result object
-            result.Style = (string)vStyleOut.Value;
-            result.Type = (string)vTypeOut.Value;
-            result.Lapel = (string)vLapelOut.Value;
-            result.Edge = (string)vEdgeOut.Value;
-            result.BreastPocket = (string)vBreastPocketOut.Value;
-            result.FrontPocket = (string)vFrontPocketOut.Value;
+            var builder = new StringBuilder();
+            builder.Append($"EXEC USP_GetDetailVestByID {id};");
+            VestComponent component = _dataContext.Set<VestComponent>()
+                .FromSqlInterpolated($"EXECUTE({builder.ToString()});")
+                .ToList().FirstOrDefault();
+
+            result.Component = component;
 
             return result;
         }
 
-        public async Task<bool> AddVest(float price, string image, string name, string description,
-            byte discount, string fabricName, string color, string style, string vType, 
-            string lapel, string edge, string breastPocket, string frontPocket)
+        public async Task<bool> AddVest(AddVest av)
         {
             try
             {
                 var connection = _dataContext.Database.GetDbConnection();
                 await connection.OpenAsync(); // Open the connection
 
-                string type = "Vest";
                 var cmd = connection.CreateCommand();
                 cmd.CommandText = "dbo.usp_InsertVest";
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = _dataContext.Database.GetDbConnection();
 
-                cmd.Parameters.Add(new SqlParameter("@p_Price", SqlDbType.Float) { Value = price });
-                cmd.Parameters.Add(new SqlParameter("@p_Image", SqlDbType.VarChar, 100) { Value = image });
-                cmd.Parameters.Add(new SqlParameter("@p_Name", SqlDbType.VarChar, 100) { Value = name });
-                cmd.Parameters.Add(new SqlParameter("@p_Description", SqlDbType.Text) { Value = description });
-                cmd.Parameters.Add(new SqlParameter("@p_Discount", SqlDbType.TinyInt) { Value = discount });
-                cmd.Parameters.Add(new SqlParameter("@p_FabricName", SqlDbType.VarChar, 100) { Value = fabricName });
-                cmd.Parameters.Add(new SqlParameter("@p_color", SqlDbType.VarChar, 100) { Value = color });
-                cmd.Parameters.Add(new SqlParameter("@p_Type", SqlDbType.VarChar, 20) { Value = type });
-                cmd.Parameters.Add(new SqlParameter("@p_Style", SqlDbType.VarChar, 100) { Value = style });
-                cmd.Parameters.Add(new SqlParameter("@p_vType", SqlDbType.VarChar, 100) { Value = vType });
-                cmd.Parameters.Add(new SqlParameter("@p_Lapel", SqlDbType.VarChar, 100) { Value = lapel });
-                cmd.Parameters.Add(new SqlParameter("@p_Edge", SqlDbType.VarChar, 100) { Value = edge });
-                cmd.Parameters.Add(new SqlParameter("@p_BreastPocket", SqlDbType.VarChar, 100) { Value = breastPocket });
-                cmd.Parameters.Add(new SqlParameter("@p_FrontPocket", SqlDbType.VarChar, 100) { Value = frontPocket });
+                cmd.Parameters.Add(new SqlParameter("@p_Price", SqlDbType.Float) { Value = av.Price });
+                cmd.Parameters.Add(new SqlParameter("@p_Image", SqlDbType.VarChar, 100) { Value = av.Image });
+                cmd.Parameters.Add(new SqlParameter("@p_Name", SqlDbType.VarChar, 100) { Value = av.Name });
+                cmd.Parameters.Add(new SqlParameter("@p_Description", SqlDbType.Text) { Value = av.Description });
+                cmd.Parameters.Add(new SqlParameter("@p_Discount", SqlDbType.TinyInt) { Value = av.Discount });
+                cmd.Parameters.Add(new SqlParameter("@p_FabricName", SqlDbType.VarChar, 100) { Value = av.FabricName });
+                cmd.Parameters.Add(new SqlParameter("@p_color", SqlDbType.VarChar, 100) { Value = av.Color });
+                cmd.Parameters.Add(new SqlParameter("@p_Type", SqlDbType.VarChar, 20) { Value = av.Type });
+                cmd.Parameters.Add(new SqlParameter("@p_Style", SqlDbType.VarChar, 100) { Value = av.Style });
+                cmd.Parameters.Add(new SqlParameter("@p_vType", SqlDbType.VarChar, 100) { Value = av.Type });
+                cmd.Parameters.Add(new SqlParameter("@p_Lapel", SqlDbType.VarChar, 100) { Value = av.Lapel });
+                cmd.Parameters.Add(new SqlParameter("@p_Edge", SqlDbType.VarChar, 100) { Value = av.Edge });
+                cmd.Parameters.Add(new SqlParameter("@p_BreastPocket", SqlDbType.VarChar, 100) { Value = av.BreastPocket });
+                cmd.Parameters.Add(new SqlParameter("@p_FrontPocket", SqlDbType.VarChar, 100) { Value = av.FrontPocket });
 
                 await cmd.ExecuteNonQueryAsync();
                 return true;

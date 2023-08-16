@@ -1,6 +1,6 @@
-﻿using SunriseServerCore.Models;
+﻿using SunriseServerCore.Dtos;
 using SunriseServerCore.Models.Clothes;
-using SunriseServerData;
+
 
 namespace SunriseServer.Services.JacketService
 {
@@ -9,10 +9,8 @@ namespace SunriseServer.Services.JacketService
         string GetMyName();
         //asynchronous operation that produces a result of Jacket type
         List<Jacket> GetAll();
-        List<JacketProduct> GetAllSpecial();
-        Task<bool> AddJacket(float price, string image, string name, string description,
-            byte discount, string fabricName, string color, string style, string fit, 
-            string lapel, string sleeveButton, string pocket, string backStyle, string breastPocket);
+        List<Product> GetAllSpecial();
+        Task<bool> AddJacket(AddJacket aj);
         List<JacketProduct> GetJacketByName(string jacketname);
         Task<Jacket> GetJacketById(int id);
         JacketDetail GetJacketDetailById(int id);
@@ -21,6 +19,7 @@ namespace SunriseServer.Services.JacketService
         Task<Jacket> GetJacketByColor(string color);
         Task<Jacket> GetJacketByFabric(string fabric);
 
+        bool DeleteJacket(int jacketId);
         Task<List<Product>> GetAllSpecial3();
 
         void SaveChanges();

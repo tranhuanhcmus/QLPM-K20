@@ -1,6 +1,5 @@
-﻿using SunriseServerCore.Models;
+﻿using SunriseServerCore.Dtos;
 using SunriseServerCore.Models.Clothes;
-using SunriseServerData;
 
 namespace SunriseServer.Services.VestService
 {
@@ -8,7 +7,7 @@ namespace SunriseServer.Services.VestService
     {
         string GetMyName();
         //asynchronous operation that produces a result of Vest type
-        Task<List<VestProduct>> GetAll();
+        Task<List<Product>> GetAll();
         Task<Vest> AddVest(Vest jk);
         List<VestProduct> GetVestByName(string Vestname);
         VestDetail GetVestDetailById(int id);
@@ -18,9 +17,7 @@ namespace SunriseServer.Services.VestService
         Task<Vest> GetVestByCategory(string cate);
         Task<Vest> GetVestByColor(string color);
         Task<Vest> GetVestByFabric(string fabric);
-        Task<bool> AddVest(float price, string image, string name, string description,
-            byte discount, string fabricName, string color, string style, string vType, 
-            string lapel, string edge, string breastPocket, string frontPocket);
+        Task<bool> AddVest(AddVest av);
 
         void SaveChanges();
     }

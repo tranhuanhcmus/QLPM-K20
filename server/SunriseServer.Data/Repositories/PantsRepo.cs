@@ -1,16 +1,12 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
-using SunriseServerCore.Common.Helper;
-using SunriseServerCore.Models;
+﻿using System.Data;
+using System.Text;
+using Microsoft.Data.SqlClient;
 using SunriseServerCore.Models.Clothes;
 using SunriseServerCore.RepoInterfaces;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+using SunriseServerCore.Dtos;
+using SunriseServerCore.Models;
+using SunriseServer.Common.Constant;
+
 
 namespace SunriseServerData.Repositories
 {
@@ -53,84 +49,59 @@ namespace SunriseServerData.Repositories
             return result.FirstOrDefault();
         }
 
-        public async Task<List<PantsProduct>> GetAllSpecial()
+        public async Task<List<Product>> GetAllSpecial()
         {
-            var allVest = await _dataContext.Pants.Join(_dataContext.Product,
-                v => v.PantsID,
-                p => p.ProductID,
-                (pants, product) => new PantsProduct
-                {
-                    PantsData = pants,
-                    ProductData = product
-                }).ToListAsync();
-
+            var allVest = await _dataContext.Product.Where(p => p.Type == GlobalConstant.PantsProduct).ToListAsync();
             return allVest;
         }
 
         public PantsDetail GetPantsDetailById(int id)
         {
-            Pants pantsInfo = _dataContext.Pants.Find(id);
+            Pants PantsInfor = _dataContext.Pants.Find(id);
             // check if not found
-            if (pantsInfo == null) return null;
+            if (PantsInfor == null) return null;
 
-            PantsDetail result = new PantsDetail();
-            // assign product info and pants id
-            result.Products = _dataContext.Product.Find(id);
-            result.PantsId = pantsInfo.PantsID;
+            Product productInfor = _dataContext.Product.Find(id);
 
-            // declare output parameters, here are the pants' components
-            var pPocketOut = new SqlParameter("@pPocketOut", SqlDbType.NVarChar, 100) { Direction = ParameterDirection.Output };
-            var pFitOut = new SqlParameter("@pFitOut", SqlDbType.NVarChar, 100) { Direction = ParameterDirection.Output };
-            var pCuffOut = new SqlParameter("@pCuffOut", SqlDbType.NVarChar, 100) { Direction = ParameterDirection.Output };
-            var pFasteningOut = new SqlParameter("@pFasteningOut", SqlDbType.NVarChar, 100) { Direction = ParameterDirection.Output };
-            var pPleatsOut = new SqlParameter("@pPleatsOut", SqlDbType.NVarChar, 100) { Direction = ParameterDirection.Output };
+            PantsDetail result = new PantsDetail(productInfor);
 
-            // execute the stored procedure
-            _dataContext.Database.ExecuteSqlRaw("EXEC dbo.USP_GetDetailPantsByID " +
-                $"@pPocket = {pantsInfo.Pocket}, @pFit = {pantsInfo.Fit}, @pCuff = {pantsInfo.Cuff}, " +
-                $"@pFastening = {pantsInfo.Fastening}, @pPleats = {pantsInfo.Pleats}, " +
-                $"@pPocketOut = @pPocketOut OUTPUT, @pFitOut = @pFitOut OUTPUT, @pCuffOut = @pCuffOut OUTPUT, " +
-                $"@pFasteningOut = @pFasteningOut OUTPUT, @pPleatsOut = @pPleatsOut OUTPUT",
-                pPocketOut, pFitOut, pCuffOut, pFasteningOut, pPleatsOut);
 
-            // assign output parameter values to result object
-            result.Pocket = (string)pPocketOut.Value;
-            result.Fit = (string)pFitOut.Value;
-            result.Cuff = (string)pCuffOut.Value;
-            result.Fastening = (string)pFasteningOut.Value;
-            result.Pleats = (string)pPleatsOut.Value;
+            var builder = new StringBuilder();
+            builder.Append($"EXEC USP_GetDetailPantsByID {id};");
+            PantsComponent component = _dataContext.Set<PantsComponent>()
+                .FromSqlInterpolated($"EXECUTE({builder.ToString()});")
+                .ToList().FirstOrDefault();
+
+            result.Component = component;
 
             return result;
         }
 
-        public async Task<bool> AddPants(float price, string image, string name, string description,
-            byte discount, string fabricName, string color, string fit, 
-            string cuff, string fastening, string pleats, string pocket)
+        public async Task<bool> AddPants(AddPants ap)
         {
             try
             {
                 var connection = _dataContext.Database.GetDbConnection();
                 await connection.OpenAsync(); // Open the connection
 
-                string type = "Pants";
                 var cmd = connection.CreateCommand();
                 cmd.CommandText = "dbo.usp_InsertPants";
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = _dataContext.Database.GetDbConnection();
 
-                cmd.Parameters.Add(new SqlParameter("@p_Price", SqlDbType.Float) { Value = price });
-                cmd.Parameters.Add(new SqlParameter("@p_Image", SqlDbType.VarChar, 100) { Value = image });
-                cmd.Parameters.Add(new SqlParameter("@p_Name", SqlDbType.VarChar, 100) { Value = name });
-                cmd.Parameters.Add(new SqlParameter("@p_Description", SqlDbType.Text) { Value = description });
-                cmd.Parameters.Add(new SqlParameter("@p_Discount", SqlDbType.TinyInt) { Value = discount });
-                cmd.Parameters.Add(new SqlParameter("@p_FabricName", SqlDbType.VarChar, 100) { Value = fabricName });
-                cmd.Parameters.Add(new SqlParameter("@p_color", SqlDbType.VarChar, 100) { Value = color });
-                cmd.Parameters.Add(new SqlParameter("@p_Type", SqlDbType.VarChar, 20) { Value = type });
-                cmd.Parameters.Add(new SqlParameter("@p_Pocket", SqlDbType.VarChar, 100) { Value = pocket });
-                cmd.Parameters.Add(new SqlParameter("@p_Fit", SqlDbType.VarChar, 100) { Value = fit });
-                cmd.Parameters.Add(new SqlParameter("@p_Cuff", SqlDbType.VarChar, 100) { Value = cuff });
-                cmd.Parameters.Add(new SqlParameter("@p_Fastening", SqlDbType.VarChar, 100) { Value = fastening });
-                cmd.Parameters.Add(new SqlParameter("@p_Pleats", SqlDbType.VarChar, 100) { Value = pleats });
+                cmd.Parameters.Add(new SqlParameter("@p_Price", SqlDbType.Float) { Value = ap.Price });
+                cmd.Parameters.Add(new SqlParameter("@p_Image", SqlDbType.VarChar, 100) { Value = ap.Image });
+                cmd.Parameters.Add(new SqlParameter("@p_Name", SqlDbType.VarChar, 100) { Value = ap.Name });
+                cmd.Parameters.Add(new SqlParameter("@p_Description", SqlDbType.Text) { Value = ap.Description });
+                cmd.Parameters.Add(new SqlParameter("@p_Discount", SqlDbType.TinyInt) { Value = ap.Discount });
+                cmd.Parameters.Add(new SqlParameter("@p_FabricName", SqlDbType.VarChar, 100) { Value = ap.FabricName });
+                cmd.Parameters.Add(new SqlParameter("@p_color", SqlDbType.VarChar, 100) { Value = ap.Color });
+                cmd.Parameters.Add(new SqlParameter("@p_Type", SqlDbType.VarChar, 20) { Value = ap.Type });
+                cmd.Parameters.Add(new SqlParameter("@p_Pocket", SqlDbType.VarChar, 100) { Value = ap.Pocket });
+                cmd.Parameters.Add(new SqlParameter("@p_Fit", SqlDbType.VarChar, 100) { Value = ap.Fit });
+                cmd.Parameters.Add(new SqlParameter("@p_Cuff", SqlDbType.VarChar, 100) { Value = ap.Cuff });
+                cmd.Parameters.Add(new SqlParameter("@p_Fastening", SqlDbType.VarChar, 100) { Value = ap.Fastening });
+                cmd.Parameters.Add(new SqlParameter("@p_Pleats", SqlDbType.VarChar, 100) { Value = ap.Pleats });
 
                 await cmd.ExecuteNonQueryAsync();
                 return true;

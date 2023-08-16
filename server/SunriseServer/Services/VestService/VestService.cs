@@ -1,9 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SunriseServerData;
-using SunriseServerCore.Models;
-using System.Security.Claims;
+﻿using SunriseServerCore.Dtos;
 using SunriseServerCore.Models.Clothes;
-using System.Threading.Tasks;
 
 namespace SunriseServer.Services.VestService
 {
@@ -17,7 +13,7 @@ namespace SunriseServer.Services.VestService
             _unitOfWork = unitOfWork;
         }
 
-        public Task<List<VestProduct>> GetAll() => (Task<List<VestProduct>>)_unitOfWork.VestRepo.GetAllSpecial();
+        public Task<List<Product>> GetAll() => _unitOfWork.VestRepo.GetAllSpecial();
         //public Task<Vest> GetAll()
         //{
         //    return _unitOfWork.VestRepo.GetAll();
@@ -73,10 +69,8 @@ namespace SunriseServer.Services.VestService
         // this area for insert, update and delete   //
         // ----------------------------------------- //
 
-        public Task<bool> AddVest(float price, string image, string name, string description,
-            byte discount, string fabricName, string color, string style, string vType, 
-            string lapel, string edge, string breastPocket, string frontPocket) {
-                return _unitOfWork.VestRepo.AddVest(price, image, name, description, discount, fabricName, color, style, vType, lapel, edge, breastPocket, frontPocket);
+        public Task<bool> AddVest(AddVest av) {
+                return _unitOfWork.VestRepo.AddVest(av);
             }
 
 

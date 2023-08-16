@@ -1,18 +1,11 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
-using SunriseServerCore.Common.Helper;
+﻿using System.Data;
+using System.Text;
+using Microsoft.Data.SqlClient;
+using SunriseServer.Common.Constant;
+using SunriseServerCore.Dtos;
 using SunriseServerCore.Models;
 using SunriseServerCore.Models.Clothes;
 using SunriseServerCore.RepoInterfaces;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace SunriseServerData.Repositories
 {
@@ -30,9 +23,7 @@ namespace SunriseServerData.Repositories
             return result.FirstOrDefault();
         }
         
-        public async Task<bool> AddJacket(float price, string image, string name, string description,
-            byte discount, string fabricName, string color, string style, string fit,
-            string lapel, string sleeveButton, string pocket, string backStyle, string breastPocket)
+        public async Task<bool> AddJacket(AddJacket aj)
         {
             try
             {
@@ -45,21 +36,21 @@ namespace SunriseServerData.Repositories
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = _dataContext.Database.GetDbConnection();
                 
-                cmd.Parameters.Add(new SqlParameter("@p_Price", SqlDbType.Float) { Value = price });
-                cmd.Parameters.Add(new SqlParameter("@p_Image", SqlDbType.VarChar, 100) { Value = image });
-                cmd.Parameters.Add(new SqlParameter("@p_Name", SqlDbType.VarChar, 100) { Value = name });
-                cmd.Parameters.Add(new SqlParameter("@p_Description", SqlDbType.Text) { Value = description });
-                cmd.Parameters.Add(new SqlParameter("@p_Discount", SqlDbType.TinyInt) { Value = discount });
-                cmd.Parameters.Add(new SqlParameter("@p_FabricName", SqlDbType.VarChar, 100) { Value = fabricName });
-                cmd.Parameters.Add(new SqlParameter("@p_color", SqlDbType.VarChar, 100) { Value = color });
+                cmd.Parameters.Add(new SqlParameter("@p_Price", SqlDbType.Float) { Value = aj.Price });
+                cmd.Parameters.Add(new SqlParameter("@p_Image", SqlDbType.VarChar, 100) { Value = aj.Image });
+                cmd.Parameters.Add(new SqlParameter("@p_Name", SqlDbType.VarChar, 100) { Value = aj.Name });
+                cmd.Parameters.Add(new SqlParameter("@p_Description", SqlDbType.Text) { Value = aj.Description });
+                cmd.Parameters.Add(new SqlParameter("@p_Discount", SqlDbType.TinyInt) { Value = aj.Discount });
+                cmd.Parameters.Add(new SqlParameter("@p_FabricName", SqlDbType.VarChar, 100) { Value = aj.FabricName });
+                cmd.Parameters.Add(new SqlParameter("@p_color", SqlDbType.VarChar, 100) { Value = aj.Color });
                 cmd.Parameters.Add(new SqlParameter("@p_Type", SqlDbType.VarChar, 20) { Value = type });
-                cmd.Parameters.Add(new SqlParameter("@p_Style", SqlDbType.VarChar, 100) { Value = style });
-                cmd.Parameters.Add(new SqlParameter("@p_Fit", SqlDbType.VarChar, 100) { Value = fit });
-                cmd.Parameters.Add(new SqlParameter("@p_Lapel", SqlDbType.VarChar, 100) { Value = lapel });
-                cmd.Parameters.Add(new SqlParameter("@p_SleeveButton", SqlDbType.VarChar, 100) { Value = sleeveButton });
-                cmd.Parameters.Add(new SqlParameter("@p_Pocket", SqlDbType.VarChar, 100) { Value = pocket });
-                cmd.Parameters.Add(new SqlParameter("@p_BackStyle", SqlDbType.VarChar, 100) { Value = backStyle });
-                cmd.Parameters.Add(new SqlParameter("@p_BreastPocket", SqlDbType.VarChar, 100) { Value = breastPocket });
+                cmd.Parameters.Add(new SqlParameter("@p_Style", SqlDbType.VarChar, 100) { Value = aj.Style });
+                cmd.Parameters.Add(new SqlParameter("@p_Fit", SqlDbType.VarChar, 100) { Value = aj.Fit });
+                cmd.Parameters.Add(new SqlParameter("@p_Lapel", SqlDbType.VarChar, 100) { Value = aj.Lapel });
+                cmd.Parameters.Add(new SqlParameter("@p_SleeveButton", SqlDbType.VarChar, 100) { Value = aj.SleeveButton });
+                cmd.Parameters.Add(new SqlParameter("@p_Pocket", SqlDbType.VarChar, 100) { Value = aj.Pocket });
+                cmd.Parameters.Add(new SqlParameter("@p_BackStyle", SqlDbType.VarChar, 100) { Value = aj.BackStyle });
+                cmd.Parameters.Add(new SqlParameter("@p_BreastPocket", SqlDbType.VarChar, 100) { Value = aj.BreastPocket });
 
                 await cmd.ExecuteNonQueryAsync();
                 return true;
@@ -67,7 +58,6 @@ namespace SunriseServerData.Repositories
             catch (Exception ex)
             {
                 throw new Exception("An error occurred while adding the jacket.", ex);
-                return false;
             }
         }
 
@@ -86,15 +76,7 @@ namespace SunriseServerData.Repositories
 
             return allJacket;
         }
-        public bool AddOne(Product p, string Style,
-                   string fit, string lapel, string pocket, string sleeveButton, string backStyle, string breastPocket)
-        {
-            var result = _dataContext.Jacket.FromSqlRaw($"CALL usp_InsertJacket({p.Price}, {p.Image}, {p.Name}," +
-                $"{p.Description}, {p.Discount}, {p.FabricName}, {p.color},{p.Type}, {Style}, {fit}, {lapel}," +
-                $"{sleeveButton}, {pocket}, {backStyle}, {breastPocket} )").ToList();
-            return true;
-        }
-
+     
         public override async Task<Jacket> GetByIdAsync(int id)
         {
             var builder = new StringBuilder($"dbo.USP_GetAccountById @Id = \'{id}\';");
@@ -107,63 +89,28 @@ namespace SunriseServerData.Repositories
             // check if not found
             if (jacketInfor == null) return null;
 
-            JacketDetail result = new JacketDetail();
-            // assign product info and jacket id
-            result.Products = _dataContext.Product.Find(id);
-            result.JacketId = jacketInfor.JacketId;
+            Product productInfor = _dataContext.Product.Find(id);
 
-            // declare output parameters, here is the jacket's component
-            var jStyleOut = new SqlParameter("@jStyleOut", SqlDbType.NVarChar, 100) { Direction = ParameterDirection.Output };
-            var jFitOut = new SqlParameter("@jFitOut", SqlDbType.NVarChar, 100) { Direction = ParameterDirection.Output };
-            var jLapelOut = new SqlParameter("@jLapelOut", SqlDbType.NVarChar, 100) { Direction = ParameterDirection.Output };
-            var jSleeveButtonOut = new SqlParameter("@jSleeveButtonOut", SqlDbType.NVarChar, 100) { Direction = ParameterDirection.Output };
-            var jBackStyleOut = new SqlParameter("@jBackStyleOut", SqlDbType.NVarChar, 100) { Direction = ParameterDirection.Output };
-            var jBreastPocketOut = new SqlParameter("@jBreastPocketOut", SqlDbType.NVarChar, 100) { Direction = ParameterDirection.Output };
-            var jPocketOut = new SqlParameter("@jPocketOut", SqlDbType.NVarChar, 100) { Direction = ParameterDirection.Output };
+            JacketDetail result = new JacketDetail(productInfor);
 
-            // execute the stored procedure
-            _dataContext.Database.ExecuteSqlRaw("EXEC dbo.USP_GetDetailJacketByID " +
-                $"@jStyle = {jacketInfor.Style}, @jFit = {jacketInfor.Fit}, @jLapel = {jacketInfor.Lapel}, " +
-                $"@jSleeveButton = {jacketInfor.SleeveButton}, @jBackStyle = {jacketInfor.BackStyle}, " +
-                $"@jPocket = {jacketInfor.Pocket}, @jBreastPocket = {jacketInfor.BreastPocket}, " +
-                $"@jStyleOut = @jStyleOut OUTPUT, @jFitOut = @jFitOut OUTPUT, @jLapelOut = @jLapelOut OUTPUT, " +
-                $"@jSleeveButtonOut = @jSleeveButtonOut OUTPUT, @jBackStyleOut = @jBackStyleOut OUTPUT, " +
-                $"@jPocketOut = @jPocketOut OUTPUT, @jBreastPocketOut = @jBreastPocketOut OUTPUT",
-                jStyleOut, jFitOut, jLapelOut, jSleeveButtonOut, jBackStyleOut, jPocketOut, jBreastPocketOut);
 
-            // assign output parameter values to result object
-            result.Style = (string)jStyleOut.Value;
-            result.Fit = (string)jFitOut.Value;
-            result.Lapel = (string)jLapelOut.Value;
-            result.SleeveButton = (string)jSleeveButtonOut.Value;
-            result.BackStyle = (string)jBackStyleOut.Value;
-            result.Pocket = (string)jPocketOut.Value;
-            result.BreastPocket = (string)jBreastPocketOut.Value;
+            var builder = new StringBuilder();
+            builder.Append($"EXEC USP_GetDetailJacketByID {id};");
+            JacketComponent component = _dataContext.Set<JacketComponent>()
+                .FromSqlInterpolated($"EXECUTE({builder.ToString()});")
+                .ToList().FirstOrDefault();
+
+            result.Component = component;
 
             return result;
+
         }
 
 
 
-        public List<JacketProduct> GetAllSpecial()
+        public List<Product> GetAllSpecial()
         {
-            //var query = from j in _dataContext.Jacket
-            //            join p in _dataContext.Product on j.JacketId equals p.ProductID
-            //            select new
-            //            {
-            //                JacketData = j, // Select all columns from Jacket table
-            //                ProductData = p // Select all columns from Product table
-            //            };
-
-            var allJacket = _dataContext.Jacket.Join(_dataContext.Product,
-                j => j.JacketId,
-                p => p.ProductID,
-                (jacket, product) => new JacketProduct
-                {
-                    JacketData = jacket,
-                    ProductData = product
-                }).ToList();
-
+            var allJacket = _dataContext.Product.Where(p => p.Type == GlobalConstant.JacketProduct).ToList();
             return allJacket;
         }
 

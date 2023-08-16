@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using SunriseServer.Common.Constant;
+﻿using Microsoft.AspNetCore.Mvc;
 using SunriseServer.Services.PantsService;
+using SunriseServerCore.Dtos;
 using SunriseServerCore.Models.Clothes;
-using System.Data;
 
 namespace SunriseServer.Controllers
 {
@@ -22,7 +20,7 @@ namespace SunriseServer.Controllers
 
 
         [HttpGet("All-Pants")]
-        public async Task<ActionResult<PantsProduct>> GetAll()
+        public async Task<ActionResult<Product>> GetAll()
         {
             var result = await _pantsService.GetAll();
             if (result is null)
@@ -58,12 +56,9 @@ namespace SunriseServer.Controllers
         // insert one - just for admin
         [HttpGet("Add-Pants")]
 
-        public async Task<ActionResult<bool>> AddPants(float price, string image, string name, string description,
-            byte discount, string fabricName, string color, string fit, 
-            string cuff, string fastening, string pleats, string pocket)
+        public async Task<ActionResult<bool>> AddPants(AddPants ap)
         {
-            bool result = await _pantsService.AddPants(price, image, name, description, discount, fabricName, color, fit, cuff, fastening, pleats, pocket);
-
+            bool result = await _pantsService.AddPants(ap);
             if (!result)
                 return NotFound("Cannot insert pants, please try again");
 

@@ -8,10 +8,19 @@ namespace SunriseServerCore.Models.Clothes
 {
     public class TiesDetail: ModelBase
     {
-        public int TiesID { get; set; }
-        public string Style { get; set; }
-        public decimal Size { get; set; }
+        public TiesComponent Component { get; set; }
+
         public Product Products { get; set; }
 
+        public TiesDetail() {
+        }
+        
+        public TiesDetail(Product p) {
+            Products = p;
+        }
+
+        public TiesDetail(TiesComponent component){
+            Component = component;
+        }
     }
 }

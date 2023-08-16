@@ -1,11 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using SunriseServer.Common.Constant;
+﻿using Microsoft.AspNetCore.Mvc;
 //using SunriseServer.Dtos;
 using SunriseServer.Services.ProductService;
-using SunriseServerCore.Models.Clothes;
-using System.Data;
-using System.Xml.Linq;
 
 namespace SunriseServer.Controllers
 {

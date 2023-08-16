@@ -1,16 +1,11 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
-using SunriseServerCore.Common.Helper;
+﻿using System.Data;
+using System.Text;
+using Microsoft.Data.SqlClient;
+using SunriseServer.Common.Constant;
+using SunriseServerCore.Dtos;
 using SunriseServerCore.Models;
 using SunriseServerCore.Models.Clothes;
 using SunriseServerCore.RepoInterfaces;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SunriseServerData.Repositories
 {
@@ -38,18 +33,9 @@ namespace SunriseServerData.Repositories
             return result.FirstOrDefault();
         }
 
-        public async Task<List<TiesDetail>> GetAllSpecial()
+        public async Task<List<Product>> GetAllSpecial()
         {
-            var allTies = _dataContext.Ties.Join(_dataContext.Product,
-                j => j.TiesID,
-                p => p.ProductID,
-                (Ties, product) => new TiesDetail
-                {
-                    TiesID = Ties.TiesID,
-                    Size = Ties.Size,
-                    Style = Ties.Style,
-                    Products = product
-                }).ToList();
+            var allTies = await _dataContext.Product.Where(p => p.Type == GlobalConstant.TiesProduct).ToListAsync();
 
             return allTies;
         }
@@ -63,41 +49,43 @@ namespace SunriseServerData.Repositories
         public TiesDetail GetTiesDetailById(int id)
         {
             Ties tiesInfor = _dataContext.Ties.Find(id);
-            Product productInfor = _dataContext.Product.Find(id);
             if (tiesInfor == null) return null;
-            TiesDetail result = new TiesDetail();
-            result.Products = productInfor;
-            result.TiesID = tiesInfor.TiesID;
-            result.Size = tiesInfor.Size;
-            result.Style = tiesInfor.Style;
+
+            Product productInfor = _dataContext.Product.Find(id);
+
+            TiesDetail result = new(productInfor);
+            TiesComponent component = new() {
+                Style = tiesInfor.Style,
+                Size = tiesInfor.Size
+            };
+
+            result.Component = component;
 
             return result;
         }
 
-        public async Task<bool> AddTies(float price, string image, string name, string description,
-            byte discount, string fabricName, string color, decimal size, string style)
+        public async Task<bool> AddTies(AddTies at)
         {
             try
             {
                 var connection = _dataContext.Database.GetDbConnection();
                 await connection.OpenAsync(); // Open the connection
 
-                string type = "Ties";
                 var cmd = connection.CreateCommand();
                 cmd.CommandText = "dbo.usp_InsertTies";
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = _dataContext.Database.GetDbConnection();
 
-                cmd.Parameters.Add(new SqlParameter("@p_Price", SqlDbType.Float) { Value = price });
-                cmd.Parameters.Add(new SqlParameter("@p_Image", SqlDbType.VarChar, 100) { Value = image });
-                cmd.Parameters.Add(new SqlParameter("@p_Name", SqlDbType.VarChar, 100) { Value = name });
-                cmd.Parameters.Add(new SqlParameter("@p_Description", SqlDbType.Text) { Value = description });
-                cmd.Parameters.Add(new SqlParameter("@p_Discount", SqlDbType.TinyInt) { Value = discount });
-                cmd.Parameters.Add(new SqlParameter("@p_FabricName", SqlDbType.VarChar, 100) { Value = fabricName });
-                cmd.Parameters.Add(new SqlParameter("@p_color", SqlDbType.VarChar, 100) { Value = color });
-                cmd.Parameters.Add(new SqlParameter("@p_Type", SqlDbType.VarChar, 20) { Value = type });
-                cmd.Parameters.Add(new SqlParameter("@p_Size", SqlDbType.Decimal) { Value = size });
-                cmd.Parameters.Add(new SqlParameter("@p_Style", SqlDbType.NVarChar, 100) { Value = style });
+                cmd.Parameters.Add(new SqlParameter("@p_Price", SqlDbType.Float) { Value = at.Price });
+                cmd.Parameters.Add(new SqlParameter("@p_Image", SqlDbType.VarChar, 100) { Value = at.Image });
+                cmd.Parameters.Add(new SqlParameter("@p_Name", SqlDbType.VarChar, 100) { Value = at.Name });
+                cmd.Parameters.Add(new SqlParameter("@p_Description", SqlDbType.Text) { Value = at.Description });
+                cmd.Parameters.Add(new SqlParameter("@p_Discount", SqlDbType.TinyInt) { Value = at.Discount });
+                cmd.Parameters.Add(new SqlParameter("@p_FabricName", SqlDbType.VarChar, 100) { Value = at.FabricName });
+                cmd.Parameters.Add(new SqlParameter("@p_color", SqlDbType.VarChar, 100) { Value = at.Color });
+                cmd.Parameters.Add(new SqlParameter("@p_Type", SqlDbType.VarChar, 20) { Value = at.Type });
+                cmd.Parameters.Add(new SqlParameter("@p_Size", SqlDbType.Decimal) { Value = at.Size });
+                cmd.Parameters.Add(new SqlParameter("@p_Style", SqlDbType.NVarChar, 100) { Value = at.Style });
 
                 await cmd.ExecuteNonQueryAsync();
                 return true;

@@ -1,11 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using SunriseServer.Common.Constant;
-//using SunriseServer.Dtos;
+﻿using Microsoft.AspNetCore.Mvc;
 using SunriseServer.Services.JacketService;
+using SunriseServerCore.Dtos;
 using SunriseServerCore.Models.Clothes;
-using System.Data;
-using System.Xml.Linq;
 
 namespace SunriseServer.Controllers
 {
@@ -24,7 +20,7 @@ namespace SunriseServer.Controllers
 
 
         [HttpGet("All-Jacket")]
-        public ActionResult<JacketProduct> GetAll()
+        public ActionResult<Product> GetAll()
         {
             var result = _jacketService.GetAllSpecial();
             if (result is null)
@@ -35,6 +31,18 @@ namespace SunriseServer.Controllers
 
             _logger.LogInformation("Retrieved jackets successfully");
             return Ok(result);
+        }
+
+        //[HttpDelete("/{productId}"), Authorize(Roles = GlobalConstant.Admin)]
+        [HttpDelete("/{jacketId}")]
+        public ActionResult<bool> DeleteJacket(int jacketId)
+        {
+            bool result = _jacketService.DeleteJacket(jacketId);
+            if (!result)
+                return NotFound("Can not delete, please try again");
+
+            return Ok("Delete Successfully");
+
         }
 
         // get by name
@@ -63,11 +71,9 @@ namespace SunriseServer.Controllers
         // important note
         // fabric name and other components must use dropdown, does not allow free input -> wrong.
         [HttpPost("Add-Jacket")]
-        public async Task<ActionResult<bool>> AddJacket(float price, string image, string name, string description,
-            byte discount, string fabricName, string color, string style, string fit, 
-            string lapel, string sleeveButton, string pocket, string backStyle, string breastPocket)
+        public async Task<ActionResult<bool>> AddJacket(AddJacket aj)
         {
-            bool result = await _jacketService.AddJacket(price,image,name,description,discount,fabricName,color, style, fit, lapel, pocket, sleeveButton, backStyle, breastPocket);
+            bool result = await _jacketService.AddJacket(aj);
            
             if (!result)
                 return NotFound("Can not insert, please try again");

@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using SunriseServer.Common.Constant;
+﻿using Microsoft.AspNetCore.Mvc;
 using SunriseServer.Services.VestService;
+using SunriseServerCore.Dtos;
 using SunriseServerCore.Models.Clothes;
-using System.Data;
 
 namespace SunriseServer.Controllers
 {
@@ -20,7 +18,7 @@ namespace SunriseServer.Controllers
 
 
         [HttpGet("All-Vest")]
-        public async Task<ActionResult<VestProduct>> GetAll()
+        public async Task<ActionResult<Product>> GetAll()
         {
             var result = await _vestService.GetAll();
             if (result is null)
@@ -56,11 +54,9 @@ namespace SunriseServer.Controllers
 
         [HttpPost("Add-Vest")]
 
-        public async Task<ActionResult<bool>> AddVest(float price, string image, string name, string description,
-            byte discount, string fabricName, string color, string style, string vType, 
-            string lapel, string edge, string breastPocket, string frontPocket)
+        public async Task<ActionResult<bool>> AddVest(AddVest av)
         {
-            bool result = await _vestService.AddVest(price, image, name, description, discount, fabricName, color, style, vType, lapel, edge, breastPocket, frontPocket);
+            bool result = await _vestService.AddVest(av);
 
             if (!result)
                 return NotFound("Cannot insert vest, please try again");

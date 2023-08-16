@@ -1,11 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SunriseServerData;
-using SunriseServerCore.Models;
-using System.Security.Claims;
-using SunriseServerCore.Models.Clothes;
-using System.Threading.Tasks;
-
-namespace SunriseServer.Services.ProductService
+﻿namespace SunriseServer.Services.ProductService
 {
     public class ProductService : IProductService
     {

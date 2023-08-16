@@ -1,6 +1,5 @@
-﻿using SunriseServerCore.Models;
+﻿using SunriseServerCore.Dtos;
 using SunriseServerCore.Models.Clothes;
-using SunriseServerData;
 
 namespace SunriseServer.Services.PantsService
 {
@@ -8,8 +7,7 @@ namespace SunriseServer.Services.PantsService
     {
         string GetMyName();
         //asynchronous operation that produces a result of Pants type
-        Task<List<PantsProduct>> GetAll();
-        Task<Pants> AddPants(Pants jk);
+        Task<List<Product>> GetAll();
         List<PantsProduct> GetPantsByName(string Pantsname);
         PantsDetail GetPantsDetailById(int id);
         Task<Pants> GetPantsById(int id);
@@ -17,9 +15,7 @@ namespace SunriseServer.Services.PantsService
         Task<Pants> GetPantsByCategory(string cate);
         Task<Pants> GetPantsByColor(string color);
         Task<Pants> GetPantsByFabric(string fabric);
-        Task<bool> AddPants(float price, string image, string name, string description,
-            byte discount, string fabricName, string color, string fit, 
-            string cuff, string fastening, string pleats, string pocket);
+        Task<bool> AddPants(AddPants ap);
         void SaveChanges();
     }
 }

@@ -30,10 +30,23 @@ namespace SunriseServerData
 
             modelBuilder.Entity<GetCartDto>()
                 .HasNoKey().ToTable("GetCartDto", t => t.ExcludeFromMigrations());
+
+            modelBuilder.Entity<JacketComponent>()
+                .HasNoKey().ToTable("JacketComponent", t => t.ExcludeFromMigrations());
+            
+            modelBuilder.Entity<VestComponent>()
+                .HasNoKey().ToTable("VestComponent", t => t.ExcludeFromMigrations());
+            
+            modelBuilder.Entity<PantsComponent>()
+                .HasNoKey().ToTable("PantsComponent", t => t.ExcludeFromMigrations());
+
+            modelBuilder.Entity<TiesComponent>()
+                .HasNoKey().ToTable("TiesComponent", t => t.ExcludeFromMigrations());
         }
 
         public DbSet<Account> Account { get; set; }
         public DbSet<Jacket> Jacket { get; set; }
+
         public DbSet<Product> Product { get; set; }
         public DbSet<Vest> Vest { get; set; }
         public DbSet<Ties> Ties { get; set; }

@@ -2,24 +2,32 @@ USE TailorManagement;
 GO
 --dbo.USP_GetDetailJacketByID
 CREATE OR ALTER PROC USP_GetDetailJacketByID(
-    @jStyle INT,
-    @jFit INT,
-    @jLapel INT,
-    @jSleeveButton INT,
-    @jBackStyle INT,
-    @jBreastPocket INT,
-    @jPocket INT,
-    -- for out put
-    @jStyleOut NVARCHAR(100) OUTPUT,
-    @jFitOut NVARCHAR(100) OUTPUT,
-    @jLapelOut NVARCHAR(100) OUTPUT,
-    @jSleeveButtonOut NVARCHAR(100) OUTPUT,
-    @jBackStyleOut NVARCHAR(100) OUTPUT,
-    @jBreastPocketOut NVARCHAR(100) OUTPUT,
-    @jPocketOut NVARCHAR(100) OUTPUT
+    @jacketId INT
 )
 AS
 BEGIN
+    DECLARE @jStyle INT;
+    DECLARE @jFit INT;
+    DECLARE @jLapel INT;
+    DECLARE @jSleeveButton INT;
+    DECLARE @jBackStyle INT;
+    DECLARE @jBreastPocket INT;
+    DECLARE @jPocket INT;
+
+    SELECT  @jStyle = style, @jFit = fit, @jLapel = lapel, @jSleeveButton = sleeveButton,
+        @jBackStyle = backStyle, @jBreastPocket = breastPocket, @jPocket = pocket
+    FROM Jacket
+    WHERE jacketId = @jacketId;
+    
+     -- for out put
+    DECLARE @jStyleOut NVARCHAR(100);
+    DECLARE @jFitOut NVARCHAR(100);
+    DECLARE @jLapelOut NVARCHAR(100);
+    DECLARE @jSleeveButtonOut NVARCHAR(100);
+    DECLARE @jBackStyleOut NVARCHAR(100);
+    DECLARE @jBreastPocketOut NVARCHAR(100);
+    DECLARE @jPocketOut NVARCHAR(100);
+
     -- Retrieve IDs for each jacket component based on their names
     SET @jStyleOut = (SELECT top 1 Name FROM JacketStyle WHERE ID = @jStyle);
     SET @jFitOut = (SELECT top 1 Name FROM JacketFit WHERE ID = @jFit);
@@ -29,6 +37,11 @@ BEGIN
     SET @jBackStyleOut = (SELECT top 1 Name FROM JacketBackStyle WHERE ID = @jBackStyle);
     SET @jBreastPocketOut = (SELECT top 1 Name FROM JacketBreastPocket WHERE ID = @jBreastPocket);
 
+    -- the output
+    SELECT @jStyleOut AS Style, @jFitOut AS Fit, @jLapelOut AS Lapel, 
+        @jSleeveButtonOut AS SleeveButton, @jPocketOut AS Pocket,
+            @jBackStyleOut AS BackStyle, @jBreastPocketOut AS BreastPocket;
+    
     IF @@ERROR <> 0
     BEGIN
         -- Raise an error if proc does not execute successfully
@@ -39,26 +52,41 @@ END;
 GO
 --dbo.USP_GetDetailPantsByID
 CREATE OR ALTER PROC USP_GetDetailPantsByID(
-    @pPocket INT,
-    @pFit INT,
-    @pCuff INT,
-    @pFastening INT,
-    @pPleats INT,
-    -- for output
-    @pPocketOut NVARCHAR(100) OUTPUT,
-    @pFitOut NVARCHAR(100) OUTPUT,
-    @pCuffOut NVARCHAR(100) OUTPUT,
-    @pFasteningOut NVARCHAR(100) OUTPUT,
-    @pPleatsOut NVARCHAR(100) OUTPUT
+    @pantsId INT
 )
 AS
 BEGIN
+
+    DECLARE @pPocket INT;
+    DECLARE @pFit INT;
+    DECLARE @pCuff INT;
+    DECLARE @pFastening INT;
+    DECLARE @pPleats INT;
+    --
+    -- Retrieve and assign values for pants components
+    SELECT @pPocket = pocket, @pFit = fit, @pCuff = cuff,
+        @pFastening = fastening, @pPleats = pleats
+    FROM Pants
+    WHERE PantsID = @pantsId;
+
+
+    -- for output
+    DECLARE @pPocketOut NVARCHAR(100);
+    DECLARE @pFitOut NVARCHAR(100);
+    DECLARE @pCuffOut NVARCHAR(100);
+    DECLARE @pFasteningOut NVARCHAR(100);
+    DECLARE @pPleatsOut NVARCHAR(100);
+
     -- Retrieve names for each pants component based on their IDs
     SET @pPocketOut = (SELECT top 1 Name FROM PantsPocket WHERE ID = @pPocket);
     SET @pFitOut = (SELECT top 1 Name FROM PantsFit WHERE ID = @pFit);
     SET @pCuffOut = (SELECT top 1 Name FROM PantsCuff WHERE ID = @pCuff);
     SET @pFasteningOut = (SELECT top 1 Name FROM PantsFastening WHERE ID = @pFastening);
     SET @pPleatsOut = (SELECT top 1 Name FROM PantsPleats WHERE ID = @pPleats);
+
+    -- the output
+    SELECT @pPocketOut AS Pocket, @pFitOut AS Fit, @pCuffOut AS Cuff, 
+        @pFasteningOut AS Fastening, @pPleatsOut AS Pleats;
 
     IF @@ERROR <> 0
     BEGIN
@@ -71,22 +99,31 @@ GO
 
 --dbo.USP_GetDetailVestByID
 CREATE OR ALTER PROC USP_GetDetailVestByID(
-    @vStyle INT,
-    @vType INT,
-    @vLapel INT,
-    @vEdge INT,
-    @vBreastPocket INT,
-    @vFrontPocket INT,
-    -- for output
-    @vStyleOut NVARCHAR(100) OUTPUT,
-    @vTypeOut NVARCHAR(100) OUTPUT,
-    @vLapelOut NVARCHAR(100) OUTPUT,
-    @vEdgeOut NVARCHAR(100) OUTPUT,
-    @vBreastPocketOut NVARCHAR(100) OUTPUT,
-    @vFrontPocketOut NVARCHAR(100) OUTPUT
+    @vestId INT 
 )
 AS
 BEGIN
+
+
+    DECLARE @vStyle INT;
+    DECLARE @vType INT;
+    DECLARE @vLapel INT;
+    DECLARE @vEdge INT;
+    DECLARE @vBreastPocket INT;
+    DECLARE @vFrontPocket INT;
+    ---
+    SELECT @vStyle = style, @vType = type, @vLapel = lapel,
+        @vEdge = edge, @vBreastPocket = breastPocket, @vFrontPocket = frontPocket
+    FROM Vest
+    WHERE vestId = @vestId;
+
+    -- for output
+    DECLARE @vStyleOut NVARCHAR(100);
+    DECLARE @vTypeOut NVARCHAR(100);
+    DECLARE @vLapelOut NVARCHAR(100);
+    DECLARE @vEdgeOut NVARCHAR(100);
+    DECLARE @vBreastPocketOut NVARCHAR(100);
+    DECLARE @vFrontPocketOut NVARCHAR(100);
     -- Retrieve names for each vest component based on their IDs
     SET @vStyleOut = (SELECT top 1 Name FROM VestStyle WHERE ID = @vStyle);
     SET @vTypeOut = (SELECT top 1 Name FROM VestType WHERE ID = @vType);
@@ -94,6 +131,10 @@ BEGIN
     SET @vEdgeOut = (SELECT top 1 Name FROM VestEdge WHERE ID = @vEdge);
     SET @vBreastPocketOut = (SELECT top 1 Name FROM VestBreastPocket WHERE ID = @vBreastPocket);
     SET @vFrontPocketOut = (SELECT top 1 Name FROM VestFrontPocket WHERE ID = @vFrontPocket);
+
+     -- the output
+    SELECT @vStyleOut AS Style, @vTypeOut AS Type, @vLapelOut AS Lapel, 
+        @vEdgeOut AS Edge, @vFrontPocketOut AS FrontPocket, @vBreastPocketOut AS BreastPocket;
 
     IF @@ERROR <> 0
     BEGIN
@@ -110,7 +151,7 @@ CREATE OR ALTER PROCEDURE usp_InsertTies(
     @p_Name VARCHAR(100),
     @p_Description TEXT,
     @p_Discount TINYINT,
-    -- IN p_Fabric INT,
+    -- IN p_Fabric INT;
     @p_FabricName VARCHAR(100),
     @p_color VARCHAR(100),
     @p_Type VARCHAR(20),

@@ -8,15 +8,19 @@ namespace SunriseServerCore.Models.Clothes
 {
     public class JacketDetail: ModelBase
     {
-        public int JacketId { get; set; }
-        public string Style { get; set; }
-        public string Fit { get; set; }
-        public string Lapel { get; set; }
-        public string SleeveButton { get; set; }
-        public string BackStyle { get; set; }
-        public string BreastPocket { get; set; }
-        public string Pocket { get; set; }
+        public JacketComponent Component { get; set; }
 
         public Product Products { get; set; }
+
+        public JacketDetail() {
+        }
+        
+        public JacketDetail(Product p) {
+            Products = p;
+        }
+
+        public JacketDetail(JacketComponent component){
+            Component = component;
+        }
     }
 }
