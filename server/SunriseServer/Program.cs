@@ -42,7 +42,7 @@ using Swashbuckle.AspNetCore.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using SunriseServer.Services.CartService;
-
+using SunriseServer.Services.OrderService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,6 +55,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IJacketService, JacketService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IVestService,VestService>();
 builder.Services.AddScoped<IPantsService, PantsService>();
 builder.Services.AddScoped<IProductService, ProductService>();
