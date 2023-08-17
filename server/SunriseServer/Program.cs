@@ -91,16 +91,14 @@ builder.Services.AddCors(options => options.AddPolicy(name: "NgOrigins",
         policy.WithOrigins("http://localhost:7256").AllowAnyMethod().AllowAnyHeader();
     }));
 
-builder.Services.AddServicesData(); // LAPTOP-JPSCHNGH\\DATSQL TailorManagement
+builder.Services.AddServicesData();
+builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("StripeSettings"));
 builder.Services.AddUnitOfWork(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Sunrise")));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseCors("NgOrigins");
 

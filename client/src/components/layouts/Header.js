@@ -5,8 +5,11 @@ import TextHoverDropdown from '../common/textHoverDropdown';
 import { Link } from 'react-router-dom';
 import { listTextContentHeader } from '../../assets/constant';
 import { URLS } from '../../constants/urls';
+import Cart from './../Cart/Cart';
 
 const Header = () => {
+
+    const [showCart,setShowCart]=React.useState(false)
 
     return (
         <header className=' header'  >
@@ -38,7 +41,10 @@ const Header = () => {
                             )
                         })
                     }
-                   
+                   <button onClick={()=>setShowCart(prev=>!prev)}>
+                       Cart
+                   </button>
+                   <Cart showCart={showCart}/>
                 </ul> 
             </div>
 
