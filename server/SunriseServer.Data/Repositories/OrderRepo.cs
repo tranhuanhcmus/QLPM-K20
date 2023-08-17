@@ -1,11 +1,6 @@
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using SunriseServerCore.Models;  
+using SunriseServerCore.Models;
 using SunriseServerCore.RepoInterfaces;
-using SunriseServerCore.Dtos.Order;
-using SunriseServerData;
+using System.Text;
 
 namespace SunriseServerData.Repositories
 {
@@ -15,14 +10,14 @@ namespace SunriseServerData.Repositories
 
         public OrderRepo(DataContext dataContext)
         {
-            _dataContext = context;  
+            _dataContext = dataContext;  
         }
 
-        public async Task<Order> AddOrderAsync(GetCartDto orderDto)
+        public async Task<Order> AddOrderAsync(Order order)
         {
             var builder = new StringBuilder("EXEC USP_AddOrder @OrderDetails");
             return await _dataContext.Set<Order>()
-                                        .FromSqlRaw(builder.ToString(), orderDto)
+                                        .FromSqlRaw(builder.ToString(), order)
                                         .FirstOrDefaultAsync();
         }
 
@@ -34,7 +29,7 @@ namespace SunriseServerData.Repositories
                                 .FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<Order>> GetOrdersAsync()
+        public async Task<List<Order>> GetOrdersAsync()
         {
             var builder = new StringBuilder("EXEC USP_GetOrders");
             return await _dataContext.Set<Order>()
@@ -42,16 +37,18 @@ namespace SunriseServerData.Repositories
                                 .ToListAsync();
         }
 
-        public async Task UpdateOrderAsync(UpdateOrderDto orderDto)
+        public async Task<Order> UpdateOrderAsync(Order order)
         {
             var builder = new StringBuilder("EXEC USP_UpdateOrder @OrderDetails");
-            await _dataContext.Database.ExecuteSqlRawAsync(builder.ToString(), orderDto);
+            return await _dataContext.Set<Order>()
+                                .FromSqlRaw(builder.ToString(), order)
+                                .FirstOrDefaultAsync();
         }
 
-        public async Task DeleteOrderAsync(int orderId)
+        public async Task<int> DeleteOrderAsync(int orderId)
         {
             var builder = new StringBuilder($"EXEC USP_DeleteOrder {orderId}");
-            await _dataContext.Database.ExecuteSqlRawAsync(builder.ToString());
+            return await _dataContext.Database.ExecuteSqlRawAsync(builder.ToString());
         }
     }
 

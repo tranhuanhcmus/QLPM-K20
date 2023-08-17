@@ -2,12 +2,12 @@ using SunriseServerCore.Models;
 
 namespace SunriseServerCore.RepoInterfaces 
 {
-    public interface IOrderRepository
+    public interface IOrderRepo
     {
         Task<Order> GetOrderByIdAsync(int orderId);
-        Task<IEnumerable<Order>> GetOrdersAsync();
+        Task<List<Order>> GetOrdersAsync();
         Task<Order> AddOrderAsync(Order order);
-        Task UpdateOrderAsync(Order order);
-        Task DeleteOrderAsync(int orderId);
+        Task<Order> UpdateOrderAsync(Order order);
+        Task<int> DeleteOrderAsync(int orderId);
     }
 }

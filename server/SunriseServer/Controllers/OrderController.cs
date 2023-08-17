@@ -1,9 +1,9 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using SunriseServerCore.Common.Enum;
+using Microsoft.AspNetCore.Mvc;
 using SunriseServerCore.Dtos;
-using SunriseServer.Services.OrderService;  
-using SunriseServerCore.Dtos.Order;
+using SunriseServer.Services.OrderService;
+using SunriseServerCore.Common.Enum;
+using SunriseServerCore.Models;
 
 namespace SunriseServer.Controllers
 {
@@ -22,54 +22,80 @@ namespace SunriseServer.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> CreateOrder(CreateOrderDto createOrderDto)
+        public async Task<ActionResult> AddOrder(Order order)
         {
-            var order = await _orderService.CreateOrder(createOrderDto);
+            try {
+                var result = await _orderService.AddOrder(order);
 
-            return Ok(new ResponseMessageDetails<OrderDto>("Order created successfully", order));
+                if (result == null) {
+                    return NotFound("Cannot add order");
+                }
+
+                return Ok(new ResponseMessageDetails<Order>("Order created successfully", result));
+            }
+            catch (Exception) {
+                return BadRequest("Cannot add order");
+            }
         }
 
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> GetOrders()
         {
-            var orders = await _orderService.GetOrders();
+            try {
+                var orders = await _orderService.GetOrders();
 
-            var response = new ResponseMessageDetails<List<OrderDto>>("Orders retrieved successfully", orders); 
-
-            return Ok(new ResponseMessageDetails<List<OrderDto>>("Orders retrieved successfully", orders));  
+                return Ok(new ResponseMessageDetails<List<Order>>("Orders retrieved successfully", orders));
+            }
+            catch (Exception) {
+                return BadRequest("Cannot get orders");
+            }
         }
 
         [HttpGet("{id}")]
         [Authorize]
         public async Task<IActionResult> GetOrder(int id)
         {
-            var order = await _orderService.GetOrder(id);
+            try {
+                var result = await _orderService.GetOrder(id);
 
-            if (order == null)
-            {
-                return NotFound(new ResponseDetails(ResponseStatusCode.NotFound, "Order not found"));
+                if (result == null) {
+                    return NotFound("Order not found");
+                }
+
+                return Ok(new ResponseMessageDetails<Order>("Order details retrieved", result));
             }
-
-            return Ok(new ResponseMessageDetails<OrderDto>("Order details retrieved", order));
+            catch (Exception) {
+                return BadRequest("Cannot get order");
+            }
         }
 
         [HttpPut]
         [Authorize]  
-        public async Task<IActionResult> UpdateOrder(UpdateOrderDto updateOrderDto)
+        public async Task<IActionResult> UpdateOrder(Order order)
         {
-            var order = await _orderService.UpdateOrder(updateOrderDto);
+            try {
+                var result = await _orderService.UpdateOrder(order);
 
-            return Ok(new ResponseMessageDetails<OrderDto>("Order updated successfully", order));
+                return Ok(new ResponseMessageDetails<Order>("Order updated successfully", result));
+            }
+            catch (Exception) {
+                return BadRequest("Cannot update order");
+            }
         }
 
         [HttpDelete("{id}")]
         [Authorize]
         public async Task<IActionResult> DeleteOrder(int id) 
         {
-            await _orderService.DeleteOrder(id);
+            try {
+                await _orderService.DeleteOrder(id);
 
-            return NoContent();
+                return NoContent();
+            }
+            catch (Exception) {
+                return BadRequest("Cannot get orders");
+            }
         }
     }
 }

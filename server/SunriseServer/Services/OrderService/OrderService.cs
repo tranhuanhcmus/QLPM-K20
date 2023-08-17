@@ -16,37 +16,29 @@ namespace SunriseServer.Services.OrderService
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Order> CreateOrder(Order order)
+        public async Task<Order> AddOrder(Order order)
         {
-            await _unitOfWork.OrderRepo.AddAsync(order);
-            await _unitOfWork.CompleteAsync();
-
-            return order;
+            return await _unitOfWork.OrderRepo.AddOrderAsync(order);
         }
 
         public async Task<Order> GetOrder(int orderId)
         {
-            return await _unitOfWork.OrderRepo.GetByIdAsync(orderId);
+            return await _unitOfWork.OrderRepo.GetOrderByIdAsync(orderId);
         }
 
-        public async Task<IEnumerable<Order>> GetOrders()
+        public async Task<List<Order>> GetOrders()
         {
-            return await _unitOfWork.OrderRepo.ListAllAsync();
+            return await _unitOfWork.OrderRepo.GetOrdersAsync();
         }
 
         public async Task<Order> UpdateOrder(Order order)
         {
-            _unitOfWork.OrderRepo.Update(order);
-            await _unitOfWork.CompleteAsync();
-
-            return order;
+            return await _unitOfWork.OrderRepo.UpdateOrderAsync(order);
         }
 
-        public async Task DeleteOrder(int orderId)
-        {
-            var order = await GetOrder(orderId);
-            _unitOfWork.OrderRepo.Delete(order);
-            await _unitOfWork.CompleteAsync();
+        public async Task<int> DeleteOrder(int orderId)
+        {            
+            return await _unitOfWork.OrderRepo.DeleteOrderAsync(orderId);
         }
     }
 }
