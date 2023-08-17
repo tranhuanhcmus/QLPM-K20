@@ -21,10 +21,8 @@ export const URLS = {
     BRIDES_MAID:'/list/wedding/brides-maid',
     TIES:'/list/accessories/ties',
     BOW_TIES:'/list/accessories/bow-ties',
-    
-
-
-
+    PAYMENT:'/payment',
+    PAYMENT_DETAILS:'/payment-details',
 
 };
 
