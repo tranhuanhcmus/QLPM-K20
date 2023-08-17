@@ -15,6 +15,8 @@ namespace SunriseServer.Services.PantsService
         Task<Pants> GetPantsByCategory(string cate);
         Task<Pants> GetPantsByColor(string color);
         Task<Pants> GetPantsByFabric(string fabric);
+
+        Task<bool> DeletePants(int pantsId);
         Task<bool> AddPants(AddPants ap);
         void SaveChanges();
     }

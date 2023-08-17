@@ -17,6 +17,7 @@ namespace SunriseServer.Services.TiesService
         Task<Ties> GetTiesByColor(string color);
         Task<Ties> GetTiesByFabric(string fabric);
         Task<bool> AddTies(AddTies at);
+        Task<bool> DeleteTies(int tiesId);
 
         void SaveChanges();
     }

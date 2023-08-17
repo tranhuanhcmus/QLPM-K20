@@ -76,6 +76,26 @@ namespace SunriseServerData.Repositories
             return result;
         }
 
+        // -----------------//
+        //    CRUD area     //
+        // -----------------//
+        
+        public async Task<bool> DeleteVest(int id) {
+
+            try
+            {
+                Vest vest = await _dataContext.Vest.FindAsync(id) ?? throw new DataException("404 - Vest not found");
+                _dataContext.Vest.Remove(vest);
+                _dataContext.SaveChanges();
+            }
+            catch (DataException ex)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                throw new Exception("An error occurred while removing the Vest.", ex);
+            }
+            return true;
+        }
+
         public async Task<bool> AddVest(AddVest av)
         {
             try

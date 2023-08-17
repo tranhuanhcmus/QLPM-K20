@@ -12,7 +12,13 @@ namespace SunriseServerCore.RepoInterfaces
 
         PantsDetail GetPantsDetailById(int id);
 
+        // -----------------//
+        //    CRUD area     //
+        // -----------------//
         Task<bool> AddPants(AddPants ap);
+
+        Task<bool> DeletePants(int id);
+
 
     }
 }

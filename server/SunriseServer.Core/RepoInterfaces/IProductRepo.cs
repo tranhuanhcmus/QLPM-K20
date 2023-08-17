@@ -6,7 +6,12 @@ namespace SunriseServerCore.RepoInterfaces
     {
         List<Product> GetAllSpecial();
         Task<List<Product>> GetAllSpecialAsync();
-        Task<List<Product>> GetByNameAsync(string name);
+        Task<List<Product>> GetByNameAsync(string name);        
+        
+        // -----------------//
+        //    CRUD area     //
+        // -----------------//
+        Task<bool> DeleteProduct(int id);
 
     }
 }

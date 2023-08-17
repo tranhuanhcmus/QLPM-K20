@@ -24,6 +24,21 @@ namespace SunriseServer.Services.VestService
 
         }
 
+        //----------------------------------------------------------------
+        // for admin (CRUD)
+        //----------------------------------------------------------------
+        public async Task<bool> DeleteVest(int VestId) {
+            // delete both Vest infor and product
+
+            bool j = await _unitOfWork.VestRepo.DeleteVest(VestId);
+            if (!j) return false; 
+
+            bool p = await _unitOfWork.ProductRepo.DeleteProduct(VestId);
+            if (!p) return false; 
+            
+            return true;
+        }
+
 
         public async Task<Vest> AddVest(Vest jk)
         {

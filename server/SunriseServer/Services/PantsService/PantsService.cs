@@ -18,6 +18,22 @@ namespace SunriseServer.Services.PantsService
         //{
         //    return _unitOfWork.PantsRepo.GetAll();
         //}
+
+        //----------------------------------------------------------------
+        // for admin (CRUD)
+        //----------------------------------------------------------------
+        public async Task<bool> DeletePants(int PantsId) {
+            // delete both Pants infor and product
+
+            bool j = await _unitOfWork.PantsRepo.DeletePants(PantsId);
+            if (!j) return false; 
+
+            bool p = await _unitOfWork.ProductRepo.DeleteProduct(PantsId);
+            if (!p) return false; 
+            
+            return true;
+        }
+
         public Task<bool> AddPants(AddPants ap) {
                 return _unitOfWork.PantsRepo.AddPants(ap);
             }

@@ -77,6 +77,26 @@ namespace SunriseServerData.Repositories
             return result;
         }
 
+
+        // -----------------//
+        //    CRUD area     //
+        // -----------------//
+        
+        public async Task<bool> DeletePants(int id) {
+
+            try
+            {
+                Pants pants = await _dataContext.Pants.FindAsync(id) ?? throw new Exception("404 - Pants not found");
+                _dataContext.Pants.Remove(pants);
+                _dataContext.SaveChanges();
+            }
+            catch (DataException ex)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                throw new Exception("An error occurred while deleting the Pants.", ex);
+            }
+            return true;
+        }
         public async Task<bool> AddPants(AddPants ap)
         {
             try

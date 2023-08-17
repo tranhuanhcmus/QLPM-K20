@@ -10,9 +10,12 @@ namespace SunriseServerCore.RepoInterfaces
         List<VestProduct> GetByName(string name);
         VestDetail GetVestDetailById(int id);
 
-        // func to insert, delete, or update
+        // -----------------//
+        //    CRUD area     //
+        // -----------------//
         Task<bool> AddVest(AddVest av);
-        
+        Task<bool> DeleteVest(int id);
+       
         
     }
 }

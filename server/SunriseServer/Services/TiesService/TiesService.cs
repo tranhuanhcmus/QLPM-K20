@@ -24,6 +24,21 @@ namespace SunriseServer.Services.TiesService
 
         }
 
+        //----------------------------------------------------------------
+        // for admin (CRUD)
+        //----------------------------------------------------------------
+        public async Task<bool> DeleteTies(int TiesId) {
+            // delete both Ties infor and product
+
+            bool j = await _unitOfWork.TiesRepo.DeleteTies(TiesId);
+            if (!j) return false; 
+
+            bool p = await _unitOfWork.ProductRepo.DeleteProduct(TiesId);
+            if (!p) return false; 
+            
+            return true;
+        }
+
 
         public async Task<Ties> AddTies(Ties jk)
         {

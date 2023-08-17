@@ -64,6 +64,26 @@ namespace SunriseServerData.Repositories
             return result;
         }
 
+        // -----------------//
+        //    CRUD area     //
+        // -----------------//
+        
+        public async Task<bool> DeleteTies(int id) {
+
+            try
+            {
+                Ties Ties = await _dataContext.Ties.FindAsync(id) ?? throw new DataException("404 - Ties not found");
+                _dataContext.Ties.Remove(Ties);
+                _dataContext.SaveChanges();
+            }
+            catch (DataException ex)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                throw new Exception("An error occurred while removing the Ties.", ex);
+            }
+            return true;
+        }
+
         public async Task<bool> AddTies(AddTies at)
         {
             try

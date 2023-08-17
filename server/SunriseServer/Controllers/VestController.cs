@@ -52,6 +52,17 @@ namespace SunriseServer.Controllers
         //     return Ok(result);
         // }
 
+        [HttpDelete("/Vest/{vestId}")]
+        public async Task<ActionResult<bool>> DeleteVest(int vestId)
+        {
+            bool result = await _vestService.DeleteVest(vestId);
+            if (!result)
+                return NotFound("Can not delete, please try again");
+
+            return Ok("Delete Successfully");
+
+        }
+
         [HttpPost("Add-Vest")]
 
         public async Task<ActionResult<bool>> AddVest(AddVest av)

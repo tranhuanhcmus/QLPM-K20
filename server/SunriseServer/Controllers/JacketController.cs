@@ -34,10 +34,10 @@ namespace SunriseServer.Controllers
         }
 
         //[HttpDelete("/{productId}"), Authorize(Roles = GlobalConstant.Admin)]
-        [HttpDelete("/{jacketId}")]
-        public ActionResult<bool> DeleteJacket(int jacketId)
+        [HttpDelete("/Jacket/{jacketId}")]
+        public async Task<ActionResult<bool>> DeleteJacket(int jacketId)
         {
-            bool result = _jacketService.DeleteJacket(jacketId);
+            bool result = await _jacketService.DeleteJacket(jacketId);
             if (!result)
                 return NotFound("Can not delete, please try again");
 

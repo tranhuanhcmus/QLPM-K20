@@ -52,6 +52,17 @@ namespace SunriseServer.Controllers
         //     return Ok(result);
         // }
 
+        [HttpDelete("/Ties/{tiesId}")]
+        public async Task<ActionResult<bool>> DeleteTies(int tiesId)
+        {
+            bool result = await _tiesService.DeleteTies(tiesId);
+            if (!result)
+                return NotFound("Can not delete, please try again");
+
+            return Ok("Delete Successfully");
+
+        }
+
         [HttpPost("Add-Ties")]
         public async Task<ActionResult<bool>> AddTies(AddTies at)
         {

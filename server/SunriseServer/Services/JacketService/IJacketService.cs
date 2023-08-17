@@ -19,7 +19,7 @@ namespace SunriseServer.Services.JacketService
         Task<Jacket> GetJacketByColor(string color);
         Task<Jacket> GetJacketByFabric(string fabric);
 
-        bool DeleteJacket(int jacketId);
+        Task<bool> DeleteJacket(int jacketId);
         Task<List<Product>> GetAllSpecial3();
 
         void SaveChanges();

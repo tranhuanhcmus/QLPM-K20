@@ -28,14 +28,14 @@ namespace SunriseServer.Services.JacketService
         //----------------------------------------------------------------
         // for admin (CRUD)
         //----------------------------------------------------------------
-        public bool DeleteJacket(int jacketId) {
+        public async Task<bool> DeleteJacket(int jacketId) {
             // delete both jacket infor and product
 
-            Jacket j = _unitOfWork.JacketRepo.Delete(jacketId);
-            if (j == null ) return false; 
+            bool j = await _unitOfWork.JacketRepo.DeleteJacket(jacketId);
+            if (!j) return false; 
 
-            // Product p = _unitOfWork.ProductRepo.Delete(jacketId);
-            // if (p == null ) return false; 
+            bool p = await _unitOfWork.ProductRepo.DeleteProduct(jacketId);
+            if (!p) return false; 
             
             return true;
         }

@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using SunriseServerCore.Models;
 using SunriseServerCore.RepoInterfaces;
+using System.Data;
 
 namespace SunriseServerData.Repositories
 {
@@ -42,6 +43,26 @@ namespace SunriseServerData.Repositories
         {
             return await _dataContext.Product.FromSqlInterpolated($"select ProductID, Price, Image, Name, Description, Discount, Fabric, FabricName, Color, Type from Product;")
                 .ToListAsync();
+        }
+
+        // -----------------//
+        //    CRUD area     //
+        // -----------------//
+
+        public async Task<bool> DeleteProduct(int id) {
+
+            try
+            {
+                Product product = await _dataContext.Product.FindAsync(id);
+                _dataContext.Product.Remove(product);
+                _dataContext.SaveChanges();
+            }
+            catch (DataException ex)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                throw new Exception("An error occurred while adding the Product.", ex);
+            }
+            return true;
         }
 
     }

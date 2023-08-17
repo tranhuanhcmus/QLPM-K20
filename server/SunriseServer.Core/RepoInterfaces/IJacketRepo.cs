@@ -9,8 +9,14 @@ namespace SunriseServerCore.RepoInterfaces
         List<JacketProduct> GetByName(string name);
         List<Product> GetAllSpecial();
         JacketDetail GetJacketDetailById(int id);
+
+        // -----------------//
+        //    CRUD area     //
+        // -----------------//
         Task<bool> AddJacket(AddJacket aj);
         //List<Jacket> GetAllSpecialAsync();
+        Task<bool> DeleteJacket(int id);
+
 
     }
 }

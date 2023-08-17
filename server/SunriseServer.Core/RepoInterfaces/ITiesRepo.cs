@@ -10,9 +10,13 @@ namespace SunriseServerCore.RepoInterfaces
         List<TiesDetail> GetByName(string name);
         TiesDetail GetTiesDetailById(int id);
 
-        // func to insert, delete, or update
+        // -----------------//
+        //    CRUD area     //
+        // -----------------//
+        
         Task<bool> AddTies(AddTies at);
         
-        
+        Task<bool> DeleteTies(int id);
+
     }
 }

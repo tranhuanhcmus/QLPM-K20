@@ -18,6 +18,8 @@ namespace SunriseServer.Services.VestService
         Task<Vest> GetVestByColor(string color);
         Task<Vest> GetVestByFabric(string fabric);
         Task<bool> AddVest(AddVest av);
+        Task<bool> DeleteVest(int vestId);
+
 
         void SaveChanges();
     }

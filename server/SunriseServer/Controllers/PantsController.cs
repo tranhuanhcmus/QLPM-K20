@@ -41,6 +41,18 @@ namespace SunriseServer.Controllers
         //     return Ok(result);
         // }
         // get detail by nid
+
+        [HttpDelete("/Pants/{pantsId}")]
+        public async Task<ActionResult<bool>> DeletePants(int pantsId)
+        {
+            bool result = await _pantsService.DeletePants(pantsId);
+            if (!result)
+                return NotFound("Can not delete, please try again");
+
+            return Ok("Delete Successfully");
+
+        }
+
         [HttpGet("{id}")]
         public ActionResult<PantsDetail> GetPantsById(int id)
         {
@@ -54,7 +66,7 @@ namespace SunriseServer.Controllers
         // get by id
         // get by category ??
         // insert one - just for admin
-        [HttpGet("Add-Pants")]
+        [HttpPost("Add-Pants")]
 
         public async Task<ActionResult<bool>> AddPants(AddPants ap)
         {
