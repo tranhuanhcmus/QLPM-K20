@@ -3,6 +3,7 @@ import styles from "./Cart.module.scss";
 import CartList from "./CartList";
 import { Images } from "./image";
 import { CartService } from './../../libs/services/src/lib/cartService/index';
+import { useNavigate } from 'react-router-dom';
 
 // type ProductData={
 // 	productId:string,
@@ -84,6 +85,8 @@ const Cart = ({ showCart }) => {
   const [discount,setDiscount]=React.useState(50);
   const [total,setTotal]=React.useState(0);
 
+  const navigate=useNavigate()
+
   
   React.useEffect(() => {
     setShow(showCart);
@@ -93,6 +96,11 @@ const Cart = ({ showCart }) => {
 	  const total=CartService.calculateTotal(subTotal,shipping,discount);
 	  setTotal(total)
   }, [subTotal,shipping,discount]);
+
+  const onCheckout=()=>{
+	setShow(false)
+	navigate({pathname:"/payment"})
+  }
 
   return (
     <>
@@ -124,7 +132,7 @@ const Cart = ({ showCart }) => {
 			<span onClick={() => setShow(false)}>
 				Continue Shopping
 			</span>
-			<button>
+			<button onClick={onCheckout}>
 				Checkout
 			</button>
 		  </div>
