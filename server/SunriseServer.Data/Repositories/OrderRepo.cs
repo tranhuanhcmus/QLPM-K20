@@ -4,31 +4,32 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SunriseServerCore.Models;  
 using SunriseServerCore.RepoInterfaces;
+using SunriseServerCore.Dtos.Order;
 using SunriseServerData;
 
 namespace SunriseServerData.Repositories
 {
-    public class OrderRepository : IOrderRepository
+    public class OrderRepo : IOrderRepo
     {
-        private readonly DataContext _context;
+        readonly DataContext _dataContext;
 
-        public OrderRepository(DataContext context)
+        public OrderRepo(DataContext dataContext)
         {
-            _context = context;  
+            _dataContext = context;  
         }
 
-        public async Task<Order> AddOrderAsync(Order order)
+        public async Task<Order> AddOrderAsync(GetCartDto orderDto)
         {
             var builder = new StringBuilder("EXEC USP_AddOrder @OrderDetails");
-            return await _context.Set<Order>()
-                                        .FromSqlRaw(builder.ToString(), order)
+            return await _dataContext.Set<Order>()
+                                        .FromSqlRaw(builder.ToString(), orderDto)
                                         .FirstOrDefaultAsync();
         }
 
         public async Task<Order> GetOrderByIdAsync(int orderId)
         {
             var builder = new StringBuilder($"EXEC USP_GetOrder {orderId}");
-            return await _context.Set<Order>()
+            return await _dataContext.Set<Order>()
                                 .FromSqlRaw(builder.ToString())
                                 .FirstOrDefaultAsync();
         }
@@ -36,21 +37,21 @@ namespace SunriseServerData.Repositories
         public async Task<IEnumerable<Order>> GetOrdersAsync()
         {
             var builder = new StringBuilder("EXEC USP_GetOrders");
-            return await _context.Set<Order>()
+            return await _dataContext.Set<Order>()
                                 .FromSqlRaw(builder.ToString())
                                 .ToListAsync();
         }
 
-        public async Task UpdateOrderAsync(Order order)
+        public async Task UpdateOrderAsync(UpdateOrderDto orderDto)
         {
             var builder = new StringBuilder("EXEC USP_UpdateOrder @OrderDetails");
-            await _context.Database.ExecuteSqlRawAsync(builder.ToString(), order);
+            await _dataContext.Database.ExecuteSqlRawAsync(builder.ToString(), orderDto);
         }
 
         public async Task DeleteOrderAsync(int orderId)
         {
             var builder = new StringBuilder($"EXEC USP_DeleteOrder {orderId}");
-            await _context.Database.ExecuteSqlRawAsync(builder.ToString());
+            await _dataContext.Database.ExecuteSqlRawAsync(builder.ToString());
         }
     }
 

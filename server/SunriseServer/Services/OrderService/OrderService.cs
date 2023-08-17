@@ -10,7 +10,7 @@ namespace SunriseServer.Services.OrderService
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly UnitOfWork _unitOfWork;
 
-        public OrderService(UnitOfWork unitOfWork)
+        public OrderService(IHttpContextAccessor httpContextAccessor, UnitOfWork unitOfWork)
         {
             _httpContextAccessor = httpContextAccessor;
             _unitOfWork = unitOfWork;
