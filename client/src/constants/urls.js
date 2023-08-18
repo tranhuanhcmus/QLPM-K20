@@ -23,6 +23,6 @@ export const URLS = {
     BOW_TIES:'/list/accessories/bow-ties',
     PAYMENT:'/payment',
     PAYMENT_DETAILS:'/payment-details',
-
+    ADMIN:'/admin'
 };
 

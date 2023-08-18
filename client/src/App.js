@@ -1,5 +1,6 @@
 // Global style
 import "./App.scss";
+
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import About from "./pages/About/About";
@@ -14,6 +15,7 @@ import Authentication from "./pages/Authentication/Authentication";
 import { BusinessLogicProvider } from "./libs/business-logic/src/provider";
 import Payment from "./pages/Payment";
 import PaymentDetails from "./pages/Payment/PaymentDetails";
+import FullLayout from "./pages/Admin/layouts/FullLayout";
 
 function App() {
   return (
@@ -30,15 +32,18 @@ function App() {
             <Route path={URLS.COAT} element={<Ec />} />
             <Route path={URLS.CONTACT_PAGE} element={<Contact />} />
 
-            <Route path={URLS.PAYMENT}  element={<Payment />} />
-            <Route path={URLS.PAYMENT_DETAILS}  element={<PaymentDetails />} >
-          
-            </Route>
-
+            <Route path={URLS.PAYMENT} element={<Payment />} />
+            {/* <Route path={URLS.ADMIN} element={<Admin />} /> */}
+            <Route
+              path={URLS.PAYMENT_DETAILS}
+              element={<PaymentDetails />}
+            ></Route>
           </Route>
 
           <Route path={URLS.MEASURE} element={<Measure />} />
           <Route path="*" element={<ErrorPage />} />
+
+          <Route path={URLS.ADMIN} element={<FullLayout />}></Route>
         </Routes>
       </div>
     </BusinessLogicProvider>
