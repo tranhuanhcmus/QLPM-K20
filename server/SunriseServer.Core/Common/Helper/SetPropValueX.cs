@@ -6,7 +6,7 @@ namespace SunriseServer.Common.Helper
 {
     public class SetPropValueByReflection
     {
-        public static void AddYToX(Object x, Object y)
+        public static void AddYToX(object x, object y)
         {
             Type typeX = x.GetType();
             Type typeY = y.GetType();

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SunriseServer.Common.Helper;
 using SunriseServerCore.Dtos.Cart;
-
+using SunriseServerCore.Dtos;
 
 namespace SunriseServerData.Repositories
 {
@@ -54,16 +54,18 @@ namespace SunriseServerData.Repositories
         }
 
 
-        public async Task<IEnumerable<GetCartDto>> GetCart(int accountId)
+        public async Task<List<GetRawCartDto>> GetCart(int accountId)
         {
             var builder = new StringBuilder();
             builder.Append($"EXEC USP_GetCart {accountId};");
 
-            Console.WriteLine(builder.ToString());
-
-            return await _dataContext.Set<GetCartDto>()
+            var result = await _dataContext.Set<GetRawCartDto>()
                 .FromSqlInterpolated($"EXECUTE({builder.ToString()});")
                 .ToListAsync();
+            
+            Console.WriteLine("Vo co lo: ", result.FirstOrDefault().Name);
+            
+            return result;
         }
 
         public async Task<int> DeleteProductInCart(DeleteProductCartDto deleteDto)

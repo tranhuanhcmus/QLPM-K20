@@ -73,8 +73,6 @@ namespace SunriseServerData.Repositories
             var orderList = await _dataContext.Set<MyProcedureResult>()
                 .FromSqlInterpolated($"SELECT OrderId FROM Orders WHERE customer={accountId};").ToListAsync();
 
-            Console.WriteLine("Vowf lowf");
-
             var result = new List<GetOrderDto>();
             foreach (var id in orderList)
             {

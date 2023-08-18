@@ -22,7 +22,7 @@ namespace SunriseServer.Services.CartService
             return result;
         }
 
-        public async Task<IEnumerable<GetCartDto>> GetCart(int accountId)
+        public async Task<List<GetRawCartDto>> GetCart(int accountId)
         {
             return await _unitOfWork.CartRepo.GetCart(accountId);
         }
