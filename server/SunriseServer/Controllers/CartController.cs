@@ -50,7 +50,7 @@ namespace SunriseServer.Controllers
         }
 
         [HttpGet(""), Authorize(Roles = GlobalConstant.User)]
-        public async Task<ActionResult<ResponseMessageDetails<GetCartDto>>> GetCart()
+        public async Task<ActionResult<List<GetCartDto>>> GetCart()
         {
             try
             {
@@ -60,7 +60,7 @@ namespace SunriseServer.Controllers
                 if (result.Count() == 0)
                     return NotFound("No item in cart");
 
-                return Ok(new ResponseMessageDetails<IEnumerable<GetCartDto>>("Get cart successfully", result));
+                return Ok(result);
             }
             catch
             {
@@ -68,7 +68,7 @@ namespace SunriseServer.Controllers
             }
         }
 
-        [HttpDelete("/{productId}"), Authorize(Roles = GlobalConstant.User)]
+        [HttpDelete("item"), Authorize(Roles = GlobalConstant.User)]
         public async Task<ActionResult<ResponseDetails>> DeleteProductInCart(int productId)
         {
             try

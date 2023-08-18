@@ -10,5 +10,6 @@ namespace SunriseServer.Services.AccountService
         Task<Account> GetByUsername(string username);
         Task<Account> GetById(int id);
         Task<Account> UpdateAccount(Account acc);
+        Task<int> GetNextAccountId();
     }
 }

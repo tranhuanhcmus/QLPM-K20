@@ -232,6 +232,13 @@ AS
 	WHERE Email = @Email
 GO
 
+CREATE OR ALTER PROC USP_GetAccountById
+	@Id NVARCHAR(200)
+AS
+	SELECT * FROM Account
+	WHERE AccountID = @Id
+GO
+
 
 GO
 CREATE OR ALTER PROCEDURE USP_AddToCart (

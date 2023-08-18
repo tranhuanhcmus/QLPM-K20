@@ -45,33 +45,35 @@ namespace SunriseServer.Controllers
 
             acc = new Account();
             CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
+            acc.AccountId = await _accService.GetNextAccountId();
             acc.Email = request.Email;
             acc.PasswordHash = Helper.ByteArrayToString(passwordHash);
             acc.PasswordSalt = Helper.ByteArrayToString(passwordSalt);
-            acc.UserRole = GlobalConstant.User;
+            acc.UserRole = GlobalConstant.Admin;
 
             var token = CreateToken(acc, GlobalConstant.Admin);
             var refreshToken = GenerateRefreshToken();
             SetRefreshToken(refreshToken, acc);
             await _accService.AddAccount(acc);
-            return Ok(new {
-                Message = "Register user successfully",
-                Token = token
-            });
+            return Ok(new ResponseMessageDetails<string>("Register admin successfully", token));
         }
 
         [HttpPost("register")]
         public async Task<ActionResult<ResponseMessageDetails<string>>> Register(LoginDto request)
         {
+            if (request.Password.Length < 6)
+                return BadRequest("Password is too weak, must be greater than 6 characters");
+
             var acc = await _accService.GetByUsername(request.Email);
 
             if (acc != null)
             {
-                return BadRequest("Username exists");
+                return BadRequest("Email exists");
             }
 
             acc = new Account();
             CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
+            acc.AccountId = await _accService.GetNextAccountId();
             acc.Email = request.Email;
             acc.PasswordHash = Helper.ByteArrayToString(passwordHash);
             acc.PasswordSalt = Helper.ByteArrayToString(passwordSalt);
@@ -82,7 +84,7 @@ namespace SunriseServer.Controllers
             SetRefreshToken(refreshToken, acc);
             await _accService.AddAccount(acc);
             return Ok(new {
-                Message = "Register user successfully",
+                Message = "Register successfully",
                 Token = token
             });
         }
