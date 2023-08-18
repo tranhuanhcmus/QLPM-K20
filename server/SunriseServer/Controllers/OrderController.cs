@@ -43,9 +43,13 @@ namespace SunriseServer.Controllers
         public async Task<IActionResult> GetOrders()
         {
             try {
-                var orders = await _orderService.GetOrders();
+                var result = await _orderService.GetOrders();
 
-                return Ok(new ResponseMessageDetails<List<Order>>("Orders retrieved successfully", orders));
+                if (result == null) {
+                    return NotFound("Cannot get orders");
+                }
+
+                return Ok(new ResponseMessageDetails<List<Order>>("Orders retrieved successfully", result));
             }
             catch (Exception) {
                 return BadRequest("Cannot get orders");
@@ -70,12 +74,16 @@ namespace SunriseServer.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         [Authorize]  
-        public async Task<IActionResult> UpdateOrder(Order order)
+        public async Task<IActionResult> UpdateOrder(int id, Order order)
         {
             try {
-                var result = await _orderService.UpdateOrder(order);
+                var result = await _orderService.UpdateOrder(id, order);
+
+                if (result == null) {
+                    return NotFound("Cannot update order");
+                }
 
                 return Ok(new ResponseMessageDetails<Order>("Order updated successfully", result));
             }
@@ -89,7 +97,7 @@ namespace SunriseServer.Controllers
         public async Task<IActionResult> DeleteOrder(int id) 
         {
             try {
-                await _orderService.DeleteOrder(id);
+                var result = await _orderService.DeleteOrder(id);
 
                 return NoContent();
             }

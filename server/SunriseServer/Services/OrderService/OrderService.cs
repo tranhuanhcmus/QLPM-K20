@@ -21,9 +21,9 @@ namespace SunriseServer.Services.OrderService
             return await _unitOfWork.OrderRepo.AddOrderAsync(order);
         }
 
-        public async Task<Order> GetOrder(int orderId)
+        public async Task<Order> GetOrder(int id)
         {
-            return await _unitOfWork.OrderRepo.GetOrderByIdAsync(orderId);
+            return await _unitOfWork.OrderRepo.GetOrderByIdAsync(id);
         }
 
         public async Task<List<Order>> GetOrders()
@@ -31,14 +31,14 @@ namespace SunriseServer.Services.OrderService
             return await _unitOfWork.OrderRepo.GetOrdersAsync();
         }
 
-        public async Task<Order> UpdateOrder(Order order)
+        public async Task<Order> UpdateOrder(int id, Order order)
         {
-            return await _unitOfWork.OrderRepo.UpdateOrderAsync(order);
+            return await _unitOfWork.OrderRepo.UpdateOrderAsync(id, order);
         }
 
-        public async Task<int> DeleteOrder(int orderId)
+        public async Task<int> DeleteOrder(int id)
         {            
-            return await _unitOfWork.OrderRepo.DeleteOrderAsync(orderId);
+            return await _unitOfWork.OrderRepo.DeleteOrderAsync(id);
         }
     }
 }

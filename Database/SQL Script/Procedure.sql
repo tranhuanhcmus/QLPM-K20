@@ -353,3 +353,132 @@ BEGIN
 	RETURN 0;
 END
 GO
+
+-- Create or Alter Procedures
+
+CREATE OR ALTER PROCEDURE CreateOrder
+    @customer INT,
+    @PaymentMethod NVARCHAR(100),
+    @TimeOrder DATETIME,
+    @TimeDone DATE,
+    @Status NVARCHAR(50),
+    @Address NVARCHAR(150),
+    @orderDetail TABLE (
+        Product INT,
+        NumberOfOrder INT
+    )
+AS
+BEGIN
+    DECLARE @OrderId INT;
+    DECLARE @totalPrice FLOAT = 0.0;
+
+    -- Check if PaymentMethod exists
+    IF NOT EXISTS (SELECT 1 FROM PaymentMethods WHERE PaymentMethod = @PaymentMethod)
+        RETURN -1;
+
+    -- Generate the next OrderId using the function
+    EXEC @OrderId = USP_GetNextColumnId 'Orders', 'OrderId';
+
+    INSERT INTO Orders (OrderId, customer, PaymentMethod, TimeOrder, TimeDone, Status, Address)
+    VALUES (@OrderId, @customer, @PaymentMethod, @TimeOrder, @TimeDone, @Status, @Address);
+
+    -- Update totalPrice and orderDetail.Price based on Product
+    INSERT INTO OrderDetail (Orders, Product, NumberOfOrder, Price)
+    SELECT @OrderId, od.Product, od.NumberOfOrder, p.Price
+    FROM @orderDetail od
+    INNER JOIN Products p ON od.Product = p.ProductId;
+
+    -- Update totalPrice
+    SELECT @totalPrice = @totalPrice + (od.Price * od.NumberOfOrder)
+    FROM OrderDetail od
+    WHERE od.Orders = @OrderId;
+
+    UPDATE Orders
+    SET ToTalPrice = @totalPrice
+    WHERE OrderId = @OrderId;
+
+    -- Return the created order and associated OrderDetail
+    EXEC GetOrderById @OrderId;
+END
+GO
+
+CREATE OR ALTER PROCEDURE GetOrderById
+    @OrderId INT
+AS
+BEGIN
+    -- Get the order and associated OrderDetail
+    SELECT o.*, od.Product, od.NumberOfOrder, od.Price
+    FROM Orders o
+    LEFT JOIN OrderDetail od ON o.OrderId = od.Orders
+    WHERE o.OrderId = @OrderId;
+END
+GO
+
+CREATE OR ALTER PROCEDURE UpdateOrder
+    @OrderId INT,
+    @customer INT,
+    @PaymentMethod NVARCHAR(100),
+    @TimeOrder DATETIME,
+    @TimeDone DATE,
+    @Status NVARCHAR(50),
+    @Address NVARCHAR(150),
+    @orderDetail TABLE (
+        Product INT,
+        NumberOfOrder INT
+    )
+AS
+BEGIN
+    DECLARE @totalPrice FLOAT = 0.0;
+
+    -- Check if PaymentMethod exists
+    IF NOT EXISTS (SELECT 1 FROM PaymentMethods WHERE PaymentMethod = @PaymentMethod)
+        RETURN -1;
+
+    -- Check if all Products exist
+    IF NOT EXISTS (SELECT 1 FROM Products p WHERE NOT EXISTS (SELECT 1 FROM @orderDetail od WHERE od.Product = p.ProductId))
+        RETURN -1;
+
+    -- Update Orders table
+    UPDATE Orders
+    SET customer = @customer,
+        PaymentMethod = @PaymentMethod,
+        TimeOrder = @TimeOrder,
+        TimeDone = @TimeDone,
+        Status = @Status,
+        Address = @Address
+    WHERE OrderId = @OrderId;
+
+    -- Delete existing OrderDetail records for the order
+    DELETE FROM OrderDetail WHERE Orders = @OrderId;
+
+    -- Update totalPrice and orderDetail.Price based on Product
+    INSERT INTO OrderDetail (Orders, Product, NumberOfOrder, Price)
+    SELECT @OrderId, od.Product, od.NumberOfOrder, p.Price
+    FROM @orderDetail od
+    INNER JOIN Products p ON od.Product = p.ProductId;
+
+    -- Update totalPrice
+    SELECT @totalPrice = @totalPrice + (od.Price * od.NumberOfOrder)
+    FROM OrderDetail od
+    WHERE od.Orders = @OrderId;
+
+    UPDATE Orders
+    SET ToTalPrice = @totalPrice
+    WHERE OrderId = @OrderId;
+
+    -- Return the updated order and associated OrderDetail
+    EXEC GetOrderById @OrderId;
+END
+GO
+
+CREATE OR ALTER PROCEDURE DeleteOrder
+    @OrderId INT
+AS
+BEGIN
+    -- Delete associated OrderDetail records
+    DELETE FROM OrderDetail WHERE Orders = @OrderId;
+
+    -- Delete the order from Orders table
+    DELETE FROM Orders WHERE OrderId = @OrderId;
+END
+GO
