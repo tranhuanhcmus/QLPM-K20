@@ -2,8 +2,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SunriseServerCore.Dtos;
 using SunriseServer.Services.OrderService;
-using SunriseServerCore.Common.Enum;
+using SunriseServer.Common.Constant;
 using SunriseServerCore.Models;
+using SunriseServerCore.Dtos.Order;
+using System.Security.Claims;
 
 namespace SunriseServer.Controllers
 {
@@ -13,33 +15,39 @@ namespace SunriseServer.Controllers
     public class OrderController : ControllerBase
     {
 
+        private readonly IHttpContextAccessor _httpContext;
         private readonly IOrderService _orderService;
 
-        public OrderController(IOrderService orderService)
+        public OrderController(IHttpContextAccessor httpContext, IOrderService orderService)
         {
+            _httpContext = httpContext;
             _orderService = orderService;
         }
 
-        [HttpPost]
-        [Authorize]
-        public async Task<ActionResult> AddOrder(Order order)
+        [HttpGet(""), Authorize(Roles = GlobalConstant.User)]
+        public async Task<ActionResult<List<GetOrderDto>>> GetOrder()
         {
+            var id = Convert.ToInt32(_httpContext.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
+            if (id == 0)
+            {
+                return NotFound("Cannot find user, please login again!");
+            }
+
             try {
-                var result = await _orderService.AddOrder(order);
+                var result = await _orderService.GetAccountOrders(id);
 
                 if (result == null) {
-                    return NotFound("Cannot add order");
+                    return NotFound("Order not found");
                 }
 
-                return Ok(new ResponseMessageDetails<Order>("Order created successfully", result));
+                return Ok(result);
             }
-            catch (Exception) {
-                return BadRequest("Cannot add order");
+            catch (Exception e) {
+                return BadRequest(e.Message);
             }
         }
 
-        [HttpGet]
-        [Authorize]
+        [HttpGet("all"), Authorize(Roles = GlobalConstant.Admin)] // check
         public async Task<IActionResult> GetOrders()
         {
             try {
@@ -56,53 +64,67 @@ namespace SunriseServer.Controllers
             }
         }
 
-        [HttpGet("{id}")]
-        [Authorize]
-        public async Task<IActionResult> GetOrder(int id)
+        [HttpPost(""), Authorize(Roles = GlobalConstant.User)]
+        public async Task<ActionResult<ResponseMessageDetails<int>>> AddOrder(AddOrderDto order)
         {
             try {
-                var result = await _orderService.GetOrder(id);
+                var userId = Convert.ToInt32(_httpContext.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
+                var result = await _orderService.AddOrder(userId, order);
 
-                if (result == null) {
-                    return NotFound("Order not found");
+                if (result == 0) {
+                    return NotFound("Cannot add order");
                 }
 
-                return Ok(new ResponseMessageDetails<Order>("Order details retrieved", result));
+                return Ok(new ResponseMessageDetails<int>("Order created successfully", result));
             }
-            catch (Exception) {
-                return BadRequest("Cannot get order");
+            catch (Exception e) {
+                return BadRequest($"Cannot create order: {e.Message}");
             }
         }
 
-        [HttpPut("{id}")]
-        [Authorize]  
-        public async Task<IActionResult> UpdateOrder(int id, Order order)
+        [HttpPut(""), Authorize(Roles = GlobalConstant.User)]
+        public async Task<IActionResult> UpdateOrderuser(UserUpdateOrderDto orderDto)
         {
             try {
-                var result = await _orderService.UpdateOrder(id, order);
+                var accountId = Convert.ToInt32(_httpContext.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
+                if (accountId == 0)
+                {
+                    return NotFound("Cannot find user, please login again!");
+                }
 
-                if (result == null) {
+                var result = await _orderService.UpdateOrderUser(accountId, orderDto);
+
+                if (result == 0) {
                     return NotFound("Cannot update order");
                 }
 
-                return Ok(new ResponseMessageDetails<Order>("Order updated successfully", result));
+                return Ok(new ResponseMessageDetails<int>("Order updated successfully", result));
             }
-            catch (Exception) {
-                return BadRequest("Cannot update order");
+            catch (Exception e) {
+                return BadRequest($"Cannot update order: {e.Message}");
             }
         }
 
-        [HttpDelete("{id}")]
-        [Authorize]
-        public async Task<IActionResult> DeleteOrder(int id) 
+        [HttpDelete(""), Authorize(Roles = GlobalConstant.User)]
+        public async Task<ActionResult<ResponseMessageDetails<int>>> DeleteOrder(int orderId)
         {
-            try {
-                var result = await _orderService.DeleteOrder(id);
-
-                return NoContent();
+            var accountId = Convert.ToInt32(_httpContext.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
+            if (accountId == 0)
+            {
+                return NotFound("Cannot find user, please login again!");
             }
-            catch (Exception) {
-                return BadRequest("Cannot get orders");
+
+            try {
+                var result = await _orderService.DeleteOrder(accountId, orderId);
+                if (result == 0)
+                {
+                    return BadRequest("Delete order failed");
+                }
+
+                return Ok(new ResponseMessageDetails<int>("Delete order successfully", 1));
+            }
+            catch (Exception e) {
+                return BadRequest($"Cannot delete order: {e.Message}");
             }
         }
     }

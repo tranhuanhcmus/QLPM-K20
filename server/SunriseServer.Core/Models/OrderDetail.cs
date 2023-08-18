@@ -2,9 +2,9 @@ namespace SunriseServerCore.Models
 {
     public class OrderDetail : ModelBase
     {
-        public int Orders { get; set; }
-        public int Product { get; set; }
-        public int NumberOfOrder { get; set; }
-        public float Price { get; set; }
+        public int OrderId { get; set; }
+        public int ProductId { get; set; }
+        public int Quantity { get; set; }
+        public double Price { get; set; }
     }
 }

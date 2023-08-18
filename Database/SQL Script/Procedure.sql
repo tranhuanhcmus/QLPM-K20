@@ -1,4 +1,4 @@
-﻿use TailorManagement;
+﻿use [sunrise-silk];
 GO
 
 
@@ -232,6 +232,13 @@ AS
 	WHERE Email = @Email
 GO
 
+CREATE OR ALTER PROC USP_GetAccountById
+	@Id NVARCHAR(200)
+AS
+	SELECT * FROM Account
+	WHERE AccountID = @Id
+GO
+
 
 GO
 CREATE OR ALTER PROCEDURE USP_AddToCart (
@@ -354,131 +361,186 @@ BEGIN
 END
 GO
 
+
+GO
+CREATE OR ALTER PROCEDURE USP_GetOrderById (
+	@OrderId INT) AS
+BEGIN
+	SELECT 
+		od.OrderId,
+		od.customer as AccountId,
+		od.Address,
+		od.TimeOrder,
+		od.TimeDone,
+		od.Status,
+		od.TotalPrice,
+		od.PaymentMethod
+	FROM Orders od WHERE od.OrderId = @OrderId;
+END
+GO
+
+GO
+CREATE OR ALTER PROCEDURE USP_GetOrderDetailById (
+	@OrderId INT) AS
+BEGIN
+	SELECT 
+		od.Orders as OrderId,
+		od.Product as ProductId,
+		od.Quantity,
+		od.Price
+	FROM OrderDetail od WHERE od.Orders = @OrderId;
+END
+GO
+
 -- Create or Alter Procedures
 
-CREATE OR ALTER PROCEDURE CreateOrder
-    @customer INT,
+
+CREATE OR ALTER PROCEDURE USP_CreateOrder
+    @AccountId INT,
     @PaymentMethod NVARCHAR(100),
-    @TimeOrder DATETIME,
+    @TimeOrder DATE,
     @TimeDone DATE,
     @Status NVARCHAR(50),
-    @Address NVARCHAR(150),
-    @orderDetail TABLE (
-        Product INT,
-        NumberOfOrder INT
-    )
+    @Address NVARCHAR(300)
 AS
 BEGIN
-    DECLARE @OrderId INT;
-    DECLARE @totalPrice FLOAT = 0.0;
+	DECLARE @OrderId INT;
 
-    -- Check if PaymentMethod exists
-    IF NOT EXISTS (SELECT 1 FROM PaymentMethods WHERE PaymentMethod = @PaymentMethod)
-        RETURN -1;
+	---- Check if PaymentMethod exists
+	--IF (@PaymentMethod NOT IN ('MONEY', 'CARD'))
+	--BEGIN
+	--	RAISERROR(N'Phương thức thanh toán không hợp lệ.', 11, 1)
+	--	RETURN -2;
+	--END
 
-    -- Generate the next OrderId using the function
-    EXEC @OrderId = USP_GetNextColumnId 'Orders', 'OrderId';
+	BEGIN TRAN
 
-    INSERT INTO Orders (OrderId, customer, PaymentMethod, TimeOrder, TimeDone, Status, Address)
-    VALUES (@OrderId, @customer, @PaymentMethod, @TimeOrder, @TimeDone, @Status, @Address);
+	BEGIN TRY
+		EXEC @OrderId = USP_GetNextColumnId 'Orders', 'OrderId';
 
-    -- Update totalPrice and orderDetail.Price based on Product
-    INSERT INTO OrderDetail (Orders, Product, NumberOfOrder, Price)
-    SELECT @OrderId, od.Product, od.NumberOfOrder, p.Price
-    FROM @orderDetail od
-    INNER JOIN Products p ON od.Product = p.ProductId;
+		INSERT INTO Orders (OrderId, customer, PaymentMethod, TimeOrder, TimeDone, Status, Address, TotalPrice)
+		VALUES (@OrderId, @AccountId, @PaymentMethod, @TimeOrder, @TimeDone, @Status, @Address, 0);
 
-    -- Update totalPrice
-    SELECT @totalPrice = @totalPrice + (od.Price * od.NumberOfOrder)
-    FROM OrderDetail od
-    WHERE od.Orders = @OrderId;
+	END TRY
 
-    UPDATE Orders
-    SET ToTalPrice = @totalPrice
-    WHERE OrderId = @OrderId;
+	BEGIN CATCH
+		RAISERROR(N'Không thể tạo đơn đặt hàng.', 11, 1)
+		ROLLBACK;
+		RETURN -1;
+	END CATCH
 
-    -- Return the created order and associated OrderDetail
-    EXEC GetOrderById @OrderId;
+	COMMIT;
+	RETURN @OrderId;
 END
 GO
 
-CREATE OR ALTER PROCEDURE GetOrderById
-    @OrderId INT
-AS
-BEGIN
-    -- Get the order and associated OrderDetail
-    SELECT o.*, od.Product, od.NumberOfOrder, od.Price
-    FROM Orders o
-    LEFT JOIN OrderDetail od ON o.OrderId = od.Orders
-    WHERE o.OrderId = @OrderId;
-END
-GO
-
-CREATE OR ALTER PROCEDURE UpdateOrder
+CREATE OR ALTER PROCEDURE USP_AddProdToOrder
     @OrderId INT,
-    @customer INT,
-    @PaymentMethod NVARCHAR(100),
-    @TimeOrder DATETIME,
-    @TimeDone DATE,
-    @Status NVARCHAR(50),
-    @Address NVARCHAR(150),
-    @orderDetail TABLE (
-        Product INT,
-        NumberOfOrder INT
-    )
+    @ProductId INT,
+    @Quantity INT
 AS
 BEGIN
-    DECLARE @totalPrice FLOAT = 0.0;
+	DECLARE @Price FLOAT;
+	SELECT @Price = prd.Price FROM Product prd WHERE prd.ProductID = @ProductId;
+	IF (@Price IS NULL)
+	BEGIN
+		RAISERROR(N'Sản phẩm không hợp lệ.', 11, 1)
+        RETURN -2;
+	END
 
-    -- Check if PaymentMethod exists
-    IF NOT EXISTS (SELECT 1 FROM PaymentMethods WHERE PaymentMethod = @PaymentMethod)
-        RETURN -1;
+	BEGIN TRAN
 
-    -- Check if all Products exist
-    IF NOT EXISTS (SELECT 1 FROM Products p WHERE NOT EXISTS (SELECT 1 FROM @orderDetail od WHERE od.Product = p.ProductId))
-        RETURN -1;
+	BEGIN TRY
+		-- Update totalPrice and orderDetail.Price based on Product
+		INSERT INTO OrderDetail(Orders, Product, Quantity, Price)
+		VALUES (@OrderId, @ProductId, @Quantity, @Price * @Quantity);
 
-    -- Update Orders table
-    UPDATE Orders
-    SET customer = @customer,
-        PaymentMethod = @PaymentMethod,
-        TimeOrder = @TimeOrder,
-        TimeDone = @TimeDone,
-        Status = @Status,
-        Address = @Address
-    WHERE OrderId = @OrderId;
+		-- Update totalPrice
+		UPDATE Orders SET TotalPrice = TotalPrice + (@Price * @Quantity)
+		WHERE OrderId = @OrderId;
+	END TRY
 
-    -- Delete existing OrderDetail records for the order
-    DELETE FROM OrderDetail WHERE Orders = @OrderId;
+	BEGIN CATCH
+		RAISERROR(N'Không thể thêm sản phẩm vào đơn.', 11, 1)
+		ROLLBACK;
+		RETURN -1;
+	END CATCH
 
-    -- Update totalPrice and orderDetail.Price based on Product
-    INSERT INTO OrderDetail (Orders, Product, NumberOfOrder, Price)
-    SELECT @OrderId, od.Product, od.NumberOfOrder, p.Price
-    FROM @orderDetail od
-    INNER JOIN Products p ON od.Product = p.ProductId;
+	COMMIT;
+	RETURN 0;
+END
+GO
 
-    -- Update totalPrice
-    SELECT @totalPrice = @totalPrice + (od.Price * od.NumberOfOrder)
-    FROM OrderDetail od
-    WHERE od.Orders = @OrderId;
+GO
+CREATE OR ALTER PROCEDURE USP_UpdateOrderUser
+    @OrderId INT,
+    @AccountId INT,
+    @Address NVARCHAR(150),
+    @PaymentMethod NVARCHAR(100)
+AS
+BEGIN
+    ---- Check if PaymentMethod exists
+	--IF (@PaymentMethod NOT IN ('MONEY', 'CARD'))
+	--BEGIN
+	--	RAISERROR(N'Phương thức thanh toán không hợp lệ.', 11, 1)
+	--	RETURN -2;
+	--END
 
-    UPDATE Orders
-    SET ToTalPrice = @totalPrice
-    WHERE OrderId = @OrderId;
+	IF NOT EXISTS (SELECT OrderId FROM Orders WHERE OrderId = @OrderId AND Customer = @AccountId)
+	BEGIN
+		RAISERROR(N'Tài khoản không sỡ hữu đơn này.', 11, 1)
+        RETURN -2;
+	END
+	
+	BEGIN TRAN
 
-    -- Return the updated order and associated OrderDetail
-    EXEC GetOrderById @OrderId;
+	BEGIN TRY
+		-- Update Orders table
+		UPDATE Orders
+		SET customer = @AccountId,
+			PaymentMethod = @PaymentMethod,
+			Address = @Address
+		WHERE OrderId = @OrderId;
+
+		-- Delete existing OrderDetail records for the order
+		DELETE FROM OrderDetail WHERE Orders = @OrderId;
+	END TRY
+
+	BEGIN CATCH
+		RAISERROR(N'Không thể cập nhật đơn.', 11, 1)
+		ROLLBACK;
+		RETURN -1;
+	END CATCH
+
+	COMMIT;
+	RETURN @OrderId;
 END
 GO
 
 CREATE OR ALTER PROCEDURE DeleteOrder
+	@AccountId INT,
     @OrderId INT
 AS
 BEGIN
-    -- Delete associated OrderDetail records
-    DELETE FROM OrderDetail WHERE Orders = @OrderId;
+	IF NOT EXISTS (SELECT OrderId FROM Orders WHERE OrderId = @OrderId AND Customer = @AccountId)
+	BEGIN
+		RAISERROR(N'Tài khoản không sỡ hữu đơn này.', 11, 1)
+        RETURN -2;
+	END
 
-    -- Delete the order from Orders table
-    DELETE FROM Orders WHERE OrderId = @OrderId;
+	BEGIN TRAN
+
+	BEGIN TRY
+		DELETE FROM Orders WHERE OrderId = @OrderId;
+	END TRY
+
+	BEGIN CATCH
+		RAISERROR(N'Không xóa đơn.', 11, 1)
+		ROLLBACK;
+		RETURN -1;
+	END CATCH
+
+	COMMIT;
+	RETURN 0;
 END
 GO

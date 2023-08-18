@@ -30,6 +30,12 @@ namespace SunriseServerData
 
             modelBuilder.Entity<GetCartDto>()
                 .HasNoKey().ToTable("GetOrdersDto", t => t.ExcludeFromMigrations());
+
+            modelBuilder.Entity<OrderDetail>()
+                .HasNoKey().ToTable("OrderDetail", t => t.ExcludeFromMigrations());
+
+            modelBuilder.Entity<Order>()
+                .HasKey(x => new { x.OrderId });
         }
 
         public DbSet<Account> Account { get; set; }
