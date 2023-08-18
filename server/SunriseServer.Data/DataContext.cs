@@ -29,7 +29,13 @@ namespace SunriseServerData
                 .HasNoKey().ToTable("MyProcedureResult", t => t.ExcludeFromMigrations());
 
             modelBuilder.Entity<GetCartDto>()
-                .HasNoKey().ToTable("GetCartDto", t => t.ExcludeFromMigrations());
+                .HasNoKey().ToTable("GetOrdersDto", t => t.ExcludeFromMigrations());
+
+            modelBuilder.Entity<OrderDetail>()
+                .HasNoKey().ToTable("OrderDetail", t => t.ExcludeFromMigrations());
+
+            modelBuilder.Entity<Order>()
+                .HasKey(x => new { x.OrderId });
         }
 
         public DbSet<Account> Account { get; set; }
@@ -40,5 +46,6 @@ namespace SunriseServerData
         public DbSet<Pants> Pants { get; set; }
         public DbSet<BookingAccount> Booking_Account { get; set; }
         public DbSet<Cart> Cart { get; set; }
+        public DbSet<Order> Order { get; set; }
     }
 }
