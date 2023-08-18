@@ -1,13 +1,15 @@
 using SunriseServerCore.Models;
+using SunriseServerCore.Dtos.Order;
 
 namespace SunriseServerCore.RepoInterfaces 
 {
     public interface IOrderRepo
     {
-        Task<Order> GetOrderByIdAsync(int id);
+        Task<GetOrderDto> GetOrderByIdAsync(int orderId);
+        Task<List<GetOrderDto>> GetAccountOrderByIdAsync(int accountId);
         Task<List<Order>> GetOrdersAsync();
-        Task<Order> AddOrderAsync(Order order);
-        Task<Order> UpdateOrderAsync(int id, Order order);
-        Task<int> DeleteOrderAsync(int id);
+        Task<int> AddOrderAsync(int accountId, AddOrderDto order);
+        Task<int> UpdateOrderUserAsync(int accountId, UserUpdateOrderDto orderDto);
+        Task<int> DeleteOrderAsync(int accountId, int orderId);
     }
 }

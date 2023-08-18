@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using SunriseServerData;
 using SunriseServerCore.Models;
 using System.Security.Claims;
+using SunriseServerCore.Dtos.Order;
+
 
 namespace SunriseServer.Services.OrderService
 {
@@ -16,14 +18,14 @@ namespace SunriseServer.Services.OrderService
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Order> AddOrder(Order order)
+        public async Task<int> AddOrder(int accountId, AddOrderDto order)
         {
-            return await _unitOfWork.OrderRepo.AddOrderAsync(order);
+            return await _unitOfWork.OrderRepo.AddOrderAsync(accountId, order);
         }
 
-        public async Task<Order> GetOrder(int id)
+        public async Task<List<GetOrderDto>> GetAccountOrders(int accountId)
         {
-            return await _unitOfWork.OrderRepo.GetOrderByIdAsync(id);
+            return await _unitOfWork.OrderRepo.GetAccountOrderByIdAsync(accountId);
         }
 
         public async Task<List<Order>> GetOrders()
@@ -31,14 +33,14 @@ namespace SunriseServer.Services.OrderService
             return await _unitOfWork.OrderRepo.GetOrdersAsync();
         }
 
-        public async Task<Order> UpdateOrder(int id, Order order)
+        public async Task<int> UpdateOrderUser(int accountId, UserUpdateOrderDto orderDto)
         {
-            return await _unitOfWork.OrderRepo.UpdateOrderAsync(id, order);
+            return await _unitOfWork.OrderRepo.UpdateOrderUserAsync(accountId, orderDto);
         }
 
-        public async Task<int> DeleteOrder(int id)
+        public async Task<int> DeleteOrder(int accountId, int orderId)
         {            
-            return await _unitOfWork.OrderRepo.DeleteOrderAsync(id);
+            return await _unitOfWork.OrderRepo.DeleteOrderAsync(accountId, orderId);
         }
     }
 }
