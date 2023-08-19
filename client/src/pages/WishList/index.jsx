@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styles from "./styles.module.scss";
 import Heading1 from "../../components/common/text/Heading1/Heading";
-import { Images } from "../../components/Cart/image";
 import WishListItem from "./WishListItem";
 import PrimaryText from "../../components/common/text/PrimaryText/PrimaryText";
+import { Images } from "../../components/common/Cart/image";
 
 const products = [
   {

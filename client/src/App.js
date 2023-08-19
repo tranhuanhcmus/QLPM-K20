@@ -15,6 +15,7 @@ import { BusinessLogicProvider } from "./libs/business-logic/src/provider";
 import Payment from "./pages/Payment";
 import PaymentDetails from "./pages/Payment/PaymentDetails";
 import WishList from "./pages/WishList";
+import { useEffect } from 'react';
 
 function App() {
   const location = useLocation();

@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./styles.module.scss";
 import { useCreateOrder } from "../../../libs/business-logic/src/lib/order/process/hooks/useCreateOrder";
 import { toast } from "react-hot-toast";
+import Heading1 from "../../../components/common/text/Heading1/Heading";
 // import { useNavigate } from "react-router-dom";
 
 const PaymentInfo = ({ data }) => {
@@ -21,12 +22,7 @@ const PaymentInfo = ({ data }) => {
     <>
       <Heading1>user information</Heading1>
       <div className={styles.section}>
-        <div className={styles.form__field}>
-          <label>Name</label>
-          <span>{name}</span>
-        </div>
-
-        <div className={styles.row}>
+        
           <div className={styles.form__field}>
             <label>Name</label>
             <span>{name}</span>
@@ -61,7 +57,6 @@ const PaymentInfo = ({ data }) => {
             <button onClick={handleCheckout}>Confirm Payment</button>
           </div>
         </div>
-      </div>
     </>
   );
 };

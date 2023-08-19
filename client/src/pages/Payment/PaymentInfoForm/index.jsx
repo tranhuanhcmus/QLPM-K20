@@ -37,12 +37,8 @@ const PaymentInfoForm = () => {
     <>
     <Heading1>user information</Heading1 >
     <form className={styles.paymentForm} onSubmit={onSubmit}>
-      <div className={styles.form__field}>
-        <label htmlFor="NAME">Name</label>
-        <input type="text" id="NAME" required />
-      </div>
 
-      <div className={styles.row}>
+      
         <div className={styles.form__field}>
           <label htmlFor="NAME">Name</label>
           <input type="text" id="NAME" required />
@@ -66,7 +62,6 @@ const PaymentInfoForm = () => {
         <div className={styles.form__field}>
           <label htmlFor="NOTE">Note</label>
           <textarea type="text" id="NOTE" />
-        </div>
         </div>
 
         <div className={styles.actions}>
