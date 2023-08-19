@@ -1,0 +1,106 @@
+[
+  {
+    "hotelId": 1,
+    "id": 1,
+    "name": "Suite Deluxe",
+    "vacancy": 5,
+    "size": 32,
+    "price": 495000,
+    "roomInfo": "Suite này có 1 giường đôi cực lớn, 1 giường sofa, TV màn hình phẳng, máy điều hòa và ấm đun nước điện,minibar",
+    "roomView": "Hướng nhìn sân trong",
+    "bedType": "DOUBLE",
+    "picture": [
+      {
+        "id": 1,
+        "link": "https://atarceni.sirv.com/Shared/Sunrise-Continent-from-rialloer/hotels/Triple%20E%20Hotel%20Metro%20Ben%20Thanh/Suite%20Deluxe1.jpg"
+      },
+      {
+        "id": 2,
+        "link": "https://atarceni.sirv.com/Shared/Sunrise-Continent-from-rialloer/hotels/Triple%20E%20Hotel%20Metro%20Ben%20Thanh/Suite%20Deluxe2.jpg"
+      },
+      {
+        "id": 3,
+        "link": "https://atarceni.sirv.com/Shared/Sunrise-Continent-from-rialloer/hotels/Triple%20E%20Hotel%20Metro%20Ben%20Thanh/Suite%20Deluxe3.jpg"
+      }
+    ],
+    "facility": [
+      "AIRPORT_SHUTTLE",
+      "PARKING",
+      "RECEPTION_24H",
+      "FAMILY_FRIENDLY",
+      "NON_SMOKING",
+      "SPA_SAUNA",
+      "PETS_ALLOWED"
+    ],
+    "service": ["BREAKFAST_INCLUDED", "DINNER_INCLUDED"]
+  },
+  {
+    "hotelId": 1,
+    "id": 2,
+    "name": "Suite Nhìn Ra Thành Phố",
+    "vacancy": 0,
+    "size": 32,
+    "price": 567000,
+    "roomInfo": "Suite này có 1 giường đôi cực lớn, 1 giường sofa, TV màn hình phẳng, máy điều hòa và ấm đun nước điện,minibar",
+    "roomView": "Nhìn ra địa danh nổi tiếng,Nhìn ra thành phố",
+    "bedType": "LARGE_DOUBLE",
+    "picture": [
+      {
+        "id": 4,
+        "link": "https://atarceni.sirv.com/Shared/Sunrise-Continent-from-rialloer/hotels/Triple%20E%20Hotel%20Metro%20Ben%20Thanh/Suite%20Deluxe1.jpg"
+      },
+      {
+        "id": 5,
+        "link": "https://atarceni.sirv.com/Shared/Sunrise-Continent-from-rialloer/hotels/Triple%20E%20Hotel%20Metro%20Ben%20Thanh/Suite%20Deluxe2.jpg"
+      },
+      {
+        "id": 6,
+        "link": "https://atarceni.sirv.com/Shared/Sunrise-Continent-from-rialloer/hotels/Triple%20E%20Hotel%20Metro%20Ben%20Thanh/Suite%20Deluxe3.jpg"
+      }
+    ],
+    "facility": [
+      "SWIMMING_POOL",
+      "AIRPORT_SHUTTLE",
+      "PARKING",
+      "RECEPTION_24H",
+      "FAMILY_FRIENDLY"
+    ],
+    "service": ["BREAKFAST_INCLUDED", "DINNER_INCLUDED"]
+  },
+  {
+    "hotelId": 1,
+    "id": 3,
+    "name": "Suite Junior",
+    "vacancy": 10,
+    "size": 28,
+    "price": 315000,
+    "roomInfo": "Suite này có 1 giường đôi cực lớn, 1 giường sofa, TV màn hình phẳng, máy điều hòa và ấm đun nước điện,minibar",
+    "roomView": "Nhìn ra thành phố",
+    "bedType": "BUNK",
+    "picture": [
+      {
+        "id": 7,
+        "link": "https://atarceni.sirv.com/Shared/Sunrise-Continent-from-rialloer/hotels/Triple%20E%20Hotel%20Metro%20Ben%20Thanh/Suite%20Deluxe1.jpg"
+      },
+      {
+        "id": 8,
+        "link": "https://atarceni.sirv.com/Shared/Sunrise-Continent-from-rialloer/hotels/Triple%20E%20Hotel%20Metro%20Ben%20Thanh/Suite%20Deluxe2.jpg"
+      },
+      {
+        "id": 9,
+        "link": "https://atarceni.sirv.com/Shared/Sunrise-Continent-from-rialloer/hotels/Triple%20E%20Hotel%20Metro%20Ben%20Thanh/Suite%20Deluxe3.jpg"
+      }
+    ],
+    "facility": [
+      "SWIMMING_POOL",
+      "AIRPORT_SHUTTLE",
+      "PARKING",
+      "RECEPTION_24H",
+      "FAMILY_FRIENDLY",
+      "NON_SMOKING",
+      "SPA_SAUNA",
+      "PETS_ALLOWED"
+    ],
+    "service": ["BREAKFAST_INCLUDED", "DINNER_INCLUDED"]
+  }
+]

@@ -1,0 +1,105 @@
+[
+  {
+    "id": "1",
+    "name": "BATH",
+    "href": "/categories/bath",
+    "children": [
+      {
+        "id": "bath-all",
+        "name": "All",
+        "children": []
+      },
+      {
+        "id": "shower",
+        "name": "Shower",
+        "children": []
+      },
+      {
+        "id": "shampoo",
+        "name": "Shampoo",
+        "children": []
+      },
+      {
+        "id": "soap",
+        "name": "Soap",
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "name": "KITCHEN",
+    "href": "/categories/kitchen",
+    "children": [
+      {
+        "id": "kitchen-all",
+        "name": "All",
+        "children": []
+      },
+      {
+        "id": "pan",
+        "name": "Pan",
+        "children": []
+      },
+      {
+        "id": "knife",
+        "name": "Knife",
+        "children": []
+      },
+      {
+        "id": "pot",
+        "name": "Pot",
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "name": "MAGAZINES",
+    "href": "/categories/magazines",
+    "children": [
+      {
+        "id": "magazines-all",
+        "name": "All",
+        "children": []
+      },
+      {
+        "id": "newspaper",
+        "name": "newspaper",
+        "children": []
+      },
+      {
+        "id": "magazin",
+        "name": "magazin",
+        "children": []
+      },
+      {
+        "id": "mordern",
+        "name": "mordern",
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "name": "UTILITY",
+    "href": "/categories/utility",
+    "children": [
+      {
+        "id": "utility-all",
+        "name": "All",
+        "children": []
+      },
+      {
+        "id": "pepper",
+        "name": "pepper",
+        "children": []
+      },
+      {
+        "id": "salt",
+        "name": "salt",
+        "children": []
+      }
+    ]
+  }
+]

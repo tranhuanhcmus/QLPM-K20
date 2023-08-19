@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import logoImage from "../../assets/images/logos/sc-non.png";
 import "./Measure.scss";
 import "../../assets/styles/_config.scss";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   listTryProduct,
   listItemMeasureFilter,
@@ -25,9 +24,6 @@ const Measure = () => {
           <i className="fi fi-bs-angle-left" />
           Quay lại
         </button>
-        <Link to="/">
-          <img src={logoImage} alt="Logo" />
-        </Link>
       </div>
 
       <div className="measure-body">
@@ -108,6 +104,12 @@ const Measure = () => {
               Back
             </button>
           </div>
+          <button
+            className={`confirm-btn`}
+            onClick={() => setIsFrontView(false)}
+          >
+            Confirm
+          </button>
         </div>
       </div>
     </div>

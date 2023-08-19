@@ -26,4 +26,3 @@ export const URLS = {
     WISH_LIST:'/wish-list',
 
 };
-

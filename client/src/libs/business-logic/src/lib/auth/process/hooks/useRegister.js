@@ -5,8 +5,6 @@ import { useAccessToken } from "./useAccessToken";
 import { useAuthBroadcastChannel } from "./useAuthBroadcastChannel";
 
 const isRememberMeDefault = false;
-const failMessage = "Registration failed";
-
 export const useRegister = () => {
   const { postMessage } = useAuthBroadcastChannel();
   const { setToken } = useAccessToken();
@@ -14,31 +12,23 @@ export const useRegister = () => {
   const registerMutation = useRegisterMutation();
 
   // Define onRegister function to handle registration
-  const onRegister = (
-    params
-  ) => {
+  const onRegister = ({ email, fullName, password }) => {
     return new Promise((resolve, reject) => {
       registerMutation
-        .mutateAsync(params)
+        .mutateAsync({ email, fullName, password })
         .then((response) => {
           // On success, if token is present, store it in session storage and update context
 
-          if (response.statusCode === 200 && response.token) {
+          if (response.token) {
             setToken(response.token, isRememberMeDefault);
             postMessage({
               message: BROADCAST_MESSAGE.SEND_TOKEN,
               token: response.token,
-              isRemember: isRememberMeDefault
+              isRemember: isRememberMeDefault,
             });
-            resolve({
-              statusCode: response.statusCode,
-              message: response.message
-            });
+            resolve(response.message);
           } else {
-            reject({
-              statusCode: response.statusCode,
-              message: failMessage
-            });
+            reject(new Error(response.message));
           }
         })
         .catch((error) => {
@@ -50,6 +40,6 @@ export const useRegister = () => {
   // Return onRegister function and loading status
   return {
     onRegister,
-    isLoading: registerMutation.isLoading
+    isLoading: registerMutation.isLoading,
   };
 };

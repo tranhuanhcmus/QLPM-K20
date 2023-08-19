@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { axios } from "../../../../../../services/src";
 import React from "react";
 import { authConfig } from "../../../../configs";
@@ -5,16 +6,17 @@ import { useAccessToken } from "../hooks/useAccessToken";
 import { useRefreshToken } from "../hooks/useRefreshToken";
 import { BroadcastProvider } from "./BroadcastProvider";
 import { AuthContextProvider } from "./ContextProvider";
-import { useGoogleLogin, useFacebookLogin } from "../hooks";
+import { useFacebookLogin, useGoogleLogin } from "../hooks";
+import { withAuthenticateUrl } from "./withAuthenticateUrl";
 
-
+const EnhancedContextProvider = withAuthenticateUrl(AuthContextProvider);
 // This is the AuthProvider for the entire app
-export const AuthProvider = ({ children, setProviderToken }) => {
+export const AuthProvider = ({ children }) => {
   // Get the resetToken and getToken functions from useAccessToken
   const { getToken } = useAccessToken();
   const { onRefreshToken } = useRefreshToken();
-  const { onGoogleLogin } = useGoogleLogin();
   const { onFacebookLogin } = useFacebookLogin();
+  const { onGoogleLogin } = useGoogleLogin();
 
   // Use axios interceptor to handle response
   axios.interceptors.response.use(
@@ -57,8 +59,8 @@ export const AuthProvider = ({ children, setProviderToken }) => {
 
   // Return the AuthContextProvider and BroadcastProvider with children
   return (
-    <AuthContextProvider setProviderToken={setProviderToken}>
+    <EnhancedContextProvider>
       <BroadcastProvider>{children}</BroadcastProvider>
-    </AuthContextProvider>
+    </EnhancedContextProvider>
   );
 };

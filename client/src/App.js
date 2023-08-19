@@ -1,6 +1,6 @@
 // Global style
 import "./App.scss";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import About from "./pages/About/About";
 import Contact from "./pages/Contact/Contact";
@@ -17,6 +17,11 @@ import PaymentDetails from "./pages/Payment/PaymentDetails";
 import WishList from "./pages/WishList";
 
 function App() {
+  const location = useLocation();
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [location]);
+
   return (
     <BusinessLogicProvider>
       <div className="app">
@@ -39,7 +44,6 @@ function App() {
             />
           </Route>
 
-          <Route path={URLS.MEASURE} element={<Measure />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </div>

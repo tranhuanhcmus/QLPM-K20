@@ -1,11 +1,12 @@
 import { axiosMockAdapterInstance } from "../../config/axios";
 import { AuthService } from "../../lib";
 import accountsData from "../data/accounts.json";
+import { getApiUrl } from "../../config/url";
 
 const accounts = accountsData;
 
 axiosMockAdapterInstance
-  .onPost(new AuthService().registerUrl)
+  .onPost(getApiUrl(false) + new AuthService().registerUrl)
   .reply((config) => {
     const data = JSON.parse(config.data);
 
@@ -23,21 +24,21 @@ axiosMockAdapterInstance
          */
         409,
         {
-          message: "Email is exist"
-        }
+          message: "Email is exist",
+        },
       ];
     } else {
       accounts.push({
         id: accounts.length + 1 + "",
         email: data.email,
-        password: data.password
+        password: data.password,
       });
       return [
         200,
         {
           message: "Register success",
-          token: "This is new access token :>"
-        }
+          token: "This is new access token :>",
+        },
       ];
     }
   });
