@@ -41,7 +41,7 @@ namespace SunriseServer.Services.JacketService
         }
 
 
-        public Task<bool> AddJacket(AddJacket aj)
+        public Task<bool> AddJacket(AddJacketDto aj)
         {
             return _unitOfWork.JacketRepo.AddJacket(aj);
 

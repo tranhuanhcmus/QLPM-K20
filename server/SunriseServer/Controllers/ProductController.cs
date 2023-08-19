@@ -49,6 +49,8 @@ namespace SunriseServer.Controllers
         [HttpGet("Category")]
         public async Task<ActionResult<List<Product>>> GetByProductType(string type)
         {
+            if (string.IsNullOrWhiteSpace(type)) type = "All";
+
             var result = await _productService.GetByCategory(type);
             if (result is null)
                 return NotFound("Product category not found");
@@ -60,6 +62,8 @@ namespace SunriseServer.Controllers
 
         public async Task<ActionResult<List<Product>>> GetByName(string name)
         {
+            if (string.IsNullOrWhiteSpace(name)) name = "";
+
             var result = await _productService.GetByName(name);
             if (result is null)
                 return NotFound("Product not found");
@@ -68,20 +72,8 @@ namespace SunriseServer.Controllers
         }
 
         // get by name
-       
-        // get detail by nid
-        [HttpGet("id/{id}")]
-        public ActionResult<Product> GetProductById(int id)
-        {
-            var result = _productService.GetProductById(id);
-            if (result is null)
-                return NotFound("Product not found");
 
-            return Ok(result);
-        }
-
-
-        [HttpGet("Detail/{id}")]
+        [HttpGet("Detail")]
         public async Task<ActionResult<ModelBase>> GetDetailProductById(int id)
         {
             string type = await _productService.GetProductType(id);

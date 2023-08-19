@@ -14,7 +14,7 @@ namespace SunriseServerCore.RepoInterfaces
         // -----------------//
         //    CRUD area     //
         // -----------------//
-        Task<bool> AddJacket(AddJacket aj);
+        Task<bool> AddJacket(AddJacketDto aj);
         //List<Jacket> GetAllSpecialAsync();
         Task<bool> DeleteJacket(int id);
 

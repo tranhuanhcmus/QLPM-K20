@@ -124,7 +124,7 @@ namespace SunriseServerData.Repositories
             return result == 1;
 
         }
-        public async Task<bool> AddVest(AddVest av)
+        public async Task<bool> AddVest(AddVestDto av)
         {
             try
             {

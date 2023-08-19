@@ -14,7 +14,7 @@ namespace SunriseServerCore.RepoInterfaces
         //    CRUD area     //
         // -----------------//
         
-        Task<bool> AddTies(AddTies at);
+        Task<bool> AddTies(AddTiesDto at);
         
         Task<bool> DeleteTies(int id);
 

@@ -76,7 +76,7 @@ namespace SunriseServer.Controllers
         
         
         [HttpPost("Add-Jacket")]
-        public async Task<ActionResult<bool>> AddJacket(AddJacket aj)
+        public async Task<ActionResult<bool>> AddJacket(AddJacketDto aj)
         {
             bool result = await _jacketService.AddJacket(aj);
            

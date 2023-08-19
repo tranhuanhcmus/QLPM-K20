@@ -2,7 +2,7 @@ using SunriseServer.Common.Constant;
 
 namespace SunriseServerCore.Dtos
 {
-    public class AddJacket: AddProduct
+    public class AddJacketDto: AddProductDto
     {
         public string Style { get; set; }
         public string Fit { get; set; }
@@ -13,7 +13,7 @@ namespace SunriseServerCore.Dtos
         public string Pocket { get; set; }
         
         
-        public AddJacket() : base(GlobalConstant.VestProduct) { }
+        public AddJacketDto() : base(GlobalConstant.VestProduct) { }
 
     }
 }

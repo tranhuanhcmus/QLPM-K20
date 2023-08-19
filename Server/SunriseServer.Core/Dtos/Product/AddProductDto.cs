@@ -1,6 +1,6 @@
 namespace SunriseServerCore.Dtos
 {
-    public class AddProduct
+    public class AddProductDto
     {
        public double Price { get; set; } = 0;
         public string Image { get; set; }
@@ -12,7 +12,7 @@ namespace SunriseServerCore.Dtos
         public string Color { get; set; }
 
         public readonly string Type ;
-        public AddProduct(string type)
+        public AddProductDto(string type)
         {
             Type = type;
         }

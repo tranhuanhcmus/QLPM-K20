@@ -108,7 +108,7 @@ namespace SunriseServerData.Repositories
             return true;
         }
 
-        public async Task<bool> AddTies(AddTies at)
+        public async Task<bool> AddTies(AddTiesDto at)
         {
             try
             {

@@ -95,7 +95,7 @@ namespace SunriseServer.Services.VestService
         // this area for insert, update and delete   //
         // ----------------------------------------- //
 
-        public Task<bool> AddVest(AddVest av) {
+        public Task<bool> AddVest(AddVestDto av) {
                 return _unitOfWork.VestRepo.AddVest(av);
             }
 

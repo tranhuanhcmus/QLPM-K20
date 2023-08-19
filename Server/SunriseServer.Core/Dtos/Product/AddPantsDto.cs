@@ -1,10 +1,9 @@
-using SunriseServerCore.Models.Clothes;
 using SunriseServer.Common.Constant;
 
 
 namespace SunriseServerCore.Dtos
 {
-    public class AddPants: AddProduct
+    public class AddPantsDto: AddProductDto
     {
         public string Pocket { get; set; }
         public string Fit { get; set; }
@@ -12,6 +11,6 @@ namespace SunriseServerCore.Dtos
         public string Fastening { get; set; }
         public string Pleats { get; set; }
 
-        public AddPants() : base(GlobalConstant.PantsProduct) { }
+        public AddPantsDto() : base(GlobalConstant.PantsProduct) { }
     }
 }

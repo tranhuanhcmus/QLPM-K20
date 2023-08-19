@@ -78,7 +78,7 @@ namespace SunriseServer.Controllers
         }
 
         [HttpPost("Add-Ties")]
-        public async Task<ActionResult<bool>> AddTies(AddTies at)
+        public async Task<ActionResult<bool>> AddTies(AddTiesDto at)
         {
             bool result = await _tiesService.AddTies(at);
 

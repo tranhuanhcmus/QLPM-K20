@@ -17,7 +17,7 @@ namespace SunriseServerCore.RepoInterfaces
         // -----------------//
         //    CRUD area     //
         // -----------------//
-        Task<bool> AddPants(AddPants ap);
+        Task<bool> AddPants(AddPantsDto ap);
 
         Task<bool> DeletePants(int id);
 

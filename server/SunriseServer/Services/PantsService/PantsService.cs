@@ -46,7 +46,7 @@ namespace SunriseServer.Services.PantsService
             return isProductUpdated;
         }
 
-        public Task<bool> AddPants(AddPants ap) {
+        public Task<bool> AddPants(AddPantsDto ap) {
                 return _unitOfWork.PantsRepo.AddPants(ap);
             }
 

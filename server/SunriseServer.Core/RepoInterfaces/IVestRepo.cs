@@ -15,7 +15,7 @@ namespace SunriseServerCore.RepoInterfaces
         // -----------------//
         //    CRUD area     //
         // -----------------//
-        Task<bool> AddVest(AddVest av);
+        Task<bool> AddVest(AddVestDto av);
         Task<bool> DeleteVest(int id);
         Task<bool> UpdateVest(int vestId, VestComponent updatedVest);
        

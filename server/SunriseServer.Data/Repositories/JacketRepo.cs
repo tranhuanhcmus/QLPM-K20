@@ -92,7 +92,7 @@ namespace SunriseServerData.Repositories
         // -----------------//
         
         
-        public async Task<bool> AddJacket(AddJacket aj)
+        public async Task<bool> AddJacket(AddJacketDto aj)
         {
             try
             {

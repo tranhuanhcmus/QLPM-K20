@@ -24,6 +24,7 @@ namespace SunriseServerData.Repositories
 
         public async Task<List<Product>> GetByNameAsync(string name)
         {
+            if (name == "") return await GetAllSpecialAsync();
             var builder = new StringBuilder($"EXEC usp_SearchProduct {name};");
 
             var result = await _dataContext.Product.FromSqlInterpolated($"EXECUTE({builder.ToString()})").ToListAsync();
@@ -46,8 +47,7 @@ namespace SunriseServerData.Repositories
 
         public async Task<List<Product>> GetAllSpecialAsync()
         {
-            return await _dataContext.Product.FromSqlInterpolated($"select ProductID, Price, Image, Name, Description, Discount, Fabric, FabricName, Color, Type from Product;")
-                .ToListAsync();
+            return await _dataContext.Product.ToListAsync();
         }
         
         public async Task<string> GetProductType(int id) {
@@ -110,7 +110,7 @@ namespace SunriseServerData.Repositories
             existingProduct.Discount = productToUpdate.Discount;
             existingProduct.Fabric = productToUpdate.Fabric;
             existingProduct.FabricName = productToUpdate.FabricName;
-            existingProduct.color = productToUpdate.color;
+            existingProduct.Color = productToUpdate.Color;
             // not allow to update type of product
 
             // Mark the entity as modified

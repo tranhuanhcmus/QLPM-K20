@@ -127,7 +127,7 @@ namespace SunriseServerData.Repositories
 
         }
 
-        public async Task<bool> AddPants(AddPants ap)
+        public async Task<bool> AddPants(AddPantsDto ap)
         {
             try
             {

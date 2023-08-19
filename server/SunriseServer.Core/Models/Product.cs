@@ -15,7 +15,7 @@ namespace SunriseServerCore.Models
         public byte Discount { get; set; }
         public int Fabric { get; set; }
         public string FabricName { get; set; }
-        public string color { get; set; }
+        public string Color { get; set; }
         public string Type { get; set; } = string.Empty;
 
     }

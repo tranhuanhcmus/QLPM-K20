@@ -22,7 +22,7 @@ namespace SunriseServer.Services.VestService
 
 
 
-        Task<bool> AddVest(AddVest av);
+        Task<bool> AddVest(AddVestDto av);
         Task<bool> DeleteVest(int vestId);
 
         Task<bool> UpdateVest(Product productToUpdate, VestComponent vestToUpdate);

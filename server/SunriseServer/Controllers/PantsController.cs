@@ -93,7 +93,7 @@ namespace SunriseServer.Controllers
         // insert one - just for admin
         [HttpPost("Add-Pants")]
 
-        public async Task<ActionResult<bool>> AddPants(AddPants ap)
+        public async Task<ActionResult<bool>> AddPants(AddPantsDto ap)
         {
             bool result = await _pantsService.AddPants(ap);
             if (!result)

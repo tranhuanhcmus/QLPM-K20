@@ -92,7 +92,7 @@ namespace SunriseServer.Controllers
 
         [HttpPost("Add-Vest")]
 
-        public async Task<ActionResult<bool>> AddVest(AddVest av)
+        public async Task<ActionResult<bool>> AddVest(AddVestDto av)
         {
             bool result = await _vestService.AddVest(av);
 

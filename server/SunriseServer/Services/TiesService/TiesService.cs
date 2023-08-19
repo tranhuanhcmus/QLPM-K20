@@ -92,7 +92,7 @@ namespace SunriseServer.Services.TiesService
         // this area for insert, update and delete   //
         // ----------------------------------------- //
 
-        public Task<bool> AddTies(AddTies at) {
+        public Task<bool> AddTies(AddTiesDto at) {
                 return _unitOfWork.TiesRepo.AddTies(at);
             }
 

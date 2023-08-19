@@ -16,7 +16,7 @@ namespace SunriseServer.Services.TiesService
         Task<Ties> GetTiesByCategory(string cate);
         Task<Ties> GetTiesByColor(string color);
         Task<Ties> GetTiesByFabric(string fabric);
-        Task<bool> AddTies(AddTies at);
+        Task<bool> AddTies(AddTiesDto at);
         Task<bool> DeleteTies(int tiesId);
         
         Task<bool> UpdateTies(Product productToUpdate, TiesComponent tiesToUpdate);

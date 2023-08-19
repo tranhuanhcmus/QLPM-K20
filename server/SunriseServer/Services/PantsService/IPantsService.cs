@@ -20,7 +20,7 @@ namespace SunriseServer.Services.PantsService
 
 
         Task<bool> DeletePants(int pantsId);
-        Task<bool> AddPants(AddPants ap);
+        Task<bool> AddPants(AddPantsDto ap);
 
         Task<bool> UpdatePants(Product productToUpdate, PantsComponent pantsToUpdate);
         void SaveChanges();
