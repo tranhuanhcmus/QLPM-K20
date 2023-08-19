@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./styles.module.scss";
 import { useNavigate } from "react-router-dom";
 import { URLS } from "../../../constants/urls";
+import Heading1 from "../../../components/common/text/Heading1/Heading";
 import { useInitOrder } from "../../../libs/business-logic/src/lib/order/process/hooks/useInitOrder";
 import { useGetOrder } from "../../../libs/business-logic/src/lib/order/process/hooks/useGetOrder";
 
@@ -34,8 +35,10 @@ const PaymentInfoForm = () => {
 
   return (
     <>
-      <div className={styles.heading}>user information</div>
-      <form onSubmit={onSubmit}>
+    <Heading1>user information</Heading1 >
+    <form className={styles.paymentForm} onSubmit={onSubmit}>
+
+      
         <div className={styles.form__field}>
           <label htmlFor="NAME">Name</label>
           <input type="text" id="NAME" required />

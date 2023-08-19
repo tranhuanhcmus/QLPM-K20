@@ -2,14 +2,14 @@ import React from "react";
 import "../../assets/styles/header.scss";
 import logoImage from "../../assets/images/logos/sc-non.png";
 import TextHoverDropdown from "../common/textHoverDropdown";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { listTextContentHeader } from "../../assets/constant";
 import { URLS } from "../../constants/urls";
 import Cart from "../common/Cart/Cart";
 
 const Header = () => {
   const [showCart, setShowCart] = React.useState(false);
-
+  const navigate=useNavigate()
   return (
     <header className=" header">
       <div className="header__user-interact ">
@@ -45,7 +45,8 @@ const Header = () => {
                 </div>
               );
             })}
-          <button onClick={() => setShowCart((prev) => !prev)}>Cart</button>
+          <button onClick={()=>navigate(URLS.WISH_LIST)}>WISH LIST</button>
+          <button onClick={() => setShowCart((prev) => !prev)}>CART</button>
           <Cart showCart={showCart} />
         </ul>
       </div>

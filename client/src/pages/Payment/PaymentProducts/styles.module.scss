@@ -1,23 +1,4 @@
-.heading {
-	width: fit-content;
-	font-size: 1.75rem;
-	text-transform: uppercase;
-	font-weight: bold;
-	position: relative;
-	margin-bottom: 32px;
-
-	&::after {
-		content: "";
-		position: absolute;
-		bottom: -10px;
-		left: 0;
-		width: 80%;
-		min-height: 4px;
-		background-color: var(--primary-light);
-	}
-}
-
-.products {
+.products{
 	display: flex;
 	flex-direction: column;
 	gap: 24px;

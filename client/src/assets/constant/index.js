@@ -56,10 +56,6 @@ export const listTextContentHeader = [
     listContent: ["3D DESIGNER", "DESIGN YOUR BLAZERS", "BLAZER COLLECTION"],
   },
   {
-    title: "WOMAN",
-    listContent: ["3D DESIGNER", "DESIGN YOUR BLAZERS", "BLAZER COLLECTION"],
-  },
-  {
     title: "COAT",
     listContent: ["3D DESIGNER", "DESIGN YOUR BLAZERS", "BLAZER COLLECTION"],
   },
@@ -73,10 +69,6 @@ export const listTextContentHeader = [
   },
   {
     title: "ABOUT US",
-    listContent: [],
-  },
-  {
-    title: "CONTACT US",
     listContent: [],
   },
 ];

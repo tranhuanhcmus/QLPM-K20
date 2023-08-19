@@ -4,6 +4,7 @@ import styles from "./styles.module.scss";
 import { useGetTotal } from "../../../libs/business-logic/src/lib/order/process/hooks/useGetTotal";
 import { convertNumberToCurrency } from "../../../utils/helpers/MoneyConverter";
 import { useGetOrder } from "../../../libs/business-logic/src/lib/order/process/hooks/useGetOrder";
+import Heading1 from "../../../components/common/text/Heading1/Heading";
 
 // const orderItems = [
 //   {
@@ -28,7 +29,7 @@ const PaymentProducts = () => {
 
   return (
     <>
-      <div className={styles.heading}>Products </div>
+      <Heading1>Products </Heading1>
 
       <div className={styles.products}>
         {order &&

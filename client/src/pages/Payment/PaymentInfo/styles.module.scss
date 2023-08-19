@@ -1,23 +1,4 @@
-.heading {
-	width: fit-content;
-	font-size: 1.75rem;
-	text-transform: uppercase;
-	font-weight: bold;
-	position: relative;
-	margin-bottom: 32px;
-
-	&::after {
-		content: "";
-		position: absolute;
-		bottom: -10px;
-		left: 0;
-		width: 80%;
-		min-height: 4px;
-		background-color: var(--primary-light);
-	}
-}
-
-section {
+.section{
 	margin-top: 32px;
 
 	label {
@@ -60,10 +41,8 @@ section {
 .actions {
 	display: flex;
 	gap: 40px;
-	justify-content: end;
-
-	button[type="submit"],
-	button {
+	justify-content: flex-end;
+	button[type="submit"],button{
 		display: inline-block;
 		margin-top: 32px;
 		border-radius: 8px;
