@@ -12,7 +12,7 @@ export const useLogout = () => {
       deleteToken();
       // Broadcast logout message
       postMessage({
-        message: BROADCAST_MESSAGE.NEED_LOGOUT
+        message: BROADCAST_MESSAGE.NEED_LOGOUT,
       });
       return true;
     } catch (error) {
@@ -22,6 +22,6 @@ export const useLogout = () => {
   };
 
   return {
-    onLogout
+    onLogout,
   };
 };

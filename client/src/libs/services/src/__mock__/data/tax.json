@@ -1,0 +1,18 @@
+[
+    {
+        "country": "germany",
+        "tax": 15000
+    },
+    {
+        "country": "great britain",
+        "tax": 32000
+    },
+    {
+        "country": "poland",
+        "tax": 25000
+    },
+    {
+        "country": "united states of america",
+        "tax": 50000
+    }
+]

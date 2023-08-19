@@ -1,21 +1,24 @@
-.container{
+.container {
 	margin: 64px auto;
 	max-width: 1400px;
 	width: 100%;
 }
-.body{
-	border: var(--mountain-mist) 1px solid ;
+
+.body {
+	border: var(--mountain-mist) 1px solid;
 	border-radius: 4px;
 	padding: 48px;
 }
-.heading{
+
+.heading {
 	width: fit-content;
 	font-size: 1.75rem;
 	text-transform: uppercase;
 	font-weight: bold;
 	position: relative;
 	margin-bottom: 32px;
-	&::after{
+
+	&::after {
 		content: "";
 		position: absolute;
 		bottom: -10px;
@@ -25,7 +28,8 @@
 		background-color: var(--primary-light);
 	}
 }
-.status{
+
+.status {
 	margin-left: 40px;
 	font-size: 1.75rem;
 	text-transform: uppercase;

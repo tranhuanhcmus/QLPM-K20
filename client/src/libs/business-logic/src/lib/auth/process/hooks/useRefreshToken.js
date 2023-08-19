@@ -1,11 +1,9 @@
 // Importing necessary modules and functions
-
 import { BROADCAST_MESSAGE } from "../../constants";
 import { useRefreshTokenMutation } from "../../fetching/mutation";
 import { getIsRememberMeLocalStorage } from "../helper/localStorageHelper";
 import { useAccessToken } from "./useAccessToken";
 import { useAuthBroadcastChannel } from "./useAuthBroadcastChannel";
-
 
 // The useLogin hook
 export const useRefreshToken = () => {
@@ -17,9 +15,7 @@ export const useRefreshToken = () => {
   const { resetToken } = useAccessToken();
 
   // Defining the onLogin function
-  const onRefreshToken = (
-    oldToken
-  ) => {
+  const onRefreshToken = (oldToken) => {
     return new Promise((resolve, reject) => {
       refreshTokenMutation
         .mutateAsync(oldToken)
@@ -32,12 +28,12 @@ export const useRefreshToken = () => {
             postMessage({
               message: BROADCAST_MESSAGE.SEND_TOKEN,
               token: res.token,
-              isRemember: getIsRememberMeLocalStorage()
+              isRemember: getIsRememberMeLocalStorage(),
             });
             resolve({
               statusCode: res.statusCode,
               message: res.message,
-              token: res.token
+              token: res.token,
             });
           } else {
             throw new Error("Refresh Token is not found");
@@ -52,6 +48,6 @@ export const useRefreshToken = () => {
   // Returning the onLogin function and the loading state
   return {
     onRefreshToken,
-    isLoading: refreshTokenMutation.isLoading
+    isLoading: refreshTokenMutation.isLoading,
   };
 };

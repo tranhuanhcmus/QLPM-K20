@@ -1,61 +1,61 @@
 import { AuthService, SocialService } from "../../../../../services/src";
 import { useMutation } from "@tanstack/react-query";
-import { MUTATION_CONFIG } from "../constants";
+import { mutationConfig } from "../../../configs";
 
-// Khởi tạo AuthService
+// Initialize the AuthService
 const authService = new AuthService();
 const socialService = new SocialService();
 
 /**
- * Sử dụng mutation này để đăng nhập
+ * Use this mutation to login
  */
 export const useLoginMutation = () => {
   return useMutation(authService.login, {
-    retry: MUTATION_CONFIG.RETRY_TIMES
+    retry: mutationConfig.RETRY,
   });
 };
 
 /**
- * Sử dụng mutation này để đăng ký
+ * Use this mutation to register
  */
 export const useRegisterMutation = () => {
   return useMutation(authService.register, {
-    retry: MUTATION_CONFIG.RETRY_TIMES
+    retry: mutationConfig.RETRY,
   });
 };
 
 /**
- * Sử dụng mutation này để làm mới token
+ * Use this mutation to refresh token
  */
 export const useRefreshTokenMutation = () => {
   return useMutation(authService.refreshToken, {
-    retry: MUTATION_CONFIG.RETRY_TIMES
+    retry: mutationConfig.RETRY,
   });
 };
 
 /**
- * Sử dụng mutation này để cập nhật tài khoản google login trên máy chủ
+ * Use this mutation to google login update account on server
  */
 export const useUpdateAccountMutation = () => {
   return useMutation(socialService.updateAccount, {
-    retry: MUTATION_CONFIG.RETRY_TIMES
+    retry: mutationConfig.RETRY,
   });
 };
 
 /**
- * Sử dụng mutation này để lấy access token khi đăng nhập facebook
+ * Use this mutation to facebook login get access token
  */
 export const useGetFBAccessTokenMutation = () => {
   return useMutation(socialService.getFBAccessToken, {
-    retry: MUTATION_CONFIG.RETRY_TIMES
+    retry: mutationConfig.RETRY,
   });
 };
 
 /**
- * Sử dụng mutation này để lấy thông tin người dùng fb khi đăng nhập facebook
+ * Use this mutation to facebook login get fb user infor
  */
 export const useGetFBUserInforMutation = () => {
   return useMutation(socialService.getFBUserInfor, {
-    retry: MUTATION_CONFIG.RETRY_TIMES
+    retry: mutationConfig.RETRY,
   });
 };

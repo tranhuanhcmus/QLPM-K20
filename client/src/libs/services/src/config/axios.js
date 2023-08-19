@@ -1,19 +1,18 @@
-
 import axiosLib, { isAxiosError } from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 import { authServiceConfig } from "./config";
 
-function isDevelopment() {
+export function isDevelopment() {
   return !process.env["NODE_ENV"] || process.env["NODE_ENV"] === "development";
 }
 
 const MOCK_API = {
-  DELAY_RESPONSE_MOCK_API: 2000
+  DELAY_RESPONSE_MOCK_API: 500,
 };
 const axiosInstance = axiosLib.create();
 const axiosMockInstance = axiosLib.create();
 const axiosMockAdapterInstance = new AxiosMockAdapter(axiosMockInstance, {
-  delayResponse: MOCK_API.DELAY_RESPONSE_MOCK_API
+  delayResponse: MOCK_API.DELAY_RESPONSE_MOCK_API,
 });
 
 const axios =
@@ -27,5 +26,10 @@ const isCancel = (error) => {
 
 export const getAxiosNormalInstance = () => axiosInstance;
 
-export { axios, axiosMockInstance, axiosMockAdapterInstance, isCancel, isAxiosError };
-
+export {
+  axios,
+  axiosMockInstance,
+  axiosMockAdapterInstance,
+  isCancel,
+  isAxiosError,
+};

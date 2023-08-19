@@ -1,4 +1,4 @@
-import { SESSION_STORAGE_KEY } from "../../constants";
+import { SESSION_STORAGE_KEY } from "../../../../configs/constants";
 
 export const setAccessTokenSessionStorage = (token) => {
   if (typeof window !== "undefined") {

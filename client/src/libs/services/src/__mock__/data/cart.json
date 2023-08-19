@@ -1,0 +1,34 @@
+[
+  [
+    {
+      "item": {
+        "id": 123,
+        "price": 150,
+        "image": "https://rialloer.sirv.com/Sunrise-Continent/Users/avt_5.png?w=500&h=500",
+        "name": "Stylish T-shirt",
+        "description": "A comfortable and stylish T-shirt for everyday wear.",
+        "discount": 20,
+        "fabric": 100,
+        "fabricName": "Cotton",
+        "color": "Blue",
+        "type": "Men's Clothing"
+      },
+      "quantity": 10
+    },
+    {
+      "item": {
+        "id": 12,
+        "price": 120,
+        "image": "https://rialloer.sirv.com/Sunrise-Continent/Users/andre-tan-nX0mSJ999Og-unsplash.jpg?w=500&h=500",
+        "name": "Stylish T-shirt",
+        "description": "A comfortable and stylish T-shirt for everyday wear.",
+        "discount": 20,
+        "fabric": 100,
+        "fabricName": "Cotton",
+        "color": "Blue",
+        "type": "Men's Clothing"
+      },
+      "quantity": 8
+    }
+  ]
+]

@@ -1,176 +1,100 @@
-import { useState } from 'react'
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from "react";
+import React from "react";
 import "../../../assets/styles/coat.scss";
-import { convertNumberToCurrency } from '../../../utils/helpers/MoneyConverter'
-import { coatCollection, blazersCollection, suits1Collection, suits2Collection, tailoredSuitsCollection, tiesCollection } from "../data";
+import { convertNumberToCurrency } from "../../../utils/helpers/MoneyConverter";
+import { coatCollection } from "../data";
+import { useGetProductByCategory } from "../../../libs/business-logic/src/lib/product";
+import { Link } from "react-router-dom";
+import { useAddToCart } from "../../../libs/business-logic/src/lib/cart/process/hooks";
+import { toast } from "react-hot-toast";
 const Ec = () => {
+  const [selectedCategory, setSelectedCategory] = useState("coat");
+  const productData = useGetProductByCategory({ category: selectedCategory });
+  const { onAddToCart, isLoading } = useAddToCart();
+  console.log(productData);
 
+  const handleAddToCart = (product) => {
+    onAddToCart({ item: product, quantity: 1 })
+      .then((msg) => toast.success(msg))
+      .catch((err) => console.error(err));
+  };
 
-    const [selectedCategory, setSelectedCategory] = useState(coatCollection)
-    const [productList, setProductList] = useState('product-list-coat')
-    const [typeProduct, setTypeProduct] = useState('COAT')
-    const [showListPageSuits, setShowListPageSuits] = useState(false);
-    const [showListPageMen, setShowListPageMen] = useState(false);
-    const [currentPageMen, setCurrentPageMen] = useState(1);
-
-
-    const handleBlazer = () => {
-        setSelectedCategory(blazersCollection)
-        setProductList('product-list-blazers')
-        setTypeProduct('BLAZER')
-        setShowListPageMen(false);
-        setShowListPageSuits(false);
-    }
-    const handleCoat = () => {
-        setSelectedCategory(coatCollection)
-        setProductList('product-list-coat')
-        setTypeProduct('COAT')
-        setShowListPageMen(false);
-        setShowListPageSuits(false);
-    }
-    const handleSuits1Data = () => {
-        setSelectedCategory(suits1Collection)
-        setProductList('product-list-suits')
-        setTypeProduct('SUIT')
-        setShowListPageMen(false);
-        setShowListPageSuits(true);
-    }
-    const handleSuits2Data = () => {
-        setSelectedCategory(suits2Collection)
-        setProductList('product-list-suits')
-        setTypeProduct('SUIT')
-        setShowListPageMen(false);
-        setShowListPageSuits(true);
-    }
-    const handleTailored = () => {
-        setSelectedCategory(tailoredSuitsCollection)
-        setProductList('product-list-coat')
-        setTypeProduct('TAILORED')
-        setShowListPageMen(false)
-
-        setShowListPageSuits(false);
-    }
-    const handleTies = () => {
-        setSelectedCategory(tiesCollection)
-        setProductList('product-list-blazers')
-        setTypeProduct('TIE')
-        setShowListPageMen(false)
-        setShowListPageSuits(false);
-
-    }
-    const handleMen = () => {
-        setSelectedCategory([...suits1Collection, ...suits2Collection, ...coatCollection, ...blazersCollection]);
-        setProductList('product-list-suits');
-        setTypeProduct('MEN')
-        setShowListPageMen(true)
-        setShowListPageSuits(false);
-    }
-    const handleMenPage = (page) => {
-        setCurrentPageMen(page);
-    }
-    const menPerPage = 20;
-    const indexOfLastMen = currentPageMen * menPerPage;
-    const indexOfFirstMen = indexOfLastMen - menPerPage;
-    const menItemsToShow = selectedCategory.slice(indexOfFirstMen, indexOfLastMen);
-
-    return (
-        <main >
-            <div className="product-page container">
-                <div className="category-list">
-                    <div className="title">
-                        <h2 className="title-template">MEN COLLECTION</h2>
-                    </div>
-                    <ul >
-                        <button onClick={handleMen}><h>MEN</h></button>
-                        <li>
-                            <button onClick={handleSuits1Data}><h>SUITS</h></button>
-                        </li>
-                        <li>
-                            <button onClick={handleBlazer}><h>BLAZERS</h></button>
-                        </li> <li>
-                            <button onClick={handleCoat} ><h>COAT</h></button>
-                        </li>
-                    </ul>
-
-                    <ul >
-                        <button onClick={handleTailored}><h>WEDDING</h></button>
-                        <li >
-                            <button onClick={handleTailored}> <h>Tailored Suits for Groom and Groomsmen</h> </button>
-                        </li>
-                    </ul>
-
-                    <ul >
-                        <button onClick={handleTies}><h>ACCESSORIES</h></button>
-                        <li >
-                            <button onClick={handleTies}><h>TIES</h></button>
-                        </li>
-                    </ul>
+  return (
+    <main>
+      <div className="product-page container">
+        <div className="category-list">
+          <div className="title">
+            <h2 className="title-template">MEN COLLECTION</h2>
+          </div>
+          <ul>
+            <h6>MEN</h6>
+            <li>
+              <button onClick={() => setSelectedCategory("suits")}>
+                <h6>SUITS</h6>
+              </button>
+            </li>
+            <li>
+              <button onClick={() => setSelectedCategory("blazers")}>
+                <h6>BLAZERS</h6>
+              </button>
+            </li>{" "}
+            <li>
+              <button onClick={() => setSelectedCategory("coat")}>
+                <h6>COAT</h6>
+              </button>
+            </li>
+            <li>
+              <button onClick={() => setSelectedCategory("vest")}>
+                <h6>VEST</h6>
+              </button>
+            </li>
+            <li>
+              <button onClick={() => setSelectedCategory("pants")}>
+                <h6>PANTS</h6>
+              </button>
+            </li>
+          </ul>
+          <ul>
+            <h6>ACCESSORIES</h6>
+            <li>
+              <button onClick={() => setSelectedCategory("ties")}>
+                <h6>TIES</h6>
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div className={`product-list ${selectedCategory}`}>
+            {Array.isArray(productData) ? (
+              productData.map((p) => (
+                <div className="product-list__item" key={`product${p.id}`}>
+                  <Link to="/">
+                    <img src={p.image} alt="item"></img>
+                  </Link>
+                  <div className="name-alt">{p.type}</div>
+                  <div className="name">{p.name}</div>
+                  <div className="price">
+                    From <span>{convertNumberToCurrency("usd", p.price)}</span>
+                  </div>
+                  <div className="buttons-coat">
+                    <button
+                      onClick={() => handleAddToCart(p)}
+                      disabled={isLoading}
+                    >
+                      <i className="fi fi-rs-shopping-cart-add"></i>
+                      Add to cart
+                    </button>
+                  </div>
                 </div>
-                <div className={productList}>
-                    {showListPageMen ? menItemsToShow.map((item, index) => (
-                        <div className='product-list__item' key={index}>
-                            <Link to={item.index}><img src={item.img}></img></Link>
-                            <div className='name-alt'>{typeProduct}</div>
-                            <div className='name'>{item.code}</div>
-                            <div className='price'>From <span>{convertNumberToCurrency('usd', item.price)}</span></div>
-                            <div className='buttons-coat'>
-                                <button><i className="fi fi-rr-heart"></i></button>
-                                <button><i className="fi fi-rr-add"></i></button>
-                            </div>
-                        </div>
-                    ))
-                        : selectedCategory.map((item, index) => (
-                            <div className='product-list__item' key={index}>
-                                <Link to={item.index}><img src={item.img}></img></Link>
-                                <div className='name-alt'>{typeProduct}</div>
-                                <div className='name'>{item.code}</div>
-                                <div className='price'>From <span>{convertNumberToCurrency('usd', item.price)}</span></div>
-                                <div className='buttons-coat'>
-                                    <button><i className="fi fi-rr-heart"></i></button>
-                                    <button><i className="fi fi-rr-add"></i></button>
-                                </div>
-                            </div>
-                        ))}
-                </div>
-            </div>
-            {showListPageMen && (
-                <div className="list-page">
-                    <ul>
-                        {[...Array(Math.ceil(selectedCategory.length / menPerPage)).keys()].map(
-                            (pageNumber) => (
-                                <li key={pageNumber}>
-                                    <button onClick={() => handleMenPage(pageNumber + 1)}>
-                                        <p>{pageNumber + 1}</p>
-                                    </button>
-                                </li>
-                            )
-                        )}
-                    </ul>
-                    <ul>
-                        <li>
-                            <button onClick={() => handleMenPage(currentPageMen - 1)}><i className='fi fi-rr-arrow-left'></i></button>
-                        </li>
-                        <li>
-                            <button onClick={() => handleMenPage(currentPageMen + 1)}><i className='fi fi-rr-arrow-right'></i></button>
-                        </li>
-                    </ul>
-                </div>
+              ))
+            ) : (
+              <></>
             )}
-            {showListPageSuits && (
-                <div className="list-page">
-                    <ul>
-                        <li><button onClick={handleSuits1Data}><p>1</p></button></li>
-                        <li><button onClick={handleSuits2Data}><p>2</p></button></li>
-                       
-                    </ul>
-                </div>
-            )}
-
-        </main>
-    )
-
-}
-
+          </div>
+        </div>
+      </div>
+    </main>
+  );
+};
 
 export default Ec;

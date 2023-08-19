@@ -1,102 +1,110 @@
-@import '../../assets//styles/mixin';
+@import '../../assets/styles/mixin';
 
 $primary-color: #aeb10a;
 
-.measure-container{
-    @include dflex(column, space-between, null, null);
+.measure-container {
+    @include dflex(column, space-between, flex-start, null);
     padding-top: 10px;
-    .measure-head{
+
+    .measure-head {
         display: grid;
-        grid-template-columns: repeat(2,1fr);
+        grid-template-columns: repeat(2, 1fr);
         align-items: center;
         margin-bottom: 20px;
-        img{
+
+        img {
             width: 80px;
         }
-        .measure-head-back{
+
+        .measure-head-back {
             text-align: left;
             margin-left: 30px;
         }
     }
-    .measure-body{
+
+    .measure-body {
         @include dgrid(5% 30% 40% 25%, auto);
-        
-        .measure__filter--mn{
+        width: 100vw;
+
+        .measure__filter--mn {
             display: flex;
             flex-direction: column;
             text-align: center;
             gap: 20px;
-          
+            margin-right: 20px;
 
-            .measure__filter--it{
-                p{
+            .measure__filter--it {
+                p {
                     font-weight: 600;
                     font-size: small;
                     color: gray;
-                } 
+                }
             }
 
-            .measure__filter--it:hover{
-                p{
+            .measure__filter--it:hover {
+                p {
                     color: black;
                 }
             }
         }
-        
-        
-        .measure__choose--product{
-            @include dgrid(repeat(3,1fr), repeat(4,1fr));
-            overflow :scroll;
+
+
+        .measure__choose--product {
+            @include dgrid(repeat(3, 1fr), repeat(4, 1fr));
+            overflow: scroll;
             max-height: 80vh;
 
-            img{
-                cursor: pointer; 
+            img {
+                cursor: pointer;
                 max-height: 120px;
                 max-width: 120px;
             }
         }
     }
-    .measure__swear--suit{
 
+    .measure__swear--suit {
         margin: auto;
 
-        img{
+        img {
             max-height: 80vh;
         }
     }
-    .measure__infor{
+
+    .measure__infor {
         text-align: right;
         padding-right: 20px;
-        p:first-child{
+
+        p:first-child {
             font-weight: 600;
             font-size: larger;
             color: black;
         }
-       
-        p{
+
+        p {
             margin: 10px 0px;
             font-size: large;
             color: gray;
         }
 
-        .measure_infor_btn{
+        .measure_infor_btn {
             display: flex;
             justify-content: flex-end;
             margin-top: 100px;
-            gap: 20px ;
-            
-            button{
+            gap: 20px;
+
+            button {
                 font-weight: 300;
                 min-width: 80px;
             }
-            .measure__infor__btn--it{
+
+            .measure__infor__btn--it {
                 background-color: white;
                 border: solid gray 1px;
                 border-radius: 5px;
-                
+
             }
 
-            .measure__infor__btn--it--selected{
+            .measure__infor__btn--it--selected {
                 background-color: $primary-color;
                 border: solid $primary-color 2px;
                 border-radius: 5px;
@@ -104,14 +112,22 @@ $primary-color: #aeb10a;
             }
         }
     }
+
+    .confirm-btn {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: green;
+        color: white;
+        border-radius: 5px;
+    }
 }
 
-.product--selected{
+.product--selected {
     border-color: red;
     border-width: 1px;
     border-style: solid;
 }
 
-.product--unselected{
-    margin:1px;
+.product--unselected {
+    margin: 1px;
 }
