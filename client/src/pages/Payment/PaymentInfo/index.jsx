@@ -1,12 +1,13 @@
 import React from "react";
 import styles from "./styles.module.scss";
+import Heading1 from "../../../components/common/text/Heading1/Heading";
 
 const PaymentInfo = ({data}) => {
   const {name,phone,email,address,note}=data
   return (
     <>
-    <div className={styles.heading}>user information</div >
-    <section>
+    <Heading1>user information</Heading1 >
+    <div className={styles.section}>
       <div className={styles.form__field}>
         <label>Name</label>
         <span>{name}</span>
@@ -47,7 +48,7 @@ const PaymentInfo = ({data}) => {
         <button >Cancel</button>
         <button type="submit" >Confirm Payment</button>
       </div>
-    </section>
+    </div>
     </>
   );
 };

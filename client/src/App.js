@@ -14,6 +14,7 @@ import Authentication from "./pages/Authentication/Authentication";
 import { BusinessLogicProvider } from "./libs/business-logic/src/provider";
 import Payment from "./pages/Payment";
 import PaymentDetails from "./pages/Payment/PaymentDetails";
+import WishList from "./pages/WishList";
 
 function App() {
   return (
@@ -30,11 +31,12 @@ function App() {
             <Route path={URLS.COAT} element={<Ec />} />
             <Route path={URLS.CONTACT_PAGE} element={<Contact />} />
 
-            <Route path={URLS.PAYMENT}  element={<Payment />} />
-            <Route path={URLS.PAYMENT_DETAILS}  element={<PaymentDetails />} >
-          
-            </Route>
-
+            <Route path={URLS.WISH_LIST} element={<WishList />} />
+            <Route path={URLS.PAYMENT} element={<Payment />} />
+            <Route
+              path={URLS.PAYMENT_DETAILS}
+              element={<PaymentDetails />}
+            />
           </Route>
 
           <Route path={URLS.MEASURE} element={<Measure />} />

@@ -1,25 +1,24 @@
-import React from 'react'
-import styles from "./styles.module.scss"
-import PaymentInfo from '../PaymentInfo';
-import PaymentProducts from '../PaymentProducts';
-import { useLocation } from 'react-router-dom';
-
+import React from "react";
+import styles from "./styles.module.scss";
+import PaymentInfo from "../PaymentInfo";
+import PaymentProducts from "../PaymentProducts";
+import { useLocation } from "react-router-dom";
+import Heading1 from "../../../components/common/text/Heading1/Heading";
+import PrimaryText from "../../../components/common/text/PrimaryText/PrimaryText";
 
 const PaymentDetails = () => {
-
-  const {state}=useLocation()
-  console.log(state);
+  const { state } = useLocation();
 
   return (
-	<div className={styles.container}>
-    <div className={styles.body}>
-        <div className={styles.heading}>State</div >
-        <div className={styles.status}> Waiting for payment</div>
-      <PaymentProducts/>
-      {state&&<PaymentInfo data={state}/>}
+    <div className={styles.container}>
+      <div className={styles.body}>
+        <Heading1>State</Heading1>
+        <PrimaryText> Waiting for payment</PrimaryText>
+        <PaymentProducts />
+        {state && <PaymentInfo data={state} />}
+      </div>
     </div>
-  </div>
-  )
-}
+  );
+};
 
-export default PaymentDetails
+export default PaymentDetails;
