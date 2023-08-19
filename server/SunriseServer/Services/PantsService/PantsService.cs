@@ -14,6 +14,11 @@ namespace SunriseServer.Services.PantsService
         }
 
         public Task<List<Product>> GetAll() => _unitOfWork.PantsRepo.GetAllSpecial();
+
+
+        public async Task<ImageDto> GetImageByCustom(string fabric, PantsComponent pants) {
+            return await _unitOfWork.PantsRepo.GetImageByCustom(fabric,pants);
+        }
         //public Task<Pants> GetAll()
         //{
         //    return _unitOfWork.PantsRepo.GetAll();
@@ -32,6 +37,13 @@ namespace SunriseServer.Services.PantsService
             if (!p) return false; 
             
             return true;
+        }
+        public async Task<bool> UpdatePants(Product productToUpdate, PantsComponent pantsToUpdate) {
+            bool isPantsUpdated = await _unitOfWork.PantsRepo.UpdatePants(productToUpdate.ProductID, pantsToUpdate);
+            if (!isPantsUpdated) return false;
+
+            bool isProductUpdated = await _unitOfWork.ProductRepo.UpdateProduct(productToUpdate);
+            return isProductUpdated;
         }
 
         public Task<bool> AddPants(AddPants ap) {

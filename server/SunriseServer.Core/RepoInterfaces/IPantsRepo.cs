@@ -12,12 +12,16 @@ namespace SunriseServerCore.RepoInterfaces
 
         PantsDetail GetPantsDetailById(int id);
 
+        Task<ImageDto> GetImageByCustom(string fabric, PantsComponent pants);
+
         // -----------------//
         //    CRUD area     //
         // -----------------//
         Task<bool> AddPants(AddPants ap);
 
         Task<bool> DeletePants(int id);
+
+        Task<bool> UpdatePants(int pantsId, PantsComponent updatedPants);
 
 
     }

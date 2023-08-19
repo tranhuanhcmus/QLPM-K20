@@ -17,8 +17,17 @@ namespace SunriseServer.Services.VestService
         Task<Vest> GetVestByCategory(string cate);
         Task<Vest> GetVestByColor(string color);
         Task<Vest> GetVestByFabric(string fabric);
+        Task<ImageDto> GetImageByCustom(string fabric, VestComponent vest);
+
+
+
+
         Task<bool> AddVest(AddVest av);
         Task<bool> DeleteVest(int vestId);
+
+        Task<bool> UpdateVest(Product productToUpdate, VestComponent vestToUpdate);
+
+        
 
 
         void SaveChanges();

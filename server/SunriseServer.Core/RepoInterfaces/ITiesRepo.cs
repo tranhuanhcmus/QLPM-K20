@@ -18,5 +18,7 @@ namespace SunriseServerCore.RepoInterfaces
         
         Task<bool> DeleteTies(int id);
 
+        Task<bool> UpdateTies(int tiesId, TiesComponent tiesToUpdate);
+
     }
 }

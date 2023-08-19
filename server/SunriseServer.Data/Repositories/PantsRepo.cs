@@ -77,6 +77,19 @@ namespace SunriseServerData.Repositories
             return result;
         }
 
+        public async Task<ImageDto> GetImageByCustom(string fabric, PantsComponent pants) 
+        {
+            var builder = new StringBuilder();
+            builder.AppendFormat("EXEC USP_GetCustomPantsImage @p_Fabric='{0}', @p_Pocket='{1}', @p_Fit='{2}', @p_Cuff='{3}', @p_Fastening='{4}', @p_Pleats='{5}';",
+                fabric, pants.Pocket, pants.Fit, pants.Cuff, pants.Fastening, pants.Pleats);
+
+            var result = await _dataContext.Set<ImageDto>()
+                .FromSqlInterpolated($"EXECUTE({builder.ToString()});")
+                .ToListAsync();
+                
+            return result.FirstOrDefault();
+        }
+
 
         // -----------------//
         //    CRUD area     //
@@ -97,6 +110,23 @@ namespace SunriseServerData.Repositories
             }
             return true;
         }
+
+        public async Task<bool> UpdatePants(int pantsId, PantsComponent updatedPants)
+        {
+            // check if user entered wrong id
+            ProductRepo pr = new ProductRepo(_dataContext);
+            if (!pr.IsExist(pantsId, GlobalConstant.PantsProduct)) return false;
+           
+            var builder = new StringBuilder();
+            builder.AppendFormat("EXEC USP_UpdatePants @pantsId={0}, @p_Pocket='{1}', @p_Fit='{2}', @p_Cuff='{3}', @p_Fastening='{4}', @p_Pleats='{5}';",
+                pantsId, updatedPants.Pocket, updatedPants.Fit, updatedPants.Cuff, updatedPants.Fastening, updatedPants.Pleats);
+
+            int result = await _dataContext.Database.ExecuteSqlInterpolatedAsync($"EXECUTE({builder.ToString()});");
+
+            return result == 1;
+
+        }
+
         public async Task<bool> AddPants(AddPants ap)
         {
             try

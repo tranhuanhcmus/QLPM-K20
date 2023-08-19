@@ -46,6 +46,20 @@ namespace SunriseServer.Services.JacketService
             return _unitOfWork.JacketRepo.AddJacket(aj);
 
         }
+
+        public async Task<ImageDto> GetImageByCustom(string fabric, JacketComponent jacket) {
+            return await _unitOfWork.JacketRepo.GetImageByCustom(fabric,jacket);
+        }
+
+
+        public async Task<bool> UpdateJacket(Product productToUpdate, JacketComponent jacketToUpdate) {
+            bool isJacketUpdated = await _unitOfWork.JacketRepo.UpdateJacket(productToUpdate.ProductID, jacketToUpdate);
+            if (!isJacketUpdated) return false;
+
+            bool isProductUpdated = await _unitOfWork.ProductRepo.UpdateProduct(productToUpdate);
+            return isProductUpdated;
+        }
+
         public List<JacketProduct> GetJacketByName(string jacketname)
         {
             return _unitOfWork.JacketRepo.GetByName(jacketname);
@@ -59,11 +73,6 @@ namespace SunriseServer.Services.JacketService
         public JacketDetail GetJacketDetailById(int id)
         {
             return _unitOfWork.JacketRepo.GetJacketDetailById(id);
-
-        }
-        public async Task<Jacket> UpdateJacket(Jacket jk)
-        {
-            return null;
 
         }
         public async Task<Jacket> GetJacketByCategory(string cate)

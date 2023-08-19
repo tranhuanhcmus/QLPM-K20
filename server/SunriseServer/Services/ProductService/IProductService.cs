@@ -7,9 +7,13 @@
         Task<Product> GetProductById(int id);
         Task<List<Product>> GetByName(string name);
 
-        Task<Product> GetProductByCategory(string cate);
         Task<Product> GetProductByColor(string color);
         Task<Product> GetProductByFabric(string fabric);
+
+        Task<List<Product>> GetByCategory(string category);
+
+        Task<string> GetProductType(int id);     
+
 
         void SaveChanges();
     }

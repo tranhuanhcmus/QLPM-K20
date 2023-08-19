@@ -2,6 +2,7 @@
 using SunriseServer.Services.TiesService;
 using SunriseServerCore.Dtos;
 using SunriseServerCore.Models.Clothes;
+using SunriseServer.Common.Constant;
 
 namespace SunriseServer.Controllers
 {
@@ -18,7 +19,7 @@ namespace SunriseServer.Controllers
 
 
         [HttpGet("All-Ties")]
-        public async Task<ActionResult<Product>> GetAll()
+        public async Task<ActionResult<List<Product>>> GetAll()
         {
             var result = await _tiesService.GetAll();
             if (result is null)
@@ -61,6 +62,19 @@ namespace SunriseServer.Controllers
 
             return Ok("Delete Successfully");
 
+        }
+
+
+        [HttpPut("UpdateTies")]
+        public async Task<ActionResult<bool>> UpdateTies(TiesDetail tiesToUpdate) {
+
+            tiesToUpdate.Products.Type = GlobalConstant.TiesProduct;
+            bool result = await _tiesService.UpdateTies(tiesToUpdate.Products,tiesToUpdate.Component);
+           
+            if (!result)
+                return NotFound("Can not Update, please try again");
+
+            return Ok("Update Successfully");
         }
 
         [HttpPost("Add-Ties")]

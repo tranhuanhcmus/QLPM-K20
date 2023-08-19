@@ -24,6 +24,10 @@ namespace SunriseServer.Services.VestService
 
         }
 
+        public async Task<ImageDto> GetImageByCustom(string fabric, VestComponent vest) {
+            return await _unitOfWork.VestRepo.GetImageByCustom(fabric,vest);
+        }
+
         //----------------------------------------------------------------
         // for admin (CRUD)
         //----------------------------------------------------------------
@@ -39,6 +43,13 @@ namespace SunriseServer.Services.VestService
             return true;
         }
 
+        public async Task<bool> UpdateVest(Product productToUpdate, VestComponent vestToUpdate) {
+            bool isVestUpdated = await _unitOfWork.VestRepo.UpdateVest(productToUpdate.ProductID, vestToUpdate);
+            if (!isVestUpdated) return false;
+
+            bool isProductUpdated = await _unitOfWork.ProductRepo.UpdateProduct(productToUpdate);
+            return isProductUpdated;
+        }
 
         public async Task<Vest> AddVest(Vest jk)
         {

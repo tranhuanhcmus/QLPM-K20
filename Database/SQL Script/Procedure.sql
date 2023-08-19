@@ -37,7 +37,7 @@ GO
 
 CREATE OR ALTER PROCEDURE usp_InsertJacket(
     @p_Price FLOAT,
-    @p_Image VARCHAR(100),
+    @p_ImageFront VARCHAR(255),
     @p_Name VARCHAR(100),
     @p_Description TEXT,
     @p_Discount TINYINT,
@@ -53,7 +53,9 @@ CREATE OR ALTER PROCEDURE usp_InsertJacket(
     @p_SleeveButton VARCHAR(100),
     @p_Pocket VARCHAR(100),
     @p_BackStyle VARCHAR(100),
-    @p_BreastPocket VARCHAR(100)
+    @p_BreastPocket VARCHAR(100),
+    @p_ImageBack VARCHAR(255)
+
 )
 AS
 BEGIN
@@ -76,8 +78,8 @@ BEGIN
 
     -- Insert into the Product table
 	select @aFabricID = FabricId from Fabric where FabricName = @p_FabricName;
-    INSERT INTO Product (ProductID, Price, Image, Name, Description, Discount, Fabric, FabricName, color, Type)
-    VALUES (@newProductID, @p_Price, @p_Image, @p_Name, @p_Description, @p_Discount, @aFabricID, @p_FabricName, @p_color, @p_Type);
+    INSERT INTO Product (ProductID, Price, ImageFront, Name, Description, Discount, Fabric, FabricName, color, Type, ImageBack)
+    VALUES (@newProductID, @p_Price, @p_ImageFront, @p_Name, @p_Description, @p_Discount, @aFabricID, @p_FabricName, @p_color, @p_Type, @p_ImageBack);
 
     -- Retrieve IDs for each jacket component based on their names
     SELECT @jStyle = ID FROM JacketStyle WHERE Name = @p_Style;
@@ -101,7 +103,7 @@ GO
 GO
 CREATE OR ALTER PROCEDURE usp_InsertVest(
     @p_Price FLOAT,
-    @p_Image VARCHAR(100),
+    @p_ImageFront VARCHAR(255),
     @p_Name VARCHAR(100),
     @p_Description TEXT,
     @p_Discount TINYINT,
@@ -115,7 +117,8 @@ CREATE OR ALTER PROCEDURE usp_InsertVest(
     @p_Lapel VARCHAR(100),
     @p_Edge VARCHAR(100),
     @p_BreastPocket VARCHAR(100),
-    @p_FrontPocket VARCHAR(100)
+    @p_FrontPocket VARCHAR(100),
+    @p_ImageBack VARCHAR(255)
 )
 AS
 BEGIN
@@ -135,8 +138,8 @@ BEGIN
 
     -- Insert into the Product table
 	select @aFabricID = FabricId from Fabric where FabricName = @p_FabricName;
-    INSERT INTO Product (ProductID, Price, Image, Name, Description, Discount, Fabric, FabricName, color, Type)
-    VALUES (@newProductID, @p_Price, @p_Image, @p_Name, @p_Description, @p_Discount, @aFabricID, @p_FabricName, @p_color, @p_Type);
+    INSERT INTO Product (ProductID, Price, ImageFront, Name, Description, Discount, Fabric, FabricName, color, Type, ImageBack)
+    VALUES (@newProductID, @p_Price, @p_ImageFront, @p_Name, @p_Description, @p_Discount, @aFabricID, @p_FabricName, @p_color, @p_Type, @p_ImageBack);
 
 
     -- Retrieve IDs for each vest component based on their names
@@ -159,7 +162,7 @@ GO
 GO
 CREATE OR ALTER PROCEDURE usp_InsertPants(
     @p_Price FLOAT,
-    @p_Image VARCHAR(100),
+    @p_ImageFront VARCHAR(255),
     @p_Name VARCHAR(100),
     @p_Description TEXT,
     @p_Discount TINYINT,
@@ -173,7 +176,8 @@ CREATE OR ALTER PROCEDURE usp_InsertPants(
     @p_Fit VARCHAR(100),
     @p_Cuff VARCHAR(100),
     @p_Fastening VARCHAR(100),
-    @p_Pleats VARCHAR(100)
+    @p_Pleats VARCHAR(100),
+    @p_ImageBack VARCHAR(255)
 )
 AS
 BEGIN
@@ -194,9 +198,8 @@ BEGIN
 
     -- Insert into the Product table
     select @aFabricID = FabricId from Fabric where FabricName = @p_FabricName;
-    INSERT INTO Product (ProductID, Price, Image, Name, Description, Discount, Fabric, FabricName, color, Type)
-    VALUES (@newProductID, @p_Price, @p_Image, @p_Name, @p_Description, @p_Discount, @aFabricID, @p_FabricName, @p_color, @p_Type);
-
+    INSERT INTO Product (ProductID, Price, ImageFront, Name, Description, Discount, Fabric, FabricName, color, Type, ImageBack)
+    VALUES (@newProductID, @p_Price, @p_ImageFront, @p_Name, @p_Description, @p_Discount, @aFabricID, @p_FabricName, @p_color, @p_Type, @p_ImageBack);
 
     -- Retrieve IDs for each jacket component based on their names
     SELECT @pCuff = ID FROM PantsCuff WHERE Name = @p_Cuff;

@@ -18,6 +18,8 @@ namespace SunriseServer.Services.TiesService
         Task<Ties> GetTiesByFabric(string fabric);
         Task<bool> AddTies(AddTies at);
         Task<bool> DeleteTies(int tiesId);
+        
+        Task<bool> UpdateTies(Product productToUpdate, TiesComponent tiesToUpdate);
 
         void SaveChanges();
     }

@@ -1,18 +1,15 @@
 
 use TailorManagement;
 GO
-EXEC sp_fulltext_database 'enable';
-GO
-CREATE FULLTEXT CATALOG TailorManagement as default;
-GO
 
-CREATE FULLTEXT INDEX ON Product (
-    Name LANGUAGE 1033,
-    DESCRIPTION LANGUAGE 1033
-) KEY INDEX PK_Product_ProductID ON TailorManagement;
-GO
 
-SELECT SERVERPROPERTY('IsFullTextInstalled') AS IsFullTextSearchAvailable;
+EXEC sp_rename 'Product.Image', 'ImageFront', 'COLUMN';
+
+
+
+-- Add a new column
+ALTER TABLE Product
+ADD ImageBack VARCHAR(255);
 
 
 Create table Ties (

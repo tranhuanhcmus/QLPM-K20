@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SunriseServerCore.Models.Clothes
 {
-    public class JacketComponent: ModelBase
+    public class JacketComponent
     {
         public string Style { get; set; }
         public string Fit { get; set; }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SunriseServer.Common.Constant;
 using SunriseServer.Services.JacketService;
 using SunriseServerCore.Dtos;
 using SunriseServerCore.Models.Clothes;
@@ -10,41 +11,24 @@ namespace SunriseServer.Controllers
     public class JacketController : ControllerBase
     {
         readonly IJacketService _jacketService;
-        private readonly ILogger<JacketController> _logger;
 
-        public JacketController(IJacketService jacketService, ILogger<JacketController> logger)
+        public JacketController(IJacketService jacketService)
         {
             _jacketService = jacketService;
-            _logger = logger;
         }
 
 
         [HttpGet("All-Jacket")]
-        public ActionResult<Product> GetAll()
+        public ActionResult<List<Product>> GetAll()
         {
             var result = _jacketService.GetAllSpecial();
             if (result is null)
             {
-                _logger.LogInformation("No jackets found");
                 return NotFound("No jackets found");
             }
 
-            _logger.LogInformation("Retrieved jackets successfully");
             return Ok(result);
         }
-
-        //[HttpDelete("/{productId}"), Authorize(Roles = GlobalConstant.Admin)]
-        [HttpDelete("/Jacket/{jacketId}")]
-        public async Task<ActionResult<bool>> DeleteJacket(int jacketId)
-        {
-            bool result = await _jacketService.DeleteJacket(jacketId);
-            if (!result)
-                return NotFound("Can not delete, please try again");
-
-            return Ok("Delete Successfully");
-
-        }
-
         // get by name
         // [HttpGet("{name}")]
         // public ActionResult<JacketProduct> GetJacketByNameOrDescription(string name)
@@ -65,11 +49,32 @@ namespace SunriseServer.Controllers
 
             return Ok(result);
         }
-        // get by category ??
-        // insert one - just for admin
-        //[HttpGet("Add-Jacket"), Authorize(Roles = GlobalConstant.Admin)]
-        // important note
-        // fabric name and other components must use dropdown, does not allow free input -> wrong.
+
+        [HttpGet("/Jacket/GetImageCustom")]
+        public async Task<ActionResult<ImageDto>> GetJacketImageByCustom(string fabric,[FromQuery] JacketComponent jacket)
+        {
+            var result = await _jacketService.GetImageByCustom(fabric, jacket);
+            if (result is null)
+                return NotFound("Image not found");
+
+            return Ok(result);
+        }
+
+
+        //[HttpDelete("/{productId}"), Authorize(Roles = GlobalConstant.Admin)]
+        [HttpDelete("/Jacket/{jacketId}")]
+        public async Task<ActionResult<bool>> DeleteJacket(int jacketId)
+        {
+            bool result = await _jacketService.DeleteJacket(jacketId);
+            if (!result)
+                return NotFound("Can not delete, please try again");
+
+            return Ok("Delete Successfully");
+
+        }
+
+        
+        
         [HttpPost("Add-Jacket")]
         public async Task<ActionResult<bool>> AddJacket(AddJacket aj)
         {
@@ -80,6 +85,18 @@ namespace SunriseServer.Controllers
 
             return Ok("Add Successfully");
 
+        }
+
+        [HttpPut("UpdateJacket")]
+        public async Task<ActionResult<bool>> UpdateJacket(JacketDetail jacketToUpdate) {
+
+            jacketToUpdate.Products.Type = GlobalConstant.JacketProduct;
+            bool result = await _jacketService.UpdateJacket(jacketToUpdate.Products,jacketToUpdate.Component);
+           
+            if (!result)
+                return NotFound("Can not Update, please try again");
+
+            return Ok("Update Successfully");
         }
     }
 }

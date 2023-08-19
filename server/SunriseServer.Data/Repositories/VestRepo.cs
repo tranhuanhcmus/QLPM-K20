@@ -76,6 +76,19 @@ namespace SunriseServerData.Repositories
             return result;
         }
 
+        public async Task<ImageDto> GetImageByCustom(string fabric, VestComponent vest) 
+        {
+            var builder = new StringBuilder();
+            builder.AppendFormat("EXEC USP_GetCustomVestImage @p_Fabric='{0}', @p_Style='{1}', @p_vType='{2}', @p_Lapel='{3}', @p_Edge='{4}', @p_BreastPocket='{5}', @p_FrontPocket='{6}';",
+                fabric, vest.Style, vest.Type, vest.Lapel, vest.Edge, vest.BreastPocket, vest.FrontPocket);
+
+            var result = await _dataContext.Set<ImageDto>()
+                .FromSqlInterpolated($"EXECUTE({builder.ToString()});")
+                .ToListAsync();
+                
+            return result.FirstOrDefault();
+        }
+
         // -----------------//
         //    CRUD area     //
         // -----------------//
@@ -96,6 +109,21 @@ namespace SunriseServerData.Repositories
             return true;
         }
 
+        public async Task<bool> UpdateVest(int vestId, VestComponent updatedVest)
+        {
+            // check if user entered wrong id
+            ProductRepo pr = new ProductRepo(_dataContext);
+            if (!pr.IsExist(vestId, GlobalConstant.VestProduct)) return false;
+           
+            var builder = new StringBuilder();
+            builder.AppendFormat("EXEC USP_UpdateVest @vestId={0}, @p_Style='{1}', @p_vType='{2}', @p_Lapel='{3}', @p_Edge='{4}', @p_BreastPocket='{5}', @p_FrontPocket='{6}';",
+                    vestId, updatedVest.Style, updatedVest.Type, updatedVest.Lapel, updatedVest.Edge, updatedVest.BreastPocket, updatedVest.FrontPocket);
+
+            int result = await _dataContext.Database.ExecuteSqlInterpolatedAsync($"EXECUTE({builder.ToString()});");
+
+            return result == 1;
+
+        }
         public async Task<bool> AddVest(AddVest av)
         {
             try

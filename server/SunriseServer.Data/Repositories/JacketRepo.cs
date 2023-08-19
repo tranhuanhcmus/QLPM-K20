@@ -74,6 +74,19 @@ namespace SunriseServerData.Repositories
 
         }
 
+        public async Task<ImageDto> GetImageByCustom(string fabric, JacketComponent jacket) 
+        {
+            var builder = new StringBuilder();
+            builder.AppendFormat("EXEC USP_GetCustomJacketImage @p_Fabric={0}, @p_Style='{1}', @p_Fit='{2}', @p_Lapel='{3}', @p_SleeveButton='{4}', @p_BackStyle='{5}', @p_BreastPocket='{6}', @p_Pocket='{7}';",
+            fabric, jacket.Style, jacket.Fit, jacket.Lapel, jacket.SleeveButton, jacket.BackStyle, jacket.BreastPocket, jacket.Pocket);
+
+            var result = await _dataContext.Set<ImageDto>()
+                .FromSqlInterpolated($"EXECUTE({builder.ToString()});")
+                .ToListAsync();
+                
+            return result.FirstOrDefault();
+        }
+
         // -----------------//
         //    CRUD area     //
         // -----------------//
@@ -134,9 +147,21 @@ namespace SunriseServerData.Repositories
             return true;
         }
 
-        
+        public async Task<bool> UpdateJacket(int jacketId, JacketComponent updatedJacket)
+        {
+            // check if user entered wrong id
+            ProductRepo pr = new ProductRepo(_dataContext);
+            if (!pr.IsExist(jacketId, GlobalConstant.JacketProduct)) return false;
+           
+            var builder = new StringBuilder();
+            builder.AppendFormat("EXEC USP_UpdateJacket @jacketId={0}, @p_Style='{1}', @p_Fit='{2}', @p_Lapel='{3}', @p_SleeveButton='{4}', @p_BackStyle='{5}', @p_BreastPocket='{6}', @p_Pocket='{7}';",
+            jacketId, updatedJacket.Style, updatedJacket.Fit, updatedJacket.Lapel, updatedJacket.SleeveButton, updatedJacket.BackStyle, updatedJacket.BreastPocket, updatedJacket.Pocket);
 
+            int result = await _dataContext.Database.ExecuteSqlInterpolatedAsync($"EXECUTE({builder.ToString()});");
 
+            return result == 1;
+
+        }
 
         
         

@@ -84,6 +84,30 @@ namespace SunriseServerData.Repositories
             return true;
         }
 
+        public async Task<bool> UpdateTies(int tiesId, TiesComponent tiesToUpdate) {
+            
+            var existingTies = await _dataContext.Ties.FindAsync(tiesId);
+            if (existingTies == null)
+            {
+                // Product not found, return false or handle it as needed
+                return false; // or throw new NotFoundException("Product not found");
+            }
+
+            // Update the properties of the existing product entity
+            existingTies.Size = tiesToUpdate.Size;
+            existingTies.Style = tiesToUpdate.Style;
+            // not allow to update type of product
+
+            // Mark the entity as modified
+            _dataContext.Entry(existingTies).State = EntityState.Modified;
+
+            // Save the changes to the database
+            await _dataContext.SaveChangesAsync();
+
+            // Update successful
+            return true;
+        }
+
         public async Task<bool> AddTies(AddTies at)
         {
             try

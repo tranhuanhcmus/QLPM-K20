@@ -9,6 +9,7 @@ namespace SunriseServerCore.RepoInterfaces
         List<JacketProduct> GetByName(string name);
         List<Product> GetAllSpecial();
         JacketDetail GetJacketDetailById(int id);
+        Task<ImageDto> GetImageByCustom(string fabric, JacketComponent jacket);
 
         // -----------------//
         //    CRUD area     //
@@ -17,6 +18,7 @@ namespace SunriseServerCore.RepoInterfaces
         //List<Jacket> GetAllSpecialAsync();
         Task<bool> DeleteJacket(int id);
 
+        Task<bool> UpdateJacket(int jacketId, JacketComponent updatedJacket);
 
     }
 }

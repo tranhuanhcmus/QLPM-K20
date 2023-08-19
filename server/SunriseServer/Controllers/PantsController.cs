@@ -2,6 +2,7 @@
 using SunriseServer.Services.PantsService;
 using SunriseServerCore.Dtos;
 using SunriseServerCore.Models.Clothes;
+using SunriseServer.Common.Constant;
 
 namespace SunriseServer.Controllers
 {
@@ -20,7 +21,7 @@ namespace SunriseServer.Controllers
 
 
         [HttpGet("All-Pants")]
-        public async Task<ActionResult<Product>> GetAll()
+        public async Task<ActionResult<List<Product>>> GetAll()
         {
             var result = await _pantsService.GetAll();
             if (result is null)
@@ -61,6 +62,30 @@ namespace SunriseServer.Controllers
                 return NotFound("Pants not found");
 
             return Ok(result);
+        }
+
+        [HttpGet("/Pants/GetImageCustom")]
+        public async Task<ActionResult<ImageDto>> GetPantsImageByCustom(string fabric,[FromQuery] PantsComponent pants)
+        {
+            var result = await _pantsService.GetImageByCustom(fabric, pants);
+            if (result is null)
+                return NotFound("Image not found");
+
+            return Ok(result);
+        }
+
+
+
+        [HttpPut("UpdatePants")]
+        public async Task<ActionResult<bool>> UpdatePants(PantsDetail pantsToUpdate) {
+
+            pantsToUpdate.Products.Type = GlobalConstant.PantsProduct;
+            bool result = await _pantsService.UpdatePants(pantsToUpdate.Products,pantsToUpdate.Component);
+           
+            if (!result)
+                return NotFound("Can not Update, please try again");
+
+            return Ok("Update Successfully");
         }
 
         // get by id

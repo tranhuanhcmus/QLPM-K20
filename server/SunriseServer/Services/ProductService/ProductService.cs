@@ -13,7 +13,7 @@
         public List<Product> GetAll() => (List<Product>)_unitOfWork.ProductRepo.GetAll();
         
         public Task<List<Product>> GetByName(string name) {
-            return null;
+            return _unitOfWork.ProductRepo.GetByNameAsync(name);
         }
         public async Task<Product> AddProduct(Product jk)
         {
@@ -34,11 +34,16 @@
             return null;
 
         }
-        public async Task<Product> GetProductByCategory(string cate)
+        public async Task<List<Product>> GetByCategory(string category)
         {
-            return null;
+            return await _unitOfWork.ProductRepo.GetByCategory(category);
 
         }
+
+        public async Task<string> GetProductType(int id) {
+            return await _unitOfWork.ProductRepo.GetProductType(id);
+        }    
+
         public async Task<Product> GetProductByColor(string color)
         {
             return null;

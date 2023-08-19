@@ -1,6 +1,312 @@
 USE TailorManagement;
 GO
+
 --dbo.USP_GetDetailJacketByID
+CREATE OR ALTER PROC USP_GetCustomJacketImage(
+    -- Fabric type
+    @p_Fabric VARCHAR(100),
+    -- Jacket Component
+    @p_Style VARCHAR(100),
+    @p_Fit VARCHAR(100),
+    @p_Lapel VARCHAR(100),
+    @p_SleeveButton VARCHAR(100),
+    @p_BackStyle VARCHAR(100),
+    @p_BreastPocket VARCHAR(100),
+    @p_Pocket VARCHAR(100)
+)
+AS
+BEGIN
+    DECLARE @jStyle INT;
+    DECLARE @jFit INT;
+    DECLARE @jLapel INT;
+    DECLARE @jSleeveButton INT;
+    DECLARE @jPocket INT;
+    DECLARE @jBackStyle INT;
+    DECLARE @jBreastPocket INT;
+
+
+    -- Retrieve IDs for each jacket component based on their names
+    SELECT @jStyle = ISNULL((SELECT ID FROM JacketStyle WHERE Name = @p_Style), 1);
+    SELECT @jFit = ISNULL((SELECT ID FROM JacketFit WHERE Name = @p_Fit), 1);
+    SELECT @jLapel = ISNULL((SELECT ID FROM JacketLapel WHERE Name = @p_Lapel), 1);
+    SELECT @jSleeveButton = ISNULL((SELECT ID FROM JacketSleeveButton WHERE Name = @p_SleeveButton), 1);
+    SELECT @jPocket = ISNULL((SELECT ID FROM JacketPocket WHERE Name = @p_Pocket), 1);
+    SELECT @jBackStyle = ISNULL((SELECT ID FROM JacketBackStyle WHERE Name = @p_BackStyle), 1);
+    SELECT @jBreastPocket = ISNULL((SELECT ID FROM JacketBreastPocket WHERE Name = @p_BreastPocket), 1);
+
+
+
+    -- Retrive Image
+    select ProductID, ImageFront as Front, ImageBack as Back
+     from Product where FabricName = @p_Fabric and ProductID in (
+            SELECT JacketId FROM Jacket 
+            WHERE Style = @jStyle AND Fit = @jFit AND Lapel = @jLapel AND SleeveButton = @jSleeveButton 
+                AND Pocket = @jPocket AND BackStyle = @jBackStyle AND BreastPocket = @jBreastPocket
+        );
+
+    
+    IF @@ERROR <> 0
+    BEGIN
+        -- Raise an error if proc does not execute successfully
+        RAISERROR('An error occurred during procedure execution. Proc: USP_GetCustomJacket', 16, 1);
+        -- Optionally, you can log the error or take other actions
+    END;
+END;
+GO
+
+CREATE OR ALTER PROC USP_GetCustomVestImage(
+    -- Fabric type
+    @p_Fabric VARCHAR(100),
+    -- Jacket Component
+    @p_Style VARCHAR(100),
+    @p_vType VARCHAR(100),
+    @p_Lapel VARCHAR(100),
+    @p_Edge VARCHAR(100),
+    @p_BreastPocket VARCHAR(100),
+    @p_FrontPocket VARCHAR(100)
+)
+AS
+BEGIN
+    DECLARE @vStyle INT;
+    DECLARE @vType INT;
+    DECLARE @vLapel INT;
+    DECLARE @vEdge INT;
+    DECLARE @vBreastPocket INT;
+    DECLARE @vFrontPocket INT;
+
+    -- Retrieve IDs for each vest component based on their names
+    SELECT @vStyle = ISNULL((SELECT ID FROM VestStyle WHERE Name = @p_Style), 1);
+    SELECT @vType = ISNULL((SELECT ID FROM VestType WHERE Name = @p_vType), 1);
+    SELECT @vLapel = ISNULL((SELECT ID FROM VestLapel WHERE Name = @p_Lapel), 1);
+    SELECT @vEdge = ISNULL((SELECT ID FROM VestEdge WHERE Name = @p_Edge), 1);
+    SELECT @vBreastPocket = ISNULL((SELECT ID FROM VestBreastPocket WHERE Name = @p_BreastPocket), 1);
+    SELECT @vFrontPocket = ISNULL((SELECT ID FROM VestFrontPocket WHERE Name = @p_FrontPocket), 1);
+
+
+    
+    -- Retrieve Image
+    select ProductID, ImageFront as Front, ImageBack as Back
+    FROM Product 
+    WHERE FabricName = @p_Fabric AND ProductID IN (
+        SELECT vestId 
+        FROM Vest
+        WHERE Style = @vStyle AND Type = @vType
+            AND Lapel = @vLapel AND Edge = @vEdge
+            AND BreastPocket = @vBreastPocket AND FrontPocket = @vFrontPocket);
+
+    
+    IF @@ERROR <> 0
+    BEGIN
+        -- Raise an error if proc does not execute successfully
+        RAISERROR('An error occurred during procedure execution. Proc: USP_GetCustomJacket', 16, 1);
+        -- Optionally, you can log the error or take other actions
+    END;
+END;
+GO
+
+CREATE OR ALTER PROC USP_GetCustomPantsImage(
+    -- Fabric type
+    @p_Fabric VARCHAR(100),
+    -- Pants Component
+    @p_Pocket VARCHAR(100),
+    @p_Fit VARCHAR(100),
+    @p_Cuff VARCHAR(100),
+    @p_Fastening VARCHAR(100),
+    @p_Pleats VARCHAR(100)
+)
+AS
+BEGIN
+    DECLARE @pPocket INT;
+    DECLARE @pFit INT;
+    DECLARE @pCuff INT;
+    DECLARE @pFastening INT;
+    DECLARE @pPleats INT;
+
+    -- Retrieve IDs for each pants component based on their names
+    SELECT @pCuff = ISNULL((SELECT ID FROM PantsCuff WHERE Name = @p_Cuff), 1);
+    SELECT @pFit = ISNULL((SELECT ID FROM PantsFit WHERE Name = @p_Fit), 1);
+    SELECT @pPleats = ISNULL((SELECT ID FROM PantsPleats WHERE Name = @p_Pleats), 1);
+    SELECT @pFastening = ISNULL((SELECT ID FROM PantsFastening WHERE Name = @p_Fastening), 1);
+    SELECT @pPocket = ISNULL((SELECT ID FROM PantsPocket WHERE Name = @p_Pocket), 1);
+
+
+    
+        
+    -- Retrieve Image
+    select ProductID, ImageFront as Front, ImageBack as Back
+    FROM Product 
+    WHERE FabricName = @p_Fabric AND ProductID IN (
+        SELECT pantsId 
+        FROM Pants
+        WHERE Cuff = @pCuff
+            AND Fit = @pFit
+            AND Pleats = @pPleats
+            AND Fastening = @pFastening
+            AND Pocket = @pPocket
+    );
+
+    
+    IF @@ERROR <> 0
+    BEGIN
+        -- Raise an error if proc does not execute successfully
+        RAISERROR('An error occurred during procedure execution. Proc: USP_GetCustomJacket', 16, 1);
+        -- Optionally, you can log the error or take other actions
+    END;
+END;
+GO
+
+CREATE OR ALTER PROC USP_UpdateJacket(
+    @jacketId INT,
+
+    -- Jacket Component
+    @p_Style VARCHAR(100),
+    @p_Fit VARCHAR(100),
+    @p_Lapel VARCHAR(100),
+    @p_SleeveButton VARCHAR(100),
+    @p_BackStyle VARCHAR(100),
+    @p_BreastPocket VARCHAR(100),
+    @p_Pocket VARCHAR(100)
+)
+AS
+BEGIN
+    DECLARE @jStyle INT;
+    DECLARE @jFit INT;
+    DECLARE @jLapel INT;
+    DECLARE @jSleeveButton INT;
+    DECLARE @jPocket INT;
+    DECLARE @jBackStyle INT;
+    DECLARE @jBreastPocket INT;
+
+
+    -- Retrieve IDs for each jacket component based on their names
+    SELECT @jStyle = ISNULL((SELECT ID FROM JacketStyle WHERE Name = @p_Style), 1);
+    SELECT @jFit = ISNULL((SELECT ID FROM JacketFit WHERE Name = @p_Fit), 1);
+    SELECT @jLapel = ISNULL((SELECT ID FROM JacketLapel WHERE Name = @p_Lapel), 1);
+    SELECT @jSleeveButton = ISNULL((SELECT ID FROM JacketSleeveButton WHERE Name = @p_SleeveButton), 1);
+    SELECT @jPocket = ISNULL((SELECT ID FROM JacketPocket WHERE Name = @p_Pocket), 1);
+    SELECT @jBackStyle = ISNULL((SELECT ID FROM JacketBackStyle WHERE Name = @p_BackStyle), 1);
+    SELECT @jBreastPocket = ISNULL((SELECT ID FROM JacketBreastPocket WHERE Name = @p_BreastPocket), 1);
+
+
+    -- Update jacket
+    UPDATE Jacket
+    SET Style = @jStyle, Fit = @jFit, Lapel = @jLapel,
+        SleeveButton = @jSleeveButton, Pocket = @jPocket,
+        BackStyle = @jBackStyle, BreastPocket = @jBreastPocket
+    WHERE JacketID = @jacketId;
+
+    
+    IF @@ERROR <> 0
+    BEGIN
+        -- Raise an error if proc does not execute successfully
+        RAISERROR('An error occurred during procedure execution. Proc: USP_UpdateJacket', 16, 1);
+        -- Optionally, you can log the error or take other actions
+    END;
+END;
+GO
+
+--dbo.USP_GetDetailJacketByID
+CREATE OR ALTER PROC USP_UpdateVest(
+    @vestId INT,
+
+    -- Vest Component
+    @p_Style VARCHAR(100),
+    @p_vType VARCHAR(100),
+    @p_Lapel VARCHAR(100),
+    @p_Edge VARCHAR(100),
+    @p_BreastPocket VARCHAR(100),
+    @p_FrontPocket VARCHAR(100)
+)
+AS
+BEGIN
+    DECLARE @vStyle INT;
+    DECLARE @vType INT;
+    DECLARE @vLapel INT;
+    DECLARE @vEdge INT;
+    DECLARE @vBreastPocket INT;
+    DECLARE @vFrontPocket INT;
+
+    -- Retrieve IDs for each vest component based on their names
+    SELECT @vStyle = ISNULL((SELECT ID FROM VestStyle WHERE Name = @p_Style), 1);
+    SELECT @vType = ISNULL((SELECT ID FROM VestType WHERE Name = @p_vType), 1);
+    SELECT @vLapel = ISNULL((SELECT ID FROM VestLapel WHERE Name = @p_Lapel), 1);
+    SELECT @vEdge = ISNULL((SELECT ID FROM VestEdge WHERE Name = @p_Edge), 1);
+    SELECT @vBreastPocket = ISNULL((SELECT ID FROM VestBreastPocket WHERE Name = @p_BreastPocket), 1);
+    SELECT @vFrontPocket = ISNULL((SELECT ID FROM VestFrontPocket WHERE Name = @p_FrontPocket), 1);
+
+    -- Update vest
+    UPDATE Vest
+    SET Style = @vStyle,
+        Type = @vType,
+        Lapel = @vLapel,
+        Edge = @vEdge,
+        BreastPocket = @vBreastPocket,
+        FrontPocket = @vFrontPocket
+    WHERE vestId = @vestId
+
+
+    
+    IF @@ERROR <> 0
+    BEGIN
+        -- Raise an error if proc does not execute successfully
+        RAISERROR('An error occurred during procedure execution. Proc: USP_UpdateVest', 16, 1);
+        -- Optionally, you can log the error or take other actions
+    END;
+
+    return 0;
+END;
+GO
+
+-- TO update
+CREATE OR ALTER PROC USP_UpdatePants(
+    @pantsId INT,
+
+    -- Pants Component
+    @p_Pocket VARCHAR(100),
+    @p_Fit VARCHAR(100),
+    @p_Cuff VARCHAR(100),
+    @p_Fastening VARCHAR(100),
+    @p_Pleats VARCHAR(100)
+)
+AS
+BEGIN
+    DECLARE @pPocket INT;
+    DECLARE @pFit INT;
+    DECLARE @pCuff INT;
+    DECLARE @pFastening INT;
+    DECLARE @pPleats INT;
+
+    -- Retrieve IDs for each pants component based on their names
+    SELECT @pCuff = ISNULL((SELECT ID FROM PantsCuff WHERE Name = @p_Cuff), 1);
+    SELECT @pFit = ISNULL((SELECT ID FROM PantsFit WHERE Name = @p_Fit), 1);
+    SELECT @pPleats = ISNULL((SELECT ID FROM PantsPleats WHERE Name = @p_Pleats), 1);
+    SELECT @pFastening = ISNULL((SELECT ID FROM PantsFastening WHERE Name = @p_Fastening), 1);
+    SELECT @pPocket = ISNULL((SELECT ID FROM PantsPocket WHERE Name = @p_Pocket), 1);
+
+    -- Update Pants
+    UPDATE Pants
+    SET Cuff = @pCuff,
+        Fit = @pFit,
+        Pleats = @pPleats,
+        Fastening = @pFastening,
+        Pocket = @pPocket
+    WHERE pantsId = @pantsId
+
+
+    
+    IF @@ERROR <> 0
+    BEGIN
+        -- Raise an error if proc does not execute successfully
+        RAISERROR('An error occurred during procedure execution. Proc: USP_UpdatePants', 16, 1);
+        -- Optionally, you can log the error or take other actions
+    END;
+
+        return 0;
+
+END;
+GO
+
+
 CREATE OR ALTER PROC USP_GetDetailJacketByID(
     @jacketId INT
 )
@@ -48,8 +354,12 @@ BEGIN
         RAISERROR('An error occurred during procedure execution. Proc: USP_GetDetailJacketByID', 16, 1);
         -- Optionally, you can log the error or take other actions
     END;
+
+        return 0;
+
 END;
 GO
+
 --dbo.USP_GetDetailPantsByID
 CREATE OR ALTER PROC USP_GetDetailPantsByID(
     @pantsId INT
@@ -147,7 +457,7 @@ GO
 
 CREATE OR ALTER PROCEDURE usp_InsertTies(
     @p_Price FLOAT,
-    @p_Image VARCHAR(100),
+    @p_ImageFront VARCHAR(255),
     @p_Name VARCHAR(100),
     @p_Description TEXT,
     @p_Discount TINYINT,
@@ -158,7 +468,10 @@ CREATE OR ALTER PROCEDURE usp_InsertTies(
     
     -- Tie Component
     @p_Size DECIMAL(10, 2),
-    @p_Style NVARCHAR(100)
+    @p_Style NVARCHAR(100),
+    -- for image back
+    @p_ImageBack VARCHAR(255)
+
 )
 AS
 BEGIN
@@ -171,8 +484,8 @@ BEGIN
 
     -- Insert into the Product table
     SELECT @aFabricID = FabricId FROM Fabric WHERE FabricName = @p_FabricName;
-    INSERT INTO Product (ProductID, Price, Image, Name, Description, Discount, Fabric, FabricName, color, Type)
-    VALUES (@newProductID, @p_Price, @p_Image, @p_Name, @p_Description, @p_Discount, @aFabricID, @p_FabricName, @p_color, @p_Type);
+    INSERT INTO Product (ProductID, Price, ImageFront, Name, Description, Discount, Fabric, FabricName, color, Type, ImageBack)
+    VALUES (@newProductID, @p_Price, @p_ImageFront, @p_Name, @p_Description, @p_Discount, @aFabricID, @p_FabricName, @p_color, @p_Type, @p_ImageBack);
 
     -- Insert into the Ties table
     INSERT INTO Ties (TiesID, size, style)

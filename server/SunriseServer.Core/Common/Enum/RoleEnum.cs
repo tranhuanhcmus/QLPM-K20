@@ -10,6 +10,7 @@
         Pants,
         Jacket,
         Vest,
-        Ties
+        Ties,
+        ALL
     }
 }
