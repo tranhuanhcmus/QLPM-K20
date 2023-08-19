@@ -1,4 +1,4 @@
-use [sunrise-silk];
+use tailormanagement;
 go
 /*
 test area

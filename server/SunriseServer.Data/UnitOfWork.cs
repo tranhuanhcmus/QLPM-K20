@@ -83,19 +83,6 @@ namespace SunriseServerData
         }
         #endregion
 
-        #region Order
-        private IOrderRepo _OrderRepo;
-        public IOrderRepo OrderRepo
-        {
-            get
-            {
-                if (_OrderRepo == null)
-                    _OrderRepo = new OrderRepo(_dataContext);
-                return _OrderRepo;
-            }
-        }
-        #endregion
-
         #region Product
         private IProductRepo _productRepo;
         public IProductRepo ProductRepo

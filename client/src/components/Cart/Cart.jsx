@@ -99,14 +99,11 @@ const Cart = ({ showCart }) => {
       {isShow && (
         <div className={styles.cart}>
           <div className={styles.head}>
-			<div className={styles.head_btn_cart}>
-				<i className="fi fi-rr-shopping-cart"></i>
-				<span>Your Cart</span>
-				
-			</div>
+            <i className="fi fi-rr-shopping-cart"></i>
+            <span>Your Cart</span>
             <button onClick={() => setShow(false)}>
-				<i className="fi fi-rs-circle-xmark"></i>
-			</button>
+              <i className="fi fi-rs-circle-xmark"></i>
+            </button>
           </div>
           <CartList data={data}/>
 		  <div className={styles.total}>

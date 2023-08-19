@@ -37,14 +37,5 @@ namespace SunriseServerData.Repositories
             var result = await _dataContext.Account.FromSqlInterpolated($"EXECUTE({builder.ToString()})").ToListAsync();
             return result.FirstOrDefault();
         }
-
-        public async Task<int> GetNextAccountIdAsync()
-        {
-            var result = await _dataContext.Set<MyProcedureResult>()
-                .FromSqlInterpolated($"DECLARE @Id INT;EXEC @Id = dbo.USP_GetNextColumnId 'Account', 'AccountID';SELECT @Id;")
-                .ToListAsync();
-
-            return (result.FirstOrDefault()).MyValue;
-        }
     }
 }

@@ -1,14 +1,15 @@
 ﻿USE master;
 go
 
-if DB_ID('sunrise-silk') IS NOT NULL
-	drop database [sunrise-silk];
+if DB_ID('TailorManagement') IS NOT NULL
+	drop database TailorManagement;
 GO
 
-create database [sunrise-silk];
+
+create database TailorManagement;
 go
 
-use [sunrise-silk];
+use TailorManagement;
 go
 -- Table Account
 Create table Account (
@@ -222,12 +223,12 @@ Create table PantsFastening (
 Create table Orders (
 	OrderId int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
     customer int,
-    Address nvarchar(300), -- character set utf8mb4,
-    TimeOrder date,
-    TimeDone date,
+    Address nvarchar(150), -- character set utf8mb4,
+    TimeOrder datetime,
     Status varchar(50),
+    TimeDone date,
     PaymentMethod varchar(100),
-    TotalPrice float
+    ToTalPrice float
 );
 
 -- -----------------------------------
@@ -236,7 +237,7 @@ Create table Orders (
 Create table OrderDetail (
 	Orders int,
     Product int,
-    Quantity int, -- NumberOfOrder
+    NumberOfOrder int,
     Price float
 );
 
@@ -557,15 +558,15 @@ ALTER TABLE BodyMeasurement
         
 -- Full text search
 --ALTER TABLE Product ADD FULLTEXT INDEX idx_name_description (Name, Description);
-USE [sunrise-silk];
+USE TailorManagement;
 GO
 EXEC sp_fulltext_database 'enable';
 GO
-CREATE FULLTEXT CATALOG [sunrise-silk] as default;
+CREATE FULLTEXT CATALOG TailorManagement as default;
 GO
 
 CREATE FULLTEXT INDEX ON Product (
     Name LANGUAGE 1033,
     DESCRIPTION LANGUAGE 1033
-) KEY INDEX PK_Product_ProductID ON [sunrise-silk];
+) KEY INDEX PK_Product_ProductID ON TailorManagement;
 GO

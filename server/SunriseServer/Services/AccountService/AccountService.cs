@@ -51,10 +51,5 @@ namespace SunriseServer.Services.AccountService
         {
             return await _unitOfWork.AccountRepo.GetByIdAsync(id);
         }
-
-        public async Task<int> GetNextAccountId()
-        {
-            return await _unitOfWork.AccountRepo.GetNextAccountIdAsync();
-        }
     }
 }

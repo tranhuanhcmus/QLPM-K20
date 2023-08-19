@@ -48,12 +48,6 @@ namespace SunriseServerData
 
             modelBuilder.Entity<TiesComponent>()
                 .HasNoKey().ToTable("TiesComponent", t => t.ExcludeFromMigrations());
-
-            modelBuilder.Entity<OrderDetail>()
-                .HasNoKey().ToTable("OrderDetail", t => t.ExcludeFromMigrations());
-
-            modelBuilder.Entity<Order>()
-                .HasKey(x => new { x.OrderId });
         }
 
         public DbSet<Account> Account { get; set; }
@@ -65,6 +59,5 @@ namespace SunriseServerData
         public DbSet<Pants> Pants { get; set; }
         public DbSet<BookingAccount> Booking_Account { get; set; }
         public DbSet<Cart> Cart { get; set; }
-        public DbSet<Order> Order { get; set; }
     }
 }

@@ -24,20 +24,10 @@ $totalCart-height:100px;
 	height: $headCart-height;
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	gap: 20px;
+
 	button {
 		margin-left: auto;
-		i{
-			font-size: larger;
-		}
-	}
-	.head_btn_cart{
-		display: flex;
-		gap: 20px;
-		
-		span{
-			font-weight: 600;
-		}
 	}
 }
 
@@ -69,8 +59,6 @@ $totalCart-height:100px;
 	display: flex;
 	align-items: center;
 	transition: all .2s ease;
-	align-items: flex-start;
-	
 	
 	img {
 		height: 100%;
@@ -98,20 +86,15 @@ $totalCart-height:100px;
 .item__info {
 	flex: 1;
 	margin-left: 18px;
-	height: 100px;
 }
 
 .item__price {
+	
 	margin-top: 12px;
-	display: flex;
-	height: 70%;
-	flex-direction: column;
-	justify-content: space-around;
 }
 
 .item__price__value {
 	color: var(--grey);
-	font-size: medium;
 
 	&::before {
 		content: "$";
@@ -124,7 +107,7 @@ $totalCart-height:100px;
 	display: flex;
 	align-items: center;
 	&::before {
-		// content: "amount: ";
+		content: "amount: ";
 		margin-right: 8px;
 	}
 }
@@ -132,14 +115,16 @@ $totalCart-height:100px;
 .item__info__name {
 	color: var(--primary);
 	font-weight: bold;
-	font-size: 0.8rem;
+	font-size: 1.2rem;
 	cursor: pointer;
 }
 
 .actions {
-	margin-right: 20px;
+	display: flex;
+	align-items: center;
+	gap: 8px;
 	button{
-		
+		margin-right: 10%;
 		i {
 			font-size: 1.2rem;
 		}
@@ -149,11 +134,12 @@ $totalCart-height:100px;
 
 .actions__change {
 	display: flex;
+	flex-direction: column;
 	button:first-child i {
-		color: #009331;
+		color: #50c878;
 	}
 	button:last-child i {
-		color: #910018;
+		color: #d21f3c;
 	}
 }
 
@@ -179,7 +165,6 @@ button {
 	span{
 		cursor: pointer;
 		text-decoration: underline;
-		font-size: medium;
 	}
 	button{
 		transition: all .2s ease;
@@ -200,36 +185,20 @@ button {
 	
 	p{	
 		display: flex;
-		justify-content: flex-end;
+		justify-content: space-between;
 		align-items: center;
-		font-size: medium;
-		margin: 5px 0px;
 		b{
-			font-weight: 400;
-			// color: var(--primary-light);
-			color: gray;
+			font-weight: 500;
+			color: var(--primary-light);
 		}
-	
 		span{
 			margin-left: auto;
 			&::before {
 				content: "$";
 			}
-			color: gray;
-		}
-	}
-	p:last-child{
-		b{
-			font-weight: 700;
-			color: black;
-		}
-		span{
-			font-weight: 700;
-			color: var(--primary-light);
 		}
 	}
 }
-
 .emptyCart{
 	margin:auto;
 	width: 100%;

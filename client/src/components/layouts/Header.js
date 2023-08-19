@@ -9,7 +9,7 @@ import Cart from './../Cart/Cart';
 
 const Header = () => {
 
-    const [showCart,setShowCart]=React.useState(false)
+    const [showCart,setShowCart]=React.useState(true)
 
     return (
         <header className=' header'  >
