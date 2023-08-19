@@ -7,6 +7,7 @@ namespace SunriseServerCore.Models
         // basic info
         public int ProductID { get; set; }
         public double Price { get; set; } = 0;
+        public string Image {get; set; } 
         public string ImageFront { get; set; }
         public string ImageBack { get; set; }
 

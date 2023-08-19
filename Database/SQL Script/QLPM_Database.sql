@@ -46,9 +46,11 @@ Create table BodyMeasurement (
     Point int
 );
 
+-- Add a new Table
 Create table Ties (
-	ID int PRIMARY key,
-	size DECIMAL(10, 2)
+	TiesID int PRIMARY key,
+	size DECIMAL(10, 2),
+	style NVARCHAR(100)
 );
 -- --------------------------
 -- << 14. Table Product >>
@@ -56,14 +58,16 @@ Create table Ties (
 Create table Product (
 	ProductID int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
     Price FLOAT,
-    Image varchar(100),
+    Image varchar(255),
     Name nvarchar(100), -- character set utf8mb4,
     Description ntext, -- character set utf8mb4,
     Discount float,
     Fabric int,
     FabricName nvarchar(100), -- character set utf8mb4,
     color varchar(50),
-    Type varchar(20)
+    Type varchar(20),
+	ImageFront varchar(255),
+    ImageBack varchar(255)
 );
 -- --------------------------
 -- << 3. Tables for Jacket >>
@@ -554,7 +558,13 @@ ALTER TABLE BodyMeasurement
 		FOREIGN KEY (Customer) REFERENCES Account (AccountID)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE;
-        
+
+Alter table Ties 
+ add CONSTRAINT FK_T_Pt
+		FOREIGN KEY (TiesID) REFERENCES Product (ProductID)
+		ON DELETE CASCADE
+        ON UPDATE CASCADE;
+go
 -- Full text search
 --ALTER TABLE Product ADD FULLTEXT INDEX idx_name_description (Name, Description);
 USE [sunrise-silk];

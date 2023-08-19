@@ -10,6 +10,9 @@ namespace SunriseServerCore.Dtos
         public int Fabric { get; set; }
         public string FabricName { get; set; }
         public string Color { get; set; }
+        public string ImageFront { get; set; }
+        public string ImageBack { get; set; }
+
 
         public readonly string Type ;
         public AddProductDto(string type)
