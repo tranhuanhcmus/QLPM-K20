@@ -3,6 +3,7 @@ using SunriseServerData;
 using SunriseServerCore.Models;
 using System.Security.Claims;
 using SunriseServerCore.Dtos.Cart;
+using SunriseServerCore.Dtos;
 
 namespace SunriseServer.Services.CartService
 {
@@ -22,9 +23,21 @@ namespace SunriseServer.Services.CartService
             return result;
         }
 
-        public async Task<List<GetRawCartDto>> GetCart(int accountId)
+        public async Task<List<ProductWithQuantityDto>> GetCart(int accountId)
         {
-            return await _unitOfWork.CartRepo.GetCart(accountId);
+            var prodIdList = await _unitOfWork.CartRepo.GetCart(accountId);
+            var prodList = await _unitOfWork.CartRepo.GetListProduct(string.Join(',', prodIdList.Select(x => x.Id)));
+            
+            var result = new List<ProductWithQuantityDto>();
+            for (int i = 0; i < prodIdList.Count; i++)
+            {
+                result.Add(new ProductWithQuantityDto() {
+                    Item = prodList[i],
+                    Quantity = prodIdList[i].Quantity
+                });
+            }
+
+            return result;
         }
 
         public async Task<int> DeleteProductInCart(DeleteProductCartDto deleteDto)

@@ -1,4 +1,5 @@
 ﻿global using Microsoft.EntityFrameworkCore;
+using SunriseServerCore.Dtos;
 using SunriseServerCore.Dtos.Cart;
 using SunriseServerCore.Dtos;
 
@@ -48,6 +49,9 @@ namespace SunriseServerData
 
             modelBuilder.Entity<TiesComponent>()
                 .HasNoKey().ToTable("TiesComponent", t => t.ExcludeFromMigrations());
+
+            modelBuilder.Entity<ProductDto>()
+                .HasNoKey().ToTable("ProductDto", t => t.ExcludeFromMigrations());
 
             modelBuilder.Entity<OrderDetail>()
                 .HasNoKey().ToTable("OrderDetail", t => t.ExcludeFromMigrations());

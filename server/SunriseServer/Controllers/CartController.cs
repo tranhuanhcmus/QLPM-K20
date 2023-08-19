@@ -26,36 +26,22 @@ namespace SunriseServer.Controllers
         }
 
         [HttpGet(""), Authorize(Roles = GlobalConstant.User)]
-        public async Task<ActionResult<List<GetCartDto>>> GetCart()
+        public async Task<ActionResult<List<ProductWithQuantityDto>>> GetCart()
         {
-            // try
-            // {
+            try
+            {
                 var userId = Convert.ToInt32(_httpContext.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
                 var result = await _cartService.GetCart(userId);
-
-                var result2 = result.ToList();
-                var finalResult = new List<GetCartDto>();
-                foreach (var item in result2) // note: chuyen data tu cac attribute vao 1 obj moi
-                {
-                    var myItem = new ProductDto() {};
-                    Console.WriteLine("Vo co lo: ", item.Name, item.Image);
-                    SetPropValueByReflection.AddYToX(myItem, item);
-                    var tempDto = new GetCartDto() {
-                        Item = myItem,
-                        Quantity = item.Quantity
-                    };
-                    finalResult.Append(tempDto);
-                }
 
                 if (result.Count() == 0)
                     return NotFound("No item in cart");
 
                 return Ok(result);
-            // }
-            // catch (Exception e)
-            // {
-            //     return BadRequest($"Cannot find cart {e.Message}");
-            // }
+            }
+            catch (Exception e)
+            {
+                return BadRequest($"Cannot find cart {e.Message}");
+            }
         }
 
         [HttpPost(""), Authorize(Roles = GlobalConstant.User)]

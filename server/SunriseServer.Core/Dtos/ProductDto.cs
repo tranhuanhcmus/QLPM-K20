@@ -14,4 +14,10 @@ namespace SunriseServerCore.Dtos
         public string Color { get; set; } = string.Empty;
         public string Type { get; set; } = string.Empty;
     }
+
+    public class ProductWithQuantityDto
+    {
+        public ProductDto Item { get; set; }
+        public int Quantity { get; set; }
+    }
 }

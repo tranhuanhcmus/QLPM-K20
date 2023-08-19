@@ -42,7 +42,7 @@ Create table BodyMeasurement (
 	Thigh DECIMAL(10, 2),
 	PantsLength DECIMAL(10, 2),
 	PantsCircumference DECIMAL(10, 2),
-    weight DECIMAL(10, 2),
+    Weight DECIMAL(10, 2),
     Point int
 );
 

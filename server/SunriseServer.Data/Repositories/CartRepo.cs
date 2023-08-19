@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using SunriseServer.Common.Helper;
 using SunriseServerCore.Dtos.Cart;
 using SunriseServerCore.Dtos;
+using System.Security.Cryptography.X509Certificates;
+
 
 namespace SunriseServerData.Repositories
 {
@@ -19,8 +21,6 @@ namespace SunriseServerData.Repositories
         public CartRepo(DataContext dataContext) {
             _dataContext = dataContext;
         }
-
-        // giỏ hàng: thêm sp, giảm sl, xóa sp, clear giỏ hàng (clear all), lấy giỏ hàng, cập nhật giỏ hàng (put) (Cường)
 
         public async Task<int> AddToCartAsync(AddToCartDto cartDto)
         {
@@ -52,7 +52,16 @@ namespace SunriseServerData.Repositories
             
             return result;
         }
-
+        
+        // USP_GetProd
+        public async Task<List<ProductDto>> GetListProduct(string productId)
+        {
+            var prod = await _dataContext.Set<ProductDto>()
+                .FromSqlInterpolated($"EXEC USP_GetProd {productId};")
+                .ToListAsync();
+            
+            return prod;
+        }
 
         public async Task<List<GetRawCartDto>> GetCart(int accountId)
         {
@@ -62,8 +71,6 @@ namespace SunriseServerData.Repositories
             var result = await _dataContext.Set<GetRawCartDto>()
                 .FromSqlInterpolated($"EXECUTE({builder.ToString()});")
                 .ToListAsync();
-            
-            Console.WriteLine("Vo co lo: ", result.FirstOrDefault().Name);
             
             return result;
         }
