@@ -46,6 +46,10 @@ namespace SunriseServer.Controllers
         [HttpGet("/Vest/GetImageCustom")]
         public async Task<ActionResult<ImageDto>> GetVestImageByCustom(string fabric,[FromQuery] VestComponent vest)
         {
+            if (string.IsNullOrWhiteSpace(fabric))
+                return BadRequest("Please ennter the Fabric ");
+            vest.AutoFillEmpty();
+
             var result = await _vestService.GetImageByCustom(fabric, vest);
             if (result is null)
                 return NotFound("Image not found");

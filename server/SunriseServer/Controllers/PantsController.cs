@@ -67,6 +67,10 @@ namespace SunriseServer.Controllers
         [HttpGet("/Pants/GetImageCustom")]
         public async Task<ActionResult<ImageDto>> GetPantsImageByCustom(string fabric,[FromQuery] PantsComponent pants)
         {
+            if (string.IsNullOrWhiteSpace(fabric))
+                return BadRequest("Please ennter the Fabric ");
+            pants.AutoFillEmpty();
+
             var result = await _pantsService.GetImageByCustom(fabric, pants);
             if (result is null)
                 return NotFound("Image not found");
