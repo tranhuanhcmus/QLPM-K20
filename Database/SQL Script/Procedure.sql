@@ -1,4 +1,4 @@
-﻿use TailorManagement;
+﻿use [sunrise-silk];
 GO
 
 
@@ -235,6 +235,13 @@ AS
 	WHERE Email = @Email
 GO
 
+CREATE OR ALTER PROC USP_GetAccountById
+	@Id NVARCHAR(200)
+AS
+	SELECT * FROM Account
+	WHERE AccountID = @Id
+GO
+
 
 GO
 CREATE OR ALTER PROCEDURE USP_AddToCart (
@@ -348,6 +355,190 @@ BEGIN
 
 	BEGIN CATCH
 		PRINT N'Lỗi thay đổi số lượng sản phẩm giỏ hàng.'
+		ROLLBACK;
+		RETURN -1;
+	END CATCH
+
+	COMMIT;
+	RETURN 0;
+END
+GO
+
+
+GO
+CREATE OR ALTER PROCEDURE USP_GetOrderById (
+	@OrderId INT) AS
+BEGIN
+	SELECT 
+		od.OrderId,
+		od.customer as AccountId,
+		od.Address,
+		od.TimeOrder,
+		od.TimeDone,
+		od.Status,
+		od.TotalPrice,
+		od.PaymentMethod
+	FROM Orders od WHERE od.OrderId = @OrderId;
+END
+GO
+
+GO
+CREATE OR ALTER PROCEDURE USP_GetOrderDetailById (
+	@OrderId INT) AS
+BEGIN
+	SELECT 
+		od.Orders as OrderId,
+		od.Product as ProductId,
+		od.Quantity,
+		od.Price
+	FROM OrderDetail od WHERE od.Orders = @OrderId;
+END
+GO
+
+-- Create or Alter Procedures
+
+
+CREATE OR ALTER PROCEDURE USP_CreateOrder
+    @AccountId INT,
+    @PaymentMethod NVARCHAR(100),
+    @TimeOrder DATE,
+    @TimeDone DATE,
+    @Status NVARCHAR(50),
+    @Address NVARCHAR(300)
+AS
+BEGIN
+	DECLARE @OrderId INT;
+
+	---- Check if PaymentMethod exists
+	--IF (@PaymentMethod NOT IN ('MONEY', 'CARD'))
+	--BEGIN
+	--	RAISERROR(N'Phương thức thanh toán không hợp lệ.', 11, 1)
+	--	RETURN -2;
+	--END
+
+	BEGIN TRAN
+
+	BEGIN TRY
+		EXEC @OrderId = USP_GetNextColumnId 'Orders', 'OrderId';
+
+		INSERT INTO Orders (OrderId, customer, PaymentMethod, TimeOrder, TimeDone, Status, Address, TotalPrice)
+		VALUES (@OrderId, @AccountId, @PaymentMethod, @TimeOrder, @TimeDone, @Status, @Address, 0);
+
+	END TRY
+
+	BEGIN CATCH
+		RAISERROR(N'Không thể tạo đơn đặt hàng.', 11, 1)
+		ROLLBACK;
+		RETURN -1;
+	END CATCH
+
+	COMMIT;
+	RETURN @OrderId;
+END
+GO
+
+CREATE OR ALTER PROCEDURE USP_AddProdToOrder
+    @OrderId INT,
+    @ProductId INT,
+    @Quantity INT
+AS
+BEGIN
+	DECLARE @Price FLOAT;
+	SELECT @Price = prd.Price FROM Product prd WHERE prd.ProductID = @ProductId;
+	IF (@Price IS NULL)
+	BEGIN
+		RAISERROR(N'Sản phẩm không hợp lệ.', 11, 1)
+        RETURN -2;
+	END
+
+	BEGIN TRAN
+
+	BEGIN TRY
+		-- Update totalPrice and orderDetail.Price based on Product
+		INSERT INTO OrderDetail(Orders, Product, Quantity, Price)
+		VALUES (@OrderId, @ProductId, @Quantity, @Price * @Quantity);
+
+		-- Update totalPrice
+		UPDATE Orders SET TotalPrice = TotalPrice + (@Price * @Quantity)
+		WHERE OrderId = @OrderId;
+	END TRY
+
+	BEGIN CATCH
+		RAISERROR(N'Không thể thêm sản phẩm vào đơn.', 11, 1)
+		ROLLBACK;
+		RETURN -1;
+	END CATCH
+
+	COMMIT;
+	RETURN 0;
+END
+GO
+
+GO
+CREATE OR ALTER PROCEDURE USP_UpdateOrderUser
+    @OrderId INT,
+    @AccountId INT,
+    @Address NVARCHAR(150),
+    @PaymentMethod NVARCHAR(100)
+AS
+BEGIN
+    ---- Check if PaymentMethod exists
+	--IF (@PaymentMethod NOT IN ('MONEY', 'CARD'))
+	--BEGIN
+	--	RAISERROR(N'Phương thức thanh toán không hợp lệ.', 11, 1)
+	--	RETURN -2;
+	--END
+
+	IF NOT EXISTS (SELECT OrderId FROM Orders WHERE OrderId = @OrderId AND Customer = @AccountId)
+	BEGIN
+		RAISERROR(N'Tài khoản không sỡ hữu đơn này.', 11, 1)
+        RETURN -2;
+	END
+	
+	BEGIN TRAN
+
+	BEGIN TRY
+		-- Update Orders table
+		UPDATE Orders
+		SET customer = @AccountId,
+			PaymentMethod = @PaymentMethod,
+			Address = @Address
+		WHERE OrderId = @OrderId;
+
+		-- Delete existing OrderDetail records for the order
+		DELETE FROM OrderDetail WHERE Orders = @OrderId;
+	END TRY
+
+	BEGIN CATCH
+		RAISERROR(N'Không thể cập nhật đơn.', 11, 1)
+		ROLLBACK;
+		RETURN -1;
+	END CATCH
+
+	COMMIT;
+	RETURN @OrderId;
+END
+GO
+
+CREATE OR ALTER PROCEDURE DeleteOrder
+	@AccountId INT,
+    @OrderId INT
+AS
+BEGIN
+	IF NOT EXISTS (SELECT OrderId FROM Orders WHERE OrderId = @OrderId AND Customer = @AccountId)
+	BEGIN
+		RAISERROR(N'Tài khoản không sỡ hữu đơn này.', 11, 1)
+        RETURN -2;
+	END
+
+	BEGIN TRAN
+
+	BEGIN TRY
+		DELETE FROM Orders WHERE OrderId = @OrderId;
+	END TRY
+
+	BEGIN CATCH
+		RAISERROR(N'Không xóa đơn.', 11, 1)
 		ROLLBACK;
 		RETURN -1;
 	END CATCH

@@ -42,7 +42,7 @@ using Swashbuckle.AspNetCore.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using SunriseServer.Services.CartService;
-
+using SunriseServer.Services.OrderService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,6 +55,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IJacketService, JacketService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IVestService,VestService>();
 builder.Services.AddScoped<IPantsService, PantsService>();
 builder.Services.AddScoped<IProductService, ProductService>();
@@ -93,7 +94,7 @@ builder.Services.AddCors(options => options.AddPolicy(name: "NgOrigins",
 
 builder.Services.AddServicesData();
 builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("StripeSettings"));
-builder.Services.AddUnitOfWork(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Sunrise")));
+builder.Services.AddUnitOfWork(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AZURE_CONNECTION_STRING")));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

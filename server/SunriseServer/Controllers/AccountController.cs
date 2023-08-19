@@ -6,7 +6,7 @@ using SunriseServer.Services.AccountService;
 namespace SunriseServer.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/account")]
 
     // inheritance from abtract class
     public class AccountController : ControllerBase
@@ -33,7 +33,7 @@ namespace SunriseServer.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{username}"), Authorize(Roles = GlobalConstant.User)]
+        [HttpGet("username"), Authorize(Roles = GlobalConstant.User)]
         public async Task<ActionResult<Account>> GetAccountByUsername(string username)
         {
             var result =  await _accountService.GetByUsername(username);
