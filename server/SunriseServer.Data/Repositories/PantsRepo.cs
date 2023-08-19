@@ -140,7 +140,9 @@ namespace SunriseServerData.Repositories
                 cmd.Connection = _dataContext.Database.GetDbConnection();
 
                 cmd.Parameters.Add(new SqlParameter("@p_Price", SqlDbType.Float) { Value = ap.Price });
-                cmd.Parameters.Add(new SqlParameter("@p_Image", SqlDbType.VarChar, 100) { Value = ap.Image });
+                cmd.Parameters.Add(new SqlParameter("@p_Image", SqlDbType.VarChar, 255) { Value = ap.Image });
+                cmd.Parameters.Add(new SqlParameter("@p_ImageFront", SqlDbType.VarChar, 255) { Value = ap.Image });
+                cmd.Parameters.Add(new SqlParameter("@p_ImageBack", SqlDbType.VarChar, 255) { Value = ap.Image });
                 cmd.Parameters.Add(new SqlParameter("@p_Name", SqlDbType.VarChar, 100) { Value = ap.Name });
                 cmd.Parameters.Add(new SqlParameter("@p_Description", SqlDbType.Text) { Value = ap.Description });
                 cmd.Parameters.Add(new SqlParameter("@p_Discount", SqlDbType.TinyInt) { Value = ap.Discount });
