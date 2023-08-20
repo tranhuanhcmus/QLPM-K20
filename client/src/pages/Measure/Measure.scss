@@ -39,7 +39,7 @@ $primary-color: #aeb10a;
     }
 
     .measure-body {
-        @include dgrid(5% 30% 40% 25%, auto);
+        @include dgrid(10% 30% 35% 25%, auto);
         width: 100vw;
 
         .measure__filter--mn {
@@ -51,9 +51,23 @@ $primary-color: #aeb10a;
 
             .measure__filter--it {
                 p {
+                    text-transform: uppercase;
                     font-weight: 600;
-                    font-size: small;
+                    font-size: 1.2rem;
                     color: gray;
+                }
+                ul{
+                    font-weight: 400;
+                    font-size: 1rem;
+                    color: gray;
+                    li{
+                        margin: 8px;
+                        margin-left: 1.2rem;
+                        text-align: left;
+                        &:hover{
+                            color: var(--primary);
+                        }
+                    }
                 }
             }
 
@@ -74,6 +88,17 @@ $primary-color: #aeb10a;
                 cursor: pointer;
                 max-height: 120px;
                 max-width: 120px;
+            }
+            .measure__choose--it{
+                &>div{
+                    display: flex;
+                    justify-content: center;
+                }
+                p{
+                    margin: 8px auto;
+                    font-size: small;
+                    text-align: center;
+                }
             }
         }
     }
