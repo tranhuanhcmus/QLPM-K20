@@ -42,7 +42,6 @@
 
 .item__price__value {
 	color: var(--grey);
-
 	&::before {
 		content: "$";
 	}
