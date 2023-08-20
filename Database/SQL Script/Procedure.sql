@@ -82,8 +82,8 @@ BEGIN
 
     -- Insert into the Product table
 	select @aFabricID = FabricId from Fabric where FabricName = @p_FabricName;
-    INSERT INTO Product (ProductID, Price, Image, Name, Description, Discount, Fabric, FabricName, color, Type)
-    VALUES (@newProductID, @p_Price, @p_Image, @p_Name, @p_Description, @p_Discount, @aFabricID, @p_FabricName, @p_color, @p_Type);
+    INSERT INTO Product (ProductID, Price, Image, Name, Description, Discount, Fabric, FabricName, color, Type,ImageFront, ImageBack)
+    VALUES (@newProductID, @p_Price, @p_Image, @p_Name, @p_Description, @p_Discount, @aFabricID, @p_FabricName, @p_color, @p_Type,@p_ImageFront, @p_ImageBack);
 
     -- Retrieve IDs for each jacket component based on their names
     SELECT @jStyle = ID FROM JacketStyle WHERE Name = @p_Style;
@@ -143,9 +143,8 @@ BEGIN
 
     -- Insert into the Product table
 	select @aFabricID = FabricId from Fabric where FabricName = @p_FabricName;
-    INSERT INTO Product (ProductID, Price, Image, Name, Description, Discount, Fabric, FabricName, color, Type)
-    VALUES (@newProductID, @p_Price, @p_Image, @p_Name, @p_Description, @p_Discount, @aFabricID, @p_FabricName, @p_color, @p_Type);
-
+    INSERT INTO Product (ProductID, Price, Image, Name, Description, Discount, Fabric, FabricName, color, Type,ImageFront, ImageBack)
+    VALUES (@newProductID, @p_Price, @p_Image, @p_Name, @p_Description, @p_Discount, @aFabricID, @p_FabricName, @p_color, @p_Type,@p_ImageFront, @p_ImageBack);
 
     -- Retrieve IDs for each vest component based on their names
     SELECT @vStyle = ID FROM VestStyle WHERE Name = @p_Style;
@@ -204,8 +203,8 @@ BEGIN
 
     -- Insert into the Product table
     select @aFabricID = FabricId from Fabric where FabricName = @p_FabricName;
-    INSERT INTO Product (ProductID, Price, Image, Name, Description, Discount, Fabric, FabricName, color, Type)
-    VALUES (@newProductID, @p_Price, @p_Image, @p_Name, @p_Description, @p_Discount, @aFabricID, @p_FabricName, @p_color, @p_Type);
+    INSERT INTO Product (ProductID, Price, Image, Name, Description, Discount, Fabric, FabricName, color, Type,ImageFront, ImageBack)
+    VALUES (@newProductID, @p_Price, @p_Image, @p_Name, @p_Description, @p_Discount, @aFabricID, @p_FabricName, @p_color, @p_Type,@p_ImageFront, @p_ImageBack);
 
     -- Retrieve IDs for each jacket component based on their names
     SELECT @pCuff = ID FROM PantsCuff WHERE Name = @p_Cuff;
