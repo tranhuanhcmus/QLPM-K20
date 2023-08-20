@@ -16,7 +16,7 @@ export class OrderService extends Services {
   getShippingUrl = "/order/get-shipping";
   getTaxUrl = "/order/get-tax";
   getCouponUrl = "/order/get-coupon";
-  updateOrderUrl = "/order/get-update-order";
+  updateOrderUrl = "/order";
 
   getShipping = async (params) => {
     this.abortController = new AbortController();
@@ -107,6 +107,7 @@ export class OrderService extends Services {
   createOrder = async (params) => {
     this.abortController = new AbortController();
     try {
+      console.log(params);
       const response = await this.fetchApi({
         method: "POST",
         url: this.updateOrderUrl,
@@ -116,10 +117,12 @@ export class OrderService extends Services {
           Authorization: `Bearer ${params.accessToken}`,
         },
         signal: this.abortController.signal,
-        transformResponse: (res) => res,
+        transformResponse: (res) => res.url,
+        isProduction: true,
       });
       return response;
     } catch (error) {
+      console.log("ERROR: ", error);
       if (this.isCancel(error)) {
         // Handle other errors
         throw error;

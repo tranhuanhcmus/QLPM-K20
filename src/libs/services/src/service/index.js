@@ -41,6 +41,7 @@ export class Services {
       headers,
       signal,
     };
+
     const response = await (!isProduction
       ? this.axios(mockParams)
       : this.productionAxios(mockParams));

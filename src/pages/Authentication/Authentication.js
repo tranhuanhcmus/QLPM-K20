@@ -2,13 +2,11 @@ import React, { useEffect } from "react";
 import "../../assets/styles/authen.scss";
 import { useForm, Controller } from "react-hook-form";
 import { isValidEmail } from "../../utils/validators/email.validator";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import {
   useLogin,
   useRegister,
-  useGoogleLogin,
-  useFacebookLogin,
   useIsLogged,
   useLogout,
 } from "../../libs/business-logic/src/lib/auth/process/hooks";
@@ -21,6 +19,28 @@ import { URLS } from "../../constants/urls";
 import { useUserContext } from "../../libs/business-logic/src/lib/user/process/context";
 import { useUpdateUserDetail } from "../../libs/business-logic/src/lib/user/process/hooks";
 
+function convertStringValuesToNumber(obj) {
+  const convertedObj = {};
+
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      const value = obj[key];
+
+      if (typeof value === "string") {
+        const numberValue = parseFloat(value);
+        if (!isNaN(numberValue)) {
+          convertedObj[key] = numberValue;
+        } else {
+          convertedObj[key] = value;
+        }
+      } else {
+        convertedObj[key] = value;
+      }
+    }
+  }
+
+  return convertedObj;
+}
 const Authentication = () => {
   const { onUpdateUserDetail } = useUpdateUserDetail();
   const { state } = useUserContext();
@@ -40,10 +60,6 @@ const Authentication = () => {
   });
   const measureForm = useForm({
     defaultValues: {
-      name: undefined,
-      height: undefined,
-      weight: undefined,
-      age: undefined,
       chest: undefined,
       waist: undefined,
       hip: undefined,
@@ -62,8 +78,6 @@ const Authentication = () => {
 
   const { onLogin, isLoading: isLoginLoading } = useLogin();
   const { onRegister, isLoading: isRegisterLoading } = useRegister();
-  const { onGoogleLogin } = useGoogleLogin(); // Add isLoading if needed
-  const { onFacebookLogin } = useFacebookLogin(); // Add isLoading if needed
   const isLoggedIn = useIsLogged();
   const { onLogout } = useLogout();
   const navigate = useNavigate();
@@ -86,26 +100,6 @@ const Authentication = () => {
     } else navigate(URLS.HOME);
   };
 
-  const handleGoogleLogin = () => {
-    onGoogleLogin()
-      .then((message) => {
-        toast.success(message);
-        handleNavigate();
-      })
-      .catch((err) => {
-        toast.error(err.message);
-      });
-  };
-  const handleFacebookLogin = () => {
-    onFacebookLogin()
-      .then((message) => {
-        toast.success(message);
-        handleNavigate();
-      })
-      .catch((err) => {
-        toast.error(err.message);
-      });
-  };
   const handleLogin = ({ email, password, isRememberMe }) => {
     onLogin({
       isRememberMe,
@@ -151,7 +145,8 @@ const Authentication = () => {
     }
   };
   const onMeasureSubmit = (data) => {
-    onUpdateUserDetail({ userDetail: data })
+    const userDetail = convertStringValuesToNumber(data);
+    onUpdateUserDetail({ userDetail })
       .then((message) => toast.success(message))
       .catch((err) => toast.error(err.message));
   };
@@ -180,16 +175,6 @@ const Authentication = () => {
                   )}
                   noValidate
                 >
-                  <div className="login-form__social-wrapper">
-                    <button type="button" onClick={handleFacebookLogin}>
-                      <i className="fi fi-brands-facebook"></i>
-                      Login with Facebook
-                    </button>
-                    <button type="button" onClick={handleGoogleLogin}>
-                      <i className="fi fi-brands-google"></i>
-                      Login with Google
-                    </button>
-                  </div>
                   <div className="login-form__email">
                     <label htmlFor="login-email">Email address *</label>
                     <Controller
@@ -247,9 +232,6 @@ const Authentication = () => {
                       )}
                     />
                   </div>
-                  <Link to={`#`} className="login-form__lost-password">
-                    Lost your password?
-                  </Link>
                 </form>
               </div>
               <div className="form-wrapper__register-form-wrapper">
@@ -333,18 +315,6 @@ const Authentication = () => {
                   <button className="active">MY MEASURES</button>
                 </li>
                 <li>
-                  <button>Orders</button>
-                </li>
-                <li>
-                  <button>Downloads</button>
-                </li>
-                <li>
-                  <button>Addresses</button>
-                </li>
-                <li>
-                  <button>Account details</button>
-                </li>
-                <li>
                   <button onClick={onLogout}>Logout</button>
                 </li>
               </ul>
@@ -358,90 +328,6 @@ const Authentication = () => {
                   </h2>
                   <hr />
                 </section>
-                <div className="measures__row">
-                  <Controller
-                    name="name"
-                    control={measureForm.control}
-                    render={({ field }) => (
-                      <div className="row-input__wrapper">
-                        <div className="row__input">
-                          <input {...field} type="text" />
-                          <span
-                            className={
-                              measureForm.getValues("name")?.length
-                                ? ``
-                                : "active"
-                            }
-                          >
-                            Name
-                          </span>
-                        </div>
-                      </div>
-                    )}
-                  />
-                </div>
-                <div className="measures__row">
-                  <Controller
-                    name="height"
-                    control={measureForm.control}
-                    render={({ field }) => (
-                      <div className="row-input__wrapper">
-                        <div className="row__input">
-                          <input {...field} type="number" />
-                          <span
-                            className={
-                              !Number.isNaN(measureForm.getValues("height"))
-                                ? ``
-                                : "active"
-                            }
-                          >
-                            height(cm)
-                          </span>
-                        </div>
-                      </div>
-                    )}
-                  />
-                  <Controller
-                    name="weight"
-                    control={measureForm.control}
-                    render={({ field }) => (
-                      <div className="row-input__wrapper">
-                        <div className="row__input">
-                          <input {...field} type="number" />
-                          <span
-                            className={
-                              !Number.isNaN(measureForm.getValues("weight"))
-                                ? ``
-                                : "active"
-                            }
-                          >
-                            weight(kg)
-                          </span>
-                        </div>
-                      </div>
-                    )}
-                  />
-                  <Controller
-                    name="age"
-                    control={measureForm.control}
-                    render={({ field }) => (
-                      <div className="row-input__wrapper">
-                        <div className="row__input">
-                          <input {...field} type="number" />
-                          <span
-                            className={
-                              !Number.isNaN(measureForm.getValues("age"))
-                                ? ``
-                                : "active"
-                            }
-                          >
-                            age
-                          </span>
-                        </div>
-                      </div>
-                    )}
-                  />
-                </div>
                 <div className="measures__row">
                   <Controller
                     name="chest"

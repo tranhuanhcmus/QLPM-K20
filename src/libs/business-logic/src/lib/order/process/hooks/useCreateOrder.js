@@ -25,7 +25,7 @@ export const useCreateOrder = () => {
               type: "SET_ORDER",
               payload: needUpdateOrder,
             });
-            resolve(res.message);
+            resolve(res);
           })
           .catch((err) => {
             reject(err);

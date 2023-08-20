@@ -4,7 +4,7 @@ const getProductByCategorySchema = z.array(
   z.object({
     id: z.number(),
     price: z.number(),
-    image: z.string().url(),
+    image: z.string(),
     name: z.string(),
     description: z.string(),
     discount: z.number(),

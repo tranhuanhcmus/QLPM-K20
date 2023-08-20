@@ -5,11 +5,13 @@ import { URLS } from "../../../constants/urls";
 import Heading1 from "../../../components/common/text/Heading1/Heading";
 import { useInitOrder } from "../../../libs/business-logic/src/lib/order/process/hooks/useInitOrder";
 import { useGetOrder } from "../../../libs/business-logic/src/lib/order/process/hooks/useGetOrder";
+import { useGetTotal } from "../../../libs/business-logic/src/lib/order/process/hooks/useGetTotal";
 
 const PaymentInfoForm = () => {
   const { onInitOrder } = useInitOrder();
   const order = useGetOrder();
   const navigate = useNavigate();
+  const { subTotal } = useGetTotal();
   const onSubmit = (e) => {
     e.preventDefault();
 
@@ -20,10 +22,10 @@ const PaymentInfoForm = () => {
       address: e.target.ADDRESS.value,
       note: e.target.NOTE.value,
     };
-
     onInitOrder({
       ...order,
       address: formData.address,
+      totalPrice: Number(subTotal.toFixed(0)) * 100,
     });
 
     navigate(URLS.PAYMENT_DETAILS, { state: formData });
@@ -35,10 +37,8 @@ const PaymentInfoForm = () => {
 
   return (
     <>
-    <Heading1>user information</Heading1 >
-    <form className={styles.paymentForm} onSubmit={onSubmit}>
-
-      
+      <Heading1>user information</Heading1>
+      <form className={styles.paymentForm} onSubmit={onSubmit}>
         <div className={styles.form__field}>
           <label htmlFor="NAME">Name</label>
           <input type="text" id="NAME" required />

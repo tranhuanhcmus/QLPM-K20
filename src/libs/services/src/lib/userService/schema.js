@@ -1,27 +1,21 @@
 import z from "zod";
 
 const getUserDetailSchema = z.object({
-  name: z.string(),
-  height: z.number().optional(),
-  weight: z.number().optional(),
-  age: z.number().optional(),
-  chest: z.number().optional(),
-  waist: z.number().optional(),
-  hip: z.number().optional(),
-  neck: z.number().optional(),
-  armhole: z.number().optional(),
-  pants_circum: z.number().optional(),
-  shoulder: z.number().optional(),
-  sleeve_length: z.number().optional(),
-  jacket_length: z.number().optional(),
-  pants_waist: z.number().optional(),
-  crotch: z.number().optional(),
-  thigh: z.number().optional(),
-  pants_length: z.number().optional(),
+  chest: z.number(),
+  waist: z.number(),
+  hip: z.number(),
+  neck: z.number(),
+  armhole: z.number(),
+  pants_circum: z.number(),
+  shoulder: z.number(),
+  sleeve_length: z.number(),
+  jacket_length: z.number(),
+  pants_waist: z.number(),
+  crotch: z.number(),
+  thigh: z.number(),
+  pants_length: z.number(),
 });
 
-const updateUserDetailSchema = z.object({
-  message: z.string(),
-});
+const updateUserDetailSchema = z.object({});
 
 export { getUserDetailSchema, updateUserDetailSchema };

@@ -6,12 +6,12 @@ const unknownErrorMessage = "Cart service unknown error";
 export class CartService extends Services {
   abortController;
 
-  addToCartUrl = "/cart/addToCart";
-  updateCartUrl = "/cart/updateCart";
-  deleteFromCartUrl = "/cart/deleteFromCart";
-  decreaseItemQuantityUrl = "/cart/decreaseItemQuantity";
-  clearCartUrl = "/cart/clearCart";
-  getCartUrl = "/cart/getCart";
+  addToCartUrl = "/cart/add";
+  updateCartUrl = "/cart/update-all";
+  deleteFromCartUrl = "/cart/item";
+  decreaseItemQuantityUrl = "/cart/item-num";
+  clearCartUrl = "/cart/clear";
+  getCartUrl = "/cart/get";
 
   addToCart = async (params) => {
     this.abortController = new AbortController();
@@ -29,6 +29,7 @@ export class CartService extends Services {
         },
         signal: this.abortController.signal,
         transformResponse: (res) => res,
+        isProduction: true,
       });
       return response;
     } catch (error) {
@@ -52,14 +53,13 @@ export class CartService extends Services {
         method: "PUT",
         url: this.updateCartUrl,
         schema: messageResponseSchema,
-        data: {
-          cart: params.cart,
-        },
+        data: params.cart,
         headers: {
           Authorization: `Bearer ${params.accessToken}`,
         },
         signal: this.abortController.signal,
         transformResponse: (res) => res,
+        isProduction: true,
       });
       return response;
     } catch (error) {
@@ -91,6 +91,7 @@ export class CartService extends Services {
         },
         signal: this.abortController.signal,
         transformResponse: (res) => res,
+        isProduction: true,
       });
       return response;
     } catch (error) {
@@ -110,20 +111,23 @@ export class CartService extends Services {
   decreaseItemQuantity = async (params) => {
     this.abortController = new AbortController();
     try {
+      console.log("params: ", params);
       const response = await this.fetchApi({
         method: "DELETE",
         url: this.decreaseItemQuantityUrl,
         schema: messageResponseSchema,
         params: {
           productId: params.productId,
-          quantity: params.quantity,
+          number: params.quantity,
         },
         headers: {
           Authorization: `Bearer ${params.accessToken}`,
         },
         signal: this.abortController.signal,
         transformResponse: (res) => res,
+        isProduction: true,
       });
+      console.log("response: ", response);
       return response;
     } catch (error) {
       if (!this.isCancel(error)) {
@@ -151,6 +155,7 @@ export class CartService extends Services {
         },
         signal: this.abortController.signal,
         transformResponse: (res) => res,
+        isProduction: true,
       });
       return response;
     } catch (error) {
@@ -179,6 +184,7 @@ export class CartService extends Services {
         },
         signal: this.abortController.signal,
         transformResponse: (res) => res,
+        isProduction: true,
       });
       return response;
     } catch (error) {
