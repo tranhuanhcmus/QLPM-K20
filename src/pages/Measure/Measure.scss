@@ -8,10 +8,10 @@ $primary-color: #aeb10a;
 
     .measure-head {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr 4fr;
         align-items: center;
         margin-bottom: 20px;
-
+        width: 100%;
         img {
             width: 80px;
         }
@@ -19,6 +19,22 @@ $primary-color: #aeb10a;
         .measure-head-back {
             text-align: left;
             margin-left: 30px;
+        }
+
+        .steps{
+            margin: auto;
+            display: flex;
+
+            .step{
+               display: flex;
+               align-items: center;
+            }
+            .current{
+                color: var(--primary-light);
+                button{
+                    color: var(--primary-light);
+                }
+            }
         }
     }
 

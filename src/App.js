@@ -15,7 +15,7 @@ import { BusinessLogicProvider } from "./libs/business-logic/src/provider";
 import Payment from "./pages/Payment";
 import PaymentDetails from "./pages/Payment/PaymentDetails";
 import WishList from "./pages/WishList";
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 function App() {
   const location = useLocation();
@@ -39,10 +39,8 @@ function App() {
 
             <Route path={URLS.WISH_LIST} element={<WishList />} />
             <Route path={URLS.PAYMENT} element={<Payment />} />
-            <Route
-              path={URLS.PAYMENT_DETAILS}
-              element={<PaymentDetails />}
-            />
+            <Route path={URLS.PAYMENT_DETAILS} element={<PaymentDetails />} />
+            <Route path={URLS.MEASURE} element={<Measure />} />
           </Route>
 
           <Route path="*" element={<ErrorPage />} />
