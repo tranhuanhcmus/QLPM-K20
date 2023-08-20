@@ -7,7 +7,7 @@ const unknownErrorMsg = "Order service unknown error";
 export class ProductService extends Services {
   abortController;
 
-  getProductByCategoryUrl = "/product";
+  getProductByCategoryUrl = "/product/category";
 
   getProductByCategory = async ({ category }) => {
     this.abortController = new AbortController();
@@ -17,13 +17,15 @@ export class ProductService extends Services {
         url: this.getProductByCategoryUrl,
         schema: getProductByCategorySchema,
         params: {
-          category,
+          type: category,
         },
         signal: this.abortController.signal,
         transformResponse: (res) => res,
+        isProduction: true,
       });
       return response;
     } catch (error) {
+      console.error(error);
       if (this.isCancel(error)) {
         // Handle other errors
         throw error;

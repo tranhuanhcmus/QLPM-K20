@@ -7,8 +7,8 @@ const unknownErrorMsg = "Order service unknown error";
 export class UserService extends Services {
   abortController;
 
-  getUserDetailUrl = "/user-detail";
-  updateUserDetailUrl = "/user-detail/update";
+  getUserDetailUrl = "/measure";
+  updateUserDetailUrl = "/measure";
 
   getUserDetail = async ({ accessToken }) => {
     this.abortController = new AbortController();
@@ -22,6 +22,7 @@ export class UserService extends Services {
         },
         signal: this.abortController.signal,
         transformResponse: (res) => res,
+        isProduction: true,
       });
       return response;
     } catch (error) {
@@ -49,6 +50,7 @@ export class UserService extends Services {
         },
         signal: this.abortController.signal,
         transformResponse: (res) => res,
+        isProduction: true,
       });
       return response;
     } catch (error) {

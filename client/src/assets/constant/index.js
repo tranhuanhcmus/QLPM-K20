@@ -41,34 +41,26 @@ export const footerContact = [
 export const listTextContentHeader = [
   {
     title: "SUITS",
-    listContent: ["3D DESIGNER", "DESIGN YOUR SUITS", "COLLECTIONS"],
+    listContent: [],
   },
   {
     title: "BLAZERS",
-    listContent: ["3D DESIGNER", "DESIGN YOUR BLAZERS", "BLAZER COLLECTION"],
-  },
-  {
-    title: "SHIRTS",
-    listContent: ["3D DESIGNER", "COLLECTIONS", "BLAZER COLLECTION"],
+    listContent: [],
   },
   {
     title: "PANTS",
-    listContent: ["3D DESIGNER", "DESIGN YOUR BLAZERS", "BLAZER COLLECTION"],
+    listContent: [],
+  },
+  {
+    title: "VEST",
+    listContent: [],
   },
   {
     title: "COAT",
-    listContent: ["3D DESIGNER", "DESIGN YOUR BLAZERS", "BLAZER COLLECTION"],
+    listContent: [],
   },
   {
-    title: "WEDDING",
-    listContent: ["GROOM", "BRIDE"],
-  },
-  {
-    title: "ACCESSORIES",
-    listContent: ["TIES", "BOW TIES", "MASK"],
-  },
-  {
-    title: "ABOUT US",
+    title: "TIES",
     listContent: [],
   },
 ];

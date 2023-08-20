@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Cart.module.scss";
 import { convertNumberToCurrency } from "../../../utils/helpers/MoneyConverter";
 import {
@@ -14,13 +14,16 @@ const CartItem = ({ data: cartItemData, controlForm }) => {
   const inputName = `cartItem@${cartItemData.item.id}`;
   const [itemQuantity, setItemQuantity] = useState(cartItemData.quantity);
 
+  useEffect(() => {
+    setItemQuantity(cartItemData ? cartItemData.quantity : 0);
+  }, [cartItemData]);
+
   const handleIncreaseQuantity = (quantity) => {
     onAddToCart({ item: cartItemData.item, quantity })
       .then((msg) => toast.success(msg))
       .catch((err) => console.error(err));
   };
   const handleDecreaseQuantity = (quantity) => {
-    console.log("DECREASE: ", quantity);
     onDecreaseItemQuantity({ productId: cartItemData.item.id, quantity })
       .then((msg) => toast.success(msg))
       .catch((err) => console.error(err));

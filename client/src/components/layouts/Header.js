@@ -9,7 +9,7 @@ import Cart from "../common/Cart/Cart";
 
 const Header = () => {
   const [showCart, setShowCart] = React.useState(false);
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   return (
     <header className=" header">
       <div className="header__user-interact ">
@@ -18,10 +18,8 @@ const Header = () => {
           <button className="">Language</button>
           <select>
             <option value="en">English</option>
-            <option value="fr">Viet Nam</option>
           </select>
         </div>
-        <Link to="#"> How to Order</Link>
         <Link to="/measure">How to measure</Link>
         <Link to={URLS.AUTHEN}>My account</Link>
       </div>
@@ -35,7 +33,9 @@ const Header = () => {
             listTextContentHeader.map((item, index) => {
               return (
                 <div key={item.title}>
-                  <Link to={URLS.COAT}>
+                  <Link
+                    to={URLS.COAT + `?category=${item.title.toLowerCase()}`}
+                  >
                     {" "}
                     <TextHoverDropdown
                       title={item.title}
@@ -45,7 +45,7 @@ const Header = () => {
                 </div>
               );
             })}
-          <button onClick={()=>navigate(URLS.WISH_LIST)}>WISH LIST</button>
+          <button onClick={() => navigate(URLS.WISH_LIST)}>WISH LIST</button>
           <button onClick={() => setShowCart((prev) => !prev)}>CART</button>
           <Cart showCart={showCart} />
         </ul>

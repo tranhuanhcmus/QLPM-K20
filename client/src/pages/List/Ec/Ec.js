@@ -3,15 +3,25 @@ import React from "react";
 import "../../../assets/styles/coat.scss";
 import { convertNumberToCurrency } from "../../../utils/helpers/MoneyConverter";
 import { useGetProductByCategory } from "../../../libs/business-logic/src/lib/product";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAddToCart } from "../../../libs/business-logic/src/lib/cart/process/hooks";
 import { toast } from "react-hot-toast";
 import { useWishlist } from "../../../libs/business-logic/src/lib/wishlist/process/hooks";
+import { parseSearchParams } from "../../../utils/helpers/params";
+import { URLS } from "../../../constants/urls";
+
 const Ec = () => {
-  const [selectedCategory, setSelectedCategory] = useState("coat");
+  const location = useLocation();
+  const params = parseSearchParams(location.search);
+  const [selectedCategory, setSelectedCategory] = useState(params.category);
   const productData = useGetProductByCategory({ category: selectedCategory });
   const { onAddToCart, isLoading } = useAddToCart();
   const { addToWishlist } = useWishlist();
+
+  const handleUpdateCategory = (category) => {
+    setSelectedCategory(category);
+    window.history.pushState(null, "", URLS.COAT + "?category=" + category);
+  };
 
   const handleAddToCart = (product) => {
     onAddToCart({ item: product, quantity: 1 })
@@ -29,27 +39,27 @@ const Ec = () => {
           <ul>
             <h6>MEN</h6>
             <li>
-              <button onClick={() => setSelectedCategory("suits")}>
+              <button onClick={() => handleUpdateCategory("suits")}>
                 <h6>SUITS</h6>
               </button>
             </li>
             <li>
-              <button onClick={() => setSelectedCategory("blazers")}>
+              <button onClick={() => handleUpdateCategory("blazers")}>
                 <h6>BLAZERS</h6>
               </button>
             </li>{" "}
             <li>
-              <button onClick={() => setSelectedCategory("coat")}>
+              <button onClick={() => handleUpdateCategory("coat")}>
                 <h6>COAT</h6>
               </button>
             </li>
             <li>
-              <button onClick={() => setSelectedCategory("vest")}>
+              <button onClick={() => handleUpdateCategory("vest")}>
                 <h6>VEST</h6>
               </button>
             </li>
             <li>
-              <button onClick={() => setSelectedCategory("pants")}>
+              <button onClick={() => handleUpdateCategory("pants")}>
                 <h6>PANTS</h6>
               </button>
             </li>
@@ -57,7 +67,7 @@ const Ec = () => {
           <ul>
             <h6>ACCESSORIES</h6>
             <li>
-              <button onClick={() => setSelectedCategory("ties")}>
+              <button onClick={() => handleUpdateCategory("ties")}>
                 <h6>TIES</h6>
               </button>
             </li>
@@ -91,7 +101,7 @@ const Ec = () => {
                       onClick={() => {
                         addToWishlist(p)
                           .then((msg) => toast.success(msg))
-                          .catch((err) => console.error(err));
+                          .catch((err) => toast.error(err.message));
                       }}
                     >
                       <i className="fi fi-rs-heart"></i>
