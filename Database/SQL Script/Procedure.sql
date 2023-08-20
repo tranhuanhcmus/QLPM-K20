@@ -834,17 +834,7 @@ CREATE OR ALTER PROCEDURE USP_GetProd (
 	@ProductId VARCHAR(MAX)
 ) AS
 BEGIN
-    SELECT
-		prd.Id,
-		prd.Price,
-		prd.Image,
-		prd.Name,
-		prd.Description,
-		prd.Discount,
-		prd.Fabric,
-		prd.FabricName,
-		prd.color as Color,
-		prd.Type
+    SELECT prd.*
 	FROM Product prd 
 	WHERE prd.Id IN (SELECT value FROM STRING_SPLIT(@ProductId, ','));
 END

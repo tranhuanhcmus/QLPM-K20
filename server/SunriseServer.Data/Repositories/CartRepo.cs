@@ -54,9 +54,9 @@ namespace SunriseServerData.Repositories
         }
         
         // USP_GetProd
-        public async Task<List<ProductDto>> GetListProduct(string productId)
+        public async Task<List<Product>> GetListProduct(string productId)
         {
-            var prod = await _dataContext.Set<ProductDto>()
+            var prod = await _dataContext.Set<Product>()
                 .FromSqlInterpolated($"EXEC USP_GetProd {productId};")
                 .ToListAsync();
             

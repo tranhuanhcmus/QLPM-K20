@@ -8,7 +8,7 @@ namespace SunriseServerCore.RepoInterfaces
     public interface ICartRepo
     {
         Task<int> AddToCartAsync(int accountId, ProductWithQuantityDto cartDto);
-        Task<List<ProductDto>> GetListProduct(string productId);
+        Task<List<Product>> GetListProduct(string productId);
         Task<List<GetRawCartDto>> GetCart(int accountId);
         Task<int> DeleteProductInCart(DeleteProductCartDto deleteDto);
         Task<int> ClearCartAsync(int AccountId);

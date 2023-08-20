@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using SunriseServerCore.Models;
 
 namespace SunriseServerCore.Dtos.Product
 {
@@ -19,7 +20,7 @@ namespace SunriseServerCore.Dtos.Product
 
     public class ProductWithQuantityDto
     {
-        public ProductDto Item { get; set; }
+        public Models.Product Item { get; set; }
         public int Quantity { get; set; }
     }
 }
