@@ -63,6 +63,9 @@ namespace SunriseServerData
 
             modelBuilder.Entity<Fabric>()
                 .HasKey(x => new { x.FabricID });
+
+            modelBuilder.Entity<BodyMeasurement>()
+                .HasKey(x => new { x.Customer });
         }
 
         public DbSet<Account> Account { get; set; }
@@ -75,5 +78,6 @@ namespace SunriseServerData
         public DbSet<Cart> Cart { get; set; }
         public DbSet<Order> Order { get; set; }
         public DbSet<Fabric> Farbic { get; set; }
+        public DbSet<BodyMeasurement> BodyMeasurement { get; set; }
     }
 }

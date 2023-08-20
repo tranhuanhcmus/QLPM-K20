@@ -44,6 +44,7 @@ using Microsoft.EntityFrameworkCore;
 using SunriseServer.Services.CartService;
 using SunriseServer.Services.OrderService;
 using SunriseServer.Services.FabricService;
+using SunriseServer.Services.BodyService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -62,6 +63,7 @@ builder.Services.AddScoped<IVestService,VestService>();
 builder.Services.AddScoped<IPantsService, PantsService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ITiesService, TiesService>();
+builder.Services.AddScoped<IBodyService, BodyService>();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSwaggerGen(options =>

@@ -129,6 +129,19 @@ namespace SunriseServerData
         }
         #endregion
 
+        #region BodyM
+        private IBodyRepo _bodyRepo;
+        public IBodyRepo BodyRepo
+        {
+            get
+            {
+                if (_bodyRepo == null)
+                    _bodyRepo = new BodyRepo(_dataContext);
+                return _bodyRepo;
+            }
+        }
+        #endregion
+
         public async Task<bool> SaveChangesAsync()
         {
             using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))

@@ -1216,3 +1216,26 @@ BEGIN
   
   RETURN 0
 END
+
+-- Body measurement
+select * from BodyMeasurement
+CREATE OR ALTER PROCEDURE USP_GetBodyMeasurement
+@AccountId INT
+AS
+BEGIN
+  BEGIN TRAN
+    BEGIN TRY
+    
+      SELECT * FROM BODYMEASUREMENT WHERE Customer = @AccountId
+    
+    END TRY
+    
+    BEGIN CATCH
+      ROLLBACK 
+      RETURN -1
+    END CATCH
+
+  COMMIT
+  
+  RETURN 0
+END

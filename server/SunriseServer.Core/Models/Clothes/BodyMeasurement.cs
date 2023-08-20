@@ -5,19 +5,39 @@ namespace SunriseServerCore.Models.Clothes
     public class BodyMeasurement : ModelBase
     {
         public int Customer { get; set; }
-        public double ShoulderWidth { get; set; }
-        public double SleeveLength { get; set; }
-        public double ArmCircumference { get; set; }
-        public double Chest { get; set; }
-        public double Waist { get; set; }
-        public double FrontLength { get; set; }
-        public double BackLength { get; set; }
-        public double Neck { get; set; }
-        public double WaistOfPants { get; set; }
-        public double Hips { get; set; }
-        public double BottomOfPants { get; set; }
-        public double Thigh { get; set; }
-        public double PantsLength { get; set; }
-        public double PantsCircumference { get; set; }
+        public decimal ShoulderWidth { get; set; }
+        public decimal SleeveLength { get; set; }
+        public decimal ArmCircumference { get; set; }
+        public decimal Chest { get; set; }
+        public decimal Waist { get; set; }
+        public decimal FrontLength { get; set; }
+        public decimal BackLength { get; set; }
+        public decimal Neck { get; set; }
+        public decimal WaistOfPants { get; set; }
+        public decimal Hips { get; set; }
+        public decimal BottomOfPants { get; set; }
+        public decimal Thigh { get; set; }
+        public decimal PantsLength { get; set; }
+        public decimal PantsCircumference { get; set; }
+        public decimal Weight { get; set; }
+        public int Point { get; set; }
+    }
+
+    public class PostBodyMeasureMentDto
+    {
+        public decimal ShoulderWidth { get; set; }
+        public decimal SleeveLength { get; set; }
+        public decimal ArmCircumference { get; set; }
+        public decimal Chest { get; set; }
+        public decimal Waist { get; set; }
+        public decimal FrontLength { get; set; }
+        public decimal BackLength { get; set; }
+        public decimal Neck { get; set; }
+        public decimal WaistOfPants { get; set; }
+        public decimal Hips { get; set; }
+        public decimal BottomOfPants { get; set; }
+        public decimal Thigh { get; set; }
+        public decimal PantsLength { get; set; }
+        public decimal PantsCircumference { get; set; }
     }
 }
