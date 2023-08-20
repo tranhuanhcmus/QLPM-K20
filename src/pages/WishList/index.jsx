@@ -3,41 +3,9 @@ import styles from "./styles.module.scss";
 import Heading1 from "../../components/common/text/Heading1/Heading";
 import WishListItem from "./WishListItem";
 import PrimaryText from "../../components/common/text/PrimaryText/PrimaryText";
-import { Images } from "../../components/common/Cart/image";
 import { useAddToCart } from "../../libs/business-logic/src/lib/cart/process/hooks";
 import { toast } from "react-hot-toast";
 import { useWishlist } from "../../libs/business-logic/src/lib/wishlist/process/hooks";
-
-const products = [
-  {
-    productId: 1,
-    price: "110.00",
-    name: "Original Vest 1",
-    number: 1,
-    image: Images.item,
-  },
-  {
-    productId: 6,
-    price: "160.00",
-    name: "Original Vest 2",
-    number: 1,
-    image: Images.item,
-  },
-  {
-    productId: 7,
-    price: "170.00",
-    name: "as Vest 3",
-    number: 1,
-    image: Images.item,
-  },
-  {
-    productId: 8,
-    price: "180.00",
-    name: "Trouser",
-    number: 1,
-    image: Images.item,
-  },
-];
 
 const WishList = () => {
   const { getWishlist, removeFromWishlist } = useWishlist();
