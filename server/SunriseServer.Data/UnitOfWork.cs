@@ -1,11 +1,5 @@
-﻿using SunriseServerData;
-using SunriseServerCore.RepoInterfaces;
+﻿using SunriseServerCore.RepoInterfaces;
 using SunriseServerData.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Transactions;
 
 namespace SunriseServerData
@@ -92,6 +86,19 @@ namespace SunriseServerData
                 if (_OrderRepo == null)
                     _OrderRepo = new OrderRepo(_dataContext);
                 return _OrderRepo;
+            }
+        }
+        #endregion
+
+        #region Fabric
+        private IFabricRepo _FabricRepo;
+        public IFabricRepo FabricRepo
+        {
+            get
+            {
+                if (_FabricRepo == null)
+                    _FabricRepo = new FabricRepo(_dataContext);
+                return _FabricRepo;
             }
         }
         #endregion
