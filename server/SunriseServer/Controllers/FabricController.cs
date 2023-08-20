@@ -24,14 +24,8 @@ namespace SunriseServer.Controllers
         }
 
         [HttpGet("")]
-        public async Task<ActionResult<List<GetFabricDto>>> GetFabricById()
+        public async Task<ActionResult<List<GetFabricDto>>> GetFabricById(int id)
         {
-            var id = Convert.ToInt32(_httpContext.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
-            if (id == 0)
-            {
-                return NotFound("Cannot find user, please login again!");
-            }
-
             try {
                 var result = await _fabricService.GetFabricById(id);
 
