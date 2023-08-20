@@ -2,7 +2,7 @@
 
 namespace SunriseServerCore.Models
 {
-    public abstract class Fabric : ModelBase
+    public class Fabric : ModelBase
     {
         // basic info
         public int FabricID { get; set; }

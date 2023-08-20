@@ -67,7 +67,6 @@ namespace SunriseServerData
 
         public DbSet<Account> Account { get; set; }
         public DbSet<Jacket> Jacket { get; set; }
-
         public DbSet<Product> Product { get; set; }
         public DbSet<Vest> Vest { get; set; }
         public DbSet<Ties> Ties { get; set; }
