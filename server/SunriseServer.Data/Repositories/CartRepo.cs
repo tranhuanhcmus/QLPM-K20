@@ -10,7 +10,7 @@ using SunriseServer.Common.Helper;
 using SunriseServerCore.Dtos.Cart;
 using SunriseServerCore.Dtos;
 using System.Security.Cryptography.X509Certificates;
-
+using SunriseServerCore.Dtos.Product;
 
 namespace SunriseServerData.Repositories
 {
@@ -22,10 +22,10 @@ namespace SunriseServerData.Repositories
             _dataContext = dataContext;
         }
 
-        public async Task<int> AddToCartAsync(AddToCartDto cartDto)
+        public async Task<int> AddToCartAsync(int accountId, ProductWithQuantityDto cartDto)
         {
             var builder = new StringBuilder("DECLARE @result INT = 0;\n");
-            builder.Append($"EXEC @result = USP_AddToCart @Customer={cartDto.Customer}, @Product={cartDto.Product}, @NumberOfProduct={cartDto.NumberOfProduct};\n");
+            builder.Append($"EXEC @result = USP_AddToCart @Customer={accountId}, @Product={cartDto.Item.Id}, @NumberOfProduct={cartDto.Quantity};\n");
             builder.Append($"SELECT @result;");
 
             Console.WriteLine(builder.ToString());

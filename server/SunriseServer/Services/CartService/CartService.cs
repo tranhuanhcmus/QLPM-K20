@@ -4,6 +4,7 @@ using SunriseServerCore.Models;
 using System.Security.Claims;
 using SunriseServerCore.Dtos.Cart;
 using SunriseServerCore.Dtos;
+using SunriseServerCore.Dtos.Product;
 
 namespace SunriseServer.Services.CartService
 {
@@ -17,9 +18,9 @@ namespace SunriseServer.Services.CartService
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<int> AddToCart(AddToCartDto cartDto)
+        public async Task<int> AddToCart(int accountId, ProductWithQuantityDto cartDto)
         {
-            var result = await _unitOfWork.CartRepo.AddToCartAsync(cartDto);
+            var result = await _unitOfWork.CartRepo.AddToCartAsync(accountId, cartDto);
             return result;
         }
 

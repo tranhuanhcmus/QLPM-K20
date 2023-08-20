@@ -3,6 +3,7 @@ using SunriseServerCore.Dtos.Order;
 using SunriseServerCore.Models;
 using SunriseServerCore.RepoInterfaces;
 using System.Text;
+using SunriseServerCore.Dtos.Product;
 
 namespace SunriseServerData.Repositories
 {
@@ -31,7 +32,7 @@ namespace SunriseServerData.Repositories
             builder.Append($"@TimeOrder=\'{order.TimeOrder}\', ");
             builder.Append($"@TimeDone=\'{order.TimeDone}\', ");
             builder.Append($"@Status=\'{order.Status}\', ");
-            builder.Append($"@Address=\'{order.Address}\';\n");
+            builder.Append($"@Address=N\'{order.Address}\';\n");
             builder.Append($"SELECT @Id;");
 
             Console.WriteLine(builder.ToString());

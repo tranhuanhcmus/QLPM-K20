@@ -1,13 +1,13 @@
 ﻿using SunriseServerCore.Models;
 using SunriseServerCore.Dtos.Cart;
-using SunriseServerCore.Dtos;
+using SunriseServerCore.Dtos.Product;
 
 
 namespace SunriseServerCore.RepoInterfaces
 {
     public interface ICartRepo
     {
-        Task<int> AddToCartAsync(AddToCartDto cartDto);
+        Task<int> AddToCartAsync(int accountId, ProductWithQuantityDto cartDto);
         Task<List<ProductDto>> GetListProduct(string productId);
         Task<List<GetRawCartDto>> GetCart(int accountId);
         Task<int> DeleteProductInCart(DeleteProductCartDto deleteDto);

@@ -1,6 +1,8 @@
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SunriseServerCore.Dtos
+namespace SunriseServerCore.Dtos.Product
 {
+    [NotMapped]
     public class ProductDto
     {
         public int Id { get; set; }
