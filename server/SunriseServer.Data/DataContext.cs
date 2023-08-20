@@ -1,6 +1,7 @@
 ﻿global using Microsoft.EntityFrameworkCore;
 using SunriseServerCore.Dtos;
 using SunriseServerCore.Dtos.Cart;
+using SunriseServerCore.Dtos.Fabric;
 using SunriseServerCore.Dtos.Product;
 
 //using Microsoft.Data.SqlClient;
@@ -64,6 +65,9 @@ namespace SunriseServerData
             modelBuilder.Entity<Fabric>()
                 .HasKey(x => new { x.FabricID });
 
+            modelBuilder.Entity<GetFabricDto>()
+                .HasKey(x => new { x.FabricID });
+
             modelBuilder.Entity<BodyMeasurement>()
                 .HasKey(x => new { x.Customer });
         }
@@ -77,7 +81,7 @@ namespace SunriseServerData
         public DbSet<BookingAccount> Booking_Account { get; set; }
         public DbSet<Cart> Cart { get; set; }
         public DbSet<Order> Order { get; set; }
-        public DbSet<Fabric> Farbic { get; set; }
+        public DbSet<GetFabricDto> Farbic { get; set; }
         public DbSet<BodyMeasurement> BodyMeasurement { get; set; }
     }
 }

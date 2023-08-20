@@ -41,7 +41,7 @@ namespace SunriseServer.Controllers
         }
 
         [HttpGet("all")] // check
-        public async Task<IActionResult> GetFabrics()
+        public async Task<ActionResult<GetFabricDto>> GetFabrics()
         {
             try {
                 var result = await _fabricService.GetFabrics();
@@ -50,7 +50,7 @@ namespace SunriseServer.Controllers
                     return NotFound("Cannot get fabrics");
                 }
 
-                return Ok(new ResponseMessageDetails<List<Fabric>>("Fabrics retrieved successfully", result));
+                return Ok(new ResponseMessageDetails<List<GetFabricDto>>("Fabrics retrieved successfully", result));
             }
             catch (Exception) {
                 return BadRequest("Cannot get fabrics");

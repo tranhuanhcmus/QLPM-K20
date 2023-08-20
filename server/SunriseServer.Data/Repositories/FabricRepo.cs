@@ -21,10 +21,10 @@ namespace SunriseServerData.Repositories
                     .ToListAsync();
         }
 
-        public async Task<List<Fabric>> GetFabricsAsync()
+        public async Task<List<GetFabricDto>> GetFabricsAsync()
         {
             var builder = new StringBuilder("EXEC USP_GetAllFabrics");
-            return await _dataContext.Set<Fabric>()
+            return await _dataContext.Set<GetFabricDto>()
                                 .FromSqlRaw(builder.ToString())
                                 .ToListAsync();
         }
@@ -36,6 +36,7 @@ namespace SunriseServerData.Repositories
             builder.Append($"@FabricName=\'{fabricDto.FabricName}\', ");
             builder.Append($"@Material=\'{fabricDto.Material}\', ");
             builder.Append($"@Price=\'{fabricDto.Price}\', ");
+            builder.Append($"@Color=\'{fabricDto.Color}\', ");
             builder.Append($"@Style=\'{fabricDto.Style}\', ");
             builder.Append($"@Image=\'{fabricDto.Image}\', ");
             builder.Append($"@Category=\'{fabricDto.Category}\', ");

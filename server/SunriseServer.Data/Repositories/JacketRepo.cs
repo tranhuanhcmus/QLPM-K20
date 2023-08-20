@@ -77,7 +77,7 @@ namespace SunriseServerData.Repositories
         public async Task<ImageDto> GetImageByCustom(string fabric, JacketComponent jacket) 
         {
             var builder = new StringBuilder();
-            builder.AppendFormat("EXEC USP_GetCustomJacketImage @p_Fabric={0}, @p_Style='{1}', @p_Fit='{2}', @p_Lapel='{3}', @p_SleeveButton='{4}', @p_BackStyle='{5}', @p_BreastPocket='{6}', @p_Pocket='{7}';",
+            builder.AppendFormat("EXEC USP_GetCustomJacketImage @p_Fabric='{0}', @p_Style='{1}', @p_Fit='{2}', @p_Lapel='{3}', @p_SleeveButton='{4}', @p_BackStyle='{5}', @p_BreastPocket='{6}', @p_Pocket='{7}';",
             fabric, jacket.Style, jacket.Fit, jacket.Lapel, jacket.SleeveButton, jacket.BackStyle, jacket.BreastPocket, jacket.Pocket);
 
             var result = await _dataContext.Set<ImageDto>()

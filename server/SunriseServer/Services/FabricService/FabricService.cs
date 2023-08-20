@@ -18,7 +18,7 @@ namespace SunriseServer.Services.FabricService
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<List<Fabric>> GetFabrics()
+        public async Task<List<GetFabricDto>> GetFabrics()
         {
             return await _unitOfWork.FabricRepo.GetFabricsAsync();
         }
