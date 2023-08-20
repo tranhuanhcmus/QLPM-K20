@@ -65,28 +65,6 @@ export const listTextContentHeader = [
   },
 ];
 
-export const listItemMeasureFilter = [
-  {
-    title: "ALL",
-    icon: <i className="fi fi-sr-border-all"></i>,
-    linkTo: "#",
-  },
-  {
-    title: "PREMIUM",
-    icon: <i className="fi fi-bs-crown"></i>,
-    linkTo: "#",
-  },
-  {
-    title: "LUXURY",
-    icon: <i className="fi fi-rs-diamond"></i>,
-    linkTo: "#",
-  },
-  {
-    title: "SALE",
-    icon: <i className="fi fi-br-ticket"></i>,
-    linkTo: "#",
-  },
-];
 export const listTryProduct = [
   {
     price: 200,
