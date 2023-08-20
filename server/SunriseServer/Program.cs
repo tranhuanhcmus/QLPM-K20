@@ -97,6 +97,7 @@ builder.Services.AddCors(options => options.AddPolicy(name: "NgOrigins",
     {
         policy.WithOrigins("http://localhost:7256").AllowAnyMethod().AllowAnyHeader();
         policy.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader();
+        policy.WithOrigins("http://sunrise-silk.shop.s3-website-ap-southeast-1.amazonaws.com").AllowAnyMethod().AllowAnyHeader();
     }));
 
 builder.Services.AddServicesData();
