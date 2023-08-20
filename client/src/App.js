@@ -14,6 +14,7 @@ import Authentication from "./pages/Authentication/Authentication";
 import { BusinessLogicProvider } from "./libs/business-logic/src/provider";
 import Payment from "./pages/Payment";
 import PaymentDetails from "./pages/Payment/PaymentDetails";
+import FullLayout from "./pages/Admin/layouts/FullLayout";
 import WishList from "./pages/WishList";
 import { useEffect } from "react";
 
@@ -44,6 +45,8 @@ function App() {
           </Route>
 
           <Route path="*" element={<ErrorPage />} />
+
+          <Route path={URLS.ADMIN} element={<FullLayout />}></Route>
         </Routes>
       </div>
     </BusinessLogicProvider>
