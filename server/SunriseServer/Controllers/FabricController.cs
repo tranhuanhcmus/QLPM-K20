@@ -50,7 +50,7 @@ namespace SunriseServer.Controllers
                     return NotFound("Cannot get fabrics");
                 }
 
-                return Ok(new ResponseMessageDetails<List<GetFabricDto>>("Fabrics retrieved successfully", result));
+                return Ok(result);
             }
             catch (Exception) {
                 return BadRequest("Cannot get fabrics");

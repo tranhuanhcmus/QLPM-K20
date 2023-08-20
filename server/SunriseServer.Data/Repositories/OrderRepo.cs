@@ -28,11 +28,11 @@ namespace SunriseServerData.Repositories
         {
             var builder = new StringBuilder("DECLARE @Id INT;\nEXEC @Id = USP_CreateOrder ");
             builder.Append($"@AccountId={accountId}, ");
-            builder.Append($"@PaymentMethod=\'{order.PaymentMethod}\', ");
-            builder.Append($"@TimeOrder=\'{order.TimeOrder}\', ");
-            builder.Append($"@TimeDone=\'{order.TimeDone}\', ");
-            builder.Append($"@Status=\'{order.Status}\', ");
-            builder.Append($"@Address=N\'{order.Address}\';\n");
+            builder.Append($"@PaymentMethod=\'MONEY\', ");
+            builder.Append($"@TimeOrder=\'{DateTime.Now.ToString("yyyy-MM-dd")}\', ");
+            builder.Append($"@TimeDone=\'{DateTime.Now.ToString("yyyy-MM-dd")}\', ");
+            builder.Append($"@Status=\'UNDONE\', ");
+            builder.Append($"@Address=N\'{order.Address ?? "Tp Hồ Chí Minh"}\';\n");
             builder.Append($"SELECT @Id;");
 
             Console.WriteLine(builder.ToString());
