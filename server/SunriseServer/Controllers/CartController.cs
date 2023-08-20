@@ -115,7 +115,7 @@ namespace SunriseServer.Controllers
         }
         
         [HttpDelete("item-num"), Authorize(Roles = GlobalConstant.User)]
-        public async Task<ActionResult<ResponseMessageDetails<int>>> ChangeCartItemNum(ChangeItemNumDto itemDto)
+        public async Task<ActionResult<ResponseMessageDetails<int>>> ChangeCartItemNum([FromQuery] ChangeItemNumDto itemDto)
         {
             var userId = Convert.ToInt32(_httpContext.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
 
