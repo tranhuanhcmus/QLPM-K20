@@ -117,7 +117,7 @@ export class OrderService extends Services {
           Authorization: `Bearer ${params.accessToken}`,
         },
         signal: this.abortController.signal,
-        transformResponse: (res) => res,
+        transformResponse: (res) => res.url,
         isProduction: true,
       });
       return response;

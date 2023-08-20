@@ -11,6 +11,7 @@ export const useInitOrder = () => {
       payload: order,
     });
     setOrderLocalStorage(order);
+    console.log("INIT ORDER: ", order);
   };
 
   return {

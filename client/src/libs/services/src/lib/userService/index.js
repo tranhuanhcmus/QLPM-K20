@@ -40,6 +40,7 @@ export class UserService extends Services {
   updateUserDetail = async ({ accessToken, userDetail }) => {
     this.abortController = new AbortController();
     try {
+      // eslint-disable-next-line no-unused-vars
       const response = await this.fetchApi({
         method: "POST",
         url: this.updateUserDetailUrl,
@@ -52,7 +53,9 @@ export class UserService extends Services {
         transformResponse: (res) => res,
         isProduction: true,
       });
-      return response;
+      return {
+        message: "Success",
+      };
     } catch (error) {
       if (this.isCancel(error)) {
         // Handle other errors

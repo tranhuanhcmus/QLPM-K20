@@ -16,8 +16,6 @@ const getUserDetailSchema = z.object({
   pants_length: z.number(),
 });
 
-const updateUserDetailSchema = z.object({
-  message: z.string(),
-});
+const updateUserDetailSchema = z.object({});
 
 export { getUserDetailSchema, updateUserDetailSchema };

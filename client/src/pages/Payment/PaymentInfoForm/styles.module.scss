@@ -1,5 +1,4 @@
-
-.paymentForm{
+.paymentForm {
 	margin-top: 32px;
 
 	input {
@@ -48,7 +47,7 @@
 .actions {
 	display: flex;
 	gap: 40px;
-	justify-content: end;
+	justify-content: flex-end;
 
 	input[type="submit"],
 	button {

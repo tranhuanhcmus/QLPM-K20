@@ -71,10 +71,9 @@ export const listTryProduct = [
     isNew: false,
     cloth:
       "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859370/design_application/1_coxfll.jpg",
-    view_front:
+    front:
       "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859371/design_application/1_f_l4ypfs.png",
-    view_end:
-      "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859370/design_application/1_b_iubgjx.png",
+    end: "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859370/design_application/1_b_iubgjx.png",
     material: "Cashmere: 85%. Wool: 10%",
 
     tags: [1, 2],
@@ -84,10 +83,9 @@ export const listTryProduct = [
     isNew: true,
     cloth:
       "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859371/design_application/2_hxklrg.jpg",
-    view_front:
+    front:
       "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859372/design_application/2_f_dxy6ng.png",
-    view_end:
-      "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859368/design_application/2_b_mxbr61.png",
+    end: "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859368/design_application/2_b_mxbr61.png",
     material: "Wool 60% . Cashmere 20%",
     tags: [3],
   },
@@ -96,10 +94,9 @@ export const listTryProduct = [
     isNew: false,
     cloth:
       "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859368/design_application/3_qvhk3o.jpg",
-    view_front:
+    front:
       "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859369/design_application/3_f_lqwte6.png",
-    view_end:
-      "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859377/design_application/3_b_umk4gb.png",
+    end: "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859377/design_application/3_b_umk4gb.png",
     material: "Wool 60% . Cashmere 20%",
     tags: [2],
   },
@@ -108,10 +105,9 @@ export const listTryProduct = [
     isNew: true,
     cloth:
       "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859367/design_application/4_mgxkel.jpg",
-    view_front:
+    front:
       "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859369/design_application/4_f_jcndbm.png",
-    view_end:
-      "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859369/design_application/4_b_hua1df.png",
+    end: "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859369/design_application/4_b_hua1df.png",
     material: "Wool 80% . Cashmere 10%",
     tags: [3],
   },
@@ -120,10 +116,9 @@ export const listTryProduct = [
     isNew: false,
     cloth:
       "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859368/design_application/5_pc7ygs.jpg",
-    view_front:
+    front:
       "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859369/design_application/5_f_fqkayi.png",
-    view_end:
-      "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859370/design_application/5_b_yyajlr.png",
+    end: "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859370/design_application/5_b_yyajlr.png",
     material: "85% Wool . 10% Cashmere",
     tags: [1, 3],
   },
@@ -132,10 +127,9 @@ export const listTryProduct = [
     isNew: true,
     cloth:
       "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859369/design_application/6_uysedi.jpg",
-    view_front:
+    front:
       "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859370/design_application/6_f_i8pmpl.png",
-    view_end:
-      "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859370/design_application/6_b_dlbkf1.png",
+    end: "https://res.cloudinary.com/drnqf7lrb/image/upload/v1691859370/design_application/6_b_dlbkf1.png",
     material: "Wool 85% . Cashmere 10%",
     tags: [2, 3],
   },

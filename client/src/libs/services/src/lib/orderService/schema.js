@@ -13,7 +13,7 @@ const getCouponResponseSchema = z.object({
 });
 
 const updateOrderResponseSchema = z.object({
-  message: z.string(),
+  url: z.string(),
 });
 
 export {
