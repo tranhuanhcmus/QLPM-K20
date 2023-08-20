@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using SunriseServer.Common.Helper;
 using SunriseServerCore.Dtos.Cart;
+using SunriseServerCore.Dtos;
+using System.Security.Cryptography.X509Certificates;
 
 
 namespace SunriseServerData.Repositories
@@ -19,8 +21,6 @@ namespace SunriseServerData.Repositories
         public CartRepo(DataContext dataContext) {
             _dataContext = dataContext;
         }
-
-        // giỏ hàng: thêm sp, giảm sl, xóa sp, clear giỏ hàng (clear all), lấy giỏ hàng, cập nhật giỏ hàng (put) (Cường)
 
         public async Task<int> AddToCartAsync(AddToCartDto cartDto)
         {
@@ -52,18 +52,27 @@ namespace SunriseServerData.Repositories
             
             return result;
         }
+        
+        // USP_GetProd
+        public async Task<List<ProductDto>> GetListProduct(string productId)
+        {
+            var prod = await _dataContext.Set<ProductDto>()
+                .FromSqlInterpolated($"EXEC USP_GetProd {productId};")
+                .ToListAsync();
+            
+            return prod;
+        }
 
-
-        public async Task<IEnumerable<GetCartDto>> GetCart(int accountId)
+        public async Task<List<GetRawCartDto>> GetCart(int accountId)
         {
             var builder = new StringBuilder();
             builder.Append($"EXEC USP_GetCart {accountId};");
 
-            Console.WriteLine(builder.ToString());
-
-            return await _dataContext.Set<GetCartDto>()
+            var result = await _dataContext.Set<GetRawCartDto>()
                 .FromSqlInterpolated($"EXECUTE({builder.ToString()});")
                 .ToListAsync();
+            
+            return result;
         }
 
         public async Task<int> DeleteProductInCart(DeleteProductCartDto deleteDto)

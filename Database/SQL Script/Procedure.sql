@@ -788,12 +788,46 @@ BEGIN
 END
 GO
 
+--prd.Price,
+--prd.Image,
+--prd.Name,
+--prd.Description,
+--prd.Discount,
+--prd.Fabric,
+--prd.FabricName,
+--prd.color as Color,
+--prd.Type
+
+GO
+CREATE OR ALTER PROCEDURE USP_GetProd (
+	@ProductId VARCHAR(MAX)
+) AS
+BEGIN
+    SELECT
+		prd.ProductID as Id,
+		prd.Price,
+		prd.Image,
+		prd.Name,
+		prd.Description,
+		prd.Discount,
+		prd.Fabric,
+		prd.FabricName,
+		prd.color as Color,
+		prd.Type
+	FROM Product prd 
+	WHERE prd.ProductID IN (SELECT value FROM STRING_SPLIT(@ProductId, ','));
+END
+GO
+
 GO
 CREATE OR ALTER PROCEDURE USP_GetCart (
 	@AccountId INT
 ) AS
 BEGIN
-    SELECT CA.*, prd.* FROM (SELECT * FROM Cart WHERE Customer = @AccountId) CA
+    SELECT 
+		ca.NumberOfProduct as Quantity,
+		prd.ProductID as Id
+	FROM (SELECT * FROM Cart WHERE Customer = @AccountId) ca
 	JOIN Product prd ON CA.Product = prd.ProductID;
 END
 GO

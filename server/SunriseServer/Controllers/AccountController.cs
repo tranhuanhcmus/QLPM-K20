@@ -52,5 +52,17 @@ namespace SunriseServer.Controllers
 
             return Ok(result);
         }
+
+        [HttpPut("measurement"), Authorize(Roles = GlobalConstant.User)]
+        public async Task<ActionResult<int>> UpdateMeasurement(
+            [FromQuery] Account request
+        )
+        {
+            var result = await _accountService.UpdateAccount(request);
+            if (result is null)
+                return NotFound("Account not found.");
+
+            return Ok(result);
+        }
     }
 }

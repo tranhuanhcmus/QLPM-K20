@@ -48,24 +48,24 @@ namespace SunriseServer.Controllers
         }
 
         [HttpGet("all"), Authorize(Roles = GlobalConstant.Admin)] // check
-        public async Task<IActionResult> GetOrders()
+        public async Task<ActionResult<ResponseMessageDetails<List<GetOrderDto>>>> GetOrders()
         {
             try {
                 var result = await _orderService.GetOrders();
 
-                if (result == null) {
+                if (result == null || result.Count == 0) {
                     return NotFound("Cannot get orders");
                 }
 
-                return Ok(new ResponseMessageDetails<List<Order>>("Orders retrieved successfully", result));
+                return Ok(result);
             }
-            catch (Exception) {
-                return BadRequest("Cannot get orders");
+            catch (Exception e) {
+                return BadRequest($"Cannot get orders {e}");
             }
         }
 
         [HttpPost(""), Authorize(Roles = GlobalConstant.User)]
-        public async Task<ActionResult<ResponseMessageDetails<int>>> AddOrder(AddOrderDto order)
+        public async Task<ActionResult<ResponseMessageDetails<int>>> AddOrder(GetOrderDto order)
         {
             try {
                 var userId = Convert.ToInt32(_httpContext.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
@@ -83,7 +83,7 @@ namespace SunriseServer.Controllers
         }
 
         [HttpPut(""), Authorize(Roles = GlobalConstant.User)]
-        public async Task<IActionResult> UpdateOrderuser(UserUpdateOrderDto orderDto)
+        public async Task<IActionResult> UpdateOrderuser(GetOrderDto orderDto)
         {
             try {
                 var accountId = Convert.ToInt32(_httpContext.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);

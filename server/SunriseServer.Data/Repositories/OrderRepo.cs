@@ -23,7 +23,7 @@ namespace SunriseServerData.Repositories
         //     return (result.FirstOrDefault()).MyValue;
         // }
 
-        public async Task<int> AddOrderAsync(int accountId, AddOrderDto order)
+        public async Task<int> AddOrderAsync(int accountId, GetOrderDto order)
         {
             var builder = new StringBuilder("DECLARE @Id INT;\nEXEC @Id = USP_CreateOrder ");
             builder.Append($"@AccountId={accountId}, ");
@@ -46,26 +46,28 @@ namespace SunriseServerData.Repositories
 
             var execString = new StringBuilder();
             order.OrderItem.ForEach(item => {
-                execString.Append($"EXEC USP_AddProdToOrder {orderId}, {item.ProductId}, {item.Quantity};\n");
+                execString.Append($"EXEC USP_AddProdToOrder {orderId}, {item.Item.Id}, {item.Quantity};\n");
             });
             var result = await _dataContext.Database.ExecuteSqlInterpolatedAsync($"EXECUTE({execString.ToString()});");
 
             return result;
         }
 
-        public async Task<GetOrderDto> GetOrderByIdAsync(int orderId)
+        public async Task<List<OrderDetail>> GetOrderItemByIdAsync(int orderId)
         {
-            var result = new GetOrderDto() {
-                OrderItem = await _dataContext.Set<OrderDetail>()
-                    .FromSqlInterpolated($"EXEC USP_GetOrderDetailById @OrderId={orderId}").ToListAsync()
-            };
+            var OrderItem = await _dataContext.Set<OrderDetail>()
+                .FromSqlInterpolated($"EXEC USP_GetOrderDetailById @OrderId={orderId}").ToListAsync();
 
+            return OrderItem;
+        }
+
+        public async Task<Order> GetOrderInfoByIdAsync(int orderId)
+        {
             var rawOrder = await _dataContext.Set<Order>()
-                    .FromSqlInterpolated($"EXEC USP_GetOrderById @OrderId={orderId}").ToListAsync();
+                    .FromSqlInterpolated($"EXEC USP_GetOrderById @OrderId={orderId}")
+                    .ToListAsync();
 
-            SetPropValueByReflection.AddYToX(result, rawOrder.FirstOrDefault());
-
-            return result;
+            return rawOrder.FirstOrDefault();
         }
 
         public async Task<List<GetOrderDto>> GetAccountOrderByIdAsync(int accountId)
@@ -73,26 +75,26 @@ namespace SunriseServerData.Repositories
             var orderList = await _dataContext.Set<MyProcedureResult>()
                 .FromSqlInterpolated($"SELECT OrderId FROM Orders WHERE customer={accountId};").ToListAsync();
 
-            Console.WriteLine("Vowf lowf");
-
             var result = new List<GetOrderDto>();
             foreach (var id in orderList)
             {
-                result.Add(await GetOrderByIdAsync(id.MyValue));
+                var temp = new GetOrderDto();
+                SetPropValueByReflection.AddYToX(temp, await GetOrderInfoByIdAsync(id.MyValue));
+                result.Add(temp);
             }
 
             return result;
         }
 
-        public async Task<List<Order>> GetOrdersAsync()
+        public async Task<List<int>> GetOrdersAsync()
         {
-            var builder = new StringBuilder("EXEC USP_GetAllOrders");
-            return await _dataContext.Set<Order>()
-                                .FromSqlRaw(builder.ToString())
-                                .ToListAsync();
+            var orderList = await _dataContext.Set<MyProcedureResult>()
+                .FromSqlInterpolated($"SELECT OrderId FROM Orders;").ToListAsync();
+
+            return orderList.Select(x => x.MyValue).ToList();
         }
 
-        public async Task<int> UpdateOrderUserAsync(int accountId, UserUpdateOrderDto orderDto)
+        public async Task<int> UpdateOrderUserAsync(int accountId, GetOrderDto orderDto)
         {
             var builder = new StringBuilder("EXEC USP_UpdateOrderUser ");
             builder.Append($"@OrderId={orderDto.OrderId}, ");
@@ -109,7 +111,7 @@ namespace SunriseServerData.Repositories
 
             var execString = new StringBuilder();
             orderDto.OrderItem.ForEach(item => {
-                execString.Append($"EXEC USP_AddProdToOrder {orderDto.OrderId}, {item.ProductId}, {item.Quantity};\n");
+                execString.Append($"EXEC USP_AddProdToOrder {orderDto.OrderId}, {item.Item.Id}, {item.Quantity};\n");
             });
             var result = await _dataContext.Database.ExecuteSqlInterpolatedAsync($"EXECUTE({execString.ToString()});");
 
