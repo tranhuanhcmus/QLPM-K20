@@ -6,6 +6,7 @@ using SunriseServer.Common.Constant;
 using SunriseServerCore.Models;
 using SunriseServerCore.Dtos.Order;
 using System.Security.Claims;
+using SunriseServer.Services.PaymentService;
 
 namespace SunriseServer.Controllers
 {
@@ -17,11 +18,13 @@ namespace SunriseServer.Controllers
 
         private readonly IHttpContextAccessor _httpContext;
         private readonly IOrderService _orderService;
+        private readonly IPaymentService _paymentService;
 
-        public OrderController(IHttpContextAccessor httpContext, IOrderService orderService)
+        public OrderController(IHttpContextAccessor httpContext, IOrderService orderService, IPaymentService paymentService)
         {
             _httpContext = httpContext;
             _orderService = orderService;
+            _paymentService = paymentService;
         }
 
         [HttpGet(""), Authorize(Roles = GlobalConstant.User)]
@@ -75,7 +78,7 @@ namespace SunriseServer.Controllers
                     return NotFound("Cannot add order");
                 }
 
-                return Ok(new ResponseMessageDetails<int>("Order created successfully", result));
+                return Ok(_paymentService.Checkout($"{order.TotalPrice}"));
             }
             catch (Exception e) {
                 return BadRequest($"Cannot create order: {e.Message}");

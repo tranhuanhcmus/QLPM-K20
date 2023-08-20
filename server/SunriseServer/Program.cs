@@ -45,6 +45,7 @@ using SunriseServer.Services.CartService;
 using SunriseServer.Services.OrderService;
 using SunriseServer.Services.FabricService;
 using SunriseServer.Services.BodyService;
+using SunriseServer.Services.PaymentService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -64,6 +65,7 @@ builder.Services.AddScoped<IPantsService, PantsService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ITiesService, TiesService>();
 builder.Services.AddScoped<IBodyService, BodyService>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSwaggerGen(options =>
