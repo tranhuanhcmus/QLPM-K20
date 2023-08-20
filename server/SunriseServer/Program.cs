@@ -94,7 +94,7 @@ builder.Services.AddCors(options => options.AddPolicy(name: "NgOrigins",
 
 builder.Services.AddServicesData();
 builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("StripeSettings"));
-builder.Services.AddUnitOfWork(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Cuong_Pham_Local")));
+builder.Services.AddUnitOfWork(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AZURE_CONNECTION_STRING")));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
