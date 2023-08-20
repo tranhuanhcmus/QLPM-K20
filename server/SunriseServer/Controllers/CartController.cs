@@ -115,7 +115,7 @@ namespace SunriseServer.Controllers
         }
         
         [HttpDelete("item-num"), Authorize(Roles = GlobalConstant.User)]
-        public async Task<ActionResult<ResponseMessageDetails<int>>> ChangeCartItemNum([FromQuery] ChangeItemNumDto itemDto)
+        public async Task<ActionResult<ResponseMessageDetails<int>>> ChangeCartItemNum(int productId, int number)
         {
             var userId = Convert.ToInt32(_httpContext.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
 
@@ -124,7 +124,12 @@ namespace SunriseServer.Controllers
                 return BadRequest("Cannot find user, please login again!");
             }
 
-            itemDto.AccountId = userId;
+            var itemDto = new ChangeItemNumDto {
+                ProductId = productId,
+                Number = number,
+                AccountId = userId
+            };
+            
             var result = await _cartService.ChangeCartItemNum(itemDto);
             
             if (result == -1)
