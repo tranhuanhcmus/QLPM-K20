@@ -62,7 +62,7 @@ Create table Ties (
 -- << 14. Table Product >>
 -- --------------------------
 Create table Product (
-	ProductID int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
+	Id int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
     Price FLOAT,
     Image varchar(255),
     Name nvarchar(100), -- character set utf8mb4,
@@ -302,7 +302,7 @@ Create table Collection (
 Create table Fabric (
 	FabricID int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
     FabricName nvarchar(100), -- character set utf8mb4,
-    Meterial varchar(100),
+    Material varchar(100),
     Price float,
     Color varchar(50),
     Style varchar(100),
@@ -387,7 +387,7 @@ ALTER TABLE Jacket
 		ON UPDATE CASCADE,
 -- (JacketId) REFERENCES Product
 	CONSTRAINT FK_J_Pt
-		FOREIGN KEY (JacketId) REFERENCES Product (ProductID)
+		FOREIGN KEY (JacketId) REFERENCES Product (Id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE;
 
@@ -426,7 +426,7 @@ ALTER TABLE Vest
 		ON UPDATE CASCADE,
 -- (VestID) REFERENCES Product
 	CONSTRAINT FK_V_Pt
-		FOREIGN KEY (VestID) REFERENCES Product (ProductID)
+		FOREIGN KEY (VestID) REFERENCES Product (Id)
 		ON DELETE CASCADE
         ON UPDATE CASCADE;
 
@@ -460,7 +460,7 @@ ALTER TABLE Pants
 		ON UPDATE CASCADE,
 -- (PantsID) REFERENCES Product
 	CONSTRAINT FK_P_Pt
-		FOREIGN KEY (PantsID) REFERENCES Product (ProductID)
+		FOREIGN KEY (PantsID) REFERENCES Product (Id)
 		ON DELETE CASCADE
         ON UPDATE CASCADE;
 
@@ -471,9 +471,9 @@ ALTER TABLE Evaluation
 		FOREIGN KEY (Evaluator) REFERENCES Account (AccountID)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
--- (Product) REFERENCES Product (ProductID)
+-- (Product) REFERENCES Product (Id)
 	CONSTRAINT FK_E_Pt
-		FOREIGN KEY (Product) REFERENCES Product (ProductID)
+		FOREIGN KEY (Product) REFERENCES Product (Id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE;
         
@@ -484,10 +484,10 @@ ALTER TABLE Evaluation
 --		FOREIGN KEY (Customer) REFERENCES Account (AccountID)
 --		ON DELETE CASCADE
 --		ON UPDATE CASCADE;
--- (Product) REFERENCES Product (ProductID)
+-- (Product) REFERENCES Product (Id)
 ALTER TABLE Cart
 	ADD CONSTRAINT FK_C_Pt
-		FOREIGN KEY (Product) REFERENCES Product (ProductID)
+		FOREIGN KEY (Product) REFERENCES Product (Id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE;
 -- Collection
@@ -535,9 +535,9 @@ ALTER TABLE OrderDetail
 		FOREIGN KEY (Orders) REFERENCES Orders (OrderID)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
--- (Product) REFERENCES Product (ProductID)
+-- (Product) REFERENCES Product (Id)
     CONSTRAINT FK_OD_Pt
-		FOREIGN KEY (Product) REFERENCES Product (ProductID)
+		FOREIGN KEY (Product) REFERENCES Product (Id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE;
 	
@@ -567,7 +567,7 @@ ALTER TABLE BodyMeasurement
 
 Alter table Ties 
  add CONSTRAINT FK_T_Pt
-		FOREIGN KEY (TiesID) REFERENCES Product (ProductID)
+		FOREIGN KEY (TiesID) REFERENCES Product (Id)
 		ON DELETE CASCADE
         ON UPDATE CASCADE;
 go

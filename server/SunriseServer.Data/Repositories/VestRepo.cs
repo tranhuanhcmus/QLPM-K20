@@ -43,7 +43,7 @@ namespace SunriseServerData.Repositories
             var product = _dataContext.Product.FromSqlRaw("CALL usp_SearchProduct({0})", name).ToList();
 
             var allVest = product.Join(_dataContext.Vest,
-                p => p.ProductID,
+                p => p.Id,
                 j => j.VestID,
                 (products, vest) => new VestProduct
                 {

@@ -34,7 +34,7 @@ namespace SunriseServerData.Repositories
             var product = _dataContext.Product.FromSqlRaw("CALL usp_SearchProduct({0})", name).ToList();
 
             var allJacket = product.Join(_dataContext.Jacket,
-                p => p.ProductID,
+                p => p.Id,
                 j => j.JacketId,
                 (products, jacket) => new JacketProduct
                 {

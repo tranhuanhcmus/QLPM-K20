@@ -39,7 +39,7 @@ namespace SunriseServer.Services.PantsService
             return true;
         }
         public async Task<bool> UpdatePants(Product productToUpdate, PantsComponent pantsToUpdate) {
-            bool isPantsUpdated = await _unitOfWork.PantsRepo.UpdatePants(productToUpdate.ProductID, pantsToUpdate);
+            bool isPantsUpdated = await _unitOfWork.PantsRepo.UpdatePants(productToUpdate.Id, pantsToUpdate);
             if (!isPantsUpdated) return false;
 
             bool isProductUpdated = await _unitOfWork.ProductRepo.UpdateProduct(productToUpdate);

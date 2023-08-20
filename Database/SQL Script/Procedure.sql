@@ -78,11 +78,11 @@ BEGIN
     DECLARE @jBreastPocket INT;
 
      -- Get the generated ProductID
-    EXEC @newProductID = USP_GetNextColumnId 'Product', 'ProductID';
+    EXEC @newProductID = USP_GetNextColumnId 'Product', 'Id';
 
     -- Insert into the Product table
 	select @aFabricID = FabricId from Fabric where FabricName = @p_FabricName;
-    INSERT INTO Product (ProductID, Price, Image, Name, Description, Discount, Fabric, FabricName, color, Type,ImageFront, ImageBack)
+    INSERT INTO Product (Id, Price, Image, Name, Description, Discount, Fabric, FabricName, color, Type,ImageFront, ImageBack)
     VALUES (@newProductID, @p_Price, @p_Image, @p_Name, @p_Description, @p_Discount, @aFabricID, @p_FabricName, @p_color, @p_Type,@p_ImageFront, @p_ImageBack);
 
     -- Retrieve IDs for each jacket component based on their names
@@ -139,11 +139,11 @@ BEGIN
      DECLARE @vFrontPocket INT;
 
 	 -- Get the generated ProductID
-    EXEC @newProductID = USP_GetNextColumnId 'Product', 'ProductID';
+    EXEC @newProductID = USP_GetNextColumnId 'Product', 'Id';
 
     -- Insert into the Product table
 	select @aFabricID = FabricId from Fabric where FabricName = @p_FabricName;
-    INSERT INTO Product (ProductID, Price, Image, Name, Description, Discount, Fabric, FabricName, color, Type,ImageFront, ImageBack)
+    INSERT INTO Product (Id, Price, Image, Name, Description, Discount, Fabric, FabricName, color, Type,ImageFront, ImageBack)
     VALUES (@newProductID, @p_Price, @p_Image, @p_Name, @p_Description, @p_Discount, @aFabricID, @p_FabricName, @p_color, @p_Type,@p_ImageFront, @p_ImageBack);
 
     -- Retrieve IDs for each vest component based on their names
@@ -199,11 +199,11 @@ BEGIN
     DECLARE @pPleats INT;
 
     -- Get the generated ProductID
-	EXEC @newProductID = USP_GetNextColumnId 'Product', 'ProductID';
+	EXEC @newProductID = USP_GetNextColumnId 'Product', 'Id';
 
     -- Insert into the Product table
     select @aFabricID = FabricId from Fabric where FabricName = @p_FabricName;
-    INSERT INTO Product (ProductID, Price, Image, Name, Description, Discount, Fabric, FabricName, color, Type,ImageFront, ImageBack)
+    INSERT INTO Product (Id, Price, Image, Name, Description, Discount, Fabric, FabricName, color, Type,ImageFront, ImageBack)
     VALUES (@newProductID, @p_Price, @p_Image, @p_Name, @p_Description, @p_Discount, @aFabricID, @p_FabricName, @p_color, @p_Type,@p_ImageFront, @p_ImageBack);
 
     -- Retrieve IDs for each jacket component based on their names
@@ -245,11 +245,11 @@ BEGIN
 	DECLARE @aFabricID INT;
 
     -- Get the generated ProductID
-	EXEC @newProductID = USP_GetNextColumnId 'Product', 'ProductID';
+	EXEC @newProductID = USP_GetNextColumnId 'Product', 'Id';
 
     -- Insert into the Product table
     SELECT @aFabricID = FabricId FROM Fabric WHERE FabricName = @p_FabricName;
-    INSERT INTO Product (ProductID, Price, Image, Name, Description, Discount, Fabric, FabricName, color, Type, ImageFront, ImageBack)
+    INSERT INTO Product (Id, Price, Image, Name, Description, Discount, Fabric, FabricName, color, Type, ImageFront, ImageBack)
     VALUES (@newProductID, @p_Price, @p_Image, @p_Name, @p_Description, @p_Discount, @aFabricID, @p_FabricName, @p_color, @p_Type,@p_ImageFront, @p_ImageBack);
 
     -- Insert into the Ties table
@@ -606,20 +606,20 @@ BEGIN
     DECLARE @p_imgFront VARCHAR(255);
     DECLARE @p_imgBack VARCHAR(255);
 
-    select @p_id = ProductID, @p_imgFront = ImageFront, @p_imgBack = ImageBack
+    select @p_id = Id, @p_imgFront = ImageFront, @p_imgBack = ImageBack
     FROM Product 
-    WHERE FabricName = @p_Fabric and ProductID in (
+    WHERE FabricName = @p_Fabric and Id in (
             SELECT JacketId FROM Jacket 
             WHERE Style = @jStyle AND Fit = @jFit AND Lapel = @jLapel AND SleeveButton = @jSleeveButton 
                 AND Pocket = @jPocket AND BackStyle = @jBackStyle AND BreastPocket = @jBreastPocket
         );
 
     if @p_id is NULL
-        select @p_id = ProductID, @p_imgFront = ImageFront, @p_imgBack = ImageBack
+        select @p_id = Id, @p_imgFront = ImageFront, @p_imgBack = ImageBack
         FROM Product 
         WHERE FabricName = @p_Fabric AND ImageFront is not NULL;
     
-    select @p_id as ProductID, @p_imgFront as Front, @p_imgBack as Back;
+    select @p_id as Id, @p_imgFront as Front, @p_imgBack as Back;
     
     IF @@ERROR <> 0
     BEGIN
@@ -665,9 +665,9 @@ BEGIN
     DECLARE @p_imgFront VARCHAR(255);
     DECLARE @p_imgBack VARCHAR(255);
 
-    select @p_id = ProductID, @p_imgFront = ImageFront, @p_imgBack = ImageBack
+    select @p_id = Id, @p_imgFront = ImageFront, @p_imgBack = ImageBack
     FROM Product 
-    WHERE FabricName = @p_Fabric AND ProductID IN (
+    WHERE FabricName = @p_Fabric AND Id IN (
         SELECT vestId 
         FROM Vest
         WHERE Style = @vStyle AND Type = @vType
@@ -675,11 +675,11 @@ BEGIN
             AND BreastPocket = @vBreastPocket AND FrontPocket = @vFrontPocket);
 
     if @p_id is NULL
-        select @p_id = ProductID, @p_imgFront = ImageFront, @p_imgBack = ImageBack
+        select @p_id = Id, @p_imgFront = ImageFront, @p_imgBack = ImageBack
         FROM Product 
         WHERE FabricName = @p_Fabric AND ImageFront is not NULL;
     
-    select @p_id as ProductID, @p_imgFront as Front, @p_imgBack as Back;
+    select @p_id as Id, @p_imgFront as Front, @p_imgBack as Back;
     
     IF @@ERROR <> 0
     BEGIN
@@ -723,9 +723,9 @@ BEGIN
     DECLARE @p_imgFront VARCHAR(255);
     DECLARE @p_imgBack VARCHAR(255);
 
-    select @p_id = ProductID, @p_imgFront = ImageFront, @p_imgBack = ImageBack
+    select @p_id = Id, @p_imgFront = ImageFront, @p_imgBack = ImageBack
     FROM Product 
-    WHERE FabricName = @p_Fabric AND ProductID IN (
+    WHERE FabricName = @p_Fabric AND Id IN (
         SELECT pantsId 
         FROM Pants
         WHERE Cuff = @pCuff
@@ -736,11 +736,11 @@ BEGIN
     );
 
     if @p_id is NULL
-        select @p_id = ProductID, @p_imgFront = ImageFront, @p_imgBack = ImageBack
+        select @p_id = Id, @p_imgFront = ImageFront, @p_imgBack = ImageBack
         FROM Product 
         WHERE FabricName = @p_Fabric AND ImageFront is not NULL;
     
-    select @p_id as ProductID, @p_imgFront as Front, @p_imgBack as Back;
+    select @p_id as Id, @p_imgFront as Front, @p_imgBack as Back;
 
     
     IF @@ERROR <> 0
@@ -835,7 +835,7 @@ CREATE OR ALTER PROCEDURE USP_GetProd (
 ) AS
 BEGIN
     SELECT
-		prd.ProductID as Id,
+		prd.Id,
 		prd.Price,
 		prd.Image,
 		prd.Name,
@@ -846,7 +846,7 @@ BEGIN
 		prd.color as Color,
 		prd.Type
 	FROM Product prd 
-	WHERE prd.ProductID IN (SELECT value FROM STRING_SPLIT(@ProductId, ','));
+	WHERE prd.Id IN (SELECT value FROM STRING_SPLIT(@ProductId, ','));
 END
 GO
 
@@ -857,9 +857,9 @@ CREATE OR ALTER PROCEDURE USP_GetCart (
 BEGIN
     SELECT 
 		ca.NumberOfProduct as Quantity,
-		prd.ProductID as Id
+		prd.Id
 	FROM (SELECT * FROM Cart WHERE Customer = @AccountId) ca
-	JOIN Product prd ON CA.Product = prd.ProductID;
+	JOIN Product prd ON CA.Product = prd.Id;
 END
 GO
 
@@ -1014,7 +1014,7 @@ CREATE OR ALTER PROCEDURE USP_AddProdToOrder
 AS
 BEGIN
 	DECLARE @Price FLOAT;
-	SELECT @Price = prd.Price FROM Product prd WHERE prd.ProductID = @ProductId;
+	SELECT @Price = prd.Price FROM Product prd WHERE prd.Id = @ProductId;
 	IF (@Price IS NULL)
 	BEGIN
 		RAISERROR(N'Sản phẩm không hợp lệ.', 11, 1)

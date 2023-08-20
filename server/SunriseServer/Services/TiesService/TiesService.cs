@@ -40,7 +40,7 @@ namespace SunriseServer.Services.TiesService
         }
 
         public async Task<bool> UpdateTies(Product productToUpdate, TiesComponent tiesToUpdate) {
-            bool isTiesUpdated = await _unitOfWork.TiesRepo.UpdateTies(productToUpdate.ProductID, tiesToUpdate);
+            bool isTiesUpdated = await _unitOfWork.TiesRepo.UpdateTies(productToUpdate.Id, tiesToUpdate);
             if (!isTiesUpdated) return false;
 
             bool isProductUpdated = await _unitOfWork.ProductRepo.UpdateProduct(productToUpdate);

@@ -44,7 +44,7 @@ namespace SunriseServer.Services.VestService
         }
 
         public async Task<bool> UpdateVest(Product productToUpdate, VestComponent vestToUpdate) {
-            bool isVestUpdated = await _unitOfWork.VestRepo.UpdateVest(productToUpdate.ProductID, vestToUpdate);
+            bool isVestUpdated = await _unitOfWork.VestRepo.UpdateVest(productToUpdate.Id, vestToUpdate);
             if (!isVestUpdated) return false;
 
             bool isProductUpdated = await _unitOfWork.ProductRepo.UpdateProduct(productToUpdate);

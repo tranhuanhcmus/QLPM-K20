@@ -57,7 +57,7 @@ namespace SunriseServerData.Repositories
         }
 
         public bool IsExist(int id, string type) {
-            return _dataContext.Product.Where(p => p.ProductID == id  && p.Type == type ).ToList().FirstOrDefault() != null;
+            return _dataContext.Product.Where(p => p.Id == id  && p.Type == type ).ToList().FirstOrDefault() != null;
         }
 
         public async Task<List<Product>> GetByCategory(string category)
@@ -92,7 +92,7 @@ namespace SunriseServerData.Repositories
         public async Task<bool> UpdateProduct(Product productToUpdate) {
             // Retrieve the existing product entity from the database
 
-            var existingProduct = await _dataContext.Product.FindAsync(productToUpdate.ProductID);
+            var existingProduct = await _dataContext.Product.FindAsync(productToUpdate.Id);
             
 
             if (existingProduct == null)

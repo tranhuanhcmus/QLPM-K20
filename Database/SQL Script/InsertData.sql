@@ -34,7 +34,7 @@ VALUES
     (105, 'Best Fabrics', '555-444-3333', 'sales@bestfabrics.com', '789 Pine Ave');
 
 
-INSERT INTO Fabric (FabricID, FabricName, Meterial, Price, Color, Style, Image, Category, Inventory)
+INSERT INTO Fabric (FabricID, FabricName, Material, Price, Color, Style, Image, Category, Inventory)
 VALUES
     (1, 'Cotton', 'Cotton', 12.99, 'White', 'Plain', 'img001', 'Apparel', 1000),
     (2, 'Silk', 'Silk', 25.50, 'Pink', 'Embroidered', 'img002', 'Apparel', 500),
@@ -42,7 +42,7 @@ VALUES
     (4, 'Polyester', 'Synthetic', 10.25, 'Black', 'Printed', 'img004', 'Apparel', 1200),
     (5, 'Wool', 'Wool', 18.50, 'Grey', 'Herringbone', 'img005', 'Apparel', 600);
 
-INSERT INTO Fabric (FabricID, FabricName, Meterial, Price, Color, Style, Image, Category, Inventory)
+INSERT INTO Fabric (FabricID, FabricName, Material, Price, Color, Style, Image, Category, Inventory)
 VALUES
     (191, 'Cashmere', 'Cashmere: 85%. Wool: 10%', 200, 'Gray', 'Plain', 'https://adongsilk.com/wp-content/uploads/2023/06/191.200_Blue-Grey-Windowpane-tailored-suits-in-hoi-an.jpg', 'Apparel', 1000),
     (533, 'Wool 95', 'Wool: 95%',450, 'Black', 'Embroidered', 'https://adongsilk.com/wp-content/uploads/2023/04/533.450-dark-grey-tailored-suits-in-hoian.jpg', 'Apparel', 500),

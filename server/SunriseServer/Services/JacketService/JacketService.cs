@@ -53,7 +53,7 @@ namespace SunriseServer.Services.JacketService
 
 
         public async Task<bool> UpdateJacket(Product productToUpdate, JacketComponent jacketToUpdate) {
-            bool isJacketUpdated = await _unitOfWork.JacketRepo.UpdateJacket(productToUpdate.ProductID, jacketToUpdate);
+            bool isJacketUpdated = await _unitOfWork.JacketRepo.UpdateJacket(productToUpdate.Id, jacketToUpdate);
             if (!isJacketUpdated) return false;
 
             bool isProductUpdated = await _unitOfWork.ProductRepo.UpdateProduct(productToUpdate);
