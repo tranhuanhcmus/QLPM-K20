@@ -3,11 +3,13 @@ using SunriseServer.Services.PantsService;
 using SunriseServerCore.Dtos;
 using SunriseServerCore.Models.Clothes;
 using SunriseServer.Common.Constant;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace SunriseServer.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/pants")]
     public class PantsController : ControllerBase
     {
         readonly IPantsService _pantsService;
@@ -20,7 +22,7 @@ namespace SunriseServer.Controllers
         }
 
 
-        [HttpGet("All-Pants")]
+        [HttpGet("all")]
         public async Task<ActionResult<List<Product>>> GetAll()
         {
             var result = await _pantsService.GetAll();
@@ -43,7 +45,7 @@ namespace SunriseServer.Controllers
         // }
         // get detail by nid
 
-        [HttpDelete("/Pants/{pantsId}")]
+        [HttpDelete("")]
         public async Task<ActionResult<bool>> DeletePants(int pantsId)
         {
             bool result = await _pantsService.DeletePants(pantsId);
@@ -54,7 +56,7 @@ namespace SunriseServer.Controllers
 
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("")]
         public ActionResult<PantsDetail> GetPantsById(int id)
         {
             var result = _pantsService.GetPantsDetailById(id);

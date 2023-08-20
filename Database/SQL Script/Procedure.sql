@@ -603,13 +603,24 @@ BEGIN
 
 
     -- Retrive Image
-    select ProductID, ImageFront as Front, ImageBack as Back
-     from Product where FabricName = @p_Fabric and ProductID in (
+    DECLARE @p_id INT;
+    DECLARE @p_imgFront VARCHAR(255);
+    DECLARE @p_imgBack VARCHAR(255);
+
+    select @p_id = ProductID, @p_imgFront = ImageFront, @p_imgBack = ImageBack
+    FROM Product 
+    WHERE FabricName = @p_Fabric and ProductID in (
             SELECT JacketId FROM Jacket 
             WHERE Style = @jStyle AND Fit = @jFit AND Lapel = @jLapel AND SleeveButton = @jSleeveButton 
                 AND Pocket = @jPocket AND BackStyle = @jBackStyle AND BreastPocket = @jBreastPocket
         );
 
+    if @p_id is NULL
+        select @p_id = ProductID, @p_imgFront = ImageFront, @p_imgBack = ImageBack
+        FROM Product 
+        WHERE FabricName = @p_Fabric AND ImageFront is not NULL;
+    
+    select @p_id as ProductID, @p_imgFront as Front, @p_imgBack as Back;
     
     IF @@ERROR <> 0
     BEGIN
@@ -651,7 +662,11 @@ BEGIN
 
     
     -- Retrieve Image
-    select ProductID, ImageFront as Front, ImageBack as Back
+    DECLARE @p_id INT;
+    DECLARE @p_imgFront VARCHAR(255);
+    DECLARE @p_imgBack VARCHAR(255);
+
+    select @p_id = ProductID, @p_imgFront = ImageFront, @p_imgBack = ImageBack
     FROM Product 
     WHERE FabricName = @p_Fabric AND ProductID IN (
         SELECT vestId 
@@ -660,6 +675,12 @@ BEGIN
             AND Lapel = @vLapel AND Edge = @vEdge
             AND BreastPocket = @vBreastPocket AND FrontPocket = @vFrontPocket);
 
+    if @p_id is NULL
+        select @p_id = ProductID, @p_imgFront = ImageFront, @p_imgBack = ImageBack
+        FROM Product 
+        WHERE FabricName = @p_Fabric AND ImageFront is not NULL;
+    
+    select @p_id as ProductID, @p_imgFront as Front, @p_imgBack as Back;
     
     IF @@ERROR <> 0
     BEGIN
@@ -699,7 +720,11 @@ BEGIN
     
         
     -- Retrieve Image
-    select ProductID, ImageFront as Front, ImageBack as Back
+    DECLARE @p_id INT;
+    DECLARE @p_imgFront VARCHAR(255);
+    DECLARE @p_imgBack VARCHAR(255);
+
+    select @p_id = ProductID, @p_imgFront = ImageFront, @p_imgBack = ImageBack
     FROM Product 
     WHERE FabricName = @p_Fabric AND ProductID IN (
         SELECT pantsId 
@@ -710,6 +735,13 @@ BEGIN
             AND Fastening = @pFastening
             AND Pocket = @pPocket
     );
+
+    if @p_id is NULL
+        select @p_id = ProductID, @p_imgFront = ImageFront, @p_imgBack = ImageBack
+        FROM Product 
+        WHERE FabricName = @p_Fabric AND ImageFront is not NULL;
+    
+    select @p_id as ProductID, @p_imgFront as Front, @p_imgBack as Back;
 
     
     IF @@ERROR <> 0

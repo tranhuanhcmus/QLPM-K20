@@ -1,5 +1,5 @@
-﻿ use [sunrise-silk];
- go
+﻿use [sunrise-silk];
+go
 
 -- drop constraints
 DECLARE @DropConstraints NVARCHAR(max) = ''
@@ -12,7 +12,7 @@ GO
 -- drop tables
 DECLARE @DropTables NVARCHAR(max) = ''
 SELECT @DropTables += 'DROP TABLE ' + QUOTENAME(TABLE_SCHEMA) + '.' + QUOTENAME(TABLE_NAME)
-FROM INFORMATION_SCHEMA.TABLES WHERE QUOTENAME(TABLE_SCHEMA) != '[sys]'
+FROM INFORMATION_SCHEMA.TABLES WHERE QUOTENAME(TABLE_SCHEMA) != '[sys]' AND QUOTENAME(TABLE_CATALOG) != '[master]'
 EXECUTE sp_executesql @DropTables;
 GO
 

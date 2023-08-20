@@ -12,7 +12,7 @@ using SunriseServer.Services.TiesService;
 namespace SunriseServer.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/product")]
     public class ProductController : ControllerBase
     {
         readonly IProductService _productService;
@@ -34,7 +34,7 @@ namespace SunriseServer.Controllers
 
 
 
-        [HttpGet("All-Product")]
+        [HttpGet("all")]
         public ActionResult<Product> GetAll()
         {
             var result = _productService.GetAll();
@@ -46,7 +46,7 @@ namespace SunriseServer.Controllers
             return Ok(result);
         }
 
-        [HttpGet("Category")]
+        [HttpGet("category")]
         public async Task<ActionResult<List<Product>>> GetByProductType(string type)
         {
             if (string.IsNullOrWhiteSpace(type)) type = "All";
@@ -58,7 +58,7 @@ namespace SunriseServer.Controllers
             return Ok(result);
         }
 
-        [HttpGet("Name")]
+        [HttpGet("name")]
 
         public async Task<ActionResult<List<Product>>> GetByName(string name)
         {
@@ -73,7 +73,7 @@ namespace SunriseServer.Controllers
 
         // get by name
 
-        [HttpGet("Detail")]
+        [HttpGet("detail")]
         public async Task<ActionResult<ModelBase>> GetDetailProductById(int id)
         {
             string type = await _productService.GetProductType(id);

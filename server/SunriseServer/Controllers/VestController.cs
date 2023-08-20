@@ -8,7 +8,7 @@ using SunriseServer.Common.Constant;
 namespace SunriseServer.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/vest")]
     public class VestController : ControllerBase
     {
         readonly IVestService _vestService;
@@ -19,7 +19,7 @@ namespace SunriseServer.Controllers
         }
 
 
-        [HttpGet("All-Vest")]
+        [HttpGet("all")]
         public async Task<ActionResult<List<Product>>> GetAll()
         {
             var result = await _vestService.GetAll();
@@ -33,7 +33,7 @@ namespace SunriseServer.Controllers
 
         // get by id
         // get detail by nid
-        [HttpGet("{id}")]
+        [HttpGet("")]
         public ActionResult<VestDetail> GetVestById(int id)
         {
             var result = _vestService.GetVestDetailById(id);
@@ -43,7 +43,7 @@ namespace SunriseServer.Controllers
             return Ok(result);
         }
 
-        [HttpGet("/Vest/GetImageCustom")]
+        [HttpGet("get-image-custom")]
         public async Task<ActionResult<ImageDto>> GetVestImageByCustom(string fabric,[FromQuery] VestComponent vest)
         {
             if (string.IsNullOrWhiteSpace(fabric))
@@ -70,7 +70,7 @@ namespace SunriseServer.Controllers
         // }
 
 
-        [HttpPut("UpdateVest")]
+        [HttpPut("update")]
         public async Task<ActionResult<bool>> UpdateVest(VestDetail vestToUpdate) {
 
             vestToUpdate.Products.Type = GlobalConstant.VestProduct;
@@ -83,7 +83,7 @@ namespace SunriseServer.Controllers
         }
 
 
-        [HttpDelete("/Vest/{vestId}")]
+        [HttpDelete("")]
         public async Task<ActionResult<bool>> DeleteVest(int vestId)
         {
             bool result = await _vestService.DeleteVest(vestId);
@@ -94,7 +94,7 @@ namespace SunriseServer.Controllers
 
         }
 
-        [HttpPost("Add-Vest")]
+        [HttpPost("add")]
 
         public async Task<ActionResult<bool>> AddVest(AddVestDto av)
         {

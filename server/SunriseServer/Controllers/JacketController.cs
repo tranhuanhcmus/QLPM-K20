@@ -7,7 +7,7 @@ using SunriseServerCore.Models.Clothes;
 namespace SunriseServer.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/jacket")]
     public class JacketController : ControllerBase
     {
         readonly IJacketService _jacketService;
@@ -18,7 +18,7 @@ namespace SunriseServer.Controllers
         }
 
 
-        [HttpGet("All-Jacket")]
+        [HttpGet("all")]
         public ActionResult<List<Product>> GetAll()
         {
             var result = _jacketService.GetAllSpecial();
@@ -40,7 +40,7 @@ namespace SunriseServer.Controllers
         //     return Ok(result);
         // }
         // get detail by nid
-        [HttpGet("{id}")]
+        [HttpGet("")]
         public ActionResult<JacketDetail> GetJacketById(int id)
         {
             var result = _jacketService.GetJacketDetailById(id);
@@ -50,7 +50,7 @@ namespace SunriseServer.Controllers
             return Ok(result);
         }
 
-        [HttpGet("/Jacket/GetImageCustom")]
+        [HttpGet("get-image-custom")]
         public async Task<ActionResult<ImageDto>> GetJacketImageByCustom(string fabric,[FromQuery] JacketComponent jacket)
         {
             if (string.IsNullOrWhiteSpace(fabric))
@@ -67,7 +67,7 @@ namespace SunriseServer.Controllers
 
 
         //[HttpDelete("/{productId}"), Authorize(Roles = GlobalConstant.Admin)]
-        [HttpDelete("/Jacket/{jacketId}")]
+        [HttpDelete("")]
         public async Task<ActionResult<bool>> DeleteJacket(int jacketId)
         {
             bool result = await _jacketService.DeleteJacket(jacketId);
@@ -80,7 +80,7 @@ namespace SunriseServer.Controllers
 
         
         
-        [HttpPost("Add-Jacket")]
+        [HttpPost("add")]
         public async Task<ActionResult<bool>> AddJacket(AddJacketDto aj)
         {
             bool result = await _jacketService.AddJacket(aj);
@@ -92,7 +92,7 @@ namespace SunriseServer.Controllers
 
         }
 
-        [HttpPut("UpdateJacket")]
+        [HttpPut("update")]
         public async Task<ActionResult<bool>> UpdateJacket(JacketDetail jacketToUpdate) {
 
             jacketToUpdate.Products.Type = GlobalConstant.JacketProduct;

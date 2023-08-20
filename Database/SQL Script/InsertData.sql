@@ -1,20 +1,11 @@
 use [sunrise-silk];
 go
-/*
-test area
-
-select * from Fabric;
-select * from Product;
-select * from Jacket;
-select * from Vest;
-select * from Pants;
-
-select * from JacketStyle;
-select * from JacketSleeveButton;
 
 
+ALTER TABLE Fabric
+ALTER COLUMN Image VARCHAR(255);
+go
 
-*/
 --SET SQL_SAFE_UPDATES = 0;
 delete from FabricProvided;
 delete from Supplier;
@@ -50,6 +41,12 @@ VALUES
     (3, 'Linen', 'Linen', 8.75, 'Beige', 'Woven', 'img003', 'Home Textiles', 800),
     (4, 'Polyester', 'Synthetic', 10.25, 'Black', 'Printed', 'img004', 'Apparel', 1200),
     (5, 'Wool', 'Wool', 18.50, 'Grey', 'Herringbone', 'img005', 'Apparel', 600);
+
+INSERT INTO Fabric (FabricID, FabricName, Meterial, Price, Color, Style, Image, Category, Inventory)
+VALUES
+    (191, 'Cashmere', 'Cashmere: 85%. Wool: 10%', 200, 'Gray', 'Plain', 'https://adongsilk.com/wp-content/uploads/2023/06/191.200_Blue-Grey-Windowpane-tailored-suits-in-hoi-an.jpg', 'Apparel', 1000),
+    (533, 'Wool 95', 'Wool: 95%',450, 'Black', 'Embroidered', 'https://adongsilk.com/wp-content/uploads/2023/04/533.450-dark-grey-tailored-suits-in-hoian.jpg', 'Apparel', 500),
+    (1621, 'Wool 100', 'Wool: 100%', 350, 'Black', 'Woven', 'https://adongsilk.com/wp-content/uploads/2021/11/1621-grey-with-chalk-stripe-suits-online-350.jpg', 'Home Textiles', 800)
 
 INSERT INTO FabricProvided (Fabric, Supplier, Price, Number)
 VALUES
@@ -201,28 +198,456 @@ INSERT INTO PantsPocket (ID, Name, Image) VALUES
     (9, 'BACK POCKETS PATCHED X2', 'BackPocketsPatchedX2.jpg'),
     (10, 'BACK POCKETS FLAP POCKETS X2', 'BackPocketsFlapPocketsX2.jpg');
 
+---
+DECLARE @counter INT = 1;
 
--- Insert 7 rows into the Product and Jacket tables using the procedure
-EXEC usp_InsertJacket 65.0, 'jacket1.jpg', 'Jacket 1', 'Description for Jacket 1', 10, 'Cotton', 'White', 'Type 1', 'Single-Breasted 1 Button', 'Slim Fit', 'Notch', '1', 'No Pockets', 'Ventless', 'No', 'Waiting for Image', 'Waiting for Image'; 
-EXEC usp_InsertJacket 80.0, 'jacket2.jpg', 'Jacket 2', 'Description for Jacket 2', 20, 'Silk', 'Pink', 'Type 2', 'Single-Breasted 2 Buttons', 'Regular', 'Peak', '2', 'With Flap', 'Center Vent', 'Yes', 'Waiting for Image', 'Waiting for Image'; 
-EXEC usp_InsertJacket 90.0, 'jacket3.jpg', 'Jacket 3', 'Description for Jacket 3', 15, 'Linen', 'Beige', 'Type 3', 'Single-Breasted 3 Buttons', 'Regular', 'Shawl', '3', 'Double-Welted', 'Side Vents', 'No', 'Waiting for Image', 'Waiting for Image'; 
-EXEC usp_InsertJacket 140.0, 'jacket4.jpg', 'Jacket 4', 'Description for Jacket 4', 30, 'Polyester', 'Black', 'Type 4', 'Double-Breasted 2 Buttons', 'Slim Fit', 'Standard', '2', 'With Flap X3', 'Center Vent', 'No', 'Waiting for Image', 'Waiting for Image'; 
-EXEC usp_InsertJacket 180.0, 'jacket5.jpg', 'Jacket 5', 'Description for Jacket 5', 25, 'Wool', 'Grey', 'Type 5', 'Double-Breasted 4 Buttons', 'Regular', 'Standard', '4', 'Double-Welted X3', 'Side Vents', 'Yes', 'Waiting for Image', 'Waiting for Image'; 
-EXEC usp_InsertJacket 280.0, 'jacket6.jpg', 'Jacket 6', 'This is super jacket 6', 20, 'Wool', 'Black', 'Type 5', 'Double-Breasted 4 Buttons', 'Regular', 'Standard', '4', 'Double-Welted X3', 'Side Vents', 'Yes', 'Waiting for Image', 'Waiting for Image'; 
-update Jacket set SleeveButton = 1 where JacketID = 1;
--- Repeat the CALL InsertJacket procedure with different data for the remaining jackets (up to 2 more times).
--- Insert Vest data with components
-EXEC usp_InsertVest 65.0, 'vest1.jpg', 'Vest 1', 'Description for Vest 1', 10, 'Cotton', 'White', 'Vest', 'SINGLE BREASTED 3 BUTTONS', '2 PIECE SUIT', 'WITHOUT LAPELS', 'STRAIGHT', 'Yes', 'NO POCKETS', 'Waiting for Image', 'Waiting for Image'; 
-EXEC usp_InsertVest 80.0, 'vest2.jpg', 'Vest 2', 'Description for Vest 2', 20, 'Silk', 'Pink', 'Vest', 'SINGLE BREASTED 4 BUTTONS', '3 PIECE SUIT', 'NOTCHED', 'DIAGONAL', 'No', 'WELT POCKETS', 'Waiting for Image', 'Waiting for Image'; 
-EXEC usp_InsertVest 90.0, 'vest3.jpg', 'Vest 3', 'Description for Vest 3', 15, 'Linen', 'Beige', 'Vest', 'SINGLE BREASTED 5 BUTTONS', '2 PIECE SUIT', 'PEAK', 'ROUNDED', 'Yes', 'DOUBLE WELT X3', 'Waiting for Image', 'Waiting for Image'; 
-EXEC usp_InsertVest 140.0, 'vest4.jpg', 'Vest 4', 'Description for Vest 4', 30, 'Polyester', 'Black', 'Vest', 'DOUBLE BREASTED 4 BUTTONS', '3 PIECE SUIT', 'NOTCHED', 'STRAIGHT', 'No', 'WITH FLAPS X3', 'Waiting for Image', 'Waiting for Image'; 
-EXEC usp_InsertVest 180.0, 'vest5.jpg', 'Vest 5', 'Description for Vest 5', 25, 'Wool', 'Grey', 'Vest', 'DOUBLE BREASTED 6 BUTTONS', '2 PIECE SUIT', 'SHAWL', 'ROUNDED', 'Yes', 'WITH FLAPS X3', 'Waiting for Image', 'Waiting for Image'; 
--- Insert 5 rows using the stored procedure for Pants and Product
-EXEC usp_InsertPants 65.0, 'pants1.jpg', 'Pants 1', 'Description for Pants 1', 10, 'Cotton', 'White', 'Pants', 'SIDE POCKETS DIAGONAL', 'REGULAR FIT', 'WITH PANT CUFFS', 'CENTERED', 'NO PLEATS', 'Waiting for Image', 'Waiting for Image'; 
-EXEC usp_InsertPants 80.0, 'pants2.jpg', 'Pants 2', 'Description for Pants 2', 20, 'Silk', 'Pink', 'Pants', 'BACK POCKETS NO POCKETS', 'SLIM FIT', 'NO PANT CUFFS', 'DISPLACED', 'PLEATED', 'Waiting for Image', 'Waiting for Image'; 
-EXEC usp_InsertPants 90.0, 'pants3.jpg', 'Pants 3', 'Description for Pants 3', 15, 'Linen', 'Beige', 'Pants', 'BACK POCKETS DOUBLE-WELTED POCKET WITH BUTTON', 'REGULAR FIT', 'WITH PANT CUFFS', 'NO BUTTON', 'DOUBLE PLEATS', 'Waiting for Image', 'Waiting for Image'; 
-EXEC usp_InsertPants 140.0, 'pants4.jpg', 'Pants 4', 'Description for Pants 4', 30, 'Polyester', 'Black', 'Pants', 'SIDE POCKETS VERTICAL', 'SLIM FIT', 'WITH PANT CUFFS', 'OFF-CENTERED: BUTTONLESS', 'DOUBLE PLEATS', 'Waiting for Image', 'Waiting for Image'; 
-EXEC usp_InsertPants 180.0, 'pants5.jpg', 'Pants 5', 'Description for Pants 5', 25, 'Wool', 'Grey', 'Pants', 'BACK POCKETS PATCHED X2', 'REGULAR FIT', 'NO PANT CUFFS', 'CENTERED', 'NO PLEATS', 'Waiting for Image', 'Waiting for Image'; 
+WHILE @counter <= 32
+BEGIN
+    -- Randomize variables
+    DECLARE @p_Price FLOAT = CAST((RAND() * 500 + 100) AS DECIMAL(10, 2)); -- Random price between 100 and 600
+    DECLARE @p_Description VARCHAR(100) = 'Jacket ' + (SELECT Name FROM JacketStyle WHERE ID = ((@counter - 1) % 7) + 1) + ' ' +
+                                    (SELECT Name FROM JacketFit WHERE ID = ((@counter - 1) / 4) % 2 + 1) + ' ' +
+                                    (SELECT Name FROM JacketLapel WHERE ID = ((@counter - 1) / 8) % 6 + 1) + ' ' +
+                                    (SELECT Name FROM JacketSleeveButton WHERE ID = ((@counter - 1) / 16) % 4 + 1) + ' ' +
+                                    (SELECT Name FROM JacketPocket WHERE ID = ((@counter - 1) / 32) % 8 + 1) + ' ' +
+                                    (SELECT Name FROM JacketBackStyle WHERE ID = ((@counter - 1) / 64) % 3 + 1) + ' ' +
+                                    (SELECT Name FROM JacketBreastPocket WHERE ID = ((@counter - 1) / 128) % 4 + 1);
+    DECLARE @p_Name VARCHAR(100) = @p_Description;
+    DECLARE @p_Image VARCHAR(255) = 'wait for real link'; -- Replace with actual link
+    DECLARE @p_FabricName VARCHAR(100) = 'Wool 100';
+    DECLARE @p_color VARCHAR(100) = 'Black';
+    DECLARE @p_Type VARCHAR(20) = 'Jacket';
+    DECLARE @p_Style VARCHAR(100) = (SELECT Name FROM JacketStyle WHERE ID = ((@counter - 1) % 7) + 1);
+    DECLARE @p_Fit VARCHAR(100) = (SELECT Name FROM JacketFit WHERE ID = ((@counter - 1) / 4) % 2 + 1);
+    DECLARE @p_Lapel VARCHAR(100) = (SELECT Name FROM JacketLapel WHERE ID = ((@counter - 1) / 8) % 6 + 1);
+    DECLARE @p_SleeveButton VARCHAR(100) = (SELECT Name FROM JacketSleeveButton WHERE ID = ((@counter - 1) / 16) % 4 + 1);
+    DECLARE @p_Pocket VARCHAR(100) = (SELECT Name FROM JacketPocket WHERE ID = ((@counter - 1) / 32) % 8 + 1);
+    DECLARE @p_BackStyle VARCHAR(100) = (SELECT Name FROM JacketBackStyle WHERE ID = ((@counter - 1) / 64) % 3 + 1);
+    DECLARE @p_BreastPocket VARCHAR(100) = (SELECT Name FROM JacketBreastPocket WHERE ID = ((@counter - 1) / 128) % 4 + 1);
+    DECLARE @p_ImageFront VARCHAR(255) = 'https://inallidg.sirv.com/Screenshot_Images%20Data/1621.350%20(done)/jacket/front/' + CAST(@counter AS VARCHAR) + '.png';
+    DECLARE @p_ImageBack VARCHAR(255) = 'https://inallidg.sirv.com/Screenshot_Images%20Data/1621.350%20(done)/jacket/back/' + CAST((@counter % 4 + 1) AS VARCHAR) + '.png';
+
+    -- Execute the stored procedure with randomized variables
+    EXEC usp_InsertJacket
+        @p_Price,
+        @p_Image,
+        @p_Name,
+        @p_Description,
+        0, -- Discount (assuming no discount)
+        @p_FabricName,
+        @p_color,
+        @p_Type,
+        @p_Style,
+        @p_Fit,
+        @p_Lapel,
+        @p_SleeveButton,
+        @p_Pocket,
+        @p_BackStyle,
+        @p_BreastPocket,
+        @p_ImageFront,
+        @p_ImageBack;
+
+    -- Increment the counter
+    SET @counter = @counter + 1;
+END;
+GO
+
+
+DECLARE @counter INT = 33;
+
+WHILE @counter <= 64
+BEGIN
+    -- Randomize variables
+    DECLARE @p_Price FLOAT = CAST((RAND() * 500 + 100) AS DECIMAL(10, 2)); -- Random price between 100 and 600
+    DECLARE @p_Description VARCHAR(100) = 'Jacket ' + (SELECT Name FROM JacketStyle WHERE ID = ((@counter - 1) % 7) + 1) + ' ' +
+                                    (SELECT Name FROM JacketFit WHERE ID = ((@counter - 1) / 4) % 2 + 1) + ' ' +
+                                    (SELECT Name FROM JacketLapel WHERE ID = ((@counter - 1) / 8) % 6 + 1) + ' ' +
+                                    (SELECT Name FROM JacketSleeveButton WHERE ID = ((@counter - 1) / 16) % 4 + 1) + ' ' +
+                                    (SELECT Name FROM JacketPocket WHERE ID = ((@counter - 1) / 32) % 8 + 1) + ' ' +
+                                    (SELECT Name FROM JacketBackStyle WHERE ID = ((@counter - 1) / 64) % 3 + 1) + ' ' +
+                                    (SELECT Name FROM JacketBreastPocket WHERE ID = ((@counter - 1) / 128) % 4 + 1);
+    DECLARE @p_Name VARCHAR(100) = @p_Description;
+    DECLARE @p_Image VARCHAR(255) = 'wait for real link'; -- Replace with actual link
+    DECLARE @p_FabricName VARCHAR(100) = 'Cashmere';
+    DECLARE @p_color VARCHAR(100) = 'Grey';
+    DECLARE @p_Type VARCHAR(20) = 'Jacket';
+    DECLARE @p_Style VARCHAR(100) = (SELECT Name FROM JacketStyle WHERE ID = ((@counter - 1) % 7) + 1);
+    DECLARE @p_Fit VARCHAR(100) = (SELECT Name FROM JacketFit WHERE ID = ((@counter - 1) / 4) % 2 + 1);
+    DECLARE @p_Lapel VARCHAR(100) = (SELECT Name FROM JacketLapel WHERE ID = ((@counter - 1) / 8) % 6 + 1);
+    DECLARE @p_SleeveButton VARCHAR(100) = (SELECT Name FROM JacketSleeveButton WHERE ID = ((@counter - 1) / 16) % 4 + 1);
+    DECLARE @p_Pocket VARCHAR(100) = (SELECT Name FROM JacketPocket WHERE ID = ((@counter - 1) / 32) % 8 + 1);
+    DECLARE @p_BackStyle VARCHAR(100) = (SELECT Name FROM JacketBackStyle WHERE ID = ((@counter - 1) / 64) % 3 + 1);
+    DECLARE @p_BreastPocket VARCHAR(100) = (SELECT Name FROM JacketBreastPocket WHERE ID = ((@counter - 1) / 128) % 4 + 1);
+    DECLARE @p_ImageFront VARCHAR(255) = 'https://inallidg.sirv.com/Screenshot_Images%20Data/191.200%20(done)/jacket/front/' + CAST(@counter - 32 AS VARCHAR) + '.png';
+    DECLARE @p_ImageBack VARCHAR(255) = 'https://inallidg.sirv.com/Screenshot_Images%20Data/191.200%20(done)/jacket/back/' + CAST((@counter % 4 + 1) - 32 AS VARCHAR) + '.png';
+
+    -- Execute the stored procedure with randomized variables
+    EXEC usp_InsertJacket
+        @p_Price,
+        @p_Image,
+        @p_Name,
+        @p_Description,
+        0, -- Discount (assuming no discount)
+        @p_FabricName,
+        @p_color,
+        @p_Type,
+        @p_Style,
+        @p_Fit,
+        @p_Lapel,
+        @p_SleeveButton,
+        @p_Pocket,
+        @p_BackStyle,
+        @p_BreastPocket,
+        @p_ImageFront,
+        @p_ImageBack;
+
+    -- Increment the counter
+    SET @counter = @counter + 1;
+END;
+GO
+
+
+
+DECLARE @counter INT = 65;
+
+WHILE @counter <= 96
+BEGIN
+    -- Randomize variables
+    DECLARE @p_Price FLOAT = CAST((RAND() * 500 + 100) AS DECIMAL(10, 2)); -- Random price between 100 and 600
+    DECLARE @p_Description VARCHAR(100) = 'Jacket ' + (SELECT Name FROM JacketStyle WHERE ID = ((@counter - 1) % 7) + 1) + ' ' +
+                                    (SELECT Name FROM JacketFit WHERE ID = ((@counter - 1) / 4) % 2 + 1) + ' ' +
+                                    (SELECT Name FROM JacketLapel WHERE ID = ((@counter - 1) / 8) % 6 + 1) + ' ' +
+                                    (SELECT Name FROM JacketSleeveButton WHERE ID = ((@counter - 1) / 16) % 4 + 1) + ' ' +
+                                    (SELECT Name FROM JacketPocket WHERE ID = ((@counter - 1) / 32) % 8 + 1) + ' ' +
+                                    (SELECT Name FROM JacketBackStyle WHERE ID = ((@counter - 1) / 64) % 3 + 1) + ' ' +
+                                    (SELECT Name FROM JacketBreastPocket WHERE ID = ((@counter - 1) / 128) % 4 + 1);
+    DECLARE @p_Name VARCHAR(100) = @p_Description;
+    DECLARE @p_Image VARCHAR(255) = 'wait for real link'; -- Replace with actual link
+    DECLARE @p_FabricName VARCHAR(100) = 'Wool 95';
+    DECLARE @p_color VARCHAR(100) = 'Black';
+    DECLARE @p_Type VARCHAR(20) = 'Jacket';
+    DECLARE @p_Style VARCHAR(100) = (SELECT Name FROM JacketStyle WHERE ID = ((@counter - 1) % 7) + 1);
+    DECLARE @p_Fit VARCHAR(100) = (SELECT Name FROM JacketFit WHERE ID = ((@counter - 1) / 4) % 2 + 1);
+    DECLARE @p_Lapel VARCHAR(100) = (SELECT Name FROM JacketLapel WHERE ID = ((@counter - 1) / 8) % 6 + 1);
+    DECLARE @p_SleeveButton VARCHAR(100) = (SELECT Name FROM JacketSleeveButton WHERE ID = ((@counter - 1) / 16) % 4 + 1);
+    DECLARE @p_Pocket VARCHAR(100) = (SELECT Name FROM JacketPocket WHERE ID = ((@counter - 1) / 32) % 8 + 1);
+    DECLARE @p_BackStyle VARCHAR(100) = (SELECT Name FROM JacketBackStyle WHERE ID = ((@counter - 1) / 64) % 3 + 1);
+    DECLARE @p_BreastPocket VARCHAR(100) = (SELECT Name FROM JacketBreastPocket WHERE ID = ((@counter - 1) / 128) % 4 + 1);
+    DECLARE @p_ImageFront VARCHAR(255) = 'https://inallidg.sirv.com/Screenshot_Images%20Data/533.450%20(done)/jacket/front/' + CAST(@counter - 65 AS VARCHAR) + '.png';
+    DECLARE @p_ImageBack VARCHAR(255) = 'https://inallidg.sirv.com/Screenshot_Images%20Data/533.450%20(done)/jacket/back/' + CAST((@counter % 4 + 1) - 65 AS VARCHAR) + '.png';
+
+    -- Execute the stored procedure with randomized variables
+    EXEC usp_InsertJacket
+        @p_Price,
+        @p_Image,
+        @p_Name,
+        @p_Description,
+        0, -- Discount (assuming no discount)
+        @p_FabricName,
+        @p_color,
+        @p_Type,
+        @p_Style,
+        @p_Fit,
+        @p_Lapel,
+        @p_SleeveButton,
+        @p_Pocket,
+        @p_BackStyle,
+        @p_BreastPocket,
+        @p_ImageFront,
+        @p_ImageBack;
+
+    -- Increment the counter
+    SET @counter = @counter + 1;
+END;
+GO
+
+
+DECLARE @counter INT = 97;
+
+WHILE @counter <= 104
+BEGIN
+    -- Randomize variables
+    DECLARE @p_Price FLOAT = CAST((RAND() * 500 + 100) AS DECIMAL(10, 2)); -- Random price between 100 and 600
+    DECLARE @p_Description VARCHAR(100) = 'Vest ' + 
+        (SELECT Name FROM VestType WHERE ID = (@counter % 2) + 1) + ' ' +
+        (SELECT Name FROM VestStyle WHERE ID = ((@counter - 1) % 6) + 1) + ' ' +
+        (SELECT Name FROM VestLapel WHERE ID = ((@counter - 1) / 2) % 4 + 1) + ' ' +
+        (SELECT Name FROM VestEdge WHERE ID = ((@counter - 1) / 8) % 3 + 1);
+    DECLARE @p_Name VARCHAR(100) = @p_Description;
+    DECLARE @p_Image VARCHAR(255) = 'wait for real link'; -- Replace with actual link
+    DECLARE @p_FabricName VARCHAR(100) = 'Cashmere';
+    DECLARE @p_color VARCHAR(100) = 'Grey';
+    DECLARE @p_Type VARCHAR(20) = 'Vest';
+    DECLARE @p_Style VARCHAR(100) = (SELECT Name FROM VestStyle WHERE ID = ((@counter - 1) % 6) + 1);
+    DECLARE @p_vType VARCHAR(100) = (SELECT Name FROM VestType WHERE ID = (@counter % 2) + 1);
+    DECLARE @p_Lapel VARCHAR(100) = (SELECT Name FROM VestLapel WHERE ID = ((@counter - 1) / 2) % 4 + 1);
+    DECLARE @p_Edge VARCHAR(100) = (SELECT Name FROM VestEdge WHERE ID = ((@counter - 1) / 8) % 3 + 1);
+    DECLARE @p_BreastPocket VARCHAR(100) = 'Yes';
+    DECLARE @p_FrontPocket VARCHAR(100) = 'WELT POCKETS';
+    DECLARE @p_ImageFront VARCHAR(255) = 'https://inallidg.sirv.com/Screenshot_Images%20Data/191.200%20(done)/vest/front/' + CAST(@counter -96 AS VARCHAR) + '.png';
+    DECLARE @p_ImageBack VARCHAR(255) = 'https://inallidg.sirv.com/Screenshot_Images%20Data/191.200%20(done)/vest/back/1.png';
+
+    -- Execute the stored procedure with randomized variables
+    EXEC usp_InsertVest
+        @p_Price,
+        @p_Image,
+        @p_Name,
+        @p_Description,
+        0, -- Discount (assuming no discount)
+        @p_FabricName,
+        @p_color,
+        @p_Type,
+        @p_Style,
+        @p_vType,
+        @p_Lapel,
+        @p_Edge,
+        @p_BreastPocket,
+        @p_FrontPocket,
+        @p_ImageFront,
+        @p_ImageBack;
+
+    -- Increment the counter
+    SET @counter = @counter + 1;
+END;
+go
+
+DECLARE @counter INT = 105;
+
+WHILE @counter <= 112
+BEGIN
+    -- Randomize variables
+    DECLARE @p_Price FLOAT = CAST((RAND() * 500 + 100) AS DECIMAL(10, 2)); -- Random price between 100 and 600
+    DECLARE @p_Description VARCHAR(100) = 'Vest ' + 
+        (SELECT Name FROM VestType WHERE ID = (@counter % 2) + 1) + ' ' +
+        (SELECT Name FROM VestStyle WHERE ID = ((@counter - 1) % 6) + 1) + ' ' +
+        (SELECT Name FROM VestLapel WHERE ID = ((@counter - 1) / 2) % 4 + 1) + ' ' +
+        (SELECT Name FROM VestEdge WHERE ID = ((@counter - 1) / 8) % 3 + 1);
+    DECLARE @p_Name VARCHAR(100) = @p_Description;
+    DECLARE @p_Image VARCHAR(255) = 'wait for real link'; -- Replace with actual link
+    DECLARE @p_FabricName VARCHAR(100) = 'Wool 100';
+    DECLARE @p_color VARCHAR(100) = 'Black';
+    DECLARE @p_Type VARCHAR(20) = 'Vest';
+    DECLARE @p_Style VARCHAR(100) = (SELECT Name FROM VestStyle WHERE ID = ((@counter - 1) % 6) + 1);
+    DECLARE @p_vType VARCHAR(100) = (SELECT Name FROM VestType WHERE ID = (@counter % 2) + 1);
+    DECLARE @p_Lapel VARCHAR(100) = (SELECT Name FROM VestLapel WHERE ID = ((@counter - 1) / 2) % 4 + 1);
+    DECLARE @p_Edge VARCHAR(100) = (SELECT Name FROM VestEdge WHERE ID = ((@counter - 1) / 8) % 3 + 1);
+    DECLARE @p_BreastPocket VARCHAR(100) = 'Yes';
+    DECLARE @p_FrontPocket VARCHAR(100) = 'WELT POCKETS';
+    DECLARE @p_ImageFront VARCHAR(255) = 'https://inallidg.sirv.com/Screenshot_Images%20Data/1621.350%20(done)/vest/front/' + CAST(@counter - 104 AS VARCHAR) + '.png';
+    DECLARE @p_ImageBack VARCHAR(255) = 'https://inallidg.sirv.com/Screenshot_Images%20Data/1621.350%20(done)/vest/back/1.png';
+
+    -- Execute the stored procedure with randomized variables
+    EXEC usp_InsertVest
+        @p_Price,
+        @p_Image,
+        @p_Name,
+        @p_Description,
+        0, -- Discount (assuming no discount)
+        @p_FabricName,
+        @p_color,
+        @p_Type,
+        @p_Style,
+        @p_vType,
+        @p_Lapel,
+        @p_Edge,
+        @p_BreastPocket,
+        @p_FrontPocket,
+        @p_ImageFront,
+        @p_ImageBack;
+
+    -- Increment the counter
+    SET @counter = @counter + 1;
+END;
+go
+
+
+DECLARE @counter INT = 113;
+
+WHILE @counter <= 120
+BEGIN
+    -- Randomize variables
+    DECLARE @p_Price FLOAT = CAST((RAND() * 500 + 100) AS DECIMAL(10, 2)); -- Random price between 100 and 600
+    DECLARE @p_Description VARCHAR(100) = 'Vest ' + 
+        (SELECT Name FROM VestType WHERE ID = (@counter % 2) + 1) + ' ' +
+        (SELECT Name FROM VestStyle WHERE ID = ((@counter - 1) % 6) + 1) + ' ' +
+        (SELECT Name FROM VestLapel WHERE ID = ((@counter - 1) / 2) % 4 + 1) + ' ' +
+        (SELECT Name FROM VestEdge WHERE ID = ((@counter - 1) / 8) % 3 + 1);
+    DECLARE @p_Name VARCHAR(100) = @p_Description;
+    DECLARE @p_Image VARCHAR(255) = 'wait for real link'; -- Replace with actual link
+    DECLARE @p_FabricName VARCHAR(100) = 'Wool 95';
+    DECLARE @p_color VARCHAR(100) = 'Black';
+    DECLARE @p_Type VARCHAR(20) = 'Vest';
+    DECLARE @p_Style VARCHAR(100) = (SELECT Name FROM VestStyle WHERE ID = ((@counter - 1) % 6) + 1);
+    DECLARE @p_vType VARCHAR(100) = (SELECT Name FROM VestType WHERE ID = (@counter % 2) + 1);
+    DECLARE @p_Lapel VARCHAR(100) = (SELECT Name FROM VestLapel WHERE ID = ((@counter - 1) / 2) % 4 + 1);
+    DECLARE @p_Edge VARCHAR(100) = (SELECT Name FROM VestEdge WHERE ID = ((@counter - 1) / 8) % 3 + 1);
+    DECLARE @p_BreastPocket VARCHAR(100) = 'Yes';
+    DECLARE @p_FrontPocket VARCHAR(100) = 'WELT POCKETS';
+    DECLARE @p_ImageFront VARCHAR(255) = 'https://inallidg.sirv.com/Screenshot_Images%20Data/533.450%20(done)/vest/front/' + CAST(@counter - 112 AS VARCHAR) + '.png';
+    DECLARE @p_ImageBack VARCHAR(255) = 'https://inallidg.sirv.com/Screenshot_Images%20Data/533.450%20(done)/vest/back/1.png';
+
+    -- Execute the stored procedure with randomized variables
+    EXEC usp_InsertVest
+        @p_Price,
+        @p_Image,
+        @p_Name,
+        @p_Description,
+        0, -- Discount (assuming no discount)
+        @p_FabricName,
+        @p_color,
+        @p_Type,
+        @p_Style,
+        @p_vType,
+        @p_Lapel,
+        @p_Edge,
+        @p_BreastPocket,
+        @p_FrontPocket,
+        @p_ImageFront,
+        @p_ImageBack;
+
+    -- Increment the counter
+    SET @counter = @counter + 1;
+END;
+go
+
+-- pants;
+DECLARE @counter INT = 121;
+WHILE @counter <= 128
+BEGIN
+    -- Randomize variables
+    DECLARE @p_Price FLOAT = CAST((RAND() * 500 + 100) AS DECIMAL(10, 2)); -- Random price between 100 and 600
+    DECLARE @p_Description VARCHAR(100) = 'Pants ' + 
+        (SELECT Name FROM PantsFit WHERE ID = ((@counter - 1) % 2) + 1) + ' ' +
+        (SELECT Name FROM PantsPleats WHERE ID = ((@counter - 1) / 2) % 2 + 1) + ' ' +
+        (SELECT Name FROM PantsFastening WHERE ID = ((@counter - 1) / 4) % 2 + 1);
+    DECLARE @p_Name VARCHAR(100) = @p_Description;
+    DECLARE @p_Cuff VARCHAR(100) = 'NO PANT CUFFS';
+    DECLARE @p_Image VARCHAR(255) = 'wait for real link'; -- Replace with actual link
+    DECLARE @p_FabricName VARCHAR(100) = 'Cashmere';
+    DECLARE @p_color VARCHAR(100) = 'Grey';
+    DECLARE @p_Type VARCHAR(20) = 'Pants';
+    DECLARE @p_Pocket VARCHAR(100) = (SELECT Name FROM PantsPocket WHERE ID = ((@counter - 1) / 8) % 10 + 1);
+    DECLARE @p_Fit VARCHAR(100) = (SELECT Name FROM PantsFit WHERE ID = ((@counter - 1) % 2) + 1);
+    DECLARE @p_Pleats VARCHAR(100) = (SELECT Name FROM PantsPleats WHERE ID = ((@counter - 1) / 2) % 2 + 1);
+    DECLARE @p_Fastening VARCHAR(100) = (SELECT Name FROM PantsFastening WHERE ID = ((@counter - 1) / 4) % 2 + 1);
+    DECLARE @p_ImageFront VARCHAR(255) = 'https://inallidg.sirv.com/Screenshot_Images%20Data/191.200%20(done)/pant/front/' + CAST(@counter-120 AS VARCHAR) + '.png';
+    DECLARE @p_ImageBack VARCHAR(255) = 'https://inallidg.sirv.com/Screenshot_Images%20Data/191.200%20(done)/pant/back/' + CAST((@counter % 4 + 1) AS VARCHAR) + '.png';
+
+    -- Execute the stored procedure with randomized variables
+    EXEC usp_InsertPants
+        @p_Price,
+        @p_Image,
+        @p_Name,
+        @p_Description,
+        0, -- Discount (assuming no discount)
+        @p_FabricName,
+        @p_color,
+        @p_Type,
+        @p_Pocket,
+        @p_Fit,
+        @p_Cuff,
+        @p_Fastening,
+        @p_Pleats,
+        @p_ImageFront,
+        @p_ImageBack;
+
+    -- Increment the counter
+    SET @counter = @counter + 1;
+END;
+GO
+
+
+-- pants;
+DECLARE @counter INT = 129;
+WHILE @counter <= 136
+BEGIN
+    -- Randomize variables
+    DECLARE @p_Price FLOAT = CAST((RAND() * 500 + 100) AS DECIMAL(10, 2)); -- Random price between 100 and 600
+    DECLARE @p_Description VARCHAR(100) = 'Pants ' + 
+        (SELECT Name FROM PantsFit WHERE ID = ((@counter - 1) % 2) + 1) + ' ' +
+        (SELECT Name FROM PantsPleats WHERE ID = ((@counter - 1) / 2) % 2 + 1) + ' ' +
+        (SELECT Name FROM PantsFastening WHERE ID = ((@counter - 1) / 4) % 2 + 1);
+    DECLARE @p_Name VARCHAR(100) = @p_Description;
+    DECLARE @p_Cuff VARCHAR(100) = 'NO PANT CUFFS';
+    DECLARE @p_Image VARCHAR(255) = 'wait for real link'; -- Replace with actual link
+    DECLARE @p_FabricName VARCHAR(100) = 'Wool 100';
+    DECLARE @p_color VARCHAR(100) = 'Black';
+    DECLARE @p_Type VARCHAR(20) = 'Pants';
+    DECLARE @p_Pocket VARCHAR(100) = (SELECT Name FROM PantsPocket WHERE ID = ((@counter - 1) / 8) % 10 + 1);
+    DECLARE @p_Fit VARCHAR(100) = (SELECT Name FROM PantsFit WHERE ID = ((@counter - 1) % 2) + 1);
+    DECLARE @p_Pleats VARCHAR(100) = (SELECT Name FROM PantsPleats WHERE ID = ((@counter - 1) / 2) % 2 + 1);
+    DECLARE @p_Fastening VARCHAR(100) = (SELECT Name FROM PantsFastening WHERE ID = ((@counter - 1) / 4) % 2 + 1);
+    DECLARE @p_ImageFront VARCHAR(255) = 'https://inallidg.sirv.com/Screenshot_Images%20Data/1621.350%20(done)/pant/front/' + CAST(@counter-128 AS VARCHAR) + '.png';
+    DECLARE @p_ImageBack VARCHAR(255) = 'https://inallidg.sirv.com/Screenshot_Images%20Data/1621.350%20(done)/pant/back/' + CAST((@counter % 4 + 1) AS VARCHAR) + '.png';
+
+    -- Execute the stored procedure with randomized variables
+    EXEC usp_InsertPants
+        @p_Price,
+        @p_Image,
+        @p_Name,
+        @p_Description,
+        0, -- Discount (assuming no discount)
+        @p_FabricName,
+        @p_color,
+        @p_Type,
+        @p_Pocket,
+        @p_Fit,
+        @p_Cuff,
+        @p_Fastening,
+        @p_Pleats,
+        @p_ImageFront,
+        @p_ImageBack;
+
+    -- Increment the counter
+    SET @counter = @counter + 1;
+END;
+go
+-- pants;
+DECLARE @counter INT = 137;
+WHILE @counter <= 144
+BEGIN
+    -- Randomize variables
+    DECLARE @p_Price FLOAT = CAST((RAND() * 500 + 100) AS DECIMAL(10, 2)); -- Random price between 100 and 600
+    DECLARE @p_Description VARCHAR(100) = 'Pants ' + 
+        (SELECT Name FROM PantsFit WHERE ID = ((@counter - 1) % 2) + 1) + ' ' +
+        (SELECT Name FROM PantsPleats WHERE ID = ((@counter - 1) / 2) % 2 + 1) + ' ' +
+        (SELECT Name FROM PantsFastening WHERE ID = ((@counter - 1) / 4) % 2 + 1);
+    DECLARE @p_Name VARCHAR(100) = @p_Description;
+    DECLARE @p_Cuff VARCHAR(100) = 'NO PANT CUFFS';
+    DECLARE @p_Image VARCHAR(255) = 'wait for real link'; -- Replace with actual link
+    DECLARE @p_FabricName VARCHAR(100) = 'Wool 95';
+    DECLARE @p_color VARCHAR(100) = 'Black';
+    DECLARE @p_Type VARCHAR(20) = 'Pants';
+    DECLARE @p_Pocket VARCHAR(100) = (SELECT Name FROM PantsPocket WHERE ID = ((@counter - 1) / 8) % 10 + 1);
+    DECLARE @p_Fit VARCHAR(100) = (SELECT Name FROM PantsFit WHERE ID = ((@counter - 1) % 2) + 1);
+    DECLARE @p_Pleats VARCHAR(100) = (SELECT Name FROM PantsPleats WHERE ID = ((@counter - 1) / 2) % 2 + 1);
+    DECLARE @p_Fastening VARCHAR(100) = (SELECT Name FROM PantsFastening WHERE ID = ((@counter - 1) / 4) % 2 + 1);
+    DECLARE @p_ImageFront VARCHAR(255) = 'https://inallidg.sirv.com/Screenshot_Images%20Data/533.450%20(done)/pant/front/' + CAST(@counter-136 AS VARCHAR) + '.png';
+    DECLARE @p_ImageBack VARCHAR(255) = 'https://inallidg.sirv.com/Screenshot_Images%20Data/533.450%20(done)/pant/back/' + CAST((@counter % 4 + 1) AS VARCHAR) + '.png';
+
+    -- Execute the stored procedure with randomized variables
+    EXEC usp_InsertPants
+        @p_Price,
+        @p_Image,
+        @p_Name,
+        @p_Description,
+        0, -- Discount (assuming no discount)
+        @p_FabricName,
+        @p_color,
+        @p_Type,
+        @p_Pocket,
+        @p_Fit,
+        @p_Cuff,
+        @p_Fastening,
+        @p_Pleats,
+        @p_ImageFront,
+        @p_ImageBack;
+
+    -- Increment the counter
+    SET @counter = @counter + 1;
+END;
+go
+
 
 -- Insert ties - Row 1
 EXEC usp_InsertTies @p_Price = 65.0, @p_Image = 'tie1.jpg', @p_Name = 'Tie 1', @p_Description = 'Description for Tie 1', @p_Discount = 10, @p_FabricName = 'Cotton', @p_color = 'White', @p_Type = 'Ties', @p_Size = 5.0, @p_Style = 'Style for Tie 1', @p_ImageFront = 'Waiting for Image',@p_ImageBack = 'Waiting for Image';

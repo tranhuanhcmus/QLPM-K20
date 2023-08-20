@@ -7,7 +7,7 @@ using SunriseServer.Common.Constant;
 namespace SunriseServer.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/ties")]
     public class TiesController : ControllerBase
     {
         readonly ITiesService _tiesService;
@@ -18,7 +18,7 @@ namespace SunriseServer.Controllers
         }
 
 
-        [HttpGet("All-Ties")]
+        [HttpGet("all")]
         public async Task<ActionResult<List<Product>>> GetAll()
         {
             var result = await _tiesService.GetAll();
@@ -32,7 +32,7 @@ namespace SunriseServer.Controllers
 
         // get by id
         // get detail by nid
-        [HttpGet("{id}")]
+        [HttpGet("")]
         public ActionResult<TiesDetail> GetTiesById(int id)
         {
             var result = _tiesService.GetTiesDetailById(id);
@@ -53,7 +53,7 @@ namespace SunriseServer.Controllers
         //     return Ok(result);
         // }
 
-        [HttpDelete("/Ties/{tiesId}")]
+        [HttpDelete("")]
         public async Task<ActionResult<bool>> DeleteTies(int tiesId)
         {
             bool result = await _tiesService.DeleteTies(tiesId);
@@ -65,7 +65,7 @@ namespace SunriseServer.Controllers
         }
 
 
-        [HttpPut("UpdateTies")]
+        [HttpPut("update")]
         public async Task<ActionResult<bool>> UpdateTies(TiesDetail tiesToUpdate) {
 
             tiesToUpdate.Products.Type = GlobalConstant.TiesProduct;
@@ -77,7 +77,7 @@ namespace SunriseServer.Controllers
             return Ok("Update Successfully");
         }
 
-        [HttpPost("Add-Ties")]
+        [HttpPost("add")]
         public async Task<ActionResult<bool>> AddTies(AddTiesDto at)
         {
             bool result = await _tiesService.AddTies(at);
