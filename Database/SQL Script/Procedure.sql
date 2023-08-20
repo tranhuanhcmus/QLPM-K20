@@ -81,7 +81,7 @@ BEGIN
     EXEC @newProductID = USP_GetNextColumnId 'Product', 'ProductID';
 
     -- Insert into the Product table
-	select @aFabricID = FabricID from Fabric where FabricName = @p_FabricName;
+	select @aFabricID = FabricId from Fabric where FabricName = @p_FabricName;
     INSERT INTO Product (ProductID, Price, Image, Name, Description, Discount, Fabric, FabricName, color, Type)
     VALUES (@newProductID, @p_Price, @p_Image, @p_Name, @p_Description, @p_Discount, @aFabricID, @p_FabricName, @p_color, @p_Type);
 
@@ -142,7 +142,7 @@ BEGIN
     EXEC @newProductID = USP_GetNextColumnId 'Product', 'ProductID';
 
     -- Insert into the Product table
-	select @aFabricID = FabricID from Fabric where FabricName = @p_FabricName;
+	select @aFabricID = FabricId from Fabric where FabricName = @p_FabricName;
     INSERT INTO Product (ProductID, Price, Image, Name, Description, Discount, Fabric, FabricName, color, Type)
     VALUES (@newProductID, @p_Price, @p_Image, @p_Name, @p_Description, @p_Discount, @aFabricID, @p_FabricName, @p_color, @p_Type);
 
@@ -203,7 +203,7 @@ BEGIN
 	EXEC @newProductID = USP_GetNextColumnId 'Product', 'ProductID';
 
     -- Insert into the Product table
-    select @aFabricID = FabricID from Fabric where FabricName = @p_FabricName;
+    select @aFabricID = FabricId from Fabric where FabricName = @p_FabricName;
     INSERT INTO Product (ProductID, Price, Image, Name, Description, Discount, Fabric, FabricName, color, Type)
     VALUES (@newProductID, @p_Price, @p_Image, @p_Name, @p_Description, @p_Discount, @aFabricID, @p_FabricName, @p_color, @p_Type);
 
