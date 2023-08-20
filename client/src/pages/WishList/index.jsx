@@ -4,6 +4,9 @@ import Heading1 from "../../components/common/text/Heading1/Heading";
 import WishListItem from "./WishListItem";
 import PrimaryText from "../../components/common/text/PrimaryText/PrimaryText";
 import { Images } from "../../components/common/Cart/image";
+import { useAddToCart } from "../../libs/business-logic/src/lib/cart/process/hooks";
+import { toast } from "react-hot-toast";
+import { useWishlist } from "../../libs/business-logic/src/lib/wishlist/process/hooks";
 
 const products = [
   {
@@ -37,19 +40,16 @@ const products = [
 ];
 
 const WishList = () => {
-  const [data, setData] = useState([]);
+  const { getWishlist, removeFromWishlist } = useWishlist();
+  const products = getWishlist();
   const [filterData, setFilterData] = useState([]);
   const [search, setSearch] = useState("");
-  const [selectedOrder, setSelectedOrder] = useState("None"); 
-
-  //add Logic
-  useEffect(() => {
-    setData(products);
-  }, []);
+  const [selectedOrder, setSelectedOrder] = useState("None");
+  const { onAddToCart } = useAddToCart();
 
   useEffect(() => {
-    setFilterData(data);
-  }, [data]);
+    setFilterData(products);
+  }, [products]);
 
   const onChange = (e) => {
     setSearch(e.target.value);
@@ -78,7 +78,7 @@ const WishList = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const filteredData = data.filter((item) =>
+    const filteredData = products.filter((item) =>
       item.name.toLowerCase().includes(search.toLowerCase())
     );
 
@@ -94,16 +94,16 @@ const WishList = () => {
   };
 
   //add Logic
-  const onDelete = (id) => {
-    const updatedData = data.filter((item) => item.productId !== id);
-    setData(updatedData);
+  const handleDelete = (id) => {
+    removeFromWishlist(id)
+      .then((msg) => toast.success(msg))
+      .catch((err) => console.error(err));
   };
   //add Logic
-  const onAddToCart = (id) => {
-    const updatedData = data.map((item) =>
-      item.productId === id ? { ...item, number: 1 } : item
-    );
-    setData(updatedData);
+  const handleAddToCart = (item) => {
+    onAddToCart({ item, quantity: 1 })
+      .then((msg) => toast.success(msg))
+      .catch((err) => console.error(err));
   };
 
   return (
@@ -130,13 +130,13 @@ const WishList = () => {
           </div>
         </form>
 
-        {filterData.length > 0 ? (
+        {filterData && filterData.length > 0 ? (
           filterData.map((item) => (
             <WishListItem
-              key={item.productId}
+              key={item.id}
               data={item}
-              addToCart={onAddToCart}
-              deleteItem={onDelete}
+              addToCart={() => handleAddToCart(item)}
+              deleteItem={() => handleDelete(item.id)}
             />
           ))
         ) : (

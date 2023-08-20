@@ -74,98 +74,122 @@
     }
   }
 
-  .product-list {
+  .product-list__wrapper {
     padding-left: 20px;
-    box-sizing: border-box;
+    text-align: center;
 
-    @include dgrid(repeat(4, 1fr), auto, 2rem);
+    hr {
+      width: 300px;
+    }
 
-    .product-list__item {
-      text-align: left;
-      align-items: center;
-      padding: 15px;
-      transition: transform 0.3s ease;
-      margin-bottom: 30px;
-      background-color: white;
-      height: fit-content;
+    .product-list {
+      box-sizing: border-box;
 
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 4px;
-        margin-right: 10px;
-      }
+      @include dgrid(repeat(4, 1fr), auto, 2rem);
 
-      .name-alt {
-        font-size: 0.75rem;
-        font-weight: 600;
-        color: rgb(164, 113, 42);
-      }
+      .product-list__item {
+        text-align: left;
+        align-items: center;
+        padding: 15px;
+        transition: transform 0.3s ease;
+        margin-bottom: 30px;
+        background-color: white;
+        height: fit-content;
 
-      .name {
-        color: rgb(0, 0, 0);
-        margin-top: 3px;
-        margin-bottom: 3px;
-      }
-
-      .price-before {
-        display: inline;
-        color: rgb(152, 152, 152);
-      }
-
-      .price {
-        font-size: 0.75rem;
-        font-weight: 600;
-
-        span {
-          color: #3C2C7C;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 4px;
+          margin-right: 10px;
         }
-      }
 
-      .buttons-coat {
-        margin-top: 15px;
+        .name-alt {
+          font-size: 0.75rem;
+          font-weight: 600;
+          color: rgb(164, 113, 42);
+        }
 
-        button {
-          @include normal-btn(1px solid black, 5px, white, black, 10px 8px, 0.6rem);
+        .name {
+          color: rgb(0, 0, 0);
+          margin-top: 3px;
+          margin-bottom: 3px;
+        }
 
-          i {
+        .price-before {
+          display: inline;
+          color: rgb(152, 152, 152);
+        }
+
+        .price {
+          font-size: 0.75rem;
+          font-weight: 600;
+
+          span {
+            color: #3C2C7C;
+          }
+        }
+
+        .buttons-coat {
+          margin-top: 15px;
+          @include dflex(row, flex-start, center, nowrap);
+          gap: 5px;
+
+          .add-to-wishlist {
+            padding: 10px 12px;
+
+            i {
+              margin-right: 1px;
+
+            }
+
+            &:hover {
+              background-color: pink;
+            }
+          }
+
+          button {
+            @include normal-btn(1px solid black, 5px, white, black, 10px 8px, 0.6rem);
+
+            &:hover {
+              background-color: antiquewhite;
+            }
+
+            &:disabled {
+              cursor: not-allowed;
+              background-color: #888;
+            }
+          }
+
+          button:not(.add-to-wishlist) i {
             margin-right: 5px;
           }
+        }
 
-          &:hover {
-            background-color: antiquewhite;
-          }
-
-          &:disabled {
-            cursor: not-allowed;
-            background-color: #888;
-          }
+        &:hover {
+          /* Zoom-in effect on hover */
+          box-shadow: 0px 2px 13px 6px rgba($color: #929292, $alpha: 0.1);
         }
       }
+    }
 
-      &:hover {
-        /* Zoom-in effect on hover */
-        box-shadow: 0px 2px 13px 6px rgba($color: #929292, $alpha: 0.1);
-      }
+    /* Specific modifications for each product type */
+    .product-list.blazers {
+      @extend .product-list;
+      @include dgrid(repeat(4, 1fr), auto, 2rem);
+    }
+
+    .product-list.coat {
+      @extend .product-list;
+      @include dgrid(repeat(3, 1fr), auto, 2rem);
+    }
+
+    .product-list.suits {
+      @extend .product-list;
+      @include dgrid(repeat(5, 1fr), auto, 2rem);
     }
   }
 
-  /* Specific modifications for each product type */
-  .product-list.blazers {
-    @extend .product-list;
-    @include dgrid(repeat(4, 1fr), auto, 2rem);
-  }
-
-  .product-list.coat {
-    @extend .product-list;
-    @include dgrid(repeat(3, 1fr), auto, 2rem);
-  }
-
-  .product-list.suits {
-    @extend .product-list;
-    @include dgrid(repeat(5, 1fr), auto, 2rem);
-  }
 }
 
 

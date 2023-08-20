@@ -3,10 +3,10 @@ import styles from "./styles.module.scss";
 
 const WishListItem = ({ data, addToCart, deleteItem }) => {
   const onAddToCart = () => {
-    addToCart(data.productId);
+    addToCart(data.id);
   };
   const onDelete = () => {
-    deleteItem(data.productId);
+    deleteItem(data.id);
   };
 
   return (

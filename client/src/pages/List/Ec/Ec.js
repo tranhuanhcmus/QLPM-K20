@@ -2,16 +2,16 @@ import { useState } from "react";
 import React from "react";
 import "../../../assets/styles/coat.scss";
 import { convertNumberToCurrency } from "../../../utils/helpers/MoneyConverter";
-import { coatCollection } from "../data";
 import { useGetProductByCategory } from "../../../libs/business-logic/src/lib/product";
 import { Link } from "react-router-dom";
 import { useAddToCart } from "../../../libs/business-logic/src/lib/cart/process/hooks";
 import { toast } from "react-hot-toast";
+import { useWishlist } from "../../../libs/business-logic/src/lib/wishlist/process/hooks";
 const Ec = () => {
   const [selectedCategory, setSelectedCategory] = useState("coat");
   const productData = useGetProductByCategory({ category: selectedCategory });
   const { onAddToCart, isLoading } = useAddToCart();
-  console.log(productData);
+  const { addToWishlist } = useWishlist();
 
   const handleAddToCart = (product) => {
     onAddToCart({ item: product, quantity: 1 })
@@ -63,7 +63,9 @@ const Ec = () => {
             </li>
           </ul>
         </div>
-        <div>
+        <div className="product-list__wrapper">
+          <h5>Result for {selectedCategory}</h5>
+          <hr />
           <div className={`product-list ${selectedCategory}`}>
             {Array.isArray(productData) ? (
               productData.map((p) => (
@@ -83,6 +85,16 @@ const Ec = () => {
                     >
                       <i className="fi fi-rs-shopping-cart-add"></i>
                       Add to cart
+                    </button>
+                    <button
+                      className="add-to-wishlist"
+                      onClick={() => {
+                        addToWishlist(p)
+                          .then((msg) => toast.success(msg))
+                          .catch((err) => console.error(err));
+                      }}
+                    >
+                      <i className="fi fi-rs-heart"></i>
                     </button>
                   </div>
                 </div>

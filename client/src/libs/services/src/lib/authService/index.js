@@ -24,6 +24,7 @@ export class AuthService extends Services {
         data,
         signal: this.abortController.signal,
         transformResponse: (res) => res,
+        isProduction: true,
       });
       return response;
     } catch (error) {
@@ -48,6 +49,7 @@ export class AuthService extends Services {
         data,
         signal: this.abortController.signal,
         transformResponse: (res) => res,
+        isProduction: true,
       });
       return response;
     } catch (error) {
@@ -73,6 +75,7 @@ export class AuthService extends Services {
         headers: { Authorization: `Bearer ${data}` },
         signal: this.abortController.signal,
         transformResponse: (res) => res,
+        isProduction: true,
       });
       return {
         message: response.message,
@@ -101,6 +104,7 @@ export class AuthService extends Services {
         headers: { Authorization: `Bearer ${token}` },
         signal: this.abortController.signal,
         transformResponse: (res) => res,
+        isProduction: true,
       });
       return response;
     } catch (error) {
