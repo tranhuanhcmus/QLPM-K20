@@ -25,7 +25,7 @@ namespace SunriseServer.Controllers
             _cartService = cartService;
         }
 
-        [HttpGet(""), Authorize(Roles = GlobalConstant.User)]
+        [HttpGet("get"), Authorize(Roles = GlobalConstant.User)]
         public async Task<ActionResult<List<ProductWithQuantityDto>>> GetCart()
         {
             try
@@ -41,7 +41,7 @@ namespace SunriseServer.Controllers
             }
         }
 
-        [HttpPost(""), Authorize(Roles = GlobalConstant.User)]
+        [HttpPost("add"), Authorize(Roles = GlobalConstant.User)]
         public async Task<ActionResult<ResponseMessageDetails<int>>> AddToCart(ProductWithQuantityDto cartDto)
         {
             var result = -1;
@@ -64,6 +64,25 @@ namespace SunriseServer.Controllers
                 return NotFound("Cannot add product to cart.");
 
             return Ok(new ResponseMessageDetails<int>("Add to cart successfully", result));
+        }
+
+        [HttpPut("update-all"), Authorize(Roles = GlobalConstant.User)]
+        public async Task<ActionResult<ResponseMessageDetails<int>>> UpdateAllCartItem(List<ProductWithQuantityDto> cartDto)
+        {
+            var userId = Convert.ToInt32(_httpContext.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
+
+            if (userId == 0)
+            {
+                return BadRequest("Cannot find user, please login again!");
+            }
+
+
+            var result = await _cartService.UpdateAllCart(userId, cartDto);
+            
+            if (result == -1)
+                return NotFound("Cannot change cart item number.");
+
+            return Ok(new ResponseMessageDetails<int>("Change cart item number successfully", result));
         }
 
         [HttpDelete("item"), Authorize(Roles = GlobalConstant.User)]
@@ -95,7 +114,7 @@ namespace SunriseServer.Controllers
             }
         }
         
-        [HttpPut("item-num"), Authorize(Roles = GlobalConstant.User)]
+        [HttpDelete("item-num"), Authorize(Roles = GlobalConstant.User)]
         public async Task<ActionResult<ResponseMessageDetails<int>>> ChangeCartItemNum(ChangeItemNumDto itemDto)
         {
             var userId = Convert.ToInt32(_httpContext.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
@@ -114,7 +133,7 @@ namespace SunriseServer.Controllers
             return Ok(new ResponseMessageDetails<int>("Change cart item number successfully", result));
         }
 
-        [HttpDelete(""), Authorize(Roles = GlobalConstant.User)]
+        [HttpDelete("clear"), Authorize(Roles = GlobalConstant.User)]
         public async Task<ActionResult<ResponseMessageDetails<int>>> ClearCart()
         {
             var userId = Convert.ToInt32(_httpContext.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);

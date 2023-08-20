@@ -58,5 +58,25 @@ namespace SunriseServer.Services.CartService
             var result = await _unitOfWork.CartRepo.ChangeCartItemNumAsync(itemDto);
             return result;
         }
+
+        public async Task<int> UpdateAllCart(int accountId, List<ProductWithQuantityDto> updateDto)
+        {
+            var result = 0;
+            try
+            {
+                result = await ClearCart(accountId);
+
+                foreach (var item in updateDto)
+                {
+                    result = await AddToCart(accountId, item);
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+
+            return result;
+        }
     }
 }

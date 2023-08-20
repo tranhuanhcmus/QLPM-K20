@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using SunriseServerCore.Dtos.Product;
 
 namespace SunriseServerCore.Dtos.Cart
 {
@@ -37,5 +38,10 @@ namespace SunriseServerCore.Dtos.Cart
         public int Customer { get; set; }
         public int Product { get; set; }
         public int NumberOfProduct { get; set; } = 1;
+    }
+
+    public class UpdateCartAllDto
+    {
+        public List<ProductWithQuantityDto> prod;
     }
 }

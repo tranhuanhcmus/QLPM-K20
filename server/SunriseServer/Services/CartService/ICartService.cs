@@ -12,5 +12,6 @@ namespace SunriseServer.Services.CartService
         Task<int> DeleteProductInCart(DeleteProductCartDto deleteDto);
         Task<int> ClearCart(int AccountId);
         Task<int> ChangeCartItemNum(ChangeItemNumDto itemDto);
+        Task<int> UpdateAllCart(int accountId, List<ProductWithQuantityDto> updateDto);
     }
 }

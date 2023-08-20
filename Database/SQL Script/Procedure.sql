@@ -908,7 +908,7 @@ BEGIN
 			DELETE FROM Cart WHERE Customer = @Customer AND Product = @Product;
 		ELSE
 			UPDATE Cart SET
-				NumberOfProduct = @NewNum
+				NumberOfProduct = NumberOfProduct - @NewNum
 			WHERE Customer = @Customer AND Product = @Product;
 
 	END TRY
