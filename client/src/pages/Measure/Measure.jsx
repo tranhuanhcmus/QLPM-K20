@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Measure.scss";
 import "../../assets/styles/_config.scss";
 import { useNavigate } from "react-router-dom";
+import PriceText from "../../components/common/text/PriceText/PriceText";
 import {
   listTryProduct,
   listItemMeasureFilter,
@@ -12,6 +13,8 @@ const Measure = () => {
   const [isFrontView, setIsFrontView] = useState(true);
   const [tagCloth, setTagCloth] = useState(0);
   const navigate = useNavigate();
+  const steps=["Fabric","Style","Accent"]
+  const [currentStep,setCurrentStep]=useState(0)
 
   const filteredProducts = listTryProduct.filter(
     (item) => item.tags.indexOf(tagCloth) !== -1 || tagCloth === 0
@@ -24,6 +27,16 @@ const Measure = () => {
           <i className="fi fi-bs-angle-left" />
           Quay lại
         </button>
+        <div className="steps">
+          {steps.map((item,index)=>{
+            return <div className={`step ${currentStep===index&&`current` }`}  >
+              <button onClick={()=>setCurrentStep(index)}>
+                {item}
+              </button>
+              <i className="fi fi-rr-angle-small-right"></i>
+            </div>
+          })}
+        </div>
       </div>
 
       <div className="measure-body">
@@ -60,7 +73,7 @@ const Measure = () => {
                 }}
               />
               <div>
-                <small>{item.price} USD</small>
+                <PriceText>{item.price} </PriceText>
               </div>
             </div>
           ))}
