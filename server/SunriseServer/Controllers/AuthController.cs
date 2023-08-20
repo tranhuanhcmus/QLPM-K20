@@ -55,7 +55,10 @@ namespace SunriseServer.Controllers
             var refreshToken = GenerateRefreshToken();
             SetRefreshToken(refreshToken, acc);
             await _accService.AddAccount(acc);
-            return Ok(new ResponseMessageDetails<string>("Register admin successfully", token));
+            return Ok(new {
+                message = "Register successfully",
+                token
+            });
         }
 
         [HttpPost("register")]
@@ -84,8 +87,8 @@ namespace SunriseServer.Controllers
             SetRefreshToken(refreshToken, acc);
             await _accService.AddAccount(acc);
             return Ok(new {
-                Message = "Register successfully",
-                Token = token
+                message = "Register successfully",
+                token
             });
         }
 
@@ -110,7 +113,10 @@ namespace SunriseServer.Controllers
             var refreshToken = GenerateRefreshToken();
             SetRefreshToken(refreshToken, account);
 
-            return Ok(new ResponseMessageDetails<string>("Login user successfully", token));
+            return Ok(new {
+                message = "Register successfully",
+                token
+            });
         }
 
         [HttpPost("refresh-token"), Authorize]
