@@ -30,6 +30,11 @@ namespace SunriseServer.Controllers
                 var userId = Convert.ToInt32(_httpContext.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
                 var result = await _bodyService.GetAllMesurement(userId);
 
+                if (result is null)
+                {
+                    return Ok(new BodyMeasurement());
+                }
+
                 return Ok(result);
             }
             catch (Exception)
@@ -49,7 +54,7 @@ namespace SunriseServer.Controllers
             }
             catch (Exception)
             {
-                return BadRequest($"Cannot find user, please login again");
+                return BadRequest($"Error while adding data");
             }
         }
     }

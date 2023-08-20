@@ -34,22 +34,19 @@ Create table Account (
 -- Table Customer measurement
 Create table BodyMeasurement (
 	Customer int primary key,
-    ShoulderWidth DECIMAL(10, 2),
-	SleeveLength DECIMAL(10, 2),
-	ArmCircumference DECIMAL(10, 2),
+    Armhole DECIMAL(10, 2),
 	Chest DECIMAL(10, 2),
-	Waist DECIMAL(10, 2),
-	FrontLength DECIMAL(10, 2),
-	BackLength DECIMAL(10, 2),
+	Crotch DECIMAL(10, 2),
+	Hip DECIMAL(10, 2),
+	Jacket_length DECIMAL(10, 2),
 	Neck DECIMAL(10, 2),
-	WaistOfPants DECIMAL(10, 2),
-	Hips DECIMAL(10, 2),
-	BottomOfPants DECIMAL(10, 2),
+	Pants_circum DECIMAL(10, 2),
+	Pants_length DECIMAL(10, 2),
+	Pants_waist DECIMAL(10, 2),
+	Shoulder DECIMAL(10, 2),
+	Sleeve_length DECIMAL(10, 2),
 	Thigh DECIMAL(10, 2),
-	PantsLength DECIMAL(10, 2),
-	PantsCircumference DECIMAL(10, 2),
-    Weight DECIMAL(10, 2),
-    Point int
+	Waist DECIMAL(10, 2),
 );
 
 -- Add a new Table

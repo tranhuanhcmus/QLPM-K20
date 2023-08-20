@@ -72,6 +72,7 @@ namespace SunriseServerData.Repositories
         public TModel Delete(int id)
         {
             var entity = GetById(id);
+            if (entity is null) return default;
             return _context.Remove(entity).Entity;
         }
 
@@ -80,6 +81,7 @@ namespace SunriseServerData.Repositories
             return await Task.Run(() =>
             {
                 var entity = GetById(id);
+                if (entity is null) return default;
                 return _context.Remove(entity).Entity;
             });
         }

@@ -22,20 +22,19 @@ namespace SunriseServer.Services.BodyService
         {
             var addBody = new BodyMeasurement();
             addBody.Customer = accountId;
-            addBody.ShoulderWidth = postBody.ShoulderWidth;
-            addBody.SleeveLength = postBody.SleeveLength;
-            addBody.ArmCircumference = postBody.ArmCircumference;
+            addBody.Armhole = postBody.Armhole;
             addBody.Chest = postBody.Chest;
-            addBody.Waist = postBody.Waist;
-            addBody.FrontLength = postBody.FrontLength;
-            addBody.BackLength = postBody.BackLength;
+            addBody.Crotch = postBody.Crotch;
+            addBody.Hip = postBody.Hip;
+            addBody.Jacket_length = postBody.Jacket_length;
             addBody.Neck = postBody.Neck;
-            addBody.WaistOfPants = postBody.WaistOfPants;
-            addBody.Hips = postBody.Hips;
-            addBody.BottomOfPants = postBody.BottomOfPants;
+            addBody.Pants_circum = postBody.Pants_circum;
+            addBody.Pants_length = postBody.Pants_length;
+            addBody.Pants_waist = postBody.Pants_waist;
+            addBody.Shoulder = postBody.Shoulder;
+            addBody.Sleeve_length = postBody.Sleeve_length;
             addBody.Thigh = postBody.Thigh;
-            addBody.PantsLength = postBody.PantsLength;
-            addBody.PantsCircumference = postBody.PantsCircumference;
+            addBody.Waist = postBody.Waist;
 
             _uow.BodyRepo.Delete(accountId);
             var result = await _uow.BodyRepo.CreateAsync(addBody);
