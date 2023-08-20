@@ -13,7 +13,7 @@ namespace SunriseServer.Services.PaymentService
         // call api to confirm order (update paid column in Account_Order table)
         public const string SUCCESS_URL = "http://sunrise-silk.shop.s3-website-ap-southeast-1.amazonaws.com/?fbclid=IwAR1LrgxBLnA5zjeLphYZcrEtJX5n7EnM1pAOFYXH8rYfgiuTS7FKDa11rzc";
         const string FAIL_URL = "http://sunrise-silk.shop.s3-website-ap-southeast-1.amazonaws.com/?fbclid=IwAR1LrgxBLnA5zjeLphYZcrEtJX5n7EnM1pAOFYXH8rYfgiuTS7FKDa11rzc";
-        const string CURRENCY = "vnd";
+        const string CURRENCY = "usd";
         public string SessionId { get; set; }
         public PaymentService(IOptions<StripeSettings> stripeSettings) {
             _stripeSettings = stripeSettings.Value;
