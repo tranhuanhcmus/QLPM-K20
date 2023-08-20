@@ -1,3 +1,4 @@
+using SunriseServerCore.Dtos.Product;
 using SunriseServerCore.Models;
 
 namespace SunriseServerCore.Dtos.Order

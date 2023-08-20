@@ -1,5 +1,5 @@
-﻿-- use [sunrise-silk];
--- go
+﻿ use [sunrise-silk];
+ go
 
 -- drop constraints
 DECLARE @DropConstraints NVARCHAR(max) = ''
@@ -18,7 +18,7 @@ GO
 
 -- Table Account
 Create table Account (
-	AccountId int identity(1, 1) primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
+	AccountId int primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
     Username char(40),
 	PasswordHash varchar(500),
     PasswordSalt varchar(500),

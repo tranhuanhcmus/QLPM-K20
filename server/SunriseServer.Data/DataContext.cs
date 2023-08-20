@@ -1,9 +1,10 @@
 ﻿global using Microsoft.EntityFrameworkCore;
 using SunriseServerCore.Dtos;
 using SunriseServerCore.Dtos.Cart;
-using SunriseServerCore.Dtos;
+using SunriseServerCore.Dtos.Product;
 
 //using Microsoft.Data.SqlClient;
+
 using SunriseServerCore.Models;
 using SunriseServerCore.Models.Clothes;
 using System;
@@ -31,8 +32,8 @@ namespace SunriseServerData
             modelBuilder.Entity<MyProcedureResult>()
                 .HasNoKey().ToTable("MyProcedureResult", t => t.ExcludeFromMigrations());
 
-            modelBuilder.Entity<GetCartDto>()
-                .HasNoKey().ToTable("GetCartDto", t => t.ExcludeFromMigrations());
+            modelBuilder.Entity<GetRawCartDto>()
+                .HasNoKey().ToTable("GetRawCartDto", t => t.ExcludeFromMigrations());
 
             modelBuilder.Entity<ImageDto>()
                 .HasNoKey().ToTable("ImageDto", t => t.ExcludeFromMigrations());
@@ -51,7 +52,8 @@ namespace SunriseServerData
                 .HasNoKey().ToTable("TiesComponent", t => t.ExcludeFromMigrations());
 
             modelBuilder.Entity<ProductDto>()
-                .HasNoKey().ToTable("ProductDto", t => t.ExcludeFromMigrations());
+                .HasKey(x => new { x.Id });
+                //.ToTable("ProductDto", t => t.ExcludeFromMigrations());
 
             modelBuilder.Entity<OrderDetail>()
                 .HasNoKey().ToTable("OrderDetail", t => t.ExcludeFromMigrations());

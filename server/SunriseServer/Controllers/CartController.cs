@@ -8,7 +8,7 @@ using SunriseServerCore.Common.Enum;
 using SunriseServerCore.Dtos.Cart;
 using System.Security.Claims;
 using SunriseServer.Common.Helper;
-
+using SunriseServerCore.Dtos.Product;
 
 namespace SunriseServer.Controllers
 {
@@ -33,9 +33,6 @@ namespace SunriseServer.Controllers
                 var userId = Convert.ToInt32(_httpContext.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
                 var result = await _cartService.GetCart(userId);
 
-                if (result.Count() == 0)
-                    return NotFound("No item in cart");
-
                 return Ok(result);
             }
             catch (Exception e)
@@ -45,7 +42,7 @@ namespace SunriseServer.Controllers
         }
 
         [HttpPost(""), Authorize(Roles = GlobalConstant.User)]
-        public async Task<ActionResult<ResponseMessageDetails<int>>> AddToCart(AddToCartDto cartDto)
+        public async Task<ActionResult<ResponseMessageDetails<int>>> AddToCart(ProductWithQuantityDto cartDto)
         {
             var result = -1;
             try
@@ -57,8 +54,7 @@ namespace SunriseServer.Controllers
                     return BadRequest("Cannot find user, please login again!");
                 }
 
-                cartDto.Customer = userId;
-                result = await _cartService.AddToCart(cartDto);
+                result = await _cartService.AddToCart(userId, cartDto);
             } catch(Exception)
             {
                 return BadRequest("Cannot add item to cart");
