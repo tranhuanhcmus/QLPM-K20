@@ -66,7 +66,7 @@ namespace SunriseServer.Controllers
             return Ok(result);
         }
 
-        [HttpGet("/Pants/GetImageCustom")]
+        [HttpGet("get-image-custom")]
         public async Task<ActionResult<ImageDto>> GetPantsImageByCustom(string fabric,[FromQuery] PantsComponent pants)
         {
             if (string.IsNullOrWhiteSpace(fabric))
@@ -82,7 +82,7 @@ namespace SunriseServer.Controllers
 
 
 
-        [HttpPut("UpdatePants")]
+        [HttpPut("update")]
         public async Task<ActionResult<bool>> UpdatePants(PantsDetail pantsToUpdate) {
 
             pantsToUpdate.Products.Type = GlobalConstant.PantsProduct;
@@ -97,7 +97,7 @@ namespace SunriseServer.Controllers
         // get by id
         // get by category ??
         // insert one - just for admin
-        [HttpPost("Add-Pants")]
+        [HttpPost("add")]
 
         public async Task<ActionResult<bool>> AddPants(AddPantsDto ap)
         {

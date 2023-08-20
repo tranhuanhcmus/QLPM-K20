@@ -90,6 +90,7 @@ builder.Services.AddCors(options => options.AddPolicy(name: "NgOrigins",
     policy =>
     {
         policy.WithOrigins("http://localhost:7256").AllowAnyMethod().AllowAnyHeader();
+        policy.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader();
     }));
 
 builder.Services.AddServicesData();
