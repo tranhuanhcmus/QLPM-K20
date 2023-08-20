@@ -81,9 +81,9 @@ BEGIN
     EXEC @newProductID = USP_GetNextColumnId 'Product', 'ProductID';
 
     -- Insert into the Product table
-	select @aFabricID = FabricId from Fabric where FabricName = @p_FabricName;
-    INSERT INTO Product (ProductID, Price, Image, Name, Description, Discount, Fabric, FabricName, color, Type,ImageFront, ImageBack)
-    VALUES (@newProductID, @p_Price, @p_Image, @p_Name, @p_Description, @p_Discount, @aFabricID, @p_FabricName, @p_color, @p_Type,@p_ImageFront, @p_ImageBack);
+	select @aFabricID = FabricID from Fabric where FabricName = @p_FabricName;
+    INSERT INTO Product (ProductID, Price, Image, Name, Description, Discount, Fabric, FabricName, color, Type)
+    VALUES (@newProductID, @p_Price, @p_Image, @p_Name, @p_Description, @p_Discount, @aFabricID, @p_FabricName, @p_color, @p_Type);
 
     -- Retrieve IDs for each jacket component based on their names
     SELECT @jStyle = ID FROM JacketStyle WHERE Name = @p_Style;
@@ -142,9 +142,9 @@ BEGIN
     EXEC @newProductID = USP_GetNextColumnId 'Product', 'ProductID';
 
     -- Insert into the Product table
-	select @aFabricID = FabricId from Fabric where FabricName = @p_FabricName;
-    INSERT INTO Product (ProductID, Price, Image, Name, Description, Discount, Fabric, FabricName, color, Type, ImageFront, ImageBack)
-    VALUES (@newProductID, @p_Price, @p_Image, @p_Name, @p_Description, @p_Discount, @aFabricID, @p_FabricName, @p_color, @p_Type,@p_ImageFront, @p_ImageBack);
+	select @aFabricID = FabricID from Fabric where FabricName = @p_FabricName;
+    INSERT INTO Product (ProductID, Price, Image, Name, Description, Discount, Fabric, FabricName, color, Type)
+    VALUES (@newProductID, @p_Price, @p_Image, @p_Name, @p_Description, @p_Discount, @aFabricID, @p_FabricName, @p_color, @p_Type);
 
 
     -- Retrieve IDs for each vest component based on their names
@@ -203,9 +203,9 @@ BEGIN
 	EXEC @newProductID = USP_GetNextColumnId 'Product', 'ProductID';
 
     -- Insert into the Product table
-    select @aFabricID = FabricId from Fabric where FabricName = @p_FabricName;
-    INSERT INTO Product (ProductID, Price, Image, Name, Description, Discount, Fabric, FabricName, color, Type, ImageFront, ImageBack)
-    VALUES (@newProductID, @p_Price, @p_Image, @p_Name, @p_Description, @p_Discount, @aFabricID, @p_FabricName, @p_color, @p_Type,@p_ImageFront, @p_ImageBack);
+    select @aFabricID = FabricID from Fabric where FabricName = @p_FabricName;
+    INSERT INTO Product (ProductID, Price, Image, Name, Description, Discount, Fabric, FabricName, color, Type)
+    VALUES (@newProductID, @p_Price, @p_Image, @p_Name, @p_Description, @p_Discount, @aFabricID, @p_FabricName, @p_color, @p_Type);
 
     -- Retrieve IDs for each jacket component based on their names
     SELECT @pCuff = ID FROM PantsCuff WHERE Name = @p_Cuff;
@@ -1118,3 +1118,112 @@ BEGIN
 	RETURN 0;
 END
 GO
+
+
+CREATE OR ALTER PROCEDURE USP_GetFabricById
+@FabricID INT
+AS
+BEGIN
+  SELECT * 
+  FROM Fabric
+  WHERE FabricID = @FabricID
+END
+
+GO
+
+CREATE OR ALTER PROCEDURE USP_CreateFabric
+@FabricName NVARCHAR(100),
+@Material VARCHAR(100), 
+@Price FLOAT,
+@Color VARCHAR(50),
+@Style VARCHAR(100), 
+@Image VARCHAR(50),
+@Category VARCHAR(100),
+@Inventory INT
+AS
+BEGIN
+  DECLARE @FabricID INT
+  
+  BEGIN TRAN
+    BEGIN TRY
+      EXEC @FabricID = USP_GetNextColumnId 'Fabric', 'FabricID'
+      
+      INSERT INTO Fabric (FabricID, FabricName, Material, Price, Color, Style, Image, Category, Inventory)
+      VALUES (@FabricID, @FabricName, @Material, @Price, @Color, @Style, @Image, @Category, @Inventory)
+    
+    END TRY
+    
+    BEGIN CATCH
+      ROLLBACK
+      RETURN -1
+    END CATCH
+
+  COMMIT
+  
+  RETURN @FabricID
+END
+
+GO
+
+CREATE OR ALTER PROCEDURE USP_UpdateFabric
+@FabricID INT,
+@FabricName NVARCHAR(100),
+@Material VARCHAR(100),
+@Price FLOAT, 
+@Color VARCHAR(50),
+@Style VARCHAR(100),
+@Image VARCHAR(50),
+@Category VARCHAR(100), 
+@Inventory INT
+AS
+BEGIN
+  BEGIN TRAN
+    BEGIN TRY
+    
+      UPDATE Fabric
+      SET 
+        FabricName = @FabricName,
+        Material = @Material,
+        Price = @Price,
+        Color = @Color,
+        Style = @Style,
+        Image = @Image,
+        Category = @Category,
+        Inventory = @Inventory
+      WHERE FabricID = @FabricID
+      
+    END TRY
+    
+    BEGIN CATCH
+      ROLLBACK
+      RETURN -1
+    END CATCH
+
+  COMMIT
+  
+  RETURN @FabricID
+END
+
+GO
+
+CREATE OR ALTER PROCEDURE USP_DeleteFabric
+@FabricID INT
+AS
+BEGIN
+  BEGIN TRAN
+    BEGIN TRY
+    
+      DELETE FROM Fabric 
+      WHERE FabricID = @FabricID
+    
+    END TRY
+    
+    BEGIN CATCH
+      ROLLBACK 
+      RETURN -1
+    END CATCH
+
+  COMMIT
+  
+  RETURN 0
+END

@@ -60,6 +60,9 @@ namespace SunriseServerData
 
             modelBuilder.Entity<Order>()
                 .HasKey(x => new { x.OrderId });
+
+            modelBuilder.Entity<Fabric>()
+                .HasKey(x => new { x.FabricID });
         }
 
         public DbSet<Account> Account { get; set; }
@@ -72,5 +75,6 @@ namespace SunriseServerData
         public DbSet<BookingAccount> Booking_Account { get; set; }
         public DbSet<Cart> Cart { get; set; }
         public DbSet<Order> Order { get; set; }
+        public DbSet<Fabric> Farbic { get; set; }
     }
 }
