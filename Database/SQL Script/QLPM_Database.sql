@@ -1,15 +1,21 @@
-﻿USE master;
-go
+﻿-- use [sunrise-silk];
+-- go
 
-if DB_ID('sunrise-silk') IS NOT NULL
-	drop database [sunrise-silk];
+-- drop constraints
+DECLARE @DropConstraints NVARCHAR(max) = ''
+SELECT @DropConstraints += 'ALTER TABLE ' + QUOTENAME(OBJECT_SCHEMA_NAME(parent_object_id)) + '.'
+                        +  QUOTENAME(OBJECT_NAME(parent_object_id)) + ' ' + 'DROP CONSTRAINT' + QUOTENAME(name)
+FROM sys.foreign_keys
+EXECUTE sp_executesql @DropConstraints;
+GO
+  
+-- drop tables
+DECLARE @DropTables NVARCHAR(max) = ''
+SELECT @DropTables += 'DROP TABLE ' + QUOTENAME(TABLE_SCHEMA) + '.' + QUOTENAME(TABLE_NAME)
+FROM INFORMATION_SCHEMA.TABLES WHERE QUOTENAME(TABLE_SCHEMA) != '[sys]'
+EXECUTE sp_executesql @DropTables;
 GO
 
-create database [sunrise-silk];
-go
-
-use [sunrise-silk];
-go
 -- Table Account
 Create table Account (
 	AccountId int identity(1, 1) primary key, -- INT AUTO_INCREMENT PRIMARY KEY,
@@ -565,17 +571,4 @@ Alter table Ties
 		ON DELETE CASCADE
         ON UPDATE CASCADE;
 go
--- Full text search
---ALTER TABLE Product ADD FULLTEXT INDEX idx_name_description (Name, Description);
-USE [sunrise-silk];
-GO
-EXEC sp_fulltext_database 'enable';
-GO
-CREATE FULLTEXT CATALOG [sunrise-silk] as default;
-GO
 
-CREATE FULLTEXT INDEX ON Product (
-    Name LANGUAGE 1033,
-    DESCRIPTION LANGUAGE 1033
-) KEY INDEX PK_Product_ProductID ON [sunrise-silk];
-GO

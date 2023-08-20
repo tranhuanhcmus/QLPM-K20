@@ -203,23 +203,38 @@ INSERT INTO PantsPocket (ID, Name, Image) VALUES
 
 
 -- Insert 7 rows into the Product and Jacket tables using the procedure
-EXEC usp_InsertJacket 65.0, 'jacket1.jpg', 'Jacket 1', 'Description for Jacket 1', 10, 'Cotton', 'White', 'Type 1', 'Single-Breasted 1 Button', 'Slim Fit', 'Notch', '1', 'No Pockets', 'Ventless', 'No';
-EXEC usp_InsertJacket 80.0, 'jacket2.jpg', 'Jacket 2', 'Description for Jacket 2', 20, 'Silk', 'Pink', 'Type 2', 'Single-Breasted 2 Buttons', 'Regular', 'Peak', '2', 'With Flap', 'Center Vent', 'Yes';
-EXEC usp_InsertJacket 90.0, 'jacket3.jpg', 'Jacket 3', 'Description for Jacket 3', 15, 'Linen', 'Beige', 'Type 3', 'Single-Breasted 3 Buttons', 'Regular', 'Shawl', '3', 'Double-Welted', 'Side Vents', 'No';
-EXEC usp_InsertJacket 140.0, 'jacket4.jpg', 'Jacket 4', 'Description for Jacket 4', 30, 'Polyester', 'Black', 'Type 4', 'Double-Breasted 2 Buttons', 'Slim Fit', 'Standard', '2', 'With Flap X3', 'Center Vent', 'No';
-EXEC usp_InsertJacket 180.0, 'jacket5.jpg', 'Jacket 5', 'Description for Jacket 5', 25, 'Wool', 'Grey', 'Type 5', 'Double-Breasted 4 Buttons', 'Regular', 'Standard', '4', 'Double-Welted X3', 'Side Vents', 'Yes';
-EXEC usp_InsertJacket 280.0, 'jacket6.jpg', 'Jacket 6', 'This is super jacket 6', 20, 'Wool', 'Black', 'Type 5', 'Double-Breasted 4 Buttons', 'Regular', 'Standard', '4', 'Double-Welted X3', 'Side Vents', 'Yes';
+EXEC usp_InsertJacket 65.0, 'jacket1.jpg', 'Jacket 1', 'Description for Jacket 1', 10, 'Cotton', 'White', 'Type 1', 'Single-Breasted 1 Button', 'Slim Fit', 'Notch', '1', 'No Pockets', 'Ventless', 'No', 'Waiting for Image', 'Waiting for Image'; 
+EXEC usp_InsertJacket 80.0, 'jacket2.jpg', 'Jacket 2', 'Description for Jacket 2', 20, 'Silk', 'Pink', 'Type 2', 'Single-Breasted 2 Buttons', 'Regular', 'Peak', '2', 'With Flap', 'Center Vent', 'Yes', 'Waiting for Image', 'Waiting for Image'; 
+EXEC usp_InsertJacket 90.0, 'jacket3.jpg', 'Jacket 3', 'Description for Jacket 3', 15, 'Linen', 'Beige', 'Type 3', 'Single-Breasted 3 Buttons', 'Regular', 'Shawl', '3', 'Double-Welted', 'Side Vents', 'No', 'Waiting for Image', 'Waiting for Image'; 
+EXEC usp_InsertJacket 140.0, 'jacket4.jpg', 'Jacket 4', 'Description for Jacket 4', 30, 'Polyester', 'Black', 'Type 4', 'Double-Breasted 2 Buttons', 'Slim Fit', 'Standard', '2', 'With Flap X3', 'Center Vent', 'No', 'Waiting for Image', 'Waiting for Image'; 
+EXEC usp_InsertJacket 180.0, 'jacket5.jpg', 'Jacket 5', 'Description for Jacket 5', 25, 'Wool', 'Grey', 'Type 5', 'Double-Breasted 4 Buttons', 'Regular', 'Standard', '4', 'Double-Welted X3', 'Side Vents', 'Yes', 'Waiting for Image', 'Waiting for Image'; 
+EXEC usp_InsertJacket 280.0, 'jacket6.jpg', 'Jacket 6', 'This is super jacket 6', 20, 'Wool', 'Black', 'Type 5', 'Double-Breasted 4 Buttons', 'Regular', 'Standard', '4', 'Double-Welted X3', 'Side Vents', 'Yes', 'Waiting for Image', 'Waiting for Image'; 
 update Jacket set SleeveButton = 1 where JacketID = 1;
 -- Repeat the CALL InsertJacket procedure with different data for the remaining jackets (up to 2 more times).
 -- Insert Vest data with components
-EXEC usp_InsertVest 65.0, 'vest1.jpg', 'Vest 1', 'Description for Vest 1', 10, 'Cotton', 'White', 'Vest', 'SINGLE BREASTED 3 BUTTONS', '2 PIECE SUIT', 'WITHOUT LAPELS', 'STRAIGHT', 'Yes', 'NO POCKETS';
-EXEC usp_InsertVest 80.0, 'vest2.jpg', 'Vest 2', 'Description for Vest 2', 20, 'Silk', 'Pink', 'Vest', 'SINGLE BREASTED 4 BUTTONS', '3 PIECE SUIT', 'NOTCHED', 'DIAGONAL', 'No', 'WELT POCKETS';
-EXEC usp_InsertVest 90.0, 'vest3.jpg', 'Vest 3', 'Description for Vest 3', 15, 'Linen', 'Beige', 'Vest', 'SINGLE BREASTED 5 BUTTONS', '2 PIECE SUIT', 'PEAK', 'ROUNDED', 'Yes', 'DOUBLE WELT X3';
-EXEC usp_InsertVest 140.0, 'vest4.jpg', 'Vest 4', 'Description for Vest 4', 30, 'Polyester', 'Black', 'Vest', 'DOUBLE BREASTED 4 BUTTONS', '3 PIECE SUIT', 'NOTCHED', 'STRAIGHT', 'No', 'WITH FLAPS X3';
-EXEC usp_InsertVest 180.0, 'vest5.jpg', 'Vest 5', 'Description for Vest 5', 25, 'Wool', 'Grey', 'Vest', 'DOUBLE BREASTED 6 BUTTONS', '2 PIECE SUIT', 'SHAWL', 'ROUNDED', 'Yes', 'WITH FLAPS X3';
+EXEC usp_InsertVest 65.0, 'vest1.jpg', 'Vest 1', 'Description for Vest 1', 10, 'Cotton', 'White', 'Vest', 'SINGLE BREASTED 3 BUTTONS', '2 PIECE SUIT', 'WITHOUT LAPELS', 'STRAIGHT', 'Yes', 'NO POCKETS', 'Waiting for Image', 'Waiting for Image'; 
+EXEC usp_InsertVest 80.0, 'vest2.jpg', 'Vest 2', 'Description for Vest 2', 20, 'Silk', 'Pink', 'Vest', 'SINGLE BREASTED 4 BUTTONS', '3 PIECE SUIT', 'NOTCHED', 'DIAGONAL', 'No', 'WELT POCKETS', 'Waiting for Image', 'Waiting for Image'; 
+EXEC usp_InsertVest 90.0, 'vest3.jpg', 'Vest 3', 'Description for Vest 3', 15, 'Linen', 'Beige', 'Vest', 'SINGLE BREASTED 5 BUTTONS', '2 PIECE SUIT', 'PEAK', 'ROUNDED', 'Yes', 'DOUBLE WELT X3', 'Waiting for Image', 'Waiting for Image'; 
+EXEC usp_InsertVest 140.0, 'vest4.jpg', 'Vest 4', 'Description for Vest 4', 30, 'Polyester', 'Black', 'Vest', 'DOUBLE BREASTED 4 BUTTONS', '3 PIECE SUIT', 'NOTCHED', 'STRAIGHT', 'No', 'WITH FLAPS X3', 'Waiting for Image', 'Waiting for Image'; 
+EXEC usp_InsertVest 180.0, 'vest5.jpg', 'Vest 5', 'Description for Vest 5', 25, 'Wool', 'Grey', 'Vest', 'DOUBLE BREASTED 6 BUTTONS', '2 PIECE SUIT', 'SHAWL', 'ROUNDED', 'Yes', 'WITH FLAPS X3', 'Waiting for Image', 'Waiting for Image'; 
 -- Insert 5 rows using the stored procedure for Pants and Product
-EXEC usp_InsertPants 65.0, 'pants1.jpg', 'Pants 1', 'Description for Pants 1', 10, 'Cotton', 'White', 'Pants', 'SIDE POCKETS DIAGONAL', 'REGULAR FIT', 'WITH PANT CUFFS', 'CENTERED', 'NO PLEATS';
-EXEC usp_InsertPants 80.0, 'pants2.jpg', 'Pants 2', 'Description for Pants 2', 20, 'Silk', 'Pink', 'Pants', 'BACK POCKETS NO POCKETS', 'SLIM FIT', 'NO PANT CUFFS', 'DISPLACED', 'PLEATED';
-EXEC usp_InsertPants 90.0, 'pants3.jpg', 'Pants 3', 'Description for Pants 3', 15, 'Linen', 'Beige', 'Pants', 'BACK POCKETS DOUBLE-WELTED POCKET WITH BUTTON', 'REGULAR FIT', 'WITH PANT CUFFS', 'NO BUTTON', 'DOUBLE PLEATS';
-EXEC usp_InsertPants 140.0, 'pants4.jpg', 'Pants 4', 'Description for Pants 4', 30, 'Polyester', 'Black', 'Pants', 'SIDE POCKETS VERTICAL', 'SLIM FIT', 'WITH PANT CUFFS', 'OFF-CENTERED: BUTTONLESS', 'DOUBLE PLEATS';
-EXEC usp_InsertPants 180.0, 'pants5.jpg', 'Pants 5', 'Description for Pants 5', 25, 'Wool', 'Grey', 'Pants', 'BACK POCKETS PATCHED X2', 'REGULAR FIT', 'NO PANT CUFFS', 'CENTERED', 'NO PLEATS';
+EXEC usp_InsertPants 65.0, 'pants1.jpg', 'Pants 1', 'Description for Pants 1', 10, 'Cotton', 'White', 'Pants', 'SIDE POCKETS DIAGONAL', 'REGULAR FIT', 'WITH PANT CUFFS', 'CENTERED', 'NO PLEATS', 'Waiting for Image', 'Waiting for Image'; 
+EXEC usp_InsertPants 80.0, 'pants2.jpg', 'Pants 2', 'Description for Pants 2', 20, 'Silk', 'Pink', 'Pants', 'BACK POCKETS NO POCKETS', 'SLIM FIT', 'NO PANT CUFFS', 'DISPLACED', 'PLEATED', 'Waiting for Image', 'Waiting for Image'; 
+EXEC usp_InsertPants 90.0, 'pants3.jpg', 'Pants 3', 'Description for Pants 3', 15, 'Linen', 'Beige', 'Pants', 'BACK POCKETS DOUBLE-WELTED POCKET WITH BUTTON', 'REGULAR FIT', 'WITH PANT CUFFS', 'NO BUTTON', 'DOUBLE PLEATS', 'Waiting for Image', 'Waiting for Image'; 
+EXEC usp_InsertPants 140.0, 'pants4.jpg', 'Pants 4', 'Description for Pants 4', 30, 'Polyester', 'Black', 'Pants', 'SIDE POCKETS VERTICAL', 'SLIM FIT', 'WITH PANT CUFFS', 'OFF-CENTERED: BUTTONLESS', 'DOUBLE PLEATS', 'Waiting for Image', 'Waiting for Image'; 
+EXEC usp_InsertPants 180.0, 'pants5.jpg', 'Pants 5', 'Description for Pants 5', 25, 'Wool', 'Grey', 'Pants', 'BACK POCKETS PATCHED X2', 'REGULAR FIT', 'NO PANT CUFFS', 'CENTERED', 'NO PLEATS', 'Waiting for Image', 'Waiting for Image'; 
+
+-- Insert ties - Row 1
+EXEC usp_InsertTies @p_Price = 65.0, @p_Image = 'tie1.jpg', @p_Name = 'Tie 1', @p_Description = 'Description for Tie 1', @p_Discount = 10, @p_FabricName = 'Cotton', @p_color = 'White', @p_Type = 'Ties', @p_Size = 5.0, @p_Style = 'Style for Tie 1', @p_ImageFront = 'Waiting for Image',@p_ImageBack = 'Waiting for Image';
+
+-- Insert ties - Row 2
+EXEC usp_InsertTies @p_Price = 65.0, @p_Image = 'tie2.jpg', @p_Name = 'Tie 2', @p_Description = 'Description for Tie 2', @p_Discount = 10, @p_FabricName = 'Cotton', @p_color = 'White', @p_Type = 'Ties', @p_Size = 4.5, @p_Style = 'Style for Tie 2', @p_ImageFront = 'Waiting for Image',@p_ImageBack = 'Waiting for Image';
+
+-- Insert ties - Row 3
+EXEC usp_InsertTies @p_Price = 65.0, @p_Image = 'tie3.jpg', @p_Name = 'Tie 3', @p_Description = 'Description for Tie 3', @p_Discount = 10, @p_FabricName = 'Cotton', @p_color = 'White', @p_Type = 'Ties', @p_Size = 5.5, @p_Style = 'Style for Tie 3', @p_ImageFront = 'Waiting for Image',@p_ImageBack = 'Waiting for Image';
+
+-- Insert ties - Row 4
+EXEC usp_InsertTies @p_Price = 65.0, @p_Image = 'tie4.jpg', @p_Name = 'Tie 4', @p_Description = 'Description for Tie 4', @p_Discount = 10, @p_FabricName = 'Cotton', @p_color = 'White', @p_Type = 'Ties', @p_Size = 6.0, @p_Style = 'Style for Tie 4', @p_ImageFront = 'Waiting for Image',@p_ImageBack = 'Waiting for Image';
+
+-- Insert ties - Row 5
+EXEC usp_InsertTies @p_Price = 65.0, @p_Image = 'tie5.jpg', @p_Name = 'Tie 5', @p_Description = 'Description for Tie 5', @p_Discount = 10, @p_FabricName = 'Cotton', @p_color = 'White', @p_Type = 'Ties', @p_Size = 4.0, @p_Style = 'Style for Tie 5', @p_ImageFront = 'Waiting for Image',@p_ImageBack = 'Waiting for Image';
