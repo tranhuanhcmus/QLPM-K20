@@ -1,24 +1,15 @@
 import { axiosMockAdapterInstance } from "../../config/axios";
 import { SocialService } from "../../lib";
-import accountsData from "../data/accounts.json";
+import { getApiUrl } from "../../config/url";
 
-const accounts = accountsData;
-
-axiosMockAdapterInstance.onPost(new SocialService().updateAccountUrl).reply((config) => {
-    const data = JSON.parse(config.data);
-    console.log("Receive: ", data)
-    const isAccountExist = accounts.some(
-        (account) =>
-            account.email === data.email
-    );
-    if (!isAccountExist) {
-        console.log("Push account to database: ", data)
-    }
+axiosMockAdapterInstance
+  .onPost(getApiUrl(false) + new SocialService().updateAccountUrl)
+  .reply((config) => {
     return [
-        200,
-        {
-            message: "Login success",
-            token: "This is new login access token :>"
-        }
+      200,
+      {
+        message: "Login success",
+        token: "This is new login access token :>",
+      },
     ];
-});
+  });

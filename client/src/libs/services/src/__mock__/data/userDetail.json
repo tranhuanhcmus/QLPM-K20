@@ -1,0 +1,19 @@
+{
+  "name": "John Doe",
+  "height": 175,
+  "weight": 70,
+  "age": 30,
+  "chest": 100,
+  "waist": 80,
+  "hip": 95,
+  "neck": 38,
+  "armhole": 25,
+  "pants_circum": 30,
+  "shoulder": 45,
+  "sleeve_length": 60,
+  "jacket_length": 70,
+  "pants_waist": 85,
+  "crotch": 28,
+  "thigh": 55,
+  "pants_length": 105
+}

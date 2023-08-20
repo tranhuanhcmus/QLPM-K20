@@ -9,16 +9,16 @@ import { authReducer } from "../context/reducer";
 // It also initializes and listens to the Auth Broadcast channel
 // It posts a message to request the access token
 export const AuthContextProvider = ({
-  children, setProviderToken
+  children
 }) => {
   // Using the reducer to manage the authentication state
-  const [state, dispatch] = useReducer(authReducer, { 
+  const [state, dispatch] = useReducer(authReducer, {
     token: null
   });
 
   // Returning the context provider with the current state and dispatch function
   return (
-    <AuthContext.Provider value={{ state, dispatch, setProviderToken }}>
+    <AuthContext.Provider value={{ state, dispatch }}>
       {children}
     </AuthContext.Provider>
   );

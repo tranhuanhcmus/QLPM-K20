@@ -1,0 +1,48 @@
+.container {
+	margin: 64px auto;
+	max-width: 1400px;
+	width: 100%;
+}
+
+.body {
+	border: var(--mountain-mist) 1px solid;
+	border-radius: 4px;
+	padding: 48px;
+
+	form {
+		margin: 24px auto;
+
+		input[type="text"] {
+			box-sizing: border-box;
+			font-size: 1rem;
+			padding-left: 20px;
+			padding-right: 56px;
+			height: 56px;
+			width: 100%;
+			outline: none;
+		}
+
+		.search {
+			position: relative;
+
+			button[type="submit"] {
+				position: absolute;
+				top: 0;
+				right: 0;
+				height: 56px;
+				width: 56px;
+			}
+		}
+	}
+}
+
+.order {
+	display: flex;
+	gap: 10%;
+	margin: 24px auto;
+	align-items: center;
+
+	p {
+		font-size: 1.2rem;
+	}
+}

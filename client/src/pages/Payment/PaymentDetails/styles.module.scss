@@ -1,35 +1,12 @@
-.container{
+.container {
 	margin: 64px auto;
 	max-width: 1400px;
 	width: 100%;
 }
-.body{
-	border: var(--mountain-mist) 1px solid ;
+
+.body {
+	border: var(--mountain-mist) 1px solid;
 	border-radius: 4px;
 	padding: 48px;
 }
-.heading{
-	width: fit-content;
-	font-size: 1.75rem;
-	text-transform: uppercase;
-	font-weight: bold;
-	position: relative;
-	margin-bottom: 32px;
-	&::after{
-		content: "";
-		position: absolute;
-		bottom: -10px;
-		left: 0;
-		width: 80%;
-		min-height: 4px;
-		background-color: var(--primary-light);
-	}
-}
-.status{
-	margin-left: 40px;
-	font-size: 1.75rem;
-	text-transform: uppercase;
-	font-weight: bold;
-	color: var(--primary);
-	text-align: center;
-}
+

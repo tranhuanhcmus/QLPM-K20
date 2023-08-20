@@ -1,45 +1,33 @@
-.heading{
-	width: fit-content;
-	font-size: 1.75rem;
-	text-transform: uppercase;
-	font-weight: bold;
-	position: relative;
-	margin-bottom: 32px;
-	&::after{
-		content: "";
-		position: absolute;
-		bottom: -10px;
-		left: 0;
-		width: 80%;
-		min-height: 4px;
-		background-color: var(--primary-light);
-	}
-}
-form{
+
+.paymentForm{
 	margin-top: 32px;
-	input{
+
+	input {
 		box-sizing: border-box;
 		font-size: 1rem;
 		padding: 16px 12px;
 		height: 56px;
 	}
-	label{
+
+	label {
 		font-size: 1.2rem;
 		font-weight: 600;
 		color: var(--grey);
 	}
-	textarea{
+
+	textarea {
 		box-sizing: border-box;
-		width: 100%!important;
-		padding: 16px ;
+		width: 100% !important;
+		padding: 16px;
 		font-size: 1rem;
 		min-height: 180px;
 		resize: none;
 	}
 
-	
+
 }
-.form__field{
+
+.form__field {
 	margin-top: 32px;
 	display: flex;
 	flex-direction: column;
@@ -47,19 +35,23 @@ form{
 	gap: 8px;
 }
 
-.row{
+.row {
 	display: flex;
 	gap: 40px;
+
 	@media (max-width:767px) {
 		flex-direction: column;
 		gap: 0;
 	}
 }
-.actions{
+
+.actions {
 	display: flex;
 	gap: 40px;
 	justify-content: end;
-	input[type="submit"],button{
+
+	input[type="submit"],
+	button {
 		display: inline-block;
 		margin-top: 32px;
 		border-radius: 8px;
@@ -67,17 +59,20 @@ form{
 		border: none;
 		font-weight: bold;
 		cursor: pointer;
-		&:hover{
+
+		&:hover {
 			background-color: var(--primary);
 		}
 	}
-	button{
+
+	button {
 		box-sizing: border-box;
 		font-size: 1rem;
 		padding: 16px 12px;
 		height: 56px;
 		background-color: var(--mountain-mist);
-		&:hover{
+
+		&:hover {
 			background-color: var(--grey);
 		}
 	}
