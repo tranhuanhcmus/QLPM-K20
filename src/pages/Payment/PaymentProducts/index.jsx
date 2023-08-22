@@ -13,6 +13,8 @@ const PaymentProducts = () => {
   const measureData = JSON.parse(
     window.localStorage.getItem("MEASURE_DATA") || "{}"
   );
+  window.localStorage.removeItem("MEASURE_DATA");
+  window.localStorage.removeItem("METHOD");
   if (method && method === "measure") {
     return (
       <>

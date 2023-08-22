@@ -25,7 +25,7 @@ const PaymentInfoForm = () => {
     onInitOrder({
       ...order,
       address: formData.address,
-      totalPrice: Number(subTotal.toFixed(0)) * 100,
+      totalPrice: Number(subTotal.toFixed(0)) * 100 ?? 100,
     });
 
     navigate(URLS.PAYMENT_DETAILS, { state: formData });
