@@ -16,6 +16,9 @@ const PaymentProducts = () => {
   if (method && method === "measure") {
     return (
       <>
+        <div className={styles.success}>
+          PAYMENT SUCCESSFUL
+          <i className="fi fi-bs-check-circle" />        </div>
         <Heading1>Products </Heading1>
 
         <div className={styles.products}>
@@ -57,7 +60,10 @@ const PaymentProducts = () => {
   } else {
     return (
       <>
-        <Heading1>Products </Heading1>
+        <div className={styles.success}>
+        <h1>PAYMENT SUCCESSFUL</h1>
+        <i className="fi fi-bs-check-circle" />        </div>
+        <Heading1>Products</Heading1>
 
         <div className={styles.products}>
           {order &&
