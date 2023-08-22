@@ -3,11 +3,11 @@ import DefaultLoader from "../../../configs/components/defaultLoader";
 export const authUrls = [
   {
     authUrl: "/payment",
-    redirectUrl: "/",
+    redirectUrl: "/login",
   },
   {
     authUrl: "/payment-details",
-    redirectUrl: "/",
+    redirectUrl: "/login",
   },
 ];
 
